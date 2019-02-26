@@ -1,0 +1,7 @@
+<map id="src/functions/implements/neural_network/pooling.h" name="src/functions/implements/neural_network/pooling.h">
+<area shape="rect" id="node2" href="$df/db2/average__pooling_8c.html" title="src/functions/implements\l/neural_network/average\l_pooling.c" alt="" coords="5,95,188,151"/>
+<area shape="rect" id="node3" href="$d7/ddf/max__pooling_8c.html" title="src/functions/implements\l/neural_network/max_pooling.c" alt="" coords="213,102,431,143"/>
+<area shape="rect" id="node4" href="$db/d10/pooling_8c.html" title="src/functions/implements\l/neural_network/pooling.c" alt="" coords="455,102,639,143"/>
+<area shape="rect" id="node5" href="$d0/de3/sum__pooling_8c.html" title="src/functions/implements\l/neural_network/sum_pooling.c" alt="" coords="663,102,882,143"/>
+<area shape="rect" id="node6" href="$de/d0c/unpooling_8c.html" title="src/functions/implements\l/neural_network/unpooling.c" alt="" coords="906,102,1106,143"/>
+</map>
