@@ -1,0 +1,402 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Common &mdash; Neural Network Libraries 1.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="NdArray" href="nd_array.html" />
+    <link rel="prev" title="Python API Reference" href="../api.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Common</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-nnabla.logger">Logger</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#auto-forward-mode">Auto-forward mode</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#context">Context</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+        
+      <li>Common</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/api/common.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-nnabla">
+<span id="common"></span><h1>Common<a class="headerlink" href="#module-nnabla" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="module-nnabla.logger">
+<span id="logger"></span><h2>Logger<a class="headerlink" href="#module-nnabla.logger" title="Permalink to this headline">¶</a></h2>
+<p>Wrapper module for logging.</p>
+<p>You can use the logger as follows:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">utils.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s1">&#39;Log message(DEBUG)&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Log message(INFO)&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Log message(ERROR)&#39;</span><span class="p">)</span>
+<span class="n">logger</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s1">&#39;Log message(CRITICAL)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>With the default settings, it should yield the following output:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>$ python scripts/logger_test.py
+<span class="o">[</span>nnabla<span class="o">][</span>ERROR<span class="o">]</span>: logger_test.py : &lt;module&gt; : <span class="m">5</span> : Log message<span class="o">(</span>ERROR<span class="o">)</span>
+<span class="o">[</span>nnabla<span class="o">][</span>CRITICAL<span class="o">]</span>: logger_test.py : &lt;module&gt; : <span class="m">6</span> : Log message<span class="o">(</span>CRITICAL<span class="o">)</span>
+$ cat /tmp/nbla.log
+<span class="m">2017</span>-01-19 <span class="m">14</span>:41:35,132 <span class="o">[</span>nnabla<span class="o">][</span>DEBUG<span class="o">]</span>: scripts/logger_test.py : &lt;module&gt; : <span class="m">3</span> : Log message<span class="o">(</span>DEBUG<span class="o">)</span>
+<span class="m">2017</span>-01-19 <span class="m">14</span>:41:35,132 <span class="o">[</span>nnabla<span class="o">][</span>INFO<span class="o">]</span>: scripts/logger_test.py : &lt;module&gt; : <span class="m">4</span> : Log message<span class="o">(</span>INFO<span class="o">)</span>
+<span class="m">2017</span>-01-19 <span class="m">14</span>:41:35,132 <span class="o">[</span>nnabla<span class="o">][</span>ERROR<span class="o">]</span>: scripts/logger_test.py : &lt;module&gt; : <span class="m">5</span> : Log message<span class="o">(</span>ERROR<span class="o">)</span>
+<span class="m">2017</span>-01-19 <span class="m">14</span>:41:35,132 <span class="o">[</span>nnabla<span class="o">][</span>CRITICAL<span class="o">]</span>: scripts/logger_test.py : &lt;module&gt; : <span class="m">6</span> : Log message<span class="o">(</span>CRITICAL<span class="o">)</span>
+</pre></div>
+</div>
+<dl class="attribute">
+<dt id="nnabla.logger.logger">
+<code class="descclassname">nnabla.logger.</code><code class="descname">logger</code><a class="headerlink" href="#nnabla.logger.logger" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<span class="target" id="module-nnabla._init"></span></div>
+<div class="section" id="auto-forward-mode">
+<h2>Auto-forward mode<a class="headerlink" href="#auto-forward-mode" title="Permalink to this headline">¶</a></h2>
+<p>NNabla provides the dynamic computation graph feature, which enables automatic forward propagation during graph construction. This can be enabled using the <code class="xref py py-meth docutils literal notranslate"><span class="pre">set_auto_forward()</span></code> function. Backpropagation shall be manually executed on the dynamically constructed graph.</p>
+<span class="target" id="module-nnabla"></span><dl class="function">
+<dt id="nnabla.auto_forward">
+<code class="descclassname">nnabla.</code><code class="descname">auto_forward</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/auto_forward.html#auto_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.auto_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context for dynamic graph execution mode.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>auto</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Whether forward computation is executed during a
+computation graph construction.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: bool</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.set_auto_forward">
+<code class="descclassname">nnabla.</code><code class="descname">set_auto_forward</code><span class="sig-paren">(</span><em>auto</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/auto_forward.html#set_auto_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.set_auto_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default mode for automatic forward propagation.</p>
+<p>When it is set to <cite>True</cite> , forward propagation is invoked immediately when the computation graph
+is updted.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>auto</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/functions.html#bool" title="(in Python v3.4)"><em>bool</em></a>) – Whether forward computation is executed when the
+computation graph is updated.</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: bool</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.get_auto_forward">
+<code class="descclassname">nnabla.</code><code class="descname">get_auto_forward</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/auto_forward.html#get_auto_forward"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.get_auto_forward" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the state of automatic forward execution.</p>
+<p>When it is true, forward execution is invoked during a computation graph
+definition.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">This is called by users usually.</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="context">
+<span id="id1"></span><h2>Context<a class="headerlink" href="#context" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.Context">
+<em class="property">class </em><code class="descclassname">nnabla.</code><code class="descname">Context</code><span class="sig-paren">(</span><em>backend=None</em>, <em>array_class=''</em>, <em>device_id='0'</em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context is used to specify the computation engine (cpu, cuda, cudnn etc.) which the
+function operator modules and optimizer modules shall be ran on.
+The context can be set for each function, as well as set globally with functions
+listed in the <code class="xref py py-meth docutils literal notranslate"><span class="pre">context-specifier()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>backend</strong> (<em>list of str</em>) – ‘cpu’, ‘cuda’, ‘cudnn’ etc.</li>
+<li><strong>array_class</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) – str, ‘CpuArray’, ‘CpuCachedArray’, ‘CudaArray’, ‘CudaCachedArray’ etc.</li>
+<li><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.4/library/stdtypes.html#str" title="(in Python v3.4)"><em>str</em></a>) – str, default ‘0’</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<div class="section" id="context-specifier-api">
+<span id="context-specifier"></span><h3>Context Specifier API<a class="headerlink" href="#context-specifier-api" title="Permalink to this headline">¶</a></h3>
+<dl class="function">
+<dt id="nnabla.context_scope">
+<code class="descclassname">nnabla.</code><code class="descname">context_scope</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwds</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/context.html#context_scope"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.context_scope" title="Permalink to this definition">¶</a></dt>
+<dd><p>Context as Python context.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span> <span class="p">,</span><span class="mi">4</span><span class="p">])</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">nnabla_ext</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">context_scope</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+    <span class="c1"># Inside with scope, the specified context is used.</span>
+    <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;w1&#39;</span><span class="p">):</span>
+        <span class="n">l1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;w2&#39;</span><span class="p">):</span>
+        <span class="n">l2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">64</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.set_default_context">
+<code class="descclassname">nnabla.</code><code class="descname">set_default_context</code><span class="sig-paren">(</span><em>ctx</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/context.html#set_default_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.set_default_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the default context.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">It cannot be called inside any <cite>context_scope</cite>.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>ctx</strong> (<a class="reference internal" href="#nnabla.Context" title="nnabla.Context"><em>Context</em></a>) – A Context.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.get_current_context">
+<code class="descclassname">nnabla.</code><code class="descname">get_current_context</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/context.html#get_current_context"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.get_current_context" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the current context.</p>
+<p>It can be set using <a class="reference internal" href="#nnabla.context_scope" title="nnabla.context_scope"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nnabla.context_scope()</span></code></a> or <a class="reference internal" href="#nnabla.set_default_context" title="nnabla.set_default_context"><code class="xref py py-meth docutils literal notranslate"><span class="pre">nnabla.set_default_context()</span></code></a> .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a current context.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#nnabla.Context" title="nnabla.Context">Context</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="nd_array.html" class="btn btn-neutral float-right" title="NdArray" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../api.html" class="btn btn-neutral float-left" title="Python API Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

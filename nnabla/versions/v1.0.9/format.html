@@ -1,0 +1,682 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Format &mdash; Neural Network Libraries 1.0.9 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="File format converter" href="python/file_format_converter/file_format_converter.html" />
+    <link rel="prev" title="Data exchange file format" href="data_exchange_file_format.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data Format</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#network-structure">Network Structure</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-training">Structure for Training</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#structure-for-inference">Structure for Inference</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#overall-structure">Overall structure</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#parameter">Parameter</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#file-format-and-extensions">File Format and extensions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Data Format</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/format.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-format">
+<h1>Data Format<a class="headerlink" href="#data-format" title="Permalink to this headline">¶</a></h1>
+<p>Here is data format for exchange network structures and trained parameters.</p>
+<div class="section" id="network-structure">
+<h2>Network Structure<a class="headerlink" href="#network-structure" title="Permalink to this headline">¶</a></h2>
+<p>Network structure and parameter will store with Google Protocol Buffer format internally.</p>
+<div class="section" id="overview">
+<h3>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h3>
+<p>Overview of network structure defined as following.</p>
+<p class="plantuml">
+<img src="_images/plantuml-d8936270b0ce0d37ff7a30c28f56cbc1b11cb7ae.png" alt="skinparam monochrome true
+hide circle
+hide methods
+
+class NNablaProtoBuf {
+  string version
+  GlobalConfig global_config
+  TrainingConfig training_config
+  Network[] network
+  Parameter[] parameter
+  Dataset[] dataset
+  Optimizer[] optimizer
+  Monitor[] monitor
+  Executor[] executor
+}
+
+package common &lt;&lt;Rectangle&gt;&gt; {
+  class GlobalConfig {
+    Context default_context
+  }
+
+  class Network {
+    string name
+    int batch_size
+    RepeatInfo[] repeat_info
+    Variable[] variable
+    Function[] function
+  }
+
+  class Parameter {
+    string variable_name
+    Shape shape
+    float[] data
+    bool need_grad
+  }
+}
+
+package training &lt;&lt;Rectangle&gt;&gt; {
+  class TrainingConfig {
+    int max_epoch
+    int iter_per_epoch
+    bool save_best
+  }
+
+  class Dataset {
+    string name
+    string type
+
+    string uri
+    int batch_size
+    string cache_dir
+    bool overwrite_cache
+    bool create_cache_explicitly
+
+    bool shuffle
+    bool no_image_normalization
+
+    string[] variable
+  }
+
+  class Optimizer {
+    string name
+
+    int order
+
+    string network_name
+    string dataset_name
+
+    Solver solver
+    int update_interval
+
+    DataVariable[] data_variable
+    GeneratorVariable[] generator_variable
+    LossVariable[] loss_variable
+    ParameterVariable[] parameter_variable
+  }
+
+  class Monitor {
+    string name
+
+    string network_name
+    string dataset_name
+
+    DataVariable[] data_variable
+    GeneratorVariable[] generator_variable
+    MonitorVariable[] monitor_variable
+  }
+}
+
+package inference &lt;&lt;Rectangle&gt;&gt; {
+  class Executor {
+    string name
+
+    string network_name
+
+    int num_evaluations
+    string repeat_evaluation_type
+
+    bool need_back_propagation
+
+    DataVariable[] data_variable
+    GeneratorVariable[] generator_variable
+    LossVariable[] loss_variable
+    OutputVariable[] output_variable
+    ParameterVariable[] parameter_variable
+  }
+}
+common &lt;.. training
+common &lt;.. inference
+
+NNablaProtoBuf &quot;1&quot; o-- &quot;0,1&quot; GlobalConfig
+NNablaProtoBuf &quot;1&quot; o-- &quot;0,1&quot; Parameter
+
+NNablaProtoBuf &quot;1&quot; o-- &quot;0,1&quot; TrainingConfig
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Network
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Dataset
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Optimizer
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Monitor
+
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Executor"/>
+</p>
+<dl class="docutils">
+<dt>NNablaProtoBuf</dt>
+<dd>Root message of NNabla network structure.
+This message could be store GlobalConfig, TrainingConfig, Network(s), Parameter(s), Dataset(s), Optimizer(s), Monitor(s) and Executor(s).</dd>
+<dt>Variable</dt>
+<dd>Internal data structure to store tensor for Neural network I/O and parameters.</dd>
+<dt>GlobalConfig</dt>
+<dd>Configuration of environment that suggest to do train or inference.</dd>
+<dt>TrainingConfig</dt>
+<dd>Configuration of training.</dd>
+<dt>Network</dt>
+<dd>Network structure.</dd>
+<dt>Parameter</dt>
+<dd>Special variable to store train result. (e.g Weight or Bias of affine layer)</dd>
+<dt>Dataset</dt>
+<dd>Specify dataset for training.</dd>
+<dt>Optimizer</dt>
+<dd>Define network, dataset,  and input/output variables for train.</dd>
+<dt>Monitor</dt>
+<dd>Define network, dataset, and input/output variables for monitor training status..</dd>
+<dt>Executor</dt>
+<dd>Define network and input/output variables for train.</dd>
+</dl>
+<div class="section" id="structure-for-training">
+<h4>Structure for Training<a class="headerlink" href="#structure-for-training" title="Permalink to this headline">¶</a></h4>
+<p>TBD</p>
+</div>
+<div class="section" id="structure-for-inference">
+<h4>Structure for Inference<a class="headerlink" href="#structure-for-inference" title="Permalink to this headline">¶</a></h4>
+<p>TBD</p>
+</div>
+</div>
+<div class="section" id="overall-structure">
+<h3>Overall structure<a class="headerlink" href="#overall-structure" title="Permalink to this headline">¶</a></h3>
+<p class="plantuml">
+<img src="_images/plantuml-1ea2aabf2d3aab57c64808d36f73dec97e7dde7c.png" alt="skinparam monochrome true
+hide circle
+hide methods
+
+class Shape {
+  int[] dim
+}
+
+class Context {
+  string backend
+  string array_class
+  string device_id
+  string compute_backend
+}
+
+class GlobalConfig {
+  Context default_context
+}
+
+class NNablaProtoBuf {
+  string version
+  GlobalConfig global_config
+  TrainingConfig training_config
+  Network[] network
+  Parameter[] parameter
+  Dataset[] dataset
+  Optimizer[] optimizer
+  Monitor[] monitor
+  Executor[] executor
+}
+
+class TrainingConfig {
+  int max_epoch
+  int iter_per_epoch
+  bool save_best
+}
+
+class Network {
+  string name
+  int batch_size
+  RepeatInfo[] repeat_info
+  Variable[] variable
+  Function[] function
+}
+
+class RepeatInfo {
+ string id
+ int times
+}
+
+class RepeatParameter {
+  string repeat_id
+  int times
+}
+
+class RecurrentParameter {
+  string repeat_id
+  int length
+  int axis
+}
+
+class Variable {
+  string name
+  string type
+  string[] repeat_id
+
+  Shape shape
+
+  Initializer initializer
+}
+
+class Initializer {
+  string type
+  float multiplier
+}
+
+class Parameter {
+  string variable_name
+  Shape shape
+  float[] data
+  bool need_grad
+}
+
+class Dataset {
+  string name
+  string type
+
+  string uri
+  int batch_size
+  string cache_dir
+  bool overwrite_cache
+  bool create_cache_explicitly
+
+  bool shuffle
+  bool no_image_normalization
+
+  string[] variable
+}
+
+class Optimizer {
+  string name
+
+  int order
+
+  string network_name
+  string dataset_name
+
+  Solver solver
+  int update_interval
+
+  DataVariable[] data_variable
+  GeneratorVariable[] generator_variable
+  LossVariable[] loss_variable
+  ParameterVariable[] parameter_variable
+}
+
+class Solver {
+  string type
+
+  Context context
+
+  float weight_decay
+
+  float lr_decay
+  int lr_decay_interval
+
+  SolverParameter parameter
+}
+
+class DataVariable {
+  string variable_name
+  string data_name
+}
+
+class GeneratorVariable {
+  string variable_name
+  string type
+  float multiplier
+}
+
+class LossVariable {
+  string variable_name
+}
+
+class ParameterVariable {
+  string variable_name
+  float learning_rate_multiplier
+}
+
+class Monitor {
+  string name
+
+  string network_name
+  string dataset_name
+
+  DataVariable[] data_variable
+  GeneratorVariable[] generator_variable
+  MonitorVariable[] monitor_variable
+}
+
+class MonitorVariable {
+  string variable_name
+  string type
+  string data_name
+
+  float multiplier
+}
+
+class Executor {
+  string name
+
+  string network_name
+
+  int num_evaluations
+  string repeat_evaluation_type
+
+  bool need_back_propagation
+
+  DataVariable[] data_variable
+  GeneratorVariable[] generator_variable
+  LossVariable[] loss_variable
+  OutputVariable[] output_variable
+  ParameterVariable[] parameter_variable
+}
+
+class OutputVariable {
+  string variable_name
+  string type
+  string data_name
+}
+
+class Function {
+  string name
+  string type
+  string[] repeat_id
+
+  Context context
+  string[] input
+  string[] output
+
+  FunctionParameter parameter
+
+  // Loop Functions
+  RepeatParameter repeat_param
+  RecurrentParameter recurrent_param
+}
+
+abstract class SolverParameter
+hide SolverParameter members
+
+abstract class FunctionParameter
+hide FunctionParameter members
+
+NNablaProtoBuf &quot;1&quot; o-- &quot;0,1&quot; GlobalConfig
+NNablaProtoBuf &quot;1&quot; o-- &quot;0,1&quot; TrainingConfig
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Network
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Parameter
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Dataset
+
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Optimizer
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Monitor
+NNablaProtoBuf &quot;1&quot; o-- &quot;0..*&quot; Executor
+
+GlobalConfig &quot;1&quot; o-- &quot;1&quot; Context
+
+Network &quot;1&quot; o-- &quot;0..*&quot; RepeatInfo
+Network &quot;1&quot; o-- &quot;0..*&quot; Variable
+Network &quot;1&quot; o-- &quot;0..*&quot; Function
+
+Parameter &quot;1&quot; ..&gt; &quot;1&quot; Variable
+Parameter &quot;1&quot; o-- &quot;1&quot; Shape
+
+Variable &quot;1&quot; o-- &quot;1&quot; Shape
+Variable &quot;1&quot; o-- &quot;0,1&quot; Initializer
+
+Optimizer &quot;1&quot; ..&gt; &quot;1&quot; Network
+Optimizer &quot;1&quot; ..&gt; &quot;1&quot; Dataset
+Optimizer &quot;1&quot; o-- &quot;1&quot; Solver
+Optimizer &quot;1&quot; o-- &quot;0..*&quot; DataVariable
+Optimizer &quot;1&quot; o-- &quot;0..*&quot; GeneratorVariable
+Optimizer &quot;1&quot; o-- &quot;0..*&quot; LossVariable
+Optimizer &quot;1&quot; o-- &quot;0..*&quot; ParameterVariable
+
+Monitor &quot;1&quot; ..&gt; &quot;1&quot; Network
+Monitor &quot;1&quot; ..&gt; &quot;1&quot; Dataset
+Monitor &quot;1&quot; o-- &quot;1&quot; Solver
+Monitor &quot;1&quot; o-- &quot;0..*&quot; DataVariable
+Monitor &quot;1&quot; o-- &quot;0..*&quot; GeneratorVariable
+Monitor &quot;1&quot; o-- &quot;0..*&quot; MonitorVariable
+
+Executor &quot;1&quot; ..&gt; &quot;1&quot; Network
+Executor &quot;1&quot; o-- &quot;1&quot; Solver
+Executor &quot;1&quot; o-- &quot;0..*&quot; DataVariable
+Executor &quot;1&quot; o-- &quot;0..*&quot; GeneratorVariable
+Executor &quot;1&quot; o-- &quot;0..*&quot; LossVariable
+Executor &quot;1&quot; o-- &quot;0..*&quot; OutputVariable
+Executor &quot;1&quot; o-- &quot;0..*&quot; ParameterVariable
+
+DataVariable      &quot;1&quot; ..&gt; &quot;1&quot; Variable
+GeneratorVariable &quot;1&quot; ..&gt; &quot;1&quot; Variable
+LossVariable      &quot;1&quot; ..&gt; &quot;1&quot; Variable
+ParameterVariable &quot;1&quot; ..&gt; &quot;1&quot; Variable
+MonitorVariable   &quot;1&quot; ..&gt; &quot;1&quot; Variable
+OutputVariable    &quot;1&quot; ..&gt; &quot;1&quot; Variable
+
+Function &quot;1&quot; o-- &quot;0,1&quot; FunctionParameter
+Function &quot;1&quot; o-- &quot;0,1&quot; RepeatParameter
+Function &quot;1&quot; o-- &quot;0,1&quot; RecurrentParameter
+
+Solver &quot;1&quot; o-- &quot;1&quot; Context
+Solver &quot;1&quot; o-- &quot;0,1&quot; SolverParameter"/>
+</p>
+</div>
+</div>
+<div class="section" id="parameter">
+<h2>Parameter<a class="headerlink" href="#parameter" title="Permalink to this headline">¶</a></h2>
+<p>From the performance point of view, parameters can be saved in HDF 5 format.</p>
+</div>
+<div class="section" id="file-format-and-extensions">
+<h2>File Format and extensions<a class="headerlink" href="#file-format-and-extensions" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>Protocol buffer text format file</dt>
+<dd>.nntxt or .prototxt</dd>
+<dt>Protocol buffer serialized binary file</dt>
+<dd>.protobuf</dd>
+<dt>HDF5</dt>
+<dd>.h5</dd>
+<dt>NNP (ZIP archived file with above formats.)</dt>
+<dd>.nnp</dd>
+</dl>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="python/file_format_converter/file_format_converter.html" class="btn btn-neutral float-right" title="File format converter" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="data_exchange_file_format.html" class="btn btn-neutral float-left" title="Data exchange file format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

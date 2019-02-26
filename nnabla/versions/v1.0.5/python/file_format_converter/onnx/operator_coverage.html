@@ -1,0 +1,1474 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Operator support status &mdash; Neural Network Libraries 1.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Operator support status</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/python/file_format_converter/onnx/operator_coverage.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="operator-support-status">
+<h1>Operator support status<a class="headerlink" href="#operator-support-status" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="support-status-importing-from-onnx">
+<h2>Support status importing from ONNX<a class="headerlink" href="#support-status-importing-from-onnx" title="Permalink to this headline">¶</a></h2>
+<p>This is a status list of [ONNX operators](<a class="reference external" href="https://github.com/onnx/onnx/blob/master/docs/Operators.md">https://github.com/onnx/onnx/blob/master/docs/Operators.md</a>)
+that indicates if each operator can be converted to NNP.</p>
+<ul class="simple">
+<li>Not started The ONNX operator hasn’t been checked if it can be converted to NNabla.</li>
+<li>Not implemented The ONNX operator has been checked if it can be converted to NNabla, but the implementation has not started.</li>
+<li>OK The ONNX operator can map to a NNabla operator.</li>
+<li>Not finished The solution is not perfect/finished, for example, the operator can map to a combination of NNabla operators.</li>
+<li>Not in NNabla Hard to find a solution with existing NNabla operators.</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="12%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Abs</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Add</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-even"><td>And</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-odd"><td>ArgMax</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>ArgMin</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>AveragePool</td>
+<td>Not finished</td>
+<td>autopad not supported. pads must have same
+value for begin and end.</td>
+</tr>
+<tr class="row-even"><td>BatchNormalization</td>
+<td>Not finished</td>
+<td>is_test=false not supported (only inference)</td>
+</tr>
+<tr class="row-odd"><td>Cast</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla(No type
+information is exposed in NNP)</td>
+</tr>
+<tr class="row-even"><td>Ceil</td>
+<td>Not implemented</td>
+<td>Should map to Ceil</td>
+</tr>
+<tr class="row-odd"><td>Clip</td>
+<td>Not finished</td>
+<td>Converted to Identity, MaximumScalar,
+MinimumScalar, or both depending on the attribute</td>
+</tr>
+<tr class="row-even"><td>Concat</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Constant</td>
+<td>Not finished</td>
+<td>Converted to an input parameter</td>
+</tr>
+<tr class="row-even"><td>Conv</td>
+<td>Not finished</td>
+<td>auto_pad not supported. pads must have same value
+for begin and end.</td>
+</tr>
+<tr class="row-odd"><td>ConvTranspose</td>
+<td>Not implemented</td>
+<td>Should map to Deconvolution?</td>
+</tr>
+<tr class="row-even"><td>DepthToSpace</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Div</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-even"><td>Dropout</td>
+<td>Not finished</td>
+<td>mask output will be removed since NNabla does
+not produce mask output.</td>
+</tr>
+<tr class="row-odd"><td>Elu</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo.
+Input data type will all be converted to int64
+since NNP does not have type information</td>
+</tr>
+<tr class="row-odd"><td>Exp</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Flatten</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Floor</td>
+<td>Not implemented</td>
+<td>Should map to Floor</td>
+</tr>
+<tr class="row-even"><td>GRU</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Gather</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Gemm</td>
+<td>Not finished</td>
+<td>alpha and beta is not supported.
+Input A and B must be two dimensional,
+and input C must be one dimensional.
+transA, transB will be converted to
+a separate transpose operator</td>
+</tr>
+<tr class="row-odd"><td>GlobalAveragePool</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GlobalLpPool</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>GlobalMaxPool</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Greater</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-odd"><td>HardSigmoid</td>
+<td>Not implemented</td>
+<td>Should be able to map to
+MulScalar+AddScalar+MinimumScalar+ReLU</td>
+</tr>
+<tr class="row-even"><td>Hardmax</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Identity</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>InstanceNormalization</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>LRN</td>
+<td>Not finished</td>
+<td>Converted to
+PowScalar+Tranpose+SumPooling+Transpose+MulScalar+AddScalar+PowScalar.
+Currently only odd size is allowed.</td>
+</tr>
+<tr class="row-even"><td>LSTM</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>LeakyRelu</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Less</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-odd"><td>Log</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogSoftmax</td>
+<td>Not finished</td>
+<td>Converted to Exp+Sum+Log+Sub2.
+Only works on input shape like N*C*1*1</td>
+</tr>
+<tr class="row-odd"><td>LpNormalization</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>LpPool</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>MatMul</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>Not finished</td>
+<td>Only input of two tensors is currently supported</td>
+</tr>
+<tr class="row-odd"><td>MaxPool</td>
+<td>Not finished</td>
+<td>auto_pad is not supported.
+pads must have same value for begin and end.</td>
+</tr>
+<tr class="row-even"><td>MaxRoiPool</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Mean</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Min</td>
+<td>Not finished</td>
+<td>Only input of two tensors is currently supported</td>
+</tr>
+<tr class="row-odd"><td>Mul</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-even"><td>Neg</td>
+<td>Not finished</td>
+<td>Converted to MulScalar</td>
+</tr>
+<tr class="row-odd"><td>Not</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Or</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-odd"><td>PRelu</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Pad</td>
+<td>Not finished</td>
+<td>For NNP to ONNX conversion, input buffer’s
+dimension is assumed to be 4D if the shape cannot be determined.</td>
+</tr>
+<tr class="row-odd"><td>Pow</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-even"><td>RNN</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>RandomNormal</td>
+<td>Not implemented</td>
+<td>Should be able to map to Randn</td>
+</tr>
+<tr class="row-even"><td>RandomNormalLike</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>RandomUniform</td>
+<td>Not implemented</td>
+<td>Should be able to map to Rand</td>
+</tr>
+<tr class="row-even"><td>RandomUniformLike</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Reciprocal</td>
+<td>Not finished</td>
+<td>Converted to RDivScalar</td>
+</tr>
+<tr class="row-even"><td>ReduceL1</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>ReduceL2</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>ReduceLogSum</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>ReduceLogSumExp</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>ReduceMax</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceMean</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceMin</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceProd</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceSum</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceSumSquare</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Relu</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Reshape</td>
+<td>Not finished</td>
+<td>implementing</td>
+</tr>
+<tr class="row-even"><td>Selu</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sigmoid</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Size</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Slice</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Softmax</td>
+<td>Not finished</td>
+<td>Only works on input shape like N*C*1*1</td>
+</tr>
+<tr class="row-odd"><td>Softplus</td>
+<td>Not finished</td>
+<td>Converted to Exp + AddScalar + Log</td>
+</tr>
+<tr class="row-even"><td>Softsign</td>
+<td>Not finished</td>
+<td>Converted to Abs + AddScalar + Div2</td>
+</tr>
+<tr class="row-odd"><td>SpaceToDepth</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Split</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Sqrt</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Squeeze</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>Sub</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-even"><td>Sum</td>
+<td>Not finished</td>
+<td>Supporting two inputs only</td>
+</tr>
+<tr class="row-odd"><td>Tanh</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tile</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-odd"><td>TopK</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Transpose</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Unsqueeze</td>
+<td>Not in NNabla</td>
+<td>Operator does not exist in NNabla</td>
+</tr>
+<tr class="row-even"><td>Xor</td>
+<td>Not finished</td>
+<td>broadcast will be converted to a BroadcastTo</td>
+</tr>
+<tr class="row-odd"><td>experimental ATen</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental Affine</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental ConstantFill</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental Crop</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental FC</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental GRUUnit</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental GivenTensorFill</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental If</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental ImageScaler</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental Loop</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental LoopIndexTensor</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental MeanVarianceNormalization</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental ParametricSoftplus</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental Scale</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental ScaledTanh</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>experimental ThresholdedRelu</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental Upsample</td>
+<td>Not started</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="support-status-exporting-from-onnx">
+<h2>Support status exporting from ONNX<a class="headerlink" href="#support-status-exporting-from-onnx" title="Permalink to this headline">¶</a></h2>
+<p># Implement status</p>
+<p>Total 60/136</p>
+<div class="section" id="neural-network-layer">
+<h3>Neural Network Layer<a class="headerlink" href="#neural-network-layer" title="Permalink to this headline">¶</a></h3>
+<p>Count 9/11</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Affine</td>
+<td>OK</td>
+<td>Convert to Gemm + Reshape</td>
+</tr>
+<tr class="row-odd"><td>Convolution</td>
+<td>OK</td>
+<td>Rename to Conv</td>
+</tr>
+<tr class="row-even"><td>DepthwiseConvolution</td>
+<td>OK</td>
+<td>Convert to Convolution (with group)</td>
+</tr>
+<tr class="row-odd"><td>Deconvolution</td>
+<td>OK</td>
+<td>Convert to ConvTranspose and Add</td>
+</tr>
+<tr class="row-even"><td>DepthwiseDeconvolution</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MaxPooling</td>
+<td>OK</td>
+<td>Rename to MaxPool</td>
+</tr>
+<tr class="row-even"><td>AveragePooling</td>
+<td>OK</td>
+<td>Rename to AveragePool</td>
+</tr>
+<tr class="row-odd"><td>GlobalAveragePooling</td>
+<td>OK</td>
+<td>Rename to GlobalAveragePool</td>
+</tr>
+<tr class="row-even"><td>SumPooling</td>
+<td>OK</td>
+<td>Convert to Mul</td>
+</tr>
+<tr class="row-odd"><td>Unpooling</td>
+<td>OK</td>
+<td>Convert to Upsample</td>
+</tr>
+<tr class="row-even"><td>Embed</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="neural-network-activation-functions">
+<h3>Neural Network Activation Functions<a class="headerlink" href="#neural-network-activation-functions" title="Permalink to this headline">¶</a></h3>
+<p>Count 8/11</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sigmoid</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Swish</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tanh</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReLU</td>
+<td>OK</td>
+<td>Rename to Relu</td>
+</tr>
+<tr class="row-even"><td>LeakyReLU</td>
+<td>OK</td>
+<td>Rename to LearkyRelu</td>
+</tr>
+<tr class="row-odd"><td>Softmax</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ELU</td>
+<td>OK</td>
+<td>Rename to Elu</td>
+</tr>
+<tr class="row-odd"><td>SELU</td>
+<td>OK</td>
+<td>Rename to Selu</td>
+</tr>
+<tr class="row-even"><td>CReLU</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>CELU</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>PReLU</td>
+<td>OK</td>
+<td>Rename to PRelu</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="normalization">
+<h3>Normalization<a class="headerlink" href="#normalization" title="Permalink to this headline">¶</a></h3>
+<p>Count 1/4</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BatchNormalization</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MeanSubtraction</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ClipGradByValue</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ClipGradByNorm</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="reduction">
+<h3>Reduction<a class="headerlink" href="#reduction" title="Permalink to this headline">¶</a></h3>
+<p>Count 5/7</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sum</td>
+<td>OK</td>
+<td>Rename to ReduceSum</td>
+</tr>
+<tr class="row-odd"><td>Mean</td>
+<td>OK</td>
+<td>Rename to ReduceMean</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>OK</td>
+<td>Rename to ReduceMax</td>
+</tr>
+<tr class="row-odd"><td>Min</td>
+<td>OK</td>
+<td>Rename to ReduceMin</td>
+</tr>
+<tr class="row-even"><td>Prod</td>
+<td>OK</td>
+<td>Rename to ReduceProd</td>
+</tr>
+<tr class="row-odd"><td>ReduceSum</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceMean</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="arithmetic">
+<h3>Arithmetic<a class="headerlink" href="#arithmetic" title="Permalink to this headline">¶</a></h3>
+<p>Count 10/12</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Add2</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BcAdd2</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sub2</td>
+<td>OK</td>
+<td>Rename to Sub</td>
+</tr>
+<tr class="row-odd"><td>Mul2</td>
+<td>OK</td>
+<td>Rename to Mul</td>
+</tr>
+<tr class="row-even"><td>Div2</td>
+<td>OK</td>
+<td>Rename to Div</td>
+</tr>
+<tr class="row-odd"><td>Pow2</td>
+<td>OK</td>
+<td>Rename to Pow</td>
+</tr>
+<tr class="row-even"><td>AddScalar</td>
+<td>OK</td>
+<td>Convert to Add</td>
+</tr>
+<tr class="row-odd"><td>MulScalar</td>
+<td>OK</td>
+<td>Convert to Mul</td>
+</tr>
+<tr class="row-even"><td>PowScalar</td>
+<td>OK</td>
+<td>Convert to Pow</td>
+</tr>
+<tr class="row-odd"><td>RSubScalar</td>
+<td>OK</td>
+<td>Convert to Sub</td>
+</tr>
+<tr class="row-even"><td>RDivScalar</td>
+<td>OK</td>
+<td>Convert to Div</td>
+</tr>
+<tr class="row-odd"><td>RPowScalar</td>
+<td>OK</td>
+<td>Convert to Pow</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="logical">
+<h3>Logical<a class="headerlink" href="#logical" title="Permalink to this headline">¶</a></h3>
+<p>Count 12/24</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Minimum2</td>
+<td>OK</td>
+<td>Rename to Min</td>
+</tr>
+<tr class="row-even"><td>Maximum2</td>
+<td>OK</td>
+<td>Rename to Max</td>
+</tr>
+<tr class="row-odd"><td>MinimumScalar</td>
+<td>OK</td>
+<td>Convert to Clip</td>
+</tr>
+<tr class="row-even"><td>MaximumScalar</td>
+<td>OK</td>
+<td>Convert to Clip</td>
+</tr>
+<tr class="row-odd"><td>LogicalAnd</td>
+<td>OK</td>
+<td>Rename to And</td>
+</tr>
+<tr class="row-even"><td>LogicalOr</td>
+<td>OK</td>
+<td>Rename to Or</td>
+</tr>
+<tr class="row-odd"><td>LogicalXor</td>
+<td>OK</td>
+<td>Rename to Xor</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NotEqual</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GreaterEqual</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Greater</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessEqual</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Less</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalAndScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalOrScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalXorScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>EqualScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>NotEqualScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GreaterEqualScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GreaterScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LessEqualScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessScalar</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalNot</td>
+<td>OK</td>
+<td>Rename to Not</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="math">
+<h3>Math<a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h3>
+<p>Count 5/18</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Constant</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Abs</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Exp</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Log</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Identity</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BatchMatmul</td>
+<td>OK</td>
+<td>Rename to MatMul</td>
+</tr>
+<tr class="row-even"><td>Round</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sin</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cos</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Tan</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sinh</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cosh</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ASin</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ACos</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ATan</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASinh</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACosh</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATanh</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="array-manipulation">
+<h3>Array Manipulation<a class="headerlink" href="#array-manipulation" title="Permalink to this headline">¶</a></h3>
+<p>Count 9/13</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Concatenate</td>
+<td>OK</td>
+<td>Convert to Concat and Squeeze</td>
+</tr>
+<tr class="row-odd"><td>Split</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Stack</td>
+<td>OK</td>
+<td>Convert to Unsqueeze</td>
+</tr>
+<tr class="row-odd"><td>Slice</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Pad</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Transpose</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Broadcast</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>OneHot</td>
+<td>OK</td>
+<td>Convert to Flatten, Gather and Reshape</td>
+</tr>
+<tr class="row-even"><td>Flip</td>
+<td>OK</td>
+<td>Convert to Transpose and Gather</td>
+</tr>
+<tr class="row-odd"><td>Shift</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Reshape</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MatrixDiag</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MatrixDiagPart</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="stochasticity">
+<h3>Stochasticity<a class="headerlink" href="#stochasticity" title="Permalink to this headline">¶</a></h3>
+<p>Count 1/10</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Dropout</td>
+<td>OK</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TopKData</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TopKGrad</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Rand</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Randint</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Randn</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RandomCrop</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RandomFlip</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RandomShift</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ImageAugmentation</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="loss-functions">
+<h3>Loss Functions<a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h3>
+<p>Count 0/9</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SigmoidCrossEntropy</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryCrossEntropy</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SoftmaxCrossEntropy</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>CategoricalCrossEntropy</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SquaredError</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AbsoluteError</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>HuberLoss</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>EpsilonInsensitiveLoss</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>KLMultinomial</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="quantization-neural-network-layers">
+<h3>Quantization Neural Network Layers<a class="headerlink" href="#quantization-neural-network-layers" title="Permalink to this headline">¶</a></h3>
+<p>Count 0/10</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BinarySigmoid</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryTanh</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryConnectAffine</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryConnectConvolution</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryWeightAffine</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryWeightConvolution</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>INQAffine</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>INQConvolution</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>FixedPointQuantize</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Pow2Quantize</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="validation">
+<h3>Validation<a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h3>
+<p>Count 0/3</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TopNError</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryError</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ConfusionMatrix</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="unsupported-specialuse">
+<h3>Unsupported,SpecialUse<a class="headerlink" href="#unsupported-specialuse" title="Permalink to this headline">¶</a></h3>
+<p>Count 0/4</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="47%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Operator</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>VATNoise</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Unlink</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sink</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NmsDetection2d</td>
+<td>NG</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

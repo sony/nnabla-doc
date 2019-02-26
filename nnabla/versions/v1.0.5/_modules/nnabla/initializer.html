@@ -1,0 +1,527 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nnabla.initializer &mdash; Neural Network Libraries 1.0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>nnabla.initializer</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nnabla.initializer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2017 Sony Corporation. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="BaseInitializer"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.BaseInitializer">[docs]</a><span class="k">class</span> <span class="nc">BaseInitializer</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Base class of the parameter initializer.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="BaseInitializer.__call__"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.BaseInitializer.__call__">[docs]</a>    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Generates an array with an initializer.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            shape (:obj:`tuple` of :obj:`int`): :obj:`numpy.ndarray` with the shape created.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            :obj:`numpy.ndarray` : Array.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            Subclasses of :class:`~nnabla.initializer.BaseInitializer` must override this method.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="NormalInitializer"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.NormalInitializer">[docs]</a><span class="k">class</span> <span class="nc">NormalInitializer</span><span class="p">(</span><span class="n">BaseInitializer</span><span class="p">):</span>
+
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generates a random array from a specified normal distribution.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \mathbf x \sim {\cal N} (\mathbf 0 | \sigma^2 \mathbf I)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        sigma (float): :math:`\sigma`.</span>
+<span class="sd">        rng (numpy.random.RandomState): Random number generator.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        w = I.NormalInitializer(5e-5)</span>
+<span class="sd">        b = I.NormalInitializer(0.0)</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sigma</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span> <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">rng</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span> <span class="o">=</span> <span class="n">sigma</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                               <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="o">*</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">sigma</span></div>
+
+
+<div class="viewcode-block" id="UniformInitializer"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.UniformInitializer">[docs]</a><span class="k">class</span> <span class="nc">UniformInitializer</span><span class="p">(</span><span class="n">BaseInitializer</span><span class="p">):</span>
+
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generates a random array from a specified uniform distribution.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \mathbf x \sim {\cal U} (a, b)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lim (:obj:`tuple` of :obj:`float`): A tuple of two floats, :math:`(a, b)`.</span>
+<span class="sd">        rng (numpy.random.RandomState): Random number generator.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        w = I.UniformInitializer() # this generates uniform distribution within the defalut range of (-1,1)</span>
+<span class="sd">        b = I.UniformInitializer((-0.5,0.5))</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lim</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">rng</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lim</span> <span class="o">=</span> <span class="n">lim</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                               <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span></div>
+
+
+<span class="k">class</span> <span class="nc">UniformIntInitializer</span><span class="p">(</span><span class="n">BaseInitializer</span><span class="p">):</span>
+
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Generates a random array from a specified integer uniform distribution.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \mathbf x \sim {\cal U} ([a, b))</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        lim (:obj:`tuple` of :obj:`int`): A tuple of two ints, :math:`[a, b)`.</span>
+<span class="sd">        rng (numpy.random.RandomState): Random number generator.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        w = I.UniformIntInitializer() # this generates uniform integer distribution within the defalut range of (0,10)</span>
+<span class="sd">        b = I.UniformIntInitializer((-1,1))</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">lim</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">),</span> <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">rng</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">rng</span> <span class="o">=</span> <span class="n">rng</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lim</span> <span class="o">=</span> <span class="n">lim</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">(</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span>
+                               <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">lim</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">size</span><span class="o">=</span><span class="n">shape</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="ConstantInitializer"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.ConstantInitializer">[docs]</a><span class="k">class</span> <span class="nc">ConstantInitializer</span><span class="p">(</span><span class="n">BaseInitializer</span><span class="p">):</span>
+
+    <span class="sd">&quot;&quot;&quot;Generates a constant valued array.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        value (float): A constant value.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        w = I.ConstantInitializer(0.1)</span>
+<span class="sd">        b = I.ConstantInitializer() # this generates constant valued array of default value 0</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="nf">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shape</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">value</span></div>
+
+
+<div class="viewcode-block" id="calc_normal_std_he_forward"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.calc_normal_std_he_forward">[docs]</a><span class="k">def</span> <span class="nf">calc_normal_std_he_forward</span><span class="p">(</span><span class="n">inmaps</span><span class="p">,</span> <span class="n">outmaps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the standard deviation proposed by He et al.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \sigma = \sqrt{\frac{2}{NK}}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inmaps (int): Map size of an input Variable, :math:`N`.</span>
+<span class="sd">        outmaps (int): Map size of an output Variable, :math:`M`.</span>
+<span class="sd">        kernel (:obj:`tuple` of :obj:`int`): Convolution kernel spatial shape.</span>
+<span class="sd">            In above definition, :math:`K` is the product of shape dimensions.</span>
+<span class="sd">            In Affine, the default value should be used.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        s = I.calc_normal_std_he_forward(x.shape[1],64)</span>
+<span class="sd">        w = I.NormalInitializer(s)</span>
+<span class="sd">        b = I.ConstantInitializer(0)</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        * `He, et al. Delving Deep into Rectifiers: Surpassing Human-Level</span>
+<span class="sd">          Performance on ImageNet Classification.</span>
+<span class="sd">          &lt;https://arxiv.org/abs/1502.01852&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">*</span> <span class="n">inmaps</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="calc_normal_std_he_backward"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.calc_normal_std_he_backward">[docs]</a><span class="k">def</span> <span class="nf">calc_normal_std_he_backward</span><span class="p">(</span><span class="n">inmaps</span><span class="p">,</span> <span class="n">outmaps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the standard deviation of He et al. (backward case).</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \sigma = \sqrt{\frac{2}{MK}}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inmaps (int): Map size of an input Variable, :math:`N`.</span>
+<span class="sd">        outmaps (int): Map size of an output Variable, :math:`M`.</span>
+<span class="sd">        kernel (:obj:`tuple` of :obj:`int`): Convolution kernel spatial shape.</span>
+<span class="sd">            In above definition, :math:`K` is the product of shape dimensions.</span>
+<span class="sd">            In Affine, the default value should be used.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        s = I.calc_normal_std_he_backward(x.shape[1],64)</span>
+<span class="sd">        w = I.NormalInitializer(s)</span>
+<span class="sd">        b = I.ConstantInitializer(0)</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        * `He, et al. Delving Deep into Rectifiers: Surpassing Human-Level</span>
+<span class="sd">          Performance on ImageNet Classification.</span>
+<span class="sd">          &lt;https://arxiv.org/abs/1502.01852&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">*</span> <span class="n">outmaps</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="calc_normal_std_glorot"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.calc_normal_std_glorot">[docs]</a><span class="k">def</span> <span class="nf">calc_normal_std_glorot</span><span class="p">(</span><span class="n">inmaps</span><span class="p">,</span> <span class="n">outmaps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the standard deviation proposed by Glorot et al.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        \sigma = \sqrt{\frac{2}{NK + M}}</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inmaps (int): Map size of an input Variable, :math:`N`.</span>
+<span class="sd">        outmaps (int): Map size of an output Variable, :math:`M`.</span>
+<span class="sd">        kernel (:obj:`tuple` of :obj:`int`): Convolution kernel spatial shape.</span>
+<span class="sd">            In above definition, :math:`K` is the product of shape dimensions.</span>
+<span class="sd">            In Affine, the default value should be used.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        s = I.calc_normal_std_glorot(x.shape[1],64)</span>
+<span class="sd">        w = I.NormalInitializer(s)</span>
+<span class="sd">        b = I.ConstantInitializer(0)</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        * `Glorot and Bengio. Understanding the difficulty of training deep</span>
+<span class="sd">          feedforward neural networks</span>
+<span class="sd">          &lt;http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">2.</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">*</span> <span class="n">inmaps</span> <span class="o">+</span> <span class="n">outmaps</span><span class="p">))</span></div>
+
+
+<div class="viewcode-block" id="calc_uniform_lim_glorot"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.initializer.calc_uniform_lim_glorot">[docs]</a><span class="k">def</span> <span class="nf">calc_uniform_lim_glorot</span><span class="p">(</span><span class="n">inmaps</span><span class="p">,</span> <span class="n">outmaps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Calculates the lower bound and the upper bound of the uniform distribution proposed by Glorot et al.</span>
+
+<span class="sd">    .. math::</span>
+<span class="sd">        b &amp;= \sqrt{\frac{6}{NK + M}}\\</span>
+<span class="sd">        a &amp;= -b</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        inmaps (int): Map size of an input Variable, :math:`N`.</span>
+<span class="sd">        outmaps (int): Map size of an output Variable, :math:`M`.</span>
+<span class="sd">        kernel (:obj:`tuple` of :obj:`int`): Convolution kernel spatial shape.</span>
+<span class="sd">            In above definition, :math:`K` is the product of shape dimensions.</span>
+<span class="sd">            In Affine, the default value should be used.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.initializer as I</span>
+
+<span class="sd">        x = nn.Variable([60,1,28,28])</span>
+<span class="sd">        lb,ub= I.calc_uniform_lim_glorot(x.shape[1],64)</span>
+<span class="sd">        w = I.UniformInitializer((lb,ub))</span>
+<span class="sd">        b = I.ConstantInitializer(0)</span>
+<span class="sd">        h = PF.convolution(x, 64, [3, 3], w_init=w, b_init=b, pad=[1, 1], name=&#39;conv&#39;)</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        * `Glorot and Bengio. Understanding the difficulty of training deep</span>
+<span class="sd">          feedforward neural networks</span>
+<span class="sd">          &lt;http://jmlr.org/proceedings/papers/v9/glorot10a/glorot10a.pdf&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mf">6.</span> <span class="o">/</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">prod</span><span class="p">(</span><span class="n">kernel</span><span class="p">)</span> <span class="o">*</span> <span class="n">inmaps</span> <span class="o">+</span> <span class="n">outmaps</span><span class="p">))</span>
+    <span class="k">return</span> <span class="o">-</span><span class="n">d</span><span class="p">,</span> <span class="n">d</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

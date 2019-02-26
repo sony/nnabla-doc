@@ -1,0 +1,943 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Iterators &mdash; Neural Network Libraries 1.0.11 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Profiling" href="profiling.html" />
+    <link rel="prev" title="Image Utils" href="image_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.11
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="save_load.html">NNP save and load utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_utils.html">Image Utils</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Data Iterators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="profiling.html">Profiling</a></li>
+<li class="toctree-l4"><a class="reference internal" href="misc.html">Misc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../../api.html">Python API Reference</a> &raquo;</li>
+        
+          <li><a href="../utils.html">Utils</a> &raquo;</li>
+        
+      <li>Data Iterators</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/python/api/utils/data_iterator.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-iterators">
+<span id="data-iterator-apis"></span><h1>Data Iterators<a class="headerlink" href="#data-iterators" title="Permalink to this headline">¶</a></h1>
+<p>NNabla provides various utilities for using data for training.</p>
+<div class="section" id="datasource">
+<h2>DataSource<a class="headerlink" href="#datasource" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.utils.data_source.DataSource">
+<em class="property">class </em><code class="descclassname">nnabla.utils.data_source.</code><code class="descname">DataSource</code><span class="sig-paren">(</span><em>shuffle=False</em>, <em>rng=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_source.html#DataSource"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_source.DataSource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>This class contains various properties and methods for the data source, which are utilized by py:class:<cite>DataIterator</cite>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSource.position">
+<code class="descname">position</code><a class="headerlink" href="#nnabla.utils.data_source.DataSource.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data position in current epoch.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSource.shuffle">
+<code class="descname">shuffle</code><a class="headerlink" href="#nnabla.utils.data_source.DataSource.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether dataset is shuffled or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">whether dataset is shuffled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSource.variables">
+<code class="descname">variables</code><a class="headerlink" href="#nnabla.utils.data_source.DataSource.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variable names of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple of Variable names</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)">tuple</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.utils.data_source.DataSourceWithFileCache">
+<em class="property">class </em><code class="descclassname">nnabla.utils.data_source.</code><code class="descname">DataSourceWithFileCache</code><span class="sig-paren">(</span><em>data_source</em>, <em>cache_dir=None</em>, <em>cache_file_name_prefix='cache'</em>, <em>shuffle=False</em>, <em>rng=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_source.html#DataSourceWithFileCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.utils.data_source.DataSource</span></code></a></p>
+<p>This class contains properties and methods for data source that can be read from cache files, which are utilized by data iterator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_source</strong> (<a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a>) – Instance of DataSource class which provides data.</li>
+<li><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of file_cache.
+If this value is None, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+creates file caches implicitly on temporary directory and erases them all
+when data_iterator is finished.
+Otherwise, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a> keeps created cache.
+Default is None.</li>
+<li><strong>cache_file_name_prefix</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Beginning of the filenames of cache files.
+Default is ‘cache’.</li>
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSourceWithFileCache.position">
+<code class="descname">position</code><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithFileCache.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data position in current epoch.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSourceWithFileCache.shuffle">
+<code class="descname">shuffle</code><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithFileCache.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether dataset is shuffled or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">whether dataset is shuffled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSourceWithFileCache.variables">
+<code class="descname">variables</code><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithFileCache.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variable names of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple of Variable names</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)">tuple</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.utils.data_source.DataSourceWithMemoryCache">
+<em class="property">class </em><code class="descclassname">nnabla.utils.data_source.</code><code class="descname">DataSourceWithMemoryCache</code><span class="sig-paren">(</span><em>data_source</em>, <em>shuffle=False</em>, <em>rng=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_source.html#DataSourceWithMemoryCache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithMemoryCache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.utils.data_source.DataSource</span></code></a></p>
+<p>This class contains properties and methods for data source that can be read from memory cache, which is utilized by data iterator.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_source</strong> (<a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a>) – Instance of DataSource class which provides data.</li>
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSourceWithMemoryCache.position">
+<code class="descname">position</code><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithMemoryCache.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data position in current epoch.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSourceWithMemoryCache.shuffle">
+<code class="descname">shuffle</code><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithMemoryCache.shuffle" title="Permalink to this definition">¶</a></dt>
+<dd><p>Whether dataset is shuffled or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">whether dataset is shuffled.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)">bool</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_source.DataSourceWithMemoryCache.variables">
+<code class="descname">variables</code><a class="headerlink" href="#nnabla.utils.data_source.DataSourceWithMemoryCache.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variable names of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple of Variable names</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)">tuple</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dataiterator">
+<h2>DataIterator<a class="headerlink" href="#dataiterator" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.utils.data_iterator.DataIterator">
+<em class="property">class </em><code class="descclassname">nnabla.utils.data_iterator.</code><code class="descname">DataIterator</code><span class="sig-paren">(</span><em>data_source</em>, <em>batch_size</em>, <em>rng=None</em>, <em>use_thread=True</em>, <em>epoch_begin_callbacks=[]</em>, <em>epoch_end_callbacks=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#DataIterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Collect data from <span class="xref std std-ref">data_source_design</span> and yields bunch of data.</p>
+<p>Detailed documentation is available in <span class="xref std std-ref">data_iterator_design</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>data_source</strong> (<a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a>) – Instance of DataSource class witch provides data for this class.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Size of data unit.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+<li><strong>epoch_begin_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as a argument. These are called
+at the beginning of an epoch.</li>
+<li><strong>epoch_end_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as a argument. These are called
+at the end of an epoch.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nnabla.utils.data_iterator.DataIterator.batch_size">
+<code class="descname">batch_size</code><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.batch_size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of training samples that <a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator.next" title="nnabla.utils.data_iterator.DataIterator.next"><code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code></a> returns.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Number of training samples.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_iterator.DataIterator.epoch">
+<code class="descname">epoch</code><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.epoch" title="Permalink to this definition">¶</a></dt>
+<dd><p>The number of times <a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator.position" title="nnabla.utils.data_iterator.DataIterator.position"><code class="xref py py-meth docutils literal notranslate"><span class="pre">position()</span></code></a> returns to zero.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">epoch</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nnabla.utils.data_iterator.DataIterator.next">
+<code class="descname">next</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#DataIterator.next"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.next" title="Permalink to this definition">¶</a></dt>
+<dd><p>It generates tuple of data.</p>
+<p>For example,
+if <code class="xref py py-meth docutils literal notranslate"><span class="pre">self._variables</span> <span class="pre">==</span> <span class="pre">('x',</span> <span class="pre">'y')()</span></code>
+This method returns :py:meth:` ( [[X] * batch_size], [[Y] * batch_size] )`</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple of data for mini-batch in numpy.ndarray.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)">tuple</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_iterator.DataIterator.position">
+<code class="descname">position</code><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.position" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data position in current epoch.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data position</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nnabla.utils.data_iterator.DataIterator.register_epoch_begin_callback">
+<code class="descname">register_epoch_begin_callback</code><span class="sig-paren">(</span><em>callback</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#DataIterator.register_epoch_begin_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.register_epoch_begin_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register epoch begin callback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callback</strong> (<em>function</em>) – A function takes an epoch index as an argument.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nnabla.utils.data_iterator.DataIterator.register_epoch_end_callback">
+<code class="descname">register_epoch_end_callback</code><span class="sig-paren">(</span><em>callback</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#DataIterator.register_epoch_end_callback"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.register_epoch_end_callback" title="Permalink to this definition">¶</a></dt>
+<dd><p>Register epoch end callback.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>callback</strong> (<em>function</em>) – A function takes an epoch index as an argument.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_iterator.DataIterator.size">
+<code class="descname">size</code><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.size" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data size that DataIterator will generate.
+This is the largest integer multiple of batch_size not exceeding
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">self._data_source.size()</span></code>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Data size</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nnabla.utils.data_iterator.DataIterator.slice">
+<code class="descname">slice</code><span class="sig-paren">(</span><em>rng</em>, <em>num_of_slices=None</em>, <em>slice_pos=None</em>, <em>slice_start=None</em>, <em>slice_end=None</em>, <em>cache_dir=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#DataIterator.slice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.slice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Slices the data iterator so that newly generated data iterator has access to limited portion of the original data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>rng</strong> (<a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><em>numpy.random.RandomState</em></a>) – Random generator for Initializer.</li>
+<li><strong>num_of_slices</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Total number of slices to be made. Muts be used together with <cite>slice_pos</cite>.</li>
+<li><strong>slice_pos</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Position of the slice to be assigned to the new data iterator. Must be used together with <cite>num_of_slices</cite>.</li>
+<li><strong>slice_start</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Starting position of the range to be sliced into new data iterator. Must be used together with <cite>slice_end</cite>.</li>
+<li><strong>slice_end</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – End position of the range to be sliced into new data iterator. Must be used together with <cite>slice_start</cite>.</li>
+<li><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Directory to save cache files</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.utils.data_iterator</span> <span class="kn">import</span> <span class="n">data_iterator_simple</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="k">def</span> <span class="nf">load_func1</span><span class="p">(</span><span class="n">index</span><span class="p">):</span>
+    <span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="n">index</span>
+    <span class="k">return</span> <span class="n">d</span>
+
+<span class="n">di</span> <span class="o">=</span> <span class="n">data_iterator_simple</span><span class="p">(</span><span class="n">load_func1</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+<span class="n">di_s1</span> <span class="o">=</span> <span class="n">di</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">num_of_slices</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">slice_pos</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">di_s2</span> <span class="o">=</span> <span class="n">di</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">num_of_slices</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">slice_pos</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="n">di_s3</span> <span class="o">=</span> <span class="n">di</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">slice_start</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">slice_end</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">di_s4</span> <span class="o">=</span> <span class="n">di</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">slice_start</span><span class="o">=</span><span class="mi">300</span><span class="p">,</span> <span class="n">slice_end</span><span class="o">=</span><span class="mi">400</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.utils.data_iterator.DataIterator.variables">
+<code class="descname">variables</code><a class="headerlink" href="#nnabla.utils.data_iterator.DataIterator.variables" title="Permalink to this definition">¶</a></dt>
+<dd><p>Variable names of the data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">tuple of Variable names</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)">tuple</a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="utilities">
+<h2>Utilities<a class="headerlink" href="#utilities" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="nnabla.utils.data_iterator.data_iterator">
+<code class="descclassname">nnabla.utils.data_iterator.</code><code class="descname">data_iterator</code><span class="sig-paren">(</span><em>data_source</em>, <em>batch_size</em>, <em>rng=None</em>, <em>with_memory_cache=True</em>, <em>with_file_cache=False</em>, <em>cache_dir=None</em>, <em>epoch_begin_callbacks=[]</em>, <em>epoch_end_callbacks=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#data_iterator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.data_iterator" title="Permalink to this definition">¶</a></dt>
+<dd><p>Helper method to use <a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a>.</p>
+<p>You can use <a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a> with your own <a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a>
+for easy implementation of data sources.</p>
+<p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ds</span> <span class="o">=</span> <span class="n">YourOwnImplementationOfDataSource</span><span class="p">()</span>
+<span class="n">batch</span> <span class="o">=</span> <span class="n">data_iterator</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_source</strong> (<a class="reference internal" href="#nnabla.utils.data_source.DataSource" title="nnabla.utils.data_source.DataSource"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataSource</span></code></a>) – Instance of DataSource class which provides data.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Batch size.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+<li><strong>with_memory_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithMemoryCache" title="nnabla.utils.data_source.DataSourceWithMemoryCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithMemoryCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>. It is a good idea to set this as true unless
+data_source provides on-memory data.
+Default value is True.</li>
+<li><strong>with_file_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">data_source</span></code> is slow, enabling this option a is good idea.
+Default value is False.</li>
+<li><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of file_cache.
+If this value is None, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+creates file caches implicitly on temporary directory and erases them all
+when data_iterator is finished.
+Otherwise, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a> keeps created cache.
+Default is None.</li>
+<li><strong>epoch_begin_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the beginning of an epoch.</li>
+<li><strong>epoch_end_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the end of an epoch.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Instance of DataIterator.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.utils.data_iterator.data_iterator_simple">
+<code class="descclassname">nnabla.utils.data_iterator.</code><code class="descname">data_iterator_simple</code><span class="sig-paren">(</span><em>load_func</em>, <em>num_examples</em>, <em>batch_size</em>, <em>shuffle=False</em>, <em>rng=None</em>, <em>with_memory_cache=True</em>, <em>with_file_cache=True</em>, <em>cache_dir=None</em>, <em>epoch_begin_callbacks=[]</em>, <em>epoch_end_callbacks=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#data_iterator_simple"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.data_iterator_simple" title="Permalink to this definition">¶</a></dt>
+<dd><p>A generator that <code class="docutils literal notranslate"><span class="pre">yield</span></code> s minibatch data as a tuple, as defined in <code class="docutils literal notranslate"><span class="pre">load_func</span></code> .
+It can unlimitedly yield minibatches at your request, queried from the provided data.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>load_func</strong> (<em>function</em>) – Takes a single argument <cite>i</cite>, an index of an
+example in your dataset to be loaded, and returns a tuple of data.
+Every call by any index <cite>i</cite> must return a tuple of arrays with
+the same shape.</li>
+<li><strong>num_examples</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Number of examples in your dataset. Random sequence
+of indexes is generated according to this number.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Size of data unit.</li>
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.
+Default value is False.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+<li><strong>with_memory_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithMemoryCache" title="nnabla.utils.data_source.DataSourceWithMemoryCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithMemoryCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>. It is a good idea to set this as true unless
+data_source provides on-memory data.
+Default value is True.</li>
+<li><strong>with_file_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">data_source</span></code> is slow, enabling this option a is good idea.
+Default value is False.</li>
+<li><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of file_cache.
+If this value is None, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+creates file caches implicitly on temporary directory and erases them all
+when data_iterator is finished.
+Otherwise, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a> keeps created cache.
+Default is None.</li>
+<li><strong>epoch_begin_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the beginning of an epoch.</li>
+<li><strong>epoch_end_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the end of an epoch.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Instance of DataIterator.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Here is an example of <cite>load_func</cite> which returns an image and a label of a
+classification dataset.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.image_utils</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="n">image_paths</span> <span class="o">=</span> <span class="n">load_image_paths</span><span class="p">()</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="n">load_labels</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">my_load_func</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Returns:</span>
+<span class="sd">        image: c x h x w array</span>
+<span class="sd">        label: 0-shape array</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="n">image_paths</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float32&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">rollaxis</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">labels</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.utils.data_iterator.data_iterator_csv_dataset">
+<code class="descclassname">nnabla.utils.data_iterator.</code><code class="descname">data_iterator_csv_dataset</code><span class="sig-paren">(</span><em>uri</em>, <em>batch_size</em>, <em>shuffle=False</em>, <em>rng=None</em>, <em>normalize=True</em>, <em>with_memory_cache=True</em>, <em>with_file_cache=True</em>, <em>cache_dir=None</em>, <em>epoch_begin_callbacks=[]</em>, <em>epoch_end_callbacks=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#data_iterator_csv_dataset"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.data_iterator_csv_dataset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data directly from a dataset provided as a CSV file.</p>
+<p>You can read files located on the local file system, http(s) servers or Amazon AWS S3 storage.</p>
+<p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">batch</span> <span class="o">=</span> <span class="n">data_iterator_csv_dataset</span><span class="p">(</span><span class="s1">&#39;CSV_FILE.csv&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of dataset CSV file.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Size of data unit.</li>
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.
+Default value is False.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+<li><strong>normalize</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, each sample in the data gets normalized by a factor of 255.
+Default is True.</li>
+<li><strong>with_memory_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithMemoryCache" title="nnabla.utils.data_source.DataSourceWithMemoryCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithMemoryCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>. It is a good idea to set this as true unless
+data_source provides on-memory data.
+Default value is True.</li>
+<li><strong>with_file_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">data_source</span></code> is slow, enabling this option a is good idea.
+Default value is False.</li>
+<li><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of file_cache.
+If this value is None, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+creates file caches implicitly on temporary directory and erases them all
+when data_iterator is finished.
+Otherwise, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a> keeps created cache.
+Default is None.</li>
+<li><strong>epoch_begin_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the beginning of an epoch.</li>
+<li><strong>epoch_end_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the end of an epoch.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Instance of DataIterator</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.utils.data_iterator.data_iterator_cache">
+<code class="descclassname">nnabla.utils.data_iterator.</code><code class="descname">data_iterator_cache</code><span class="sig-paren">(</span><em>uri</em>, <em>batch_size</em>, <em>shuffle=False</em>, <em>rng=None</em>, <em>normalize=True</em>, <em>with_memory_cache=True</em>, <em>epoch_begin_callbacks=[]</em>, <em>epoch_end_callbacks=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#data_iterator_cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.data_iterator_cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data from the cache directory.</p>
+<p>Cache files are read from the local file system.</p>
+<p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">batch</span> <span class="o">=</span> <span class="n">data_iterator_cache</span><span class="p">(</span><span class="s1">&#39;CACHE_DIR&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>uri</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of directory with cache files.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Size of data unit.</li>
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.
+Default value is False.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+<li><strong>normalize</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, each sample in the data gets normalized by a factor of 255.
+Default is True.</li>
+<li><strong>with_memory_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithMemoryCache" title="nnabla.utils.data_source.DataSourceWithMemoryCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithMemoryCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>. It is a good idea to set this as true unless
+data_source provides on-memory data.
+Default value is True.</li>
+<li><strong>epoch_begin_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the beginning of an epoch.</li>
+<li><strong>epoch_end_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the end of an epoch.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Instance of DataIterator</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="nnabla.utils.data_iterator.data_iterator_concat_datasets">
+<code class="descclassname">nnabla.utils.data_iterator.</code><code class="descname">data_iterator_concat_datasets</code><span class="sig-paren">(</span><em>data_source_list</em>, <em>batch_size</em>, <em>shuffle=False</em>, <em>rng=None</em>, <em>with_memory_cache=True</em>, <em>with_file_cache=False</em>, <em>cache_dir=None</em>, <em>epoch_begin_callbacks=[]</em>, <em>epoch_end_callbacks=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/data_iterator.html#data_iterator_concat_datasets"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.utils.data_iterator.data_iterator_concat_datasets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get data from multiple datasets.</p>
+<p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">batch</span> <span class="o">=</span> <span class="n">data_iterator_concat_datasets</span><span class="p">([</span><span class="n">DataSource0</span><span class="p">,</span> <span class="n">DataSource1</span><span class="p">,</span> <span class="o">...</span><span class="p">],</span> <span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>data_source_list</strong> (<em>list of DataSource</em>) – list of datasets.</li>
+<li><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Size of data unit.</li>
+<li><strong>shuffle</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Indicates whether the dataset is shuffled or not.
+Default value is False.</li>
+<li><strong>rng</strong> (None or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.random.RandomState.html#numpy.random.RandomState" title="(in NumPy v1.16)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.random.RandomState</span></code></a>) – Numpy random number
+generator.</li>
+<li><strong>with_memory_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithMemoryCache" title="nnabla.utils.data_source.DataSourceWithMemoryCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithMemoryCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>. It is a good idea to set this as true unless
+data_source provides on-memory data.
+Default value is True.</li>
+<li><strong>with_file_cache</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If <code class="docutils literal notranslate"><span class="pre">True</span></code>, use <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+to wrap <code class="docutils literal notranslate"><span class="pre">data_source</span></code>.
+If <code class="docutils literal notranslate"><span class="pre">data_source</span></code> is slow, enabling this option a is good idea.
+Default value is False.</li>
+<li><strong>cache_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Location of file_cache.
+If this value is None, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a>
+creates file caches implicitly on temporary directory and erases them all
+when data_iterator is finished.
+Otherwise, <a class="reference internal" href="#nnabla.utils.data_source.DataSourceWithFileCache" title="nnabla.utils.data_source.DataSourceWithFileCache"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_source.DataSourceWithFileCache</span></code></a> keeps created cache.
+Default is None.</li>
+<li><strong>epoch_begin_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the beginning of an epoch.</li>
+<li><strong>epoch_end_callbacks</strong> (<em>list of functions</em>) – An item is a function
+which takes an epoch index as an argument. These are called
+at the end of an epoch.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Instance of DataIterator</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataIterator</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="module-nnabla.utils"></span></div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="profiling.html" class="btn btn-neutral float-right" title="Profiling" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="image_utils.html" class="btn btn-neutral float-left" title="Image Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
