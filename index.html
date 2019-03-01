@@ -1,53 +1,69 @@
 <html>
   <head>
-<title>Documents for Neural Network Libraries</title>
+    <title>Documents for Neural Network Libraries</title>
+
+    <script>
+      <!--
+          function setPage() {
+              var obj = document.getElementById('select_module')
+              var module = obj.options[obj.selectedIndex].value;
+              obj = document.getElementById('select_version')
+              var version = obj.options[obj.selectedIndex].value;
+              var uri = module + '/versions/' + version + '/index.html';
+              document.getElementById('iframe').contentWindow.location.replace(uri);
+          }
+          window.olload = setPage;
+      -->
+    </script>
+    
+    <style type="text/css">
+      <!--
+          body {
+          }
+          .header {
+            width: 100%;
+            height: 2em;
+          }
+          .content {
+            width: 100%;
+            height: 100%;
+          }
+          .content iframe {
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+          }
+        -->
+    </style>
+    
 </head>
-<body>
-<h1>Documents for Neural Network Libraries</h1>
-
-<h2>Latest</h2>
-
-<ul>
-  <li><a href="nnabla/versions/v1.0.12/index.html">NNabla (v1.0.12)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.12/index.html">NNabla C Runtime (v1.0.12)</a>
-</ul>
-
-<h2>Recent</h2>
-
-<h3>NNabla</h3>
-<ul>
-  <li><a href="nnabla/versions/v1.0.11/index.html">NNabla (v1.0.11)</a>
-  <li><a href="nnabla/versions/v1.0.10/index.html">NNabla (v1.0.10)</a>
-  <li><a href="nnabla/versions/v1.0.9/index.html">NNabla (v1.0.9)</a>
-  <li><a href="nnabla/versions/v1.0.8/index.html">NNabla (v1.0.8)</a>
-  <li><a href="nnabla/versions/v1.0.7/index.html">NNabla (v1.0.7)</a>
-  <li><a href="nnabla/versions/v1.0.6/index.html">NNabla (v1.0.6)</a>
-  <li><a href="nnabla/versions/v1.0.5/index.html">NNabla (v1.0.5)</a>
-  <li><a href="nnabla/versions/v1.0.4/index.html">NNabla (v1.0.4)</a>
-  <li><a href="nnabla/versions/v1.0.3/index.html">NNabla (v1.0.3)</a>
-  <li><a href="nnabla/versions/v1.0.2/index.html">NNabla (v1.0.2)</a>
-  <li><a href="nnabla/versions/v1.0.1/index.html">NNabla (v1.0.1)</a>
-  <li><a href="nnabla/versions/v1.0.0/index.html">NNabla (v1.0.0)</a>
-</ul>
-
-<h3>NNabla C Runtime</h3>
-<ul>
-  <li><a href="nnabla-c-runtime/versions/v1.0.11/index.html">NNabla C Runtime (v1.0.11)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.10/index.html">NNabla C Runtime (v1.0.10)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.9/index.html">NNabla C Runtime (v1.0.9)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.8/index.html">NNabla C Runtime (v1.0.8)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.7/index.html">NNabla C Runtime (v1.0.7)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.6/index.html">NNabla C Runtime (v1.0.6)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.5/index.html">NNabla C Runtime (v1.0.5)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.4/index.html">NNabla C Runtime (v1.0.4)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.3/index.html">NNabla C Runtime (v1.0.3)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.2/index.html">NNabla C Runtime (v1.0.2)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.1/index.html">NNabla C Runtime (v1.0.1)</a>
-  <li><a href="nnabla-c-runtime/versions/v1.0.0/index.html">NNabla C Runtime (v1.0.0)</a>
-</ul>
-
-<address>
-<a href="mailto:Yukio.Oobuchi@sony.com">Yukio.Obuchi</a>
-</address>
-</body>
+  <body>
+    <div class="header">
+      Document for : 
+      <select id="select_module" onchange="setPage(this)">
+        <option value="nnabla">NNabla</option>
+        <option value="nnabla-c-runtime">NNabla C Runtime</option>
+      </select>
+      Version:
+      <select id="select_version" onchange="setPage(this)">
+        <option value="v1.0.12">v1.0.12</option>
+        <option value="v1.0.11">v1.0.11</option>
+        <option value="v1.0.10">v1.0.10</option>
+        <option value="v1.0.9">v1.0.9</option>
+        <option value="v1.0.8">v1.0.8</option>
+        <option value="v1.0.7">v1.0.7</option>
+        <option value="v1.0.6">v1.0.6</option>
+        <option value="v1.0.5">v1.0.5</option>
+        <option value="v1.0.4">v1.0.4</option>
+        <option value="v1.0.3">v1.0.3</option>
+        <option value="v1.0.2">v1.0.2</option>
+        <option value="v1.0.1">v1.0.1</option>
+        <option value="v1.0.0">v1.0.0</option>
+      </select>
+    </div>
+    <div class="content">
+      <iframe id='iframe' frameborder="0"></iframe>
+    </div>
+  </body>
 </html>
