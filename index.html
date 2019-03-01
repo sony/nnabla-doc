@@ -12,7 +12,6 @@
               var uri = module + '/versions/' + version + '/index.html';
               document.getElementById('iframe').contentWindow.location.replace(uri);
           }
-          window.olload = setPage;
       -->
     </script>
     
@@ -38,7 +37,7 @@
     </style>
     
 </head>
-  <body>
+  <body onload="setPage()">
     <div class="header">
       Document for : 
       <select id="select_module" onchange="setPage(this)">
