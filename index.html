@@ -10,6 +10,9 @@
               obj = document.getElementById('select_version')
               var version = obj.options[obj.selectedIndex].value;
               var uri = module + '/versions/' + version + '/index.html';
+              if(module == 'nnabla-cpp') {
+                  uri = 'nnabla/versions/' + version + '/doxygen/index.html';
+              }
               document.getElementById('iframe').contentWindow.location.replace(uri);
           }
       -->
@@ -42,11 +45,13 @@
       Document for : 
       <select id="select_module" onchange="setPage(this)">
         <option value="nnabla">NNabla</option>
+        <option value="nnabla-cpp">NNabla C++</option>
         <option value="nnabla-c-runtime">NNabla C Runtime</option>
       </select>
       Version:
       <select id="select_version" onchange="setPage(this)">
-        <option value="v1.0.12" selected>v1.0.12</option>
+        <option value="v1.0.13" selected>v1.0.13</option>
+        <option value="v1.0.12">v1.0.12</option>
         <option value="v1.0.11">v1.0.11</option>
         <option value="v1.0.10">v1.0.10</option>
         <option value="v1.0.9">v1.0.9</option>
@@ -62,7 +67,7 @@
       </select>
     </div>
     <div class="content">
-      <iframe id='iframe' frameborder="0" src="nnabla/versions/v1.0.12/index.html"></iframe>
+      <iframe id='iframe' frameborder="0" src="nnabla/versions/v1.0.13/index.html"></iframe>
     </div>
   </body>
 </html>

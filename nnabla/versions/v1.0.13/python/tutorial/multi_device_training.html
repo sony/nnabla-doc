@@ -1,0 +1,518 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Data Parallel Distributed Training &mdash; Neural Network Libraries 1.0.13 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Debugging" href="debugging.html" />
+    <link rel="prev" title="Mixed Precision Training" href="mixed_precision_training.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.13
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="by_examples.html">NNabla by Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">NNabla Python API Demonstration Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_and_static_nn.html">Static vs Dynamic Neural Networks in NNabla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mixed_precision_training.html">Mixed Precision Training</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Data Parallel Distributed Training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#note">NOTE</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#prepare-the-dependencies">Prepare the dependencies</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#define-the-communicator-for-gradients-exchange">Define the communicator for gradients exchange.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-data-points-and-a-very-simple-neural-network">Create data points and a very simple neural network</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-a-solver">Create a solver.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#training">Training</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_converter_for_inference.html">Graph Converter for Inference</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html">Python API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../tutorial.html">Python API Tutorial</a> &raquo;</li>
+        
+      <li>Data Parallel Distributed Training</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/tutorial/multi_device_training.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="data-parallel-distributed-training">
+<h1>Data Parallel Distributed Training<a class="headerlink" href="#data-parallel-distributed-training" title="Permalink to this headline">¶</a></h1>
+<p>DataParallelCommunicator enables to train your neural network using
+multiple devices. It is normally used for gradients exchange in data
+parallel distributed training. Basically, there are two types of
+distributed trainings in Neural Network literature: Data Parallel and
+Model Parallel. Here we only focus on the former, Data Parallel
+Training. Data Parallel Distributed Training is based on the very simple
+equation used for the optimization of a neural network called
+(Mini-Batch) Stochastic Gradient Descent.</p>
+<p>In the optimization process, the objective one tries to minimize is</p>
+<div class="math notranslate nohighlight">
+\[f(\mathbf{w}; X) = \frac{1}{B \times N} \sum_{i=1}^{B \times N} \ell(\mathbf{w}, \mathbf{x}_i),\]</div>
+<p>where <span class="math notranslate nohighlight">\(f\)</span> is a neural network, <span class="math notranslate nohighlight">\(B \times N\)</span> is the batch
+size, <span class="math notranslate nohighlight">\(\ell\)</span> is a loss function for each data point
+<span class="math notranslate nohighlight">\(\mathbf{x} \in X\)</span>, and <span class="math notranslate nohighlight">\(\mathbf{w}\)</span> is the trainable
+parameter of the neural network.</p>
+<p>When taking the derivative of this objective, one gets,</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{\mathbf{w}} f(\mathbf{w}; X) = \frac{1}{B \times N} \sum_{i=1}^{B \times N} \nabla_{\mathbf{w}} \ell (\mathbf{w}, \mathbf{x}_i).\]</div>
+<p>Since the derivative has linearity, one can change the objective to the
+sum of summations each of which is the sum of derivatives over <span class="math notranslate nohighlight">\(B\)</span>
+data points.</p>
+<div class="math notranslate nohighlight">
+\[\nabla_{\mathbf{w}} f(\mathbf{w}; X) = \frac{1}{N} \left(
+ \frac{1}{B} \sum_{i=1}^{B} \nabla_{\mathbf{w}} \ell (\mathbf{w}, \mathbf{x}_i) \
+ + \frac{1}{B} \sum_{i=B+1}^{B \times 2} \nabla_{\mathbf{w}} \ell (\mathbf{w}, \mathbf{x}_i) \
+ + \ldots \
+ + \frac{1}{B} \sum_{i=B \times (N-1) + 1}^{B \times N} \nabla_{\mathbf{w}} \ell (\mathbf{w}, \mathbf{x}_i)
+\right)\]</div>
+<p>In data parallel distributed training, the following steps are performed
+according to the above equation,</p>
+<ol class="arabic simple">
+<li>each term, summation of derivatives (gradients) divided by batch size
+<span class="math notranslate nohighlight">\(B\)</span>, is computed on a separated device (typically GPU),</li>
+<li>take the sum over devices,</li>
+<li>divide the result by the number of devices, <span class="math notranslate nohighlight">\(N\)</span>.</li>
+</ol>
+<p>That is the underlying foundation of Data Parallel Distributed Training.</p>
+<p>This tutorial shows the usage of Multi Process Data Parallel
+Communicator for data parallel distributed training with a very simple
+example.</p>
+<div class="section" id="note">
+<h2>NOTE<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h2>
+<p>This tutorial depends on <strong>IPython Cluster</strong>, thus when you want to run
+the following excerpts of the scripts on Jupyter Notebook, follow
+<a class="reference external" href="https://ipython.org/ipython-doc/3/parallel/parallel_process.html#using-ipcluster-in-mpiexec-mpirun-mode">this</a>
+to enable mpiexec/mpirun mode, then launch a corresponding Ipython
+Cluster on Ipython Clusters tab.</p>
+<div class="section" id="launch-client">
+<h3>Launch client<a class="headerlink" href="#launch-client" title="Permalink to this headline">¶</a></h3>
+<p>This code is <strong>only</strong> needed for this tutorial via <strong>Jupyter Notebook</strong>.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">ipyparallel</span> <span class="k">as</span> <span class="nn">ipp</span>
+<span class="n">rc</span> <span class="o">=</span> <span class="n">ipp</span><span class="o">.</span><span class="n">Client</span><span class="p">(</span><span class="n">profile</span><span class="o">=</span><span class="s1">&#39;mpi&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="prepare-the-dependencies">
+<h2>Prepare the dependencies<a class="headerlink" href="#prepare-the-dependencies" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.communicators</span> <span class="k">as</span> <span class="nn">C</span>
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="k">import</span> <span class="n">get_extension_context</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">nnabla.initializer</span> <span class="k">import</span> <span class="p">(</span>
+    <span class="n">calc_uniform_lim_glorot</span><span class="p">,</span>
+    <span class="n">UniformInitializer</span><span class="p">)</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="k">as</span> <span class="nn">S</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-the-communicator-for-gradients-exchange">
+<h2>Define the communicator for gradients exchange.<a class="headerlink" href="#define-the-communicator-for-gradients-exchange" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="n">extension_module</span> <span class="o">=</span> <span class="s2">&quot;cudnn&quot;</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="n">extension_module</span><span class="p">)</span>
+<span class="n">comm</span> <span class="o">=</span> <span class="n">C</span><span class="o">.</span><span class="n">MultiProcessCommunicator</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">init</span><span class="p">()</span>
+<span class="n">n_devices</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">size</span>
+<span class="n">mpi_rank</span> <span class="o">=</span> <span class="n">comm</span><span class="o">.</span><span class="n">rank</span>
+<span class="n">device_id</span> <span class="o">=</span> <span class="n">mpi_rank</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="n">extension_module</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Check different ranks are assigned to different devices</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;n_devices=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_devices</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;mpi_rank=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">mpi_rank</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">n_devices</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">mpi_rank</span><span class="o">=</span><span class="mi">1</span>
+<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">n_devices</span><span class="o">=</span><span class="mi">2</span>
+<span class="n">mpi_rank</span><span class="o">=</span><span class="mi">0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-data-points-and-a-very-simple-neural-network">
+<h2>Create data points and a very simple neural network<a class="headerlink" href="#create-data-points-and-a-very-simple-neural-network" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="c1"># Data points setting</span>
+<span class="n">n_class</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span>
+
+<span class="c1"># Data points</span>
+<span class="n">x_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="n">y_data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">n_class</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="n">b</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">x_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">y_data</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">x_data</span>
+<span class="n">y</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">y_data</span>
+
+<span class="c1"># Network setting</span>
+<span class="n">C</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">kernel</span> <span class="o">=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="n">pad</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="n">stride</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">w_init</span> <span class="o">=</span> <span class="n">UniformInitializer</span><span class="p">(</span>
+                    <span class="n">calc_uniform_lim_glorot</span><span class="p">(</span><span class="n">C</span><span class="p">,</span> <span class="n">C</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span>
+                    <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="c1"># Network</span>
+<span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">context_scope</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">pad</span><span class="p">,</span> <span class="n">stride</span><span class="p">,</span> <span class="n">w_init</span><span class="o">=</span><span class="n">w_init</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">n_class</span><span class="p">,</span> <span class="n">w_init</span><span class="o">=</span><span class="n">w_init</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">y</span><span class="p">))</span>
+</pre></div>
+</div>
+<p><strong>Important notice</strong> here is that <code class="docutils literal notranslate"><span class="pre">w_init</span></code> is passed to parametric
+functions to let the network on each GPU start from the same values of
+trainable parameters in the optimization process.</p>
+</div>
+<div class="section" id="create-a-solver">
+<h2>Create a solver.<a class="headerlink" href="#create-a-solver" title="Permalink to this headline">¶</a></h2>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="c1"># Solver and add parameters</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="training">
+<h2>Training<a class="headerlink" href="#training" title="Permalink to this headline">¶</a></h2>
+<p>Recall the basic usage of <code class="docutils literal notranslate"><span class="pre">nnabla</span></code> API for training a neural network,
+it is</p>
+<ol class="arabic simple">
+<li>loss.forward()</li>
+<li>solver.zero_grad()</li>
+<li>loss.backward()</li>
+<li>solver.update()</li>
+</ol>
+<p>In use of <code class="docutils literal notranslate"><span class="pre">C.MultiProcessCommunicator</span></code>, these steps are
+performed in different GPUs, and the <strong>only difference</strong> from these
+steps is <code class="docutils literal notranslate"><span class="pre">comm.all_reduce()</span></code>. Thus, in case of
+<code class="docutils literal notranslate"><span class="pre">C.MultiProcessCommunicator</span></code> training steps are as
+follows,</p>
+<ol class="arabic simple">
+<li>loss.forward()</li>
+<li>solver.zero_grad()</li>
+<li>loss.backward()</li>
+<li><strong>comm.all_reduce([x.grad for x in nn.get_parameters().values()])</strong></li>
+<li>solver.update()</li>
+</ol>
+<p>First, forward, zero_grad, and backward,</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="c1"># Training steps</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>Check gradients of weights once,</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">(</span><span class="s1">&#39;conv/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[[[</span> <span class="mf">5.0180483</span><span class="p">,</span>  <span class="mf">0.457942</span> <span class="p">,</span> <span class="o">-</span><span class="mf">2.8701296</span><span class="p">],</span>
+         <span class="p">[</span> <span class="mf">2.0715926</span><span class="p">,</span>  <span class="mf">3.0698593</span><span class="p">,</span> <span class="o">-</span><span class="mf">1.6650047</span><span class="p">],</span>
+         <span class="p">[</span><span class="o">-</span><span class="mf">2.5591214</span><span class="p">,</span>  <span class="mf">6.4248834</span><span class="p">,</span>  <span class="mf">9.881935</span> <span class="p">]]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;conv/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">8.658947</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">0.93160367</span><span class="p">,</span>  <span class="mf">0.9316036</span> <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.376812</span>  <span class="p">,</span>  <span class="mf">1.376812</span>  <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.8957546</span> <span class="p">,</span>  <span class="mf">1.8957543</span> <span class="p">],</span>
+       <span class="o">...</span><span class="p">,</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.33000934</span><span class="p">,</span>  <span class="mf">0.33000934</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.7211893</span> <span class="p">,</span>  <span class="mf">0.72118926</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.25237036</span><span class="p">,</span>  <span class="mf">0.25237036</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.48865744</span><span class="p">,</span>  <span class="mf">0.48865741</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">(</span><span class="s1">&#39;conv/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[[[</span> <span class="o">-</span><span class="mf">1.2505884</span> <span class="p">,</span>  <span class="o">-</span><span class="mf">0.87151337</span><span class="p">,</span>  <span class="o">-</span><span class="mf">8.685524</span>  <span class="p">],</span>
+         <span class="p">[</span> <span class="mf">10.738419</span>  <span class="p">,</span>  <span class="mf">14.676786</span>  <span class="p">,</span>   <span class="mf">7.483423</span>  <span class="p">],</span>
+         <span class="p">[</span>  <span class="mf">5.612471</span>  <span class="p">,</span> <span class="o">-</span><span class="mf">12.880402</span>  <span class="p">,</span>  <span class="mf">19.141157</span>  <span class="p">]]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;conv/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">13.196114</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">1.6865108</span> <span class="p">,</span>  <span class="mf">1.6865108</span> <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.938529</span>  <span class="p">,</span>  <span class="mf">0.938529</span>  <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.028422</span>  <span class="p">,</span>  <span class="mf">1.028422</span>  <span class="p">],</span>
+       <span class="o">...</span><span class="p">,</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.98217344</span><span class="p">,</span>  <span class="mf">0.98217344</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.97528917</span><span class="p">,</span>  <span class="mf">0.97528917</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.413546</span>  <span class="p">,</span>  <span class="mf">0.413546</span>  <span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">0.7447065</span><span class="p">,</span>  <span class="mf">0.7447065</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You can see the different values on each device, then call
+<code class="docutils literal notranslate"><span class="pre">all_reduce</span></code>,</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="n">comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">([</span><span class="n">x</span><span class="o">.</span><span class="n">grad</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">()],</span> <span class="n">division</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Commonly, <code class="docutils literal notranslate"><span class="pre">all_reduce</span></code> only means the sum; however,
+<code class="docutils literal notranslate"><span class="pre">comm.all_reduce</span></code> addresses both cases: summation and summation
+division.</p>
+<p>Again, check gradients of weights,</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span>
+<span class="p">(</span><span class="s1">&#39;conv/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[[[</span> <span class="mf">1.8837299</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.20678568</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.777827</span>  <span class="p">],</span>
+         <span class="p">[</span> <span class="mf">6.4050055</span> <span class="p">,</span>  <span class="mf">8.8733225</span> <span class="p">,</span>  <span class="mf">2.9092093</span> <span class="p">],</span>
+         <span class="p">[</span> <span class="mf">1.5266749</span> <span class="p">,</span> <span class="o">-</span><span class="mf">3.2277591</span> <span class="p">,</span> <span class="mf">14.511546</span>  <span class="p">]]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;conv/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">21.85506</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">2.6181145</span><span class="p">,</span>  <span class="mf">2.6181145</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">2.315341</span> <span class="p">,</span>  <span class="mf">2.315341</span> <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">2.9241767</span><span class="p">,</span>  <span class="mf">2.9241762</span><span class="p">],</span>
+       <span class="o">...</span><span class="p">,</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.3121828</span><span class="p">,</span>  <span class="mf">1.3121828</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.6964785</span><span class="p">,</span>  <span class="mf">1.6964784</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.6659163</span><span class="p">,</span>  <span class="mf">0.6659163</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.233364</span> <span class="p">,</span>  <span class="mf">1.2333639</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">[</span><span class="n">stdout</span><span class="p">:</span><span class="mi">1</span><span class="p">]</span>
+<span class="p">(</span><span class="s1">&#39;conv/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[[[</span> <span class="mf">1.8837299</span> <span class="p">,</span> <span class="o">-</span><span class="mf">0.20678568</span><span class="p">,</span> <span class="o">-</span><span class="mf">5.777827</span>  <span class="p">],</span>
+         <span class="p">[</span> <span class="mf">6.4050055</span> <span class="p">,</span>  <span class="mf">8.8733225</span> <span class="p">,</span>  <span class="mf">2.9092093</span> <span class="p">],</span>
+         <span class="p">[</span> <span class="mf">1.5266749</span> <span class="p">,</span> <span class="o">-</span><span class="mf">3.2277591</span> <span class="p">,</span> <span class="mf">14.511546</span>  <span class="p">]]]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;conv/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="mf">21.85506</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/W&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([[</span><span class="o">-</span><span class="mf">2.6181145</span><span class="p">,</span>  <span class="mf">2.6181145</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">2.315341</span> <span class="p">,</span>  <span class="mf">2.315341</span> <span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">2.9241767</span><span class="p">,</span>  <span class="mf">2.9241762</span><span class="p">],</span>
+       <span class="o">...</span><span class="p">,</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.3121828</span><span class="p">,</span>  <span class="mf">1.3121828</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">1.6964785</span><span class="p">,</span>  <span class="mf">1.6964784</span><span class="p">],</span>
+       <span class="p">[</span><span class="o">-</span><span class="mf">0.6659163</span><span class="p">,</span>  <span class="mf">0.6659163</span><span class="p">]],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+<span class="p">(</span><span class="s1">&#39;affine/b&#39;</span><span class="p">,</span> <span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">1.233364</span> <span class="p">,</span>  <span class="mf">1.2333639</span><span class="p">],</span> <span class="n">dtype</span><span class="o">=</span><span class="n">float32</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You can see the same values over the devices because of <code class="docutils literal notranslate"><span class="pre">all_reduce</span></code>.</p>
+<p>Update weights,</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">%%</span><span class="n">px</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>This concludes the usage of <code class="docutils literal notranslate"><span class="pre">C.MultiProcessDataCommunicator</span></code>
+for Data Parallel Distributed Training.</p>
+<p>Now you should have an understanding of how to use
+<code class="docutils literal notranslate"><span class="pre">C.MultiProcessCommunicator</span></code>, go to the cifar10 example,</p>
+<ol class="arabic simple">
+<li><strong>multi_device_multi_process_classification.sh</strong></li>
+<li><strong>multi_device_multi_process_classification.py</strong></li>
+</ol>
+<p>for more details.</p>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="debugging.html" class="btn btn-neutral float-right" title="Debugging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="mixed_precision_training.html" class="btn btn-neutral float-left" title="Mixed Precision Training" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
