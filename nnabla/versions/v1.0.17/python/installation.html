@@ -1,0 +1,272 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Python Package Installation &mdash; Neural Network Libraries 1.0.17 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NNabla package installation using PIP" href="pip_installation.html" />
+    <link rel="prev" title="Python Package" href="../python.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.17
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python Package Installation</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#install-with-pip-command">Install with pip command</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="pip_installation.html">NNabla package installation using PIP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#os-specific-workflows">OS specific workflows</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#install-nnabla-package-compatible-with-multi-gpu-execution">Install NNabla package compatible with Multi-GPU execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#install-from-source">Install from source</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-on-docker">Running on Docker</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="docker.html">Docker images</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Python API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api.html">Python API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../python.html">Python Package</a> &raquo;</li>
+        
+      <li>Python Package Installation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/python/installation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="python-package-installation">
+<span id="id1"></span><h1>Python Package Installation<a class="headerlink" href="#python-package-installation" title="Permalink to this headline">¶</a></h1>
+<p>There are three ways to install NNabla Python package.</p>
+<div class="section" id="install-with-pip-command">
+<h2>Install with pip command<a class="headerlink" href="#install-with-pip-command" title="Permalink to this headline">¶</a></h2>
+<p>The NNabla python packages are hosted on PYPI for many platforms. For people who are familiar with Python and its package management system <code class="docutils literal notranslate"><span class="pre">pip</span></code> (and  optionally CUDA, but recommended), the following pip installation guide will be satisfactory when you install NNabla Python. To see the a bit more detailed OS specific setup guide, go to the next section.</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="pip_installation.html">NNabla package installation using PIP</a></li>
+</ul>
+</div>
+<div class="section" id="os-specific-workflows">
+<span id="pip-os-specific"></span><h3>OS specific workflows<a class="headerlink" href="#os-specific-workflows" title="Permalink to this headline">¶</a></h3>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install_on_linux.html">Installation on Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install_on_windows.html">Installation on Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="install_on_macos.html">Installation on macOS</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="section" id="install-nnabla-package-compatible-with-multi-gpu-execution">
+<h2>Install NNabla package compatible with Multi-GPU execution<a class="headerlink" href="#install-nnabla-package-compatible-with-multi-gpu-execution" title="Permalink to this headline">¶</a></h2>
+<p>To enable multi-GPU execution such as distributed training on NNabla, you have to install a special edition of NNabla package. See <a class="reference internal" href="pip_installation_cuda.html#pip-installation-distributed"><span class="std std-ref">Installation with Multi-GPU supported</span></a> for installation.</p>
+</div>
+<div class="section" id="install-from-source">
+<h2>Install from source<a class="headerlink" href="#install-from-source" title="Permalink to this headline">¶</a></h2>
+<p>Documentation of build from source has been moved to <a class="reference external" href="https://github.com/sony/nnabla-ext-cuda/tree/master/doc/build">Github repository</a> (<a class="reference external" href="https://github.com/sony/nnabla/tree/master/doc/build/build.md">build</a> or <a class="reference external" href="https://github.com/sony/nnabla/tree/master/doc/build/build.md">build_distributed</a>).</p>
+</div>
+<div class="section" id="running-on-docker">
+<h2>Running on Docker<a class="headerlink" href="#running-on-docker" title="Permalink to this headline">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="docker.html">Docker images</a></li>
+</ul>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="pip_installation.html" class="btn btn-neutral float-right" title="NNabla package installation using PIP" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../python.html" class="btn btn-neutral float-left" title="Python Package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
