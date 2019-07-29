@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>NNabla Models Finetuning Tutorial &mdash; Neural Network Libraries 1.0.19 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.19
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>NNabla Models Finetuning Tutorial</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/tutorial/model_finetuning.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="nnabla-models-finetuning-tutorial">
+<h1>NNabla Models Finetuning Tutorial<a class="headerlink" href="#nnabla-models-finetuning-tutorial" title="Permalink to this headline">¶</a></h1>
+<p>Here we demonstrate how to perform finetuning using nnabla’s pre-trained
+models.</p>
+<div class="section" id="load-the-model">
+<h2>Load the model<a class="headerlink" href="#load-the-model" title="Permalink to this headline">¶</a></h2>
+<p>Loading the model is very simple. All you need is just 2 lines.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.models.imagenet</span> <span class="k">import</span> <span class="n">ResNet18</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">ResNet18</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>You can choose other ResNet models such as <code class="docutils literal notranslate"><span class="pre">ResNet34</span></code>, <code class="docutils literal notranslate"><span class="pre">ResNet50</span></code>,
+by specifying the model’s name as an argument. Of course, you can choose
+other pretrained models as well. See the
+<a class="reference external" href="https://nnabla.readthedocs.io/en/latest/python/api/models/imagenet.html">Docs</a>.</p>
+<p><strong>NOTE</strong>: If you use the <code class="docutils literal notranslate"><span class="pre">ResNet18</span></code> for the first time, nnabla will
+automatically download the weights from <code class="docutils literal notranslate"><span class="pre">https://nnabla.org</span></code> and it
+may take up to a few minutes.</p>
+</div>
+<div class="section" id="dataset">
+<h2>Dataset<a class="headerlink" href="#dataset" title="Permalink to this headline">¶</a></h2>
+<p>In this tutorial, we use
+<a class="reference external" href="http://www.vision.caltech.edu/Image_Datasets/Caltech101/">Caltech101</a>
+as the dataset for finetuning. Caltech101 consists of more than 9,000
+object images in total and each image belongs to one of 101 distinct
+categories or “clutter” category. We use images from 101 categories for
+simple classification.</p>
+<p>We have a script named <code class="docutils literal notranslate"><span class="pre">caltech101_data.py</span></code> which can automatically
+download the dataset and store it in <code class="docutils literal notranslate"><span class="pre">nnabla_data</span></code>.</p>
+<p>If you have your own dataset and <code class="docutils literal notranslate"><span class="pre">DataIterator</span></code> which can load your
+data, you can use it instead.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="n">caltech101_data</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">batch_size</span> <span class="o">=</span> <span class="mi">32</span>  <span class="c1"># we set batch_size = 32</span>
+<span class="n">all_data</span> <span class="o">=</span> <span class="n">data_iterator_caltech101</span><span class="p">(</span><span class="n">batch_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Since there is no separate data for training and validation in
+caltech101, we need to <em>manually</em> split it up. Here, we will split the
+dataset as the following way; <strong>80% for training, and 20% for
+validation.</strong></p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_samples</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">size</span>
+<span class="n">num_train_samples</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mf">0.8</span> <span class="o">*</span> <span class="n">num_samples</span><span class="p">)</span>  <span class="c1"># Take 80% for training, and the rest for validation.</span>
+<span class="n">num_class</span> <span class="o">=</span> <span class="mi">101</span>
+<span class="n">data_iterator_train</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span>
+        <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">slice_start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">slice_end</span><span class="o">=</span><span class="n">num_train_samples</span><span class="p">)</span>
+<span class="n">data_iterator_valid</span> <span class="o">=</span> <span class="n">all_data</span><span class="o">.</span><span class="n">slice</span><span class="p">(</span>
+        <span class="n">rng</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">slice_start</span><span class="o">=</span><span class="n">num_train_samples</span><span class="p">,</span> <span class="n">slice_end</span><span class="o">=</span><span class="n">num_samples</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we have model and data!</p>
+<div class="section" id="optional-check-the-image-in-the-dataset">
+<h3>Optional: Check the image in the dataset<a class="headerlink" href="#optional-check-the-image-in-the-dataset" title="Permalink to this headline">¶</a></h3>
+<p>Let’s take a look at what kind of images are included in the dataset.
+You can get images by <code class="docutils literal notranslate"><span class="pre">DataIterator</span></code>’s method, <code class="docutils literal notranslate"><span class="pre">next</span></code></p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="o">%</span><span class="n">matplotlib</span> <span class="n">inline</span>
+<span class="n">images</span><span class="p">,</span> <span class="n">labels</span> <span class="o">=</span> <span class="n">data_iterator_train</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="n">sample_image</span><span class="p">,</span> <span class="n">sample_label</span> <span class="o">=</span> <span class="n">images</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">labels</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sample_image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;image_shape: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample_image</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;label_id: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sample_label</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt="../../_images/model_finetuning_11_0.png" src="../../_images/model_finetuning_11_0.png" />
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">image_shape</span><span class="p">:</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span><span class="p">)</span>
+<span class="n">label_id</span><span class="p">:</span> <span class="p">[</span><span class="mi">94</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="preparing-graph-construction">
+<h3>Preparing Graph Construction<a class="headerlink" href="#preparing-graph-construction" title="Permalink to this headline">¶</a></h3>
+<p>Let’s start with importing basic modules.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="c1"># Optional: If you want to use GPU</span>
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="k">import</span> <span class="n">get_extension_context</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="s2">&quot;cudnn&quot;</span><span class="p">)</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+<span class="n">ext</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ext_utils</span><span class="o">.</span><span class="n">import_extension_module</span><span class="p">(</span><span class="s2">&quot;cudnn&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-input-variables-for-the-network">
+<h3>Create input Variables for the Network<a class="headerlink" href="#create-input-variables-for-the-network" title="Permalink to this headline">¶</a></h3>
+<p>Now we are going to create the input variables.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">channels</span><span class="p">,</span> <span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span> <span class="o">=</span> <span class="n">sample_image</span><span class="o">.</span><span class="n">shape</span>  <span class="c1"># use info from the image we got</span>
+
+<span class="c1"># input variables for the validation network</span>
+<span class="n">image_valid</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span><span class="p">))</span>
+<span class="n">label_valid</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">input_image_valid</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image_valid</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label_valid</span><span class="p">}</span>
+
+<span class="c1"># input variables for the training network</span>
+<span class="n">image_train</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">channels</span><span class="p">,</span> <span class="n">image_height</span><span class="p">,</span> <span class="n">image_width</span><span class="p">))</span>
+<span class="n">label_train</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">input_image_train</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;image&quot;</span><span class="p">:</span> <span class="n">image_train</span><span class="p">,</span> <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="n">label_train</span><span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="create-the-training-graph-using-the-pretrained-model">
+<h3>Create the training graph using the pretrained model<a class="headerlink" href="#create-the-training-graph-using-the-pretrained-model" title="Permalink to this headline">¶</a></h3>
+<p>If you take a look at the <a class="reference external" href="https://nnabla.readthedocs.io/en/latest/python/api/models/imagenet.html">Model’s API
+Reference</a>,
+you can find <code class="docutils literal notranslate"><span class="pre">use_up_to</span></code> option. Specifying one of the pre-defined
+strings when calling the model, the computation graph will be
+constructed up to the layer you specify. For example, in case of
+<code class="docutils literal notranslate"><span class="pre">ResNet18</span></code>, you can choose one of the following as the last layer of
+the graph.</p>
+<ul class="simple">
+<li>‘classifier’ (default): The output of the final affine layer for
+classification.</li>
+<li>‘pool’: The output of the final global average pooling.</li>
+<li>‘lastconv’: The input of the final global average pooling without
+ReLU activation..</li>
+<li>‘lastconv+relu’: Network up to ‘lastconv’ followed by ReLU
+activation.</li>
+</ul>
+<p>For finetuning, it is common to replace only the upper layers with the
+new (not trained) ones and re-use the lower layers with their pretrained
+weights. Also, pretrained models have been trained on a classification
+task on ImageNet, which has 1000 categories, so the output of the
+<code class="docutils literal notranslate"><span class="pre">classifier</span></code> layer has the output shape <code class="docutils literal notranslate"><span class="pre">(batch_size,</span> <span class="pre">1000)</span></code> that
+wouldn’t fit our current dataset. For this reason, here we construct the
+graph up to the <code class="docutils literal notranslate"><span class="pre">pool</span></code> layer, which corresponds to the
+<code class="docutils literal notranslate"><span class="pre">global</span> <span class="pre">average</span> <span class="pre">pooling</span></code> layer in the original graph, and connect it
+to the additional affine (fully-connected) layer for 101-way
+classification. For finetuning, it is common to train only the weights
+for the newly added layers (in this case, the last affine layer), but in
+this tutorial, we will update the weights for <em>all</em> layers in the graph.
+Also, when creating a training graph, you need to set <code class="docutils literal notranslate"><span class="pre">training=True</span></code>.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="n">y_train</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">image_train</span><span class="p">,</span> <span class="n">force_global_pooling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_up_to</span><span class="o">=</span><span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;finetuning_fc&quot;</span><span class="p">):</span>
+    <span class="n">pred_train</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">y_train</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>  <span class="c1"># adding the affine layer to the graph.</span>
+</pre></div>
+</div>
+<p><strong>NOTE</strong>: You need to specify <code class="docutils literal notranslate"><span class="pre">force_global_pooling=True</span></code> when the
+input shape is different from what the model expects. You can check the
+model’s default input shape by typing <code class="docutils literal notranslate"><span class="pre">model.input_shape</span></code>.</p>
+</div>
+<div class="section" id="create-the-validation-graph-using-the-model">
+<h3>Create the validation graph using the model<a class="headerlink" href="#create-the-validation-graph-using-the-model" title="Permalink to this headline">¶</a></h3>
+<p>Creating the validation graph is almost the same. You simply need to
+change <code class="docutils literal notranslate"><span class="pre">training</span></code> flag to <code class="docutils literal notranslate"><span class="pre">False</span></code>.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y_valid</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">image_valid</span><span class="p">,</span>
+                <span class="n">force_global_pooling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">use_up_to</span><span class="o">=</span><span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;finetuning_fc&quot;</span><span class="p">):</span>
+    <span class="n">pred_valid</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">y_valid</span><span class="p">,</span> <span class="mi">101</span><span class="p">)</span>
+<span class="n">pred_valid</span><span class="o">.</span><span class="n">persistent</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># to keep the value when get `forward(clear_buffer=True)`-ed.</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="define-the-functions-for-computing-loss-and-categorical-error">
+<h3>Define the functions for computing Loss and Categorical Error<a class="headerlink" href="#define-the-functions-for-computing-loss-and-categorical-error" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+
+
+<span class="k">def</span> <span class="nf">loss_function</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Compute loss.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">label</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">loss</span>
+
+<span class="n">loss_valid</span> <span class="o">=</span> <span class="n">loss_function</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">,</span> <span class="n">label_valid</span><span class="p">)</span>
+<span class="n">top_1_error_valid</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">top_n_error</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">,</span> <span class="n">label_valid</span><span class="p">))</span>
+<span class="n">loss_train</span> <span class="o">=</span> <span class="n">loss_function</span><span class="p">(</span><span class="n">pred_train</span><span class="p">,</span> <span class="n">label_train</span><span class="p">)</span>
+<span class="n">top_1_error_train</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">top_n_error</span><span class="p">(</span><span class="n">pred_train</span><span class="p">,</span> <span class="n">label_train</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="prepare-the-solver">
+<h3>Prepare the solver<a class="headerlink" href="#prepare-the-solver" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="k">as</span> <span class="nn">S</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Momentum</span><span class="p">(</span><span class="mf">0.01</span><span class="p">)</span>  <span class="c1"># you can choose others as well</span>
+
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="some-setting-for-iteration">
+<h3>Some setting for iteration<a class="headerlink" href="#some-setting-for-iteration" title="Permalink to this headline">¶</a></h3>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">10</span>  <span class="c1"># arbitrary</span>
+<span class="n">one_epoch</span> <span class="o">=</span> <span class="n">data_iterator_train</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">batch_size</span>
+<span class="n">max_iter</span> <span class="o">=</span> <span class="n">num_epoch</span> <span class="o">*</span> <span class="n">one_epoch</span>
+<span class="n">val_iter</span> <span class="o">=</span> <span class="n">data_iterator_valid</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">batch_size</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="performance-before-finetuning">
+<h3>Performance before finetuning<a class="headerlink" href="#performance-before-finetuning" title="Permalink to this headline">¶</a></h3>
+<p>Let’s see how <em>well</em> the model works. Note that all the weights are
+pretrained on ImageNet except for the last affine layer. First, prepare
+a function to show us the model’s performance,</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">run_validation</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">,</span> <span class="n">loss_valid</span><span class="p">,</span> <span class="n">top_1_error_valid</span><span class="p">,</span>
+                   <span class="n">input_image_valid</span><span class="p">,</span> <span class="n">data_iterator_valid</span><span class="p">,</span>
+                   <span class="n">with_visualized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_visualized</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
+    <span class="k">assert</span> <span class="n">num_visualized</span> <span class="o">&lt;</span> <span class="n">pred_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s2">&quot;too many images to plot.&quot;</span>
+    <span class="n">val_iter</span> <span class="o">=</span> <span class="n">data_iterator_valid</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">pred_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">ve</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="n">vloss</span> <span class="o">=</span> <span class="mf">0.</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">val_iter</span><span class="p">):</span>
+        <span class="n">v_image</span><span class="p">,</span> <span class="n">v_label</span> <span class="o">=</span> <span class="n">data_iterator_valid</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+        <span class="n">input_image_valid</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">v_image</span>
+        <span class="n">input_image_valid</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">v_label</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">forward_all</span><span class="p">([</span><span class="n">loss_valid</span><span class="p">,</span> <span class="n">top_1_error_valid</span><span class="p">],</span> <span class="n">clear_no_need_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">vloss</span> <span class="o">+=</span> <span class="n">loss_valid</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+        <span class="n">ve</span> <span class="o">+=</span> <span class="n">top_1_error_valid</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+
+    <span class="n">vloss</span> <span class="o">/=</span> <span class="n">val_iter</span>
+    <span class="n">ve</span> <span class="o">/=</span> <span class="n">val_iter</span>
+
+    <span class="k">if</span> <span class="n">with_visualized</span><span class="p">:</span>
+        <span class="n">ind</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="n">random_start</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="n">pred_valid</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">num_visualized</span><span class="p">)</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mf">12.</span><span class="p">,</span> <span class="mf">12.</span><span class="p">))</span>
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">random_start</span><span class="p">,</span> <span class="n">random_start</span> <span class="o">+</span> <span class="n">num_visualized</span><span class="p">):</span>
+            <span class="n">sample_image</span><span class="p">,</span> <span class="n">sample_label</span> <span class="o">=</span> <span class="n">v_image</span><span class="p">[</span><span class="n">n</span><span class="p">],</span> <span class="n">v_label</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+            <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">num_visualized</span><span class="p">,</span> <span class="n">ind</span><span class="p">)</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">sample_image</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">auto_forward</span><span class="p">():</span>
+                <span class="n">predicted_id</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">softmax</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">)[</span><span class="n">n</span><span class="p">]</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="s2">&quot;true label_id: </span><span class="si">{}</span><span class="s2"> - predicted as </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sample_label</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">str</span><span class="p">(</span><span class="n">predicted_id</span><span class="p">))</span>
+            <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">ind</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+    <span class="k">return</span> <span class="n">ve</span><span class="p">,</span> <span class="n">vloss</span>
+</pre></div>
+</div>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_validation</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">,</span> <span class="n">loss_valid</span><span class="p">,</span> <span class="n">top_1_error_valid</span><span class="p">,</span> <span class="n">input_image_valid</span><span class="p">,</span> <span class="n">data_iterator_valid</span><span class="p">,</span> <span class="n">with_visualized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/model_finetuning_29_1.png" src="../../_images/model_finetuning_29_1.png" />
+<p>As you can see, the model fails to classify images properly. Now, let’s begin the finetuning and see how performance improves.</p>
+</div>
+<div class="section" id="start-finetuning">
+<h3>Start Finetuning<a class="headerlink" href="#start-finetuning" title="Permalink to this headline">¶</a></h3>
+<p>Let’s prepare the monitor for training.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.monitor</span> <span class="k">import</span> <span class="n">Monitor</span><span class="p">,</span> <span class="n">MonitorSeries</span><span class="p">,</span> <span class="n">MonitorTimeElapsed</span>
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span><span class="s2">&quot;tmp.monitor&quot;</span><span class="p">)</span>
+<span class="n">monitor_loss</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Training loss&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">monitor_err</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Training error&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">monitor_vloss</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Test loss&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+<span class="n">monitor_verr</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Test error&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">200</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Training-loop</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+    <span class="n">image</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">data_iterator_train</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+    <span class="n">input_image_train</span><span class="p">[</span><span class="s2">&quot;image&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">image</span>
+    <span class="n">input_image_train</span><span class="p">[</span><span class="s2">&quot;label&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">label</span>
+    <span class="n">nn</span><span class="o">.</span><span class="n">forward_all</span><span class="p">([</span><span class="n">loss_train</span><span class="p">,</span> <span class="n">top_1_error_train</span><span class="p">],</span> <span class="n">clear_no_need_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="n">monitor_loss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loss_train</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">monitor_err</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">top_1_error_train</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">copy</span><span class="p">())</span>
+
+    <span class="n">solver</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+    <span class="n">loss_train</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">clear_buffer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="c1"># update parameters</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">weight_decay</span><span class="p">(</span><span class="mf">3e-4</span><span class="p">)</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">200</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">ve</span><span class="p">,</span> <span class="n">vloss</span> <span class="o">=</span> <span class="n">run_validation</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">,</span> <span class="n">loss_valid</span><span class="p">,</span> <span class="n">top_1_error_valid</span><span class="p">,</span>
+                                   <span class="n">input_image_valid</span><span class="p">,</span> <span class="n">data_iterator_valid</span><span class="p">,</span>
+                                   <span class="n">with_visualized</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">num_visualized</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+
+        <span class="n">monitor_vloss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">vloss</span><span class="p">)</span>
+        <span class="n">monitor_verr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ve</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="mi">885</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">199</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">1.5021580457687378</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">26</span><span class="p">,</span><span class="mi">887</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">199</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.3345312476158142</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">756</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">200</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">2.975713219355654</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">756</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">200</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.5384837962962963</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="mi">249</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">399</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.22022955119609833</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">50</span><span class="p">,</span><span class="mi">250</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">399</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.053437501192092896</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">52</span><span class="p">,</span><span class="mi">256</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">400</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.12045302835327608</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">26</span><span class="p">:</span><span class="mi">52</span><span class="p">,</span><span class="mi">257</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">400</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.029513888888888888</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span><span class="mi">151</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">599</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0659928247332573</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">14</span><span class="p">,</span><span class="mi">152</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">599</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.012500000186264515</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">175</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">600</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.08744175952893717</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">16</span><span class="p">,</span><span class="mi">175</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">600</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.02199074074074074</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">38</span><span class="p">,</span><span class="mi">097</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">799</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.03324155509471893</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">38</span><span class="p">,</span><span class="mi">098</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">799</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0054687499068677425</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="mi">120</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">800</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.07678695395588875</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">27</span><span class="p">:</span><span class="mi">40</span><span class="p">,</span><span class="mi">121</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">800</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.02025462962962963</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">02</span><span class="p">,</span><span class="mi">041</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">999</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.019672293215990067</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">02</span><span class="p">,</span><span class="mi">042</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">999</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0017187499906867743</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">04</span><span class="p">,</span><span class="mi">064</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1000</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.06333287184437116</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">04</span><span class="p">,</span><span class="mi">065</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1000</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.017361111111111112</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="mi">984</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1199</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.009992362931370735</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">25</span><span class="p">,</span><span class="mi">985</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1199</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0003124999930150807</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">008</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1200</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.06950318495984431</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">28</span><span class="p">,</span><span class="mi">008</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1200</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.015625</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">49</span><span class="p">,</span><span class="mi">954</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1399</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.007941835559904575</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">49</span><span class="p">,</span><span class="mi">955</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1399</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0003124999930150807</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span><span class="mi">978</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1400</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.06711215277512868</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">28</span><span class="p">:</span><span class="mi">51</span><span class="p">,</span><span class="mi">979</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1400</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.016203703703703703</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">898</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1599</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.008225565776228905</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">899</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1599</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0007812500116415322</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">923</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1600</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.06447940292181792</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">15</span><span class="p">,</span><span class="mi">923</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1600</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.016203703703703703</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">37</span><span class="p">,</span><span class="mi">850</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1799</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.005678100511431694</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">37</span><span class="p">,</span><span class="mi">850</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1799</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.0</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="mi">873</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1800</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.06282947226255028</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">29</span><span class="p">:</span><span class="mi">39</span><span class="p">,</span><span class="mi">873</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1800</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.01678240740740741</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">01</span><span class="p">,</span><span class="mi">795</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1999</span> <span class="p">{</span><span class="n">Training</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.006834140978753567</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">01</span><span class="p">,</span><span class="mi">796</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">1999</span> <span class="p">{</span><span class="n">Training</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.00046874998952262104</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">03</span><span class="p">,</span><span class="mi">818</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">2000</span> <span class="p">{</span><span class="n">Test</span> <span class="n">loss</span><span class="p">}</span><span class="o">=</span><span class="mf">0.05948294078310331</span>
+<span class="mi">2019</span><span class="o">-</span><span class="mi">07</span><span class="o">-</span><span class="mi">05</span> <span class="mi">14</span><span class="p">:</span><span class="mi">30</span><span class="p">:</span><span class="mi">03</span><span class="p">,</span><span class="mi">818</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="nb">iter</span><span class="o">=</span><span class="mi">2000</span> <span class="p">{</span><span class="n">Test</span> <span class="n">error</span><span class="p">}</span><span class="o">=</span><span class="mf">0.014467592592592593</span>
+</pre></div>
+</div>
+<p>As you see, the loss and error rate is decreasing as the finetuning
+progresses. Let’s see the classification result after finetuning.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">run_validation</span><span class="p">(</span><span class="n">pred_valid</span><span class="p">,</span> <span class="n">loss_valid</span><span class="p">,</span> <span class="n">top_1_error_valid</span><span class="p">,</span> <span class="n">input_image_valid</span><span class="p">,</span> <span class="n">data_iterator_valid</span><span class="p">,</span> <span class="n">with_visualized</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../../_images/model_finetuning_36_0.png" src="../../_images/model_finetuning_36_0.png" />
+<p>You can see now the model is able to classify the image properly.</p>
+</div>
+</div>
+</div>
+<div class="section" id="finetuning-more">
+<h1>Finetuning more<a class="headerlink" href="#finetuning-more" title="Permalink to this headline">¶</a></h1>
+<p>we have a convenient script named <code class="docutils literal notranslate"><span class="pre">finetuning.py</span></code>. By using this, you
+can try finetuning with different models <strong>even on your original
+dataset</strong>.</p>
+<p>To do this, you need to prepare your own dataset and do some
+preprocessing. We will explain how to do this in the following.</p>
+<div class="section" id="prepare-your-dataset">
+<h2>Prepare your dataset<a class="headerlink" href="#prepare-your-dataset" title="Permalink to this headline">¶</a></h2>
+<p>Suppose you have a lot of images which can be used for image
+classification. You need to organize your data in a certain manner.
+Here, we will explain that with another dataset, <a class="reference external" href="http://vision.stanford.edu/aditya86/ImageNetDogs/">Stanford Dogs
+Dataset</a>. First,
+visit the official page and download <code class="docutils literal notranslate"><span class="pre">images.tar</span></code> (here is the <a class="reference external" href="http://vision.stanford.edu/aditya86/ImageNetDogs/images.tar">direct
+link</a>).
+Next, untar the archive and then you will see a directory named
+<code class="docutils literal notranslate"><span class="pre">Images</span></code>. Inside that directory, there are many subdirectories and
+each subdirectory stores images which belong to 1 category. For example,
+a directory <code class="docutils literal notranslate"><span class="pre">n02099712-Labrador_retriever</span></code> contains labrador
+retriever’s images only. So if you want to use your own dataset, you
+need to organize your images and directiories in the same way like the
+following;</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>parent_directory
+├── subdirectory_for_category_A
+│   ├── image_0.jpg
+│   ├── image_1.jpg
+│   ├── image_2.jpg
+│   ├── ...
+│
+├── subdirectory_for_category_B
+│   ├── image_0.jpg
+│   ├── ...
+│
+├── subdirectory_for_category_C
+│   ├── image_0.jpg
+│   ├── ...
+│
+├── subdirectory_for_category_D
+│   ├── image_0.jpg
+│   ├── ...
+│
+ ...
+</pre></div>
+</div>
+<p>The numbers of images in each category can vary, do not have to be
+exactly the same. Once you arrange your dataset, now you’re good to go!</p>
+</div>
+<div class="section" id="create-image-classification-dataset-using-nnabla-cli">
+<h2>Create image classification dataset using NNabla CLI<a class="headerlink" href="#create-image-classification-dataset-using-nnabla-cli" title="Permalink to this headline">¶</a></h2>
+<p>Now that you prepare and organize your dataset, the only thing you have
+to do is to create a <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file which will be used in
+<code class="docutils literal notranslate"><span class="pre">finetuning.py</span></code>. To do so, you can use NNabla’s <a class="reference external" href="https://nnabla.readthedocs.io/en/latest/python/command_line_interface.html#create-image-classification-dataset">Python Command Line
+Interface</a>.
+Just type like the following.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nnabla_cli</span> <span class="n">create_image_classification_dataset</span> <span class="o">-</span><span class="n">i</span> <span class="o">&lt;</span><span class="n">path</span> <span class="n">to</span> <span class="n">parent</span> <span class="n">directory</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">o</span> <span class="o">&lt;</span><span class="n">output</span> <span class="n">directory</span> <span class="n">which</span> <span class="n">contains</span> <span class="s2">&quot;preprocessed&quot;</span> <span class="n">images</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">c</span> <span class="o">&lt;</span><span class="n">number</span> <span class="n">of</span> <span class="n">channels</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">w</span> <span class="o">&lt;</span><span class="n">width</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">g</span> <span class="o">&lt;</span><span class="n">height</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">m</span> <span class="o">&lt;</span><span class="n">padding</span> <span class="ow">or</span> <span class="n">trimming</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">s</span> <span class="o">&lt;</span><span class="n">whether</span> <span class="n">apply</span> <span class="n">shuffle</span> <span class="ow">or</span> <span class="ow">not</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">f1</span> <span class="o">&lt;</span><span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">output</span> <span class="n">csv</span> <span class="n">file</span> <span class="k">for</span> <span class="n">training</span> <span class="n">data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">f2</span> <span class="o">&lt;</span><span class="n">name</span> <span class="n">of</span> <span class="n">the</span> <span class="n">output</span> <span class="n">csv</span> <span class="n">file</span> <span class="k">for</span> <span class="n">test</span> <span class="n">data</span><span class="o">&gt;</span> <span class="o">-</span><span class="n">r2</span> <span class="o">&lt;</span><span class="n">ratio</span><span class="p">(</span><span class="o">%</span><span class="p">)</span> <span class="n">of</span> <span class="n">test</span> <span class="n">data</span> <span class="n">to</span> <span class="n">training</span> <span class="n">data</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>If you do that on Stanford Dogs Dataset,</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nnabla_cli</span> <span class="n">create_image_classification_dataset</span> <span class="o">-</span><span class="n">i</span> <span class="n">Images</span> <span class="o">-</span><span class="n">o</span> <span class="n">arranged_images</span> <span class="o">-</span><span class="n">c</span> <span class="mi">3</span> <span class="o">-</span><span class="n">w</span> <span class="mi">128</span> <span class="o">-</span><span class="n">g</span> <span class="mi">128</span> <span class="o">-</span><span class="n">m</span> <span class="n">padding</span> <span class="o">-</span><span class="n">s</span> <span class="n">true</span> <span class="o">-</span><span class="n">f1</span> <span class="n">stanford_dog_train</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">f2</span> <span class="n">stanford_dog_test</span><span class="o">.</span><span class="n">csv</span> <span class="o">-</span><span class="n">r2</span> <span class="mi">20</span>
+</pre></div>
+</div>
+<p>Note that output <code class="docutils literal notranslate"><span class="pre">.csv</span></code> file will be stored in the same directory you
+specified with -o option. For more information, please check the
+<a class="reference external" href="https://nnabla.readthedocs.io/en/latest/python/command_line_interface.html#create-image-classification-dataset">docs</a>.</p>
+<p>After executing the command above, you can start finetuning on your
+dataset.</p>
+</div>
+<div class="section" id="run-finetuning">
+<h2>Run finetuning<a class="headerlink" href="#run-finetuning" title="Permalink to this headline">¶</a></h2>
+<p>All you need is just to type one line.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">finetuning</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">model</span> <span class="o">&lt;</span><span class="n">model</span> <span class="n">name</span><span class="o">&gt;</span> <span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">csv</span> <span class="o">&lt;.</span><span class="n">csv</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">training</span> <span class="n">data</span><span class="o">&gt;</span>  <span class="o">--</span><span class="n">test</span><span class="o">-</span><span class="n">csv</span> <span class="o">&lt;.</span><span class="n">csv</span> <span class="n">file</span> <span class="n">containing</span> <span class="n">test</span> <span class="n">data</span><span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>It will execute finetuning on your dataset!</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">run</span> <span class="n">finetuning</span><span class="o">.</span><span class="n">py</span> <span class="o">--</span><span class="n">model</span> <span class="n">ResNet34</span> <span class="o">--</span><span class="n">epoch</span> <span class="mi">10</span> <span class="o">--</span><span class="n">train</span><span class="o">-</span><span class="n">csv</span> <span class="o">~/</span><span class="n">nnabla_data</span><span class="o">/</span><span class="n">stanford_dog_arranged</span><span class="o">/</span><span class="n">stanford_dog_train</span><span class="o">.</span><span class="n">csv</span> <span class="o">--</span><span class="n">test</span><span class="o">-</span><span class="n">csv</span> <span class="o">~/</span><span class="n">nnabla_data</span><span class="o">/</span><span class="n">stanford_dog_arranged</span><span class="o">/</span><span class="n">stanford_dog_test</span><span class="o">.</span><span class="n">csv</span> <span class="o">--</span><span class="n">shuffle</span> <span class="kc">True</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="an-example-of-how-to-use-finetuning-s-result-for-inference">
+<h2>An example of how to use finetuning’s result for inference<a class="headerlink" href="#an-example-of-how-to-use-finetuning-s-result-for-inference" title="Permalink to this headline">¶</a></h2>
+<p>Once the finetuning finished, let’s use it for inference! The script
+above has saved the parameters at every certain iteration you specified.
+So now call the same model you trained and this time let’s use the
+finetuned parameters in the following way.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.models.imagenet</span> <span class="k">import</span> <span class="n">ResNet34</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="n">param_path</span> <span class="o">=</span> <span class="s2">&quot;params_XXX.h5&quot;</span>  <span class="c1"># specify the path to the saved parameter (.h5)</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ResNet34</span><span class="p">()</span>
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># just for inference</span>
+<span class="n">input_shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">batch_size</span><span class="p">,</span> <span class="p">)</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">input_shape</span>
+</pre></div>
+</div>
+<p>Then define an input Variable and a network for inference. Note that you
+need to construct the network exactly the same way as done in finetuning
+script (layer configuration, parameters names, and so on…).</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>  <span class="c1"># input Variable</span>
+<span class="n">pooled</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">use_up_to</span><span class="o">=</span><span class="s2">&quot;pool&quot;</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;finetuning&quot;</span><span class="p">):</span>
+    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;last_fc&quot;</span><span class="p">):</span>
+        <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">pooled</span><span class="p">,</span> <span class="mi">120</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Load the parameters which you finetuned above. You can use
+<code class="docutils literal notranslate"><span class="pre">nn.load_parameters()</span></code> to load the parameters. Once you call this, the
+parameters stored in the <code class="docutils literal notranslate"><span class="pre">params.h5</span></code> will be stored in global scope.
+You can check the parameters are different before and after
+<code class="docutils literal notranslate"><span class="pre">nn.load_parameters()</span></code> by using <code class="docutils literal notranslate"><span class="pre">nn.get_parameters()</span></code>.</p>
+<div class="code python highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nn</span><span class="o">.</span><span class="n">load_parameters</span><span class="p">(</span><span class="n">param_path</span><span class="p">)</span>  <span class="c1"># load the finetuned parameters.</span>
+<span class="n">pred</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
