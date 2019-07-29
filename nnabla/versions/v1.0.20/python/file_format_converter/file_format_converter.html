@@ -1,0 +1,722 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>File format converter &mdash; Neural Network Libraries 1.0.20 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contributing Guide" href="../../contributing.html" />
+    <link rel="prev" title="Data Format" href="../../format.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.20
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">File format converter</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#conversion">Conversion</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#supported-formats">Supported Formats</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#nnp">NNP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#onnx">ONNX</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#limitation">Limitation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#nnb">NNB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#c-source-code">C Source Code</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tensorflow">Tensorflow</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#process">Process</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#expand-repeat-and-recurrent">Expand Repeat and Recurrent</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#split-network">Split network</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#usage">Usage</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#nnp-operation">NNP Operation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#convert-nnp-to-nnp">Convert NNP to NNP</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-console-output-to-single-nnp-file">Convert console output to single NNP file</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-console-output-to-single-nnp-file-without-expanding-repeat-or-recurrent">Convert console output to single NNP file without expanding Repeat or recurrent.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#keep-parameter-format-as-hdf5">Keep parameter format as hdf5</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#everything-into-single-nntxt">Everything into single nntxt.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#onnx-operation">ONNX Operation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#convert-nnp-to-onnx">Convert NNP to ONNX</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-onnx-to-nnp">Convert ONNX to NNP</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#c-runtime-operation">C Runtime Operation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#convert-nnp-to-nnb">Convert NNP to NNB</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-nnp-to-c-source-code">Convert NNP to C source code.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-nnp-to-tensorflow-frozen-graph">Convert NNP to Tensorflow frozen graph.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-tensorflow-frozen-graph-to-nnp">Convert Tensorflow frozen graph to NNP.</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#convert-tensorflow-checkpoint-to-nnp">Convert Tensorflow checkpoint to NNP.</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#splitting-network">Splitting network</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>File format converter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/file_format_converter/file_format_converter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="file-format-converter">
+<h1>File format converter<a class="headerlink" href="#file-format-converter" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+<div><svg height="520" viewBox="0 0 736 520" width="736" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc />
+  <path d="M 43 26 L 107 26 A8,8 0 0 1 115 34 L 115 78 A8,8 0 0 1 107 86 L 43 86 A8,8 0 0 1 35 78 L 35 34 A8,8 0 0 1 43 26" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 635 106 L 699 106 A8,8 0 0 1 707 114 L 707 158 A8,8 0 0 1 699 166 L 635 166 A8,8 0 0 1 627 158 L 627 114 A8,8 0 0 1 635 106" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 43 366 L 107 366 A8,8 0 0 1 115 374 L 115 418 A8,8 0 0 1 107 426 L 43 426 A8,8 0 0 1 35 418 L 35 374 A8,8 0 0 1 43 366" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <rect fill="rgb(0,0,0)" height="20" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="40" x="147" y="386" />
+  <rect fill="rgb(0,0,0)" height="20" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="40" x="535" y="46" />
+  <rect fill="rgb(0,0,0)" height="20" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="40" x="535" y="126" />
+  <rect fill="rgb(0,0,0)" height="20" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="40" x="535" y="196" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="40" x="535" y="246" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="80" x="515" y="306" />
+  <path d="M 227 366 L 291 366 A8,8 0 0 1 299 374 L 299 418 A8,8 0 0 1 291 426 L 227 426 A8,8 0 0 1 219 418 L 219 374 A8,8 0 0 1 227 366" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 411 26 L 475 26 A8,8 0 0 1 483 34 L 483 78 A8,8 0 0 1 475 86 L 411 86 A8,8 0 0 1 403 78 L 403 34 A8,8 0 0 1 411 26" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <rect fill="rgb(0,0,0)" height="20" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="40" x="331" y="46" />
+  <path d="M 43 446 L 107 446 A8,8 0 0 1 115 454 L 115 498 A8,8 0 0 1 107 506 L 43 506 A8,8 0 0 1 35 498 L 35 454 A8,8 0 0 1 43 446" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 635 36 L 699 36 A8,8 0 0 1 707 44 L 707 68 A8,8 0 0 1 699 76 L 635 76 A8,8 0 0 1 627 68 L 627 44 A8,8 0 0 1 635 36" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 635 186 L 699 186 A8,8 0 0 1 707 194 L 707 218 A8,8 0 0 1 699 226 L 635 226 A8,8 0 0 1 627 218 L 627 194 A8,8 0 0 1 635 186" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 635 246 L 699 246 A8,8 0 0 1 707 254 L 707 278 A8,8 0 0 1 699 286 L 635 286 A8,8 0 0 1 627 278 L 627 254 A8,8 0 0 1 635 246" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 635 306 L 699 306 A8,8 0 0 1 707 314 L 707 338 A8,8 0 0 1 699 346 L 635 346 A8,8 0 0 1 627 338 L 627 314 A8,8 0 0 1 635 306" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <path d="M 40 20 L 104 20 A8,8 0 0 1 112 28 L 112 72 A8,8 0 0 1 104 80 L 40 80 A8,8 0 0 1 32 72 L 32 28 A8,8 0 0 1 40 20" fill="rgb(0,255,0)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="12" font-style="normal" font-weight="normal" text-anchor="middle" textLength="39" x="72" y="56">NNabla</text>
+  <path d="M 632 100 L 696 100 A8,8 0 0 1 704 108 L 704 152 A8,8 0 0 1 696 160 L 632 160 A8,8 0 0 1 624 152 L 624 108 A8,8 0 0 1 632 100" fill="rgb(0,255,0)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="56" x="664" y="129">Use NNabla as</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="664" y="139">Runtime</text>
+  <path d="M 40 360 L 104 360 A8,8 0 0 1 112 368 L 112 412 A8,8 0 0 1 104 420 L 40 420 A8,8 0 0 1 32 412 L 32 368 A8,8 0 0 1 40 360" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="21" x="72" y="389">Other</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="56" x="72" y="399">(Caffe2 etc.)</text>
+  <rect fill="rgb(123,104,238)" height="20" stroke="rgb(0,0,0)" width="40" x="144" y="380" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="17" x="164" y="394">ONNX</text>
+  <rect fill="rgb(123,104,238)" height="20" stroke="rgb(0,0,0)" width="40" x="532" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="17" x="552" y="54">ONNX</text>
+  <rect fill="rgb(0,255,255)" height="20" stroke="rgb(0,0,0)" width="40" x="532" y="120" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="13" x="552" y="134">NNP</text>
+  <rect fill="rgb(0,255,255)" height="20" stroke="rgb(0,0,0)" width="40" x="532" y="190" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="13" x="552" y="204">NNB</text>
+  <rect fill="rgb(46,139,87)" height="40" stroke="rgb(0,0,0)" width="40" x="532" y="240" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="34" x="552" y="259">C Source</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="17" x="552" y="269">code</text>
+  <rect fill="rgb(255,255,0)" height="40" stroke="rgb(0,0,0)" width="80" x="512" y="300" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="74" x="552" y="324">Frozen graph(.pb)</text>
+  <path d="M 224 360 L 288 360 A8,8 0 0 1 296 368 L 296 412 A8,8 0 0 1 288 420 L 224 420 A8,8 0 0 1 216 412 L 216 368 A8,8 0 0 1 224 360" fill="rgb(0,255,0)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="60" x="256" y="389">File Format</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="49" x="256" y="401">Converter</text>
+  <path d="M 408 20 L 472 20 A8,8 0 0 1 480 28 L 480 72 A8,8 0 0 1 472 80 L 408 80 A8,8 0 0 1 400 72 L 400 28 A8,8 0 0 1 408 20" fill="rgb(0,255,0)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="60" x="440" y="49">File Format</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="10" font-style="normal" font-weight="normal" text-anchor="middle" textLength="49" x="440" y="61">Converter</text>
+  <rect fill="rgb(0,255,255)" height="20" stroke="rgb(0,0,0)" width="40" x="328" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="13" x="348" y="54">NNP</text>
+  <path d="M 40 440 L 104 440 A8,8 0 0 1 112 448 L 112 492 A8,8 0 0 1 104 500 L 40 500 A8,8 0 0 1 32 492 L 32 448 A8,8 0 0 1 40 440" fill="rgb(255,255,0)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="43" x="72" y="469">Tensorflow</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="43" x="72" y="479">(.pb,ckpt)</text>
+  <path d="M 632 30 L 696 30 A8,8 0 0 1 704 38 L 704 62 A8,8 0 0 1 696 70 L 632 70 A8,8 0 0 1 624 62 L 624 38 A8,8 0 0 1 632 30" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="56" x="664" y="54">Other runtime</text>
+  <path d="M 632 180 L 696 180 A8,8 0 0 1 704 188 L 704 212 A8,8 0 0 1 696 220 L 632 220 A8,8 0 0 1 624 212 L 624 188 A8,8 0 0 1 632 180" fill="rgb(0,255,0)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="34" x="664" y="199">NNabla C</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="664" y="209">Runtime</text>
+  <path d="M 632 240 L 696 240 A8,8 0 0 1 704 248 L 704 272 A8,8 0 0 1 696 280 L 632 280 A8,8 0 0 1 624 272 L 624 248 A8,8 0 0 1 632 240" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="52" x="664" y="259">Implement to</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="664" y="269">product</text>
+  <path d="M 632 300 L 696 300 A8,8 0 0 1 704 308 L 704 332 A8,8 0 0 1 696 340 L 632 340 A8,8 0 0 1 624 332 L 624 308 A8,8 0 0 1 632 300" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="8" font-style="normal" font-weight="normal" text-anchor="middle" textLength="43" x="664" y="324">Tensorflow</text>
+  <path d="M 112 50 L 320 50" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="327,50 320,46 320,54 327,50" stroke="rgb(0,0,0)" />
+  <path d="M 112 390 L 136 390" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="143,390 136,386 136,394 143,390" stroke="rgb(0,0,0)" />
+  <path d="M 184 390 L 208 390" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="215,390 208,386 208,394 215,390" stroke="rgb(0,0,0)" />
+  <path d="M 572 50 L 616 50" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="623,50 616,46 616,54 623,50" stroke="rgb(0,0,0)" />
+  <path d="M 296 390 L 320 390" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 320 390 L 320 50" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 320 50 L 320 50" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="327,50 320,46 320,54 327,50" stroke="rgb(0,0,0)" />
+  <path d="M 480 50 L 496 50" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 50 L 496 200" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 200 L 524 200" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="531,200 524,196 524,204 531,200" stroke="rgb(0,0,0)" />
+  <path d="M 480 50 L 496 50" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 50 L 496 320" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 320 L 504 320" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="511,320 504,316 504,324 511,320" stroke="rgb(0,0,0)" />
+  <path d="M 480 50 L 524 50" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="531,50 524,46 524,54 531,50" stroke="rgb(0,0,0)" />
+  <path d="M 480 50 L 496 50" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 50 L 496 130" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 130 L 524 130" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="531,130 524,126 524,134 531,130" stroke="rgb(0,0,0)" />
+  <path d="M 480 50 L 496 50" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 50 L 496 260" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 496 260 L 524 260" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="531,260 524,256 524,264 531,260" stroke="rgb(0,0,0)" />
+  <path d="M 368 50 L 392 50" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="399,50 392,46 392,54 399,50" stroke="rgb(0,0,0)" />
+  <path d="M 572 130 L 616 130" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="623,130 616,126 616,134 623,130" stroke="rgb(0,0,0)" />
+  <path d="M 572 200 L 616 200" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="623,200 616,196 616,204 623,200" stroke="rgb(0,0,0)" />
+  <path d="M 572 260 L 616 260" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="623,260 616,256 616,264 623,260" stroke="rgb(0,0,0)" />
+  <path d="M 112 470 L 208 470" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 208 470 L 208 390" fill="none" stroke="rgb(0,0,0)" />
+  <path d="M 208 390 L 208 390" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="215,390 208,386 208,394 215,390" stroke="rgb(0,0,0)" />
+  <path d="M 592 320 L 616 320" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="623,320 616,316 616,324 623,320" stroke="rgb(0,0,0)" />
+</svg>
+</div>
+<p>File format converter will realize Neural Network Libraries (or
+Console) workflow with ONNX file format, and also NNabla C Runtime.</p>
+<p>File format converter has following functions.</p>
+<ul class="simple">
+<li>Convert NNP variations to valid NNP</li>
+<li>Convert ONNX to NNP</li>
+<li>Convert NNP to ONNX</li>
+<li>Convert NNP to NNB(Binary format for NNabla C Runtime)</li>
+<li>Convert NNP to Tensorflow frozen graph</li>
+<li>Convert Tensorflow checkpoint or frozen graph to NNP</li>
+<li>Experimental: Convert NNP to C Source code for NNabla C Runtime</li>
+</ul>
+<p><strong>IMPORTANT NOTICE</strong>: This file format converter still has some known problems.</p>
+<ul class="simple">
+<li>Supported ONNX operator is limited. See <a class="reference internal" href="onnx/operator_coverage.html"><span class="doc">ONNX Support Status Document</span></a>.</li>
+<li>Supported Tensorflow operator is limited. See <a class="reference internal" href="tensorflow/operator_coverage.html"><span class="doc">Tensorflow Support Status Document</span></a>.</li>
+<li>Converting NNP to C Source code is still experimental. It should work but did not tested well.</li>
+</ul>
+<div class="section" id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Permalink to this headline">¶</a></h3>
+<div><svg height="200" viewBox="0 0 640 200" width="640" xmlns="http://www.w3.org/2000/svg" xmlns:inkspace="http://www.inkscape.org/namespaces/inkscape" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <defs id="defs_block">
+    <filter height="1.504" id="filter_blur" inkspace:collect="always" width="1.1575" x="-0.07875" y="-0.252">
+      <feGaussianBlur id="feGaussianBlur3780" inkspace:collect="always" stdDeviation="4.2" />
+    </filter>
+  </defs>
+  <title>blockdiag</title>
+  <desc />
+  <rect fill="rgb(255,255,255)" height="140" style="filter:url(#filter_blur)" width="144" x="248" y="30" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="67" y="46" />
+  <rect fill="rgb(0,0,0)" height="40" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="128" x="451" y="46" />
+  <rect fill="rgb(0,0,0)" height="20" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" width="60" x="293" y="56" />
+  <path d="M 267 126 L 379 126 A8,8 0 0 1 387 134 L 387 158 A8,8 0 0 1 379 166 L 267 166 A8,8 0 0 1 259 158 L 259 134 A8,8 0 0 1 267 126" fill="rgb(0,0,0)" stroke="rgb(0,0,0)" style="filter:url(#filter_blur);opacity:0.7;fill-opacity:1" />
+  <rect fill="rgb(0,255,0)" height="40" stroke="rgb(0,0,0)" width="128" x="64" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="48" x="128" y="59">&lt;&lt;file&gt;&gt;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="128" y="72">INPUT</text>
+  <rect fill="rgb(0,255,0)" height="40" stroke="rgb(0,0,0)" width="128" x="448" y="40" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="48" x="512" y="59">&lt;&lt;file&gt;&gt;</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="36" x="512" y="72">OUTPUT</text>
+  <rect fill="rgb(0,255,255)" height="20" stroke="rgb(0,0,0)" width="60" x="290" y="50" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="30" x="320" y="66">proto</text>
+  <path d="M 264 120 L 376 120 A8,8 0 0 1 384 128 L 384 152 A8,8 0 0 1 376 160 L 264 160 A8,8 0 0 1 256 152 L 256 128 A8,8 0 0 1 264 120" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="42" x="320" y="139">Process</text>
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="126" x="320" y="152">(Split, Expand, etc.)</text>
+  <path d="M 192 60 L 282 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="289,60 282,56 282,64 289,60" stroke="rgb(0,0,0)" />
+  <path d="M 350 60 L 440 60" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="447,60 440,56 440,64 447,60" stroke="rgb(0,0,0)" />
+  <path d="M 320 78 L 320 112" fill="none" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="320,71 316,78 324,78 320,71" stroke="rgb(0,0,0)" />
+  <polygon fill="rgb(0,0,0)" points="320,119 316,112 324,112 320,119" stroke="rgb(0,0,0)" />
+  <rect fill="white" height="15" stroke="rgb(0,0,0)" width="52" x="198" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="36" x="224" y="51">import</text>
+  <rect fill="white" height="15" stroke="rgb(0,0,0)" width="52" x="390" y="38" />
+  <text fill="rgb(0,0,0)" font-family="sans-serif" font-size="11" font-style="normal" font-weight="normal" text-anchor="middle" textLength="36" x="416" y="51">export</text>
+</svg>
+</div>
+<p>This file format converter uses protobuf defined in Neural Network Libraries as intermediate format.</p>
+<p>While this is not a generic file format converter, this is the specified converter for Neural Network Libraries.</p>
+<p>This converter can specify both inputs and outputs for ONNX file, but if ONNX file contains a function unsupported by Neural Network Libraries, it may cause error in conversion.</p>
+<p>This converter also provides some intermediate process functionalities. See :ref:Process.</p>
+</div>
+<div class="section" id="conversion">
+<h3>Conversion<a class="headerlink" href="#conversion" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="supported-formats">
+<h4>Supported Formats<a class="headerlink" href="#supported-formats" title="Permalink to this headline">¶</a></h4>
+</div>
+<div class="section" id="nnp">
+<h4>NNP<a class="headerlink" href="#nnp" title="Permalink to this headline">¶</a></h4>
+<p><strong>NNP</strong> is file format of NNabla.</p>
+<p>NNP format is described at <a class="reference internal" href="../../format.html"><span class="doc">Data Format</span></a>.</p>
+<p>But with this file format converter is work with several variation of NNP.</p>
+<ul class="simple">
+<li>Standard NNP format (.nnp)</li>
+<li>Contents of NNP files(.nntxt, .prototxt, .h5, .protobuf)</li>
+</ul>
+</div>
+<div class="section" id="onnx">
+<h4>ONNX<a class="headerlink" href="#onnx" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="limitation">
+<h3>Limitation<a class="headerlink" href="#limitation" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>Training is not supported.</li>
+<li>Only supports operator set 6 and 9.</li>
+<li>Not all functions are supported. See <a class="reference internal" href="onnx/operator_coverage.html"><span class="doc">ONNX Support Status Document</span></a>.</li>
+<li>Only limited Neural Network Console projects supported.  See <a class="reference internal" href="onnx/neural_network_console_example_coverage.html"><span class="doc">Neural network console examples support status</span></a>.</li>
+<li>In some case you must install onnx package by hand. For example you can install with command <code class="xref any docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">onnx</span></code> or if you want to install system wide, you can install with command <code class="xref any docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">-HE</span> <span class="pre">pip</span> <span class="pre">install</span> <span class="pre">onnx</span></code>.</li>
+</ul>
+<div class="section" id="nnb">
+<h4>NNB<a class="headerlink" href="#nnb" title="Permalink to this headline">¶</a></h4>
+<p>NNB is compact binary format for NNabla C Runtime.
+It is designed for <a class="reference external" href="https://github.com/sony/nnabla-c-runtime">nnabla-c-runtime</a>.</p>
+</div>
+<div class="section" id="c-source-code">
+<h4>C Source Code<a class="headerlink" href="#c-source-code" title="Permalink to this headline">¶</a></h4>
+<p>File format converter supports C source code output for <a class="reference external" href="https://github.com/sony/nnabla-c-runtime">nnabla-c-runtime</a>.</p>
+</div>
+<div class="section" id="tensorflow">
+<h4>Tensorflow<a class="headerlink" href="#tensorflow" title="Permalink to this headline">¶</a></h4>
+<p>Through onnx, tensorflow import and export is partially supported.</p>
+<dl class="docutils">
+<dt>As for the importer, 3 formats tends to be supported:</dt>
+<dd><ul class="first last simple">
+<li>.pb, tensorflow frozen graph format</li>
+<li>.ckpt, tensorflow check point format version 1</li>
+<li>.ckpt.*, tensorflow check point format version 2</li>
+</ul>
+</dd>
+</dl>
+<p>As for the exporter, some of Neural Network Console projects are supported. See <a class="reference internal" href="tensorflow/neural_network_console_example_coverage.html"><span class="doc">Neural network console examples support status</span></a>.
+The output of converter is tensorflow frozen graph format(e.g. <a href="#id1"><span class="problematic" id="id2">*</span></a>.pb)</p>
+<p>Before using this converter, please confirm if tensorflow and related packages are installed:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ pip install -U tensorflow==1.5 onnx==1.4.1 onnx_tf
+$ pip install https://github.com/onnx/tensorflow-onnx.git
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="process">
+<h3>Process<a class="headerlink" href="#process" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="expand-repeat-and-recurrent">
+<h4>Expand Repeat and Recurrent<a class="headerlink" href="#expand-repeat-and-recurrent" title="Permalink to this headline">¶</a></h4>
+<p>Neural Network Console supports <code class="xref any docutils literal notranslate"><span class="pre">LoopControl</span></code> pseudo functions <a class="reference external" href="https://support.dl.sony.com/docs/layer_reference/#RepeatStart">RepeatStart</a>,  <a class="reference external" href="https://support.dl.sony.com/docs/layer_reference/#RepeatEnd">RepeatEnd</a>, <a class="reference external" href="https://support.dl.sony.com/docs/layer_reference/#RecurrentInput">RecurrentInput</a>, <a class="reference external" href="https://support.dl.sony.com/docs/layer_reference/#RecurrentOutput">RecurrentOutput</a> or <a class="reference external" href="https://support.dl.sony.com/docs/layer_reference/#Delay">Delay</a>.</p>
+<p>Currently, these functions are not supported by Neural Network Libraries directly.</p>
+<p>The file format converter expands the network and removes these pseudo functions by default.</p>
+<p>If you want to preserve these, specify command line option <code class="xref any docutils literal notranslate"><span class="pre">--nnp-no-expand-network</span></code> when converting files.</p>
+</div>
+<div class="section" id="split-network">
+<h4>Split network<a class="headerlink" href="#split-network" title="Permalink to this headline">¶</a></h4>
+<p>You can split network with <code class="xref any docutils literal notranslate"><span class="pre">--split</span></code> option.</p>
+<p>See <a class="reference internal" href="#splitting-network"><span class="std std-ref">Splitting network</span></a> to use this functionality.</p>
+</div>
+</div>
+</div>
+<div class="section" id="usage">
+<h2>Usage<a class="headerlink" href="#usage" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="nnp-operation">
+<h3>NNP Operation<a class="headerlink" href="#nnp-operation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="convert-nnp-to-nnp">
+<h4>Convert NNP to NNP<a class="headerlink" href="#convert-nnp-to-nnp" title="Permalink to this headline">¶</a></h4>
+<p>Sometimes we need convert NNP to NNP.</p>
+<p>Most major usecase, expand repeat or recurrent network supported by
+Neural Network Console but does not supported by C++ API.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert --nnp-no-expand-network input.nnp output.nnp
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-console-output-to-single-nnp-file">
+<h4>Convert console output to single NNP file<a class="headerlink" href="#convert-console-output-to-single-nnp-file" title="Permalink to this headline">¶</a></h4>
+<p>Current version of Neural Network Console outputs .nntxt and .h5 as
+training result.</p>
+<p>Then we need to convert separated files into single NNP and parameters
+store with protobuf format.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert net.nntxt parameters.h5 output.nnp
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-console-output-to-single-nnp-file-without-expanding-repeat-or-recurrent">
+<h4>Convert console output to single NNP file without expanding Repeat or recurrent.<a class="headerlink" href="#convert-console-output-to-single-nnp-file-without-expanding-repeat-or-recurrent" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert --nnp-no-expand-network net.nntxt parameters.h5 output.nnp
+</pre></div>
+</div>
+</div>
+<div class="section" id="keep-parameter-format-as-hdf5">
+<h4>Keep parameter format as hdf5<a class="headerlink" href="#keep-parameter-format-as-hdf5" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert --nnp-no-expand-network --nnp-parameter-h5 net.nntxt parameters.h5 output.nnp
+</pre></div>
+</div>
+</div>
+<div class="section" id="everything-into-single-nntxt">
+<h4>Everything into single nntxt.<a class="headerlink" href="#everything-into-single-nntxt" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert --nnp-parameter-nntxt net.nntxt parameters.h5 output.nntxt
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="onnx-operation">
+<h3>ONNX Operation<a class="headerlink" href="#onnx-operation" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="convert-nnp-to-onnx">
+<h4>Convert NNP to ONNX<a class="headerlink" href="#convert-nnp-to-onnx" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.nnp output.onnx
+</pre></div>
+</div>
+<p>If specify output onnx opset 9, please use the following (default is opset 6):</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.nnp output.onnx -d opset_9
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-onnx-to-nnp">
+<h4>Convert ONNX to NNP<a class="headerlink" href="#convert-onnx-to-nnp" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.onnx output.nnp
+</pre></div>
+</div>
+<p>Currently, only opset 6 or opset 9 are supported to import.</p>
+</div>
+</div>
+<div class="section" id="c-runtime-operation">
+<h3>C Runtime Operation<a class="headerlink" href="#c-runtime-operation" title="Permalink to this headline">¶</a></h3>
+<p>Generally, it is better to set the batch size to 1 when convert file to C runtime.
+If the batch size is larger than 1, it is necessary to process the batch size data collectively
+To make the batch size 1, add <code class="xref any docutils literal notranslate"><span class="pre">-b</span> <span class="pre">1</span></code> to command line option.</p>
+<div class="section" id="convert-nnp-to-nnb">
+<h4>Convert NNP to NNB<a class="headerlink" href="#convert-nnp-to-nnb" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert -b 1 input.nnp output.nnb
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-nnp-to-c-source-code">
+<h4>Convert NNP to C source code.<a class="headerlink" href="#convert-nnp-to-c-source-code" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert -b 1 -O CSRC input.onnx output-dir
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-nnp-to-tensorflow-frozen-graph">
+<h4>Convert NNP to Tensorflow frozen graph.<a class="headerlink" href="#convert-nnp-to-tensorflow-frozen-graph" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.nnp output.pb
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-tensorflow-frozen-graph-to-nnp">
+<h4>Convert Tensorflow frozen graph to NNP.<a class="headerlink" href="#convert-tensorflow-frozen-graph-to-nnp" title="Permalink to this headline">¶</a></h4>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.pb output.nnp
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-tensorflow-checkpoint-to-nnp">
+<h4>Convert Tensorflow checkpoint to NNP.<a class="headerlink" href="#convert-tensorflow-checkpoint-to-nnp" title="Permalink to this headline">¶</a></h4>
+<p>For checkpoint version 1:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.ckpt output.nnp --inputs x0,x1 --outputs y0,y1
+</pre></div>
+</div>
+<p>In the same directory of input.ckpt, the related files, such as checkpoint, input.ckpt.meta and so on are required
+to exist. The <a class="reference internal" href="../api/utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork.inputs" title="nnabla.utils.nnp_graph.NnpNetwork.inputs"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">inputs</span></code></a> required the input name of model, separated by comma. The <a class="reference internal" href="../api/utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork.outputs" title="nnabla.utils.nnp_graph.NnpNetwork.outputs"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">outputs</span></code></a> is same. In parsing checkpoint format, input and output needs to be provided.</p>
+<p>For checkpoint version 2:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert input.ckpt.meta output.nnp --inputs x0,x1 --outputs y0,y1
+</pre></div>
+</div>
+<p>In the same directory of input.ckpt.meta, the related files, such as checkpoint, <a href="#id3"><span class="problematic" id="id4">*</span></a>.ckpt.index, … and
+so on are required to exist.</p>
+</div>
+</div>
+<div class="section" id="splitting-network">
+<h3>Splitting network<a class="headerlink" href="#splitting-network" title="Permalink to this headline">¶</a></h3>
+<p>Splitting network is a bit complicated and can be troublesome.</p>
+<p>NNP file could have multiple Executor networks, but Split supports only single network to split.</p>
+<p>First, you must confirm how many Executors there are in the NNP, and specify what executor to split with <code class="xref any docutils literal notranslate"><span class="pre">nnabla_cli</span> <span class="pre">dump</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli dump squeezenet11.files/SqueezeNet-1.1/*.{nntxt,h5}
+2018-08-27 15:02:40,006 [nnabla][INFO]: Initializing CPU extension...
+Importing squeezenet11.files/SqueezeNet-1.1/net.nntxt
+Importing squeezenet11.files/SqueezeNet-1.1/parameters.h5
+ Expanding Training.
+ Expanding Top5Error.
+ Expanding Top1Error.
+ Expanding Runtime.
+  Optimizer[0]: Optimizer
+  Optimizer[0]:  (In) Data      variable[0]: Name:TrainingInput                  Shape:[-1, 3, 480, 480]
+  Optimizer[0]:  (In) Data      variable[1]: Name:SoftmaxCrossEntropy_T          Shape:[-1, 1]
+  Optimizer[0]:  (Out)Loss      variable[0]: Name:SoftmaxCrossEntropy            Shape:[-1, 1]
+  Monitor  [0]: train_error
+  Monitor  [0]:  (In) Data      variable[0]: Name:Input                          Shape:[-1, 3, 320, 320]
+  Monitor  [0]:  (In) Data      variable[1]: Name:Top5Error_T                    Shape:[-1, 1]
+  Monitor  [0]:  (Out)Monitor   variable[0]: Name:Top5Error                      Shape:[-1, 1]
+  Monitor  [1]: valid_error
+  Monitor  [1]:  (In) Data      variable[0]: Name:Input                          Shape:[-1, 3, 320, 320]
+  Monitor  [1]:  (In) Data      variable[1]: Name:Top1rror_T                     Shape:[-1, 1]
+  Monitor  [1]:  (Out)Monitor   variable[0]: Name:Top1rror                       Shape:[-1, 1]
+  Executor [0]: Executor
+  Executor [0]:  (In) Data      variable[0]: Name:Input                          Shape:[-1, 3, 320, 320]
+  Executor [0]:  (Out)Output    variable[0]: Name:y&#39;                             Shape:[-1, 1000]
+</pre></div>
+</div>
+<p>As above output now you know only 1 executor.</p>
+<p>Then you can show executor information with <code class="xref any docutils literal notranslate"><span class="pre">nnabla_cli</span> <span class="pre">dump</span> <span class="pre">-E0</span></code>.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli dump -E0 squeezenet11.files/SqueezeNet-1.1/*.{nntxt,h5}
+2018-08-27 15:03:26,547 [nnabla][INFO]: Initializing CPU extension...
+Importing squeezenet11.files/SqueezeNet-1.1/net.nntxt
+Importing squeezenet11.files/SqueezeNet-1.1/parameters.h5
+ Try to leave only executor[Executor].
+ Expanding Runtime.
+  Executor [0]: Executor
+  Executor [0]:  (In) Data      variable[0]: Name:Input                          Shape:[-1, 3, 320, 320]
+  Executor [0]:  (Out)Output    variable[0]: Name:y&#39;                             Shape:[-1, 1000]
+</pre></div>
+</div>
+<p>You can get list of function adding <code class="xref any docutils literal notranslate"><span class="pre">-F</span></code> option.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli dump -FE0 squeezenet11.files/SqueezeNet-1.1/*.{nntxt,h5}
+2018-08-27 15:04:10,954 [nnabla][INFO]: Initializing CPU extension...
+Importing squeezenet11.files/SqueezeNet-1.1/net.nntxt
+Importing squeezenet11.files/SqueezeNet-1.1/parameters.h5
+ Try to leave only executor[Executor].
+ Expanding Runtime.
+  Executor [0]: Executor
+  Executor [0]:  (In) Data      variable[0]: Name:Input                          Shape:[-1, 3, 320, 320]
+  Executor [0]:  (Out)Output    variable[0]: Name:y&#39;                             Shape:[-1, 1000]
+  Executor [0]:   Function[  0  ]: Type: Slice                Name: Slice
+  Executor [0]:   Function[  1  ]: Type: ImageAugmentation    Name: ImageAugmentation
+  Executor [0]:   Function[  2  ]: Type: MulScalar            Name: SqueezeNet/MulScalar
+  Executor [0]:   Function[  3  ]: Type: AddScalar            Name: SqueezeNet/AddScalar
+  Executor [0]:   Function[  4  ]: Type: Convolution          Name: SqueezeNet/Convolution
+  Executor [0]:   Function[  5  ]: Type: ReLU                 Name: SqueezeNet/ReLU
+  Executor [0]:   Function[  6  ]: Type: MaxPooling           Name: SqueezeNet/MaxPooling
+
+    SNIP...
+
+  Executor [0]:   Function[ 63  ]: Type: ReLU                 Name: SqueezeNet/FireModule_8/Expand1x1ReLU
+  Executor [0]:   Function[ 64  ]: Type: Concatenate          Name: SqueezeNet/FireModule_8/Concatenate
+  Executor [0]:   Function[ 65  ]: Type: Dropout              Name: SqueezeNet/Dropout
+  Executor [0]:   Function[ 66  ]: Type: Convolution          Name: SqueezeNet/Convolution_2
+  Executor [0]:   Function[ 67  ]: Type: ReLU                 Name: SqueezeNet/ReLU_2
+  Executor [0]:   Function[ 68  ]: Type: AveragePooling       Name: SqueezeNet/AveragePooling
+  Executor [0]:   Function[ 69  ]: Type: Reshape              Name: SqueezeNet/Reshape
+  Executor [0]:   Function[ 70  ]: Type: Identity             Name: y&#39;
+</pre></div>
+</div>
+<p>If you want to get network without Image Augmentation, according to above output, ImageAugmentation is placed on index 2.
+With splitting after index 3, you can get network without ImageAugmentation.
+You must specify <code class="xref any docutils literal notranslate"><span class="pre">-E0</span> <span class="pre">-S</span> <span class="pre">3-</span></code> option to <code class="xref any docutils literal notranslate"><span class="pre">nnabla_cli</span> <span class="pre">convert</span></code>
+This command rename output to <code class="xref any docutils literal notranslate"><span class="pre">XXX_S_E.nnp</span></code>, XXX is original name, S is start function index, and E is end function index.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert -E0 -S 3- squeezenet11.files/SqueezeNet-1.1/*.{nntxt,h5} splitted.nnp
+2018-08-27 15:20:21,950 [nnabla][INFO]: Initializing CPU extension...
+Importing squeezenet11.files/SqueezeNet-1.1/net.nntxt
+Importing squeezenet11.files/SqueezeNet-1.1/parameters.h5
+ Try to leave only executor[Executor].
+ Expanding Runtime.
+   Shrink 3 to 70.
+    Output to [splitted_3_70.nnp]
+</pre></div>
+</div>
+<p>Finally you got <code class="xref any docutils literal notranslate"><span class="pre">splitted_3_70.nnp</span></code> as splitted output.
+You can check splitted NNP with <code class="xref any docutils literal notranslate"><span class="pre">nnabla_cli</span> <span class="pre">dump</span></code></p>
+<p>NOTE: Input shape is changed from original network. New input shape is same as start function’s input.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli dump splitted_3_70.nnp
+2018-08-27 15:20:28,021 [nnabla][INFO]: Initializing CPU extension...
+Importing splitted_3_70.nnp
+ Expanding Runtime.
+  Executor [0]: Executor
+  Executor [0]:  (In) Data      variable[0]: Name:SqueezeNet/MulScalar           Shape:[-1, 3, 227, 227]
+  Executor [0]:  (Out)Output    variable[0]: Name:y&#39;                             Shape:[-1, 1000]
+</pre></div>
+</div>
+<p>Done.</p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../contributing.html" class="btn btn-neutral float-right" title="Contributing Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../format.html" class="btn btn-neutral float-left" title="Data Format" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
