@@ -1,0 +1,1529 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Experimental &mdash; Neural Network Libraries 1.0.19 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="C++ API" href="../../cpp.html" />
+    <link rel="prev" title="Object Detection Models" href="models/object_detection.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.19
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Experimental</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#dynamiclossscalingupdater">DynamicLossScalingUpdater</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simplegraph">SimpleGraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graphconverter">GraphConverter</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trainer">Trainer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#parametric-function-classes">Parametric Function Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+        
+      <li>Experimental</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/api/experimental.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="experimental">
+<h1>Experimental<a class="headerlink" href="#experimental" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="dynamiclossscalingupdater">
+<h2>DynamicLossScalingUpdater<a class="headerlink" href="#dynamiclossscalingupdater" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.mixed_precision_training.</code><code class="descname">DynamicLossScalingUpdater</code><span class="sig-paren">(</span><em>solver</em>, <em>loss</em>, <em>data_feeder=&lt;function &lt;lambda&gt;&gt;</em>, <em>scale=8.0</em>, <em>scaling_factor=2.0</em>, <em>N=2000</em>, <em>clear_buffer=True</em>, <em>accum_grad=1</em>, <em>weight_decay=None</em>, <em>comm=None</em>, <em>grads=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/mixed_precision_training.html#DynamicLossScalingUpdater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater" title="Permalink to this definition">¶</a></dt>
+<dd><p>Dynamic Loss Scaling Updater for the mixed precision training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solver</strong> (<a class="reference internal" href="solver.html#nnabla.solvers.Solver" title="nnabla.solvers.Solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.solvers.Solver</span></code></a>) – Solver object. E.g., Momentum or Adam.</li>
+<li><strong>loss</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – Loss variable from which the forward and the backward is called.</li>
+<li><strong>data_feeder</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, or lambda) – Data feeder</li>
+<li><strong>scale</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>) – Loss scale constant. This is dynamically changing during training.</li>
+<li><strong>scaling_factor</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>) – Scaling factor for the dynamic loss scaling.</li>
+<li><strong>N</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Interval, the number of iterations in training for increasing <code class="xref any docutils literal notranslate"><span class="pre">loss</span> <span class="pre">scale</span></code> by <a class="reference internal" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor" title="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">scaling_factor</span></code></a>.</li>
+<li><strong>clear_buffer</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Clears the no longer referenced variables during backpropagation to save memory.</li>
+<li><strong>accum_grad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of accumulation of gradients. Update method of the <a class="reference internal" href="solver.html"><span class="doc">Solvers</span></a> is called after the <a class="reference internal" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad" title="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">accum_grad</span></code></a> number of the forward and backward is called.</li>
+<li><strong>weight_decay</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a>) – Decay constant. Default is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#None" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>, not applying the weight decay.</li>
+<li><strong>comm</strong> (<a class="reference internal" href="communicator.html#nnabla.communicators.Communicator" title="nnabla.communicators.Communicator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.communicators.Communicator</span></code></a>) – Communicator when to do distributed training. Default is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#None" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</li>
+<li><strong>grads</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference internal" href="nd_array.html#nnabla._nd_array.NdArray" title="nnabla._nd_array.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla._nd_array.NdArray</span></code></a>) – The list of gradients to be exchanged when to do distributed training. Default is the empty <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.solver">
+<code class="descname">solver</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solver object. E.g., Momentum or Adam.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="solver.html#nnabla.solvers.Solver" title="nnabla.solvers.Solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.solvers.Solver</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.loss">
+<code class="descname">loss</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.loss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss variable from which the forward and the backward is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.data_feeder">
+<code class="descname">data_feeder</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.data_feeder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Data feeder</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body">callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scale">
+<code class="descname">scale</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scale" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loss scale constant. This is dynamically changing during training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor">
+<code class="descname">scaling_factor</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor" title="Permalink to this definition">¶</a></dt>
+<dd><p>Scaling factor for the dynamic loss scaling.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.N">
+<code class="descname">N</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.N" title="Permalink to this definition">¶</a></dt>
+<dd><p>Interval, the number of iterations in training for increasing <code class="xref any docutils literal notranslate"><span class="pre">loss</span> <span class="pre">scale</span></code> by <a class="reference internal" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor" title="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">scaling_factor</span></code></a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.clear_buffer">
+<code class="descname">clear_buffer</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.clear_buffer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clears the no longer referenced variables during backpropagation to save memory.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad">
+<code class="descname">accum_grad</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Number of accumulation of gradients. Update method of the <a class="reference internal" href="solver.html"><span class="doc">Solvers</span></a> is called after the <a class="reference internal" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad" title="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">accum_grad</span></code></a> number of the forward and backward is called.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.weight_decay">
+<code class="descname">weight_decay</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.weight_decay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Decay constant. Default is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#None" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">None</span></code></a>, not applying the weight decay.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">float</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.comm">
+<code class="descname">comm</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.comm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Communicator when to do distributed training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference internal" href="communicator.html#nnabla.communicators.Communicator" title="nnabla.communicators.Communicator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.communicators.Communicator</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.grads">
+<code class="descname">grads</code><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.grads" title="Permalink to this definition">¶</a></dt>
+<dd><p>The list of gradients to be exchanged when to do distributed training.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Type:</th><td class="field-body"><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference internal" href="nd_array.html#nnabla._nd_array.NdArray" title="nnabla._nd_array.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla._nd_array.NdArray</span></code></a></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<p class="rubric">Example</p>
+<p>Reference:</p>
+<blockquote>
+<div><a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/mixed-precision-training/index.html#scalefactor">https://docs.nvidia.com/deeplearning/sdk/mixed-precision-training/index.html#scalefactor</a></div></blockquote>
+<dl class="method">
+<dt id="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.update">
+<code class="descname">update</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/mixed_precision_training.html#DynamicLossScalingUpdater.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monolithic update method.</p>
+<p>This method calls the following methods with the dynamic loss scaling.</p>
+<ol class="arabic simple">
+<li>solver.zerograd</li>
+<li>feed data</li>
+<li>loss.forward</li>
+<li>loss.backward</li>
+<li>comm.all_reduce (if it is specified)</li>
+<li>solver.update</li>
+</ol>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="simplegraph">
+<h2>SimpleGraph<a class="headerlink" href="#simplegraph" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.experimental.viewers.SimpleGraph">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.viewers.</code><code class="descname">SimpleGraph</code><span class="sig-paren">(</span><em>format='png'</em>, <em>verbose=False</em>, <em>fname_color_map=None</em>, <em>vname_color_map=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/viewers.html#SimpleGraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.viewers.SimpleGraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Simple Graph with GraphViz.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="kn">as</span> <span class="nn">PF</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.viewers</span> <span class="kn">as</span> <span class="nn">V</span>
+
+<span class="c1"># Model definition</span>
+<span class="k">def</span> <span class="nf">network</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="bp">False</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">image</span>
+    <span class="n">h</span> <span class="o">/=</span> <span class="mf">255.0</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;conv&quot;</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;bn&quot;</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;fc&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pred</span>
+
+<span class="c1"># Model</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">])</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">network</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="c1"># Graph Viewer</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">V</span><span class="o">.</span><span class="n">SimpleGraph</span><span class="p">(</span><span class="n">verbose</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">view</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="s2">&quot;sample_grpah&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="nnabla.experimental.viewers.SimpleGraph.create_graphviz_digraph">
+<code class="descname">create_graphviz_digraph</code><span class="sig-paren">(</span><em>vleaf</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/viewers.html#SimpleGraph.create_graphviz_digraph"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.viewers.SimpleGraph.create_graphviz_digraph" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a <code class="xref py py-obj docutils literal notranslate"><span class="pre">graphviz.Digraph</span></code> object given the leaf variable of a
+computation graph.</p>
+<p>One of nice things of getting <code class="docutils literal notranslate"><span class="pre">Digraph</span></code> directly is that the drawn
+graph can be displayed inline in a Jupyter notebook as described in
+<a class="reference external" href="https://graphviz.readthedocs.io/en/stable/manual.html#jupyter-notebooks">Graphviz documentation</a>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vleaf</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – End variable. All variables and functions which can be
+traversed from this variable are shown in the reuslt.</li>
+<li><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Force overwrite <code class="docutils literal notranslate"><span class="pre">format</span></code> (<code class="docutils literal notranslate"><span class="pre">'pdf',</span> <span class="pre">'png',</span> <span class="pre">...)</span></code>) configuration.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>Returns: graphviz.Digraph</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="nnabla.experimental.viewers.SimpleGraph.save">
+<code class="descname">save</code><span class="sig-paren">(</span><em>vleaf</em>, <em>fpath</em>, <em>cleanup=False</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/viewers.html#SimpleGraph.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.viewers.SimpleGraph.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the graph to a given file path.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vleaf</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – End variable. All variables and functions which can be traversed from this variable are shown in the reuslt.</li>
+<li><strong>fpath</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a>) – The file path used to save.</li>
+<li><strong>cleanup</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">bool</span></code></a>) – Clean up the source file after rendering. Default is False.</li>
+<li><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Force overwrite <code class="docutils literal notranslate"><span class="pre">format</span></code> (<code class="docutils literal notranslate"><span class="pre">'pdf',</span> <span class="pre">'png',</span> <span class="pre">...)</span></code>) configuration.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="nnabla.experimental.viewers.SimpleGraph.view">
+<code class="descname">view</code><span class="sig-paren">(</span><em>vleaf</em>, <em>fpath=None</em>, <em>cleanup=True</em>, <em>format=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/viewers.html#SimpleGraph.view"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.viewers.SimpleGraph.view" title="Permalink to this definition">¶</a></dt>
+<dd><p>View the graph.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vleaf</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – End variable. All variables and functions which can be traversed from this variable are shown in the reuslt.</li>
+<li><strong>fpath</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">str</span></code></a>) – The file path used to save.</li>
+<li><strong>cleanup</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">bool</span></code></a>) – Clean up the source file after rendering. Default is True.</li>
+<li><strong>format</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Force overwrite <code class="docutils literal notranslate"><span class="pre">format</span></code> (<code class="docutils literal notranslate"><span class="pre">'pdf',</span> <span class="pre">'png',</span> <span class="pre">...)</span></code>) configuration.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="graphconverter">
+<h2>GraphConverter<a class="headerlink" href="#graphconverter" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.experimental.graph_converters.identity.IdentityConverter">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.graph_converters.identity.</code><code class="descname">IdentityConverter</code><span class="sig-paren">(</span><em>black_list=[]</em>, <em>params=None</em>, <em>name='identity'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/identity.html#IdentityConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.identity.IdentityConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>black_list</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Black list of the function list.</li>
+<li><strong>params</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code>) – Result of nn.get_parameters().</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the parameter scope.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nnabla.experimental.graph_converters.identity.IdentityConverter.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>vroot</em>, <em>entry_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/identity.html#IdentityConverter.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.identity.IdentityConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vroot</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – NNabla Variable</li>
+<li><strong>entry_variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – Entry variable from which the conversion starts.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.graph_converters.batch_normalization_linear.BatchNormalizationLinearConverter">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.graph_converters.batch_normalization_linear.</code><code class="descname">BatchNormalizationLinearConverter</code><span class="sig-paren">(</span><em>black_list=[]</em>, <em>params=None</em>, <em>name='bn-linear'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/batch_normalization_linear.html#BatchNormalizationLinearConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.batch_normalization_linear.BatchNormalizationLinearConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>The parameters of the batch normalization replaced simple scale and bias.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>black_list</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Black list of the function list.</li>
+<li><strong>params</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code>) – Result of nn.get_parameters().</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the parameter scope.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nnabla.experimental.graph_converters.batch_normalization_linear.BatchNormalizationLinearConverter.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>vroot</em>, <em>entry_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/batch_normalization_linear.html#BatchNormalizationLinearConverter.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.batch_normalization_linear.BatchNormalizationLinearConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vroot</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – NNabla Variable</li>
+<li><strong>entry_variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – Entry variable from which the conversion starts.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.graph_converters.batch_normalization_folded.BatchNormalizationFoldedConverter">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.graph_converters.batch_normalization_folded.</code><code class="descname">BatchNormalizationFoldedConverter</code><span class="sig-paren">(</span><em>black_list=[]</em>, <em>params=None</em>, <em>inner_prod_functions=None</em>, <em>name='bn-folded'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/batch_normalization_folded.html#BatchNormalizationFoldedConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.batch_normalization_folded.BatchNormalizationFoldedConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Single <code class="xref any docutils literal notranslate"><span class="pre">Convolution</span> <span class="pre">-&gt;</span> <span class="pre">BatchNormalization</span></code> pass is folded into one <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>.</p>
+<p>If there is a <code class="xref any docutils literal notranslate"><span class="pre">Convolution</span> <span class="pre">-&gt;</span> <span class="pre">BatchNormalization</span></code> pass, fold the batch normalization paramters to the kernel and bias (if it exists) of the preceeding convolution, then skip the batch normalization following the convolution.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>black_list</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Black list of the function list.</li>
+<li><strong>params</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code>) – Result of nn.get_parameters().</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the parameter scope.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nnabla.experimental.graph_converters.batch_normalization_folded.BatchNormalizationFoldedConverter.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>vroot</em>, <em>entry_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/batch_normalization_folded.html#BatchNormalizationFoldedConverter.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.batch_normalization_folded.BatchNormalizationFoldedConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vroot</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – NNabla Variable</li>
+<li><strong>entry_variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – Entry variable from which the conversion starts.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.graph_converters.fixed_point_weight.FixedPointWeightConverter">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.graph_converters.fixed_point_weight.</code><code class="descname">FixedPointWeightConverter</code><span class="sig-paren">(</span><em>black_list=[]</em>, <em>params=None</em>, <em>inner_prod_functions=None</em>, <em>call_forward=True</em>, <em>floor=False</em>, <em>args_fpq={'delta_b': 0.0002</em>, <em>'delta_w': 0.0002</em>, <em>'n_b': 8</em>, <em>'n_w': 8</em>, <em>'quantize_b': True</em>, <em>'quantize_w': True</em>, <em>'sign_b': True</em>, <em>'sign_w': True}</em>, <em>name='fixed-point-weight-graph'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/fixed_point_weight.html#FixedPointWeightConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.fixed_point_weight.FixedPointWeightConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions specified by <code class="xref any docutils literal notranslate"><span class="pre">inner_prod_functions</span></code> are replaced with the fixed-point counter-part. The other functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>black_list</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Black list of the function list.</li>
+<li><strong>params</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code>) – Result of nn.get_parameters().</li>
+<li><strong>inner_prod_functions</strong> (<em>list of function name</em>) – Function names to be replaced. Default is [“Affine”, “Convolution”, “Deconvolution”].</li>
+<li><strong>call_forward</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – Call forward function to obtain <code class="xref any docutils literal notranslate"><span class="pre">W_q</span></code>. Default is “True”, so ones do not need to call the forward function to synch quantized weights. Take care that if the network contains the batch normalization or like other normalization which computes running stats (e.g., a running mean and variance), these stats can not help being updated by this <code class="xref any docutils literal notranslate"><span class="pre">call_forward</span></code>. To avoid that, change the argument <code class="xref any docutils literal notranslate"><span class="pre">batch_stat</span></code> of the batch normalization layer to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#False" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a> when using this <code class="xref any docutils literal notranslate"><span class="pre">call_foward</span></code> option <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>.</li>
+<li><strong>floor</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>) – When computing the step size, it is coerced to be the power-of-2 by using either <span class="math notranslate nohighlight">\(2^ceil(log_2(abs(W)_max / (2^n - 1)))\)</span> or <span class="math notranslate nohighlight">\(2^floor(log_2(abs(W)_max / (2^n - 1)))\)</span>. Default is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#False" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>.</li>
+<li><strong>args_fpq</strong> (<a class="reference external" href="https://docs.python.org/3.6/reference/expressions.html#dict" title="(in Python v3.6)"><code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a>) – Argument into F.quantize. Default is <code class="xref any docutils literal notranslate"><span class="pre">{&quot;sign_w&quot;:</span> <span class="pre">True,</span> <span class="pre">&quot;n_w&quot;:</span> <span class="pre">8,</span> <span class="pre">&quot;delta_w&quot;:</span> <span class="pre">2e-4,</span> <span class="pre">&quot;quantize_w&quot;:</span> <span class="pre">True,</span> <span class="pre">&quot;sign_b&quot;:</span> <span class="pre">True,</span> <span class="pre">&quot;n_b&quot;:</span> <span class="pre">8,</span> <span class="pre">&quot;delta_b&quot;:</span> <span class="pre">2e-4,</span> <span class="pre">&quot;quantize_b&quot;:</span> <span class="pre">True}</span></code></li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the parameter scope.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nnabla.experimental.graph_converters.fixed_point_weight.FixedPointWeightConverter.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>vroot</em>, <em>entry_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/fixed_point_weight.html#FixedPointWeightConverter.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.fixed_point_weight.FixedPointWeightConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vroot</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – NNabla Variable</li>
+<li><strong>entry_variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – Entry variable from which the conversion starts.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.graph_converters.fixed_point_activation.FixedPointActivationConverter">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.graph_converters.fixed_point_activation.</code><code class="descname">FixedPointActivationConverter</code><span class="sig-paren">(</span><em>black_list=[]</em>, <em>params=None</em>, <em>activation_functions=None</em>, <em>args_fpq={'delta': 0.0002</em>, <em>'n': 8</em>, <em>'quantize': True</em>, <em>'sign': False}</em>, <em>name='fixed-point-activation-graph'</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/fixed_point_activation.html#FixedPointActivationConverter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.fixed_point_activation.FixedPointActivationConverter" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions specified by <code class="xref any docutils literal notranslate"><span class="pre">activation_functions</span></code> are replaced with the fixed-point quantization function. The other functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>black_list</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Black list of the function list.</li>
+<li><strong>params</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">OrderedDict</span></code>) – Result of nn.get_parameters().</li>
+<li><strong>activation_functions</strong> (<em>list of function name</em>) – Function names to be replaced. Default is [“ReLU”].</li>
+<li><strong>args_fpq</strong> (<a class="reference external" href="https://docs.python.org/3.6/reference/expressions.html#dict" title="(in Python v3.6)"><code class="docutils literal notranslate"><span class="pre">Dictionary</span> <span class="pre">displays</span></code></a>) – Argument into F.quantize. Default is <code class="xref any docutils literal notranslate"><span class="pre">{&quot;sign&quot;:</span> <span class="pre">True,</span> <span class="pre">&quot;n&quot;:</span> <span class="pre">8,</span> <span class="pre">&quot;delta&quot;:</span> <span class="pre">2e-4,</span> <span class="pre">&quot;quantize&quot;:</span> <span class="pre">True}</span></code>.</li>
+<li><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the parameter scope.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="method">
+<dt id="nnabla.experimental.graph_converters.fixed_point_activation.FixedPointActivationConverter.convert">
+<code class="descname">convert</code><span class="sig-paren">(</span><em>vroot</em>, <em>entry_variables</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/graph_converters/fixed_point_activation.html#FixedPointActivationConverter.convert"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.fixed_point_activation.FixedPointActivationConverter.convert" title="Permalink to this definition">¶</a></dt>
+<dd><p>All functions are replaced with the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vroot</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – NNabla Variable</li>
+<li><strong>entry_variables</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – Entry variable from which the conversion starts.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="trainer">
+<h2>Trainer<a class="headerlink" href="#trainer" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.experimental.trainers.Trainer">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.trainers.</code><code class="descname">Trainer</code><span class="sig-paren">(</span><em>updater=None</em>, <em>evaluator=None</em>, <em>model_save_path=None</em>, <em>max_epoch=1</em>, <em>iter_per_epoch=None</em>, <em>callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em>, <em>update_callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>update_callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/trainers/trainer.html#Trainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.trainers.Trainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trainer API</p>
+<p>Trainer class is the very basic class for training neural network. You can composite this class to your own trainer class and delegate the train method of this class to your class.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>updater</strong> (<a class="reference internal" href="#nnabla.experimental.trainers.Updater" title="nnabla.experimental.trainers.Updater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Updater</span></code></a> or list of <a class="reference internal" href="#nnabla.experimental.trainers.Updater" title="nnabla.experimental.trainers.Updater"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Updater</span></code></a>) – Updater object.</li>
+<li><strong>evaluator</strong> (<a class="reference internal" href="#nnabla.experimental.trainers.Evaluator" title="nnabla.experimental.trainers.Evaluator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Evaluator</span></code></a> or list of <a class="reference internal" href="#nnabla.experimental.trainers.Evaluator" title="nnabla.experimental.trainers.Evaluator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Evaluator</span></code></a>) – Evaluator object.</li>
+<li><strong>model_save_path</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Model save path.</li>
+<li><strong>max_epoch</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Max epoch to train.</li>
+<li><strong>iter_per_epoch</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Iterations per one epoch.</li>
+<li><strong>callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before the trainer.train.</li>
+<li><strong>callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after the trainer.train.</li>
+<li><strong>update_callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before the updater.update.</li>
+<li><strong>update_callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after the updater.update.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The following example is a complete snippet to use this base trainer.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="kn">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="kn">as</span> <span class="nn">S</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.monitor</span> <span class="kn">import</span> <span class="n">Monitor</span><span class="p">,</span> <span class="n">MonitorSeries</span><span class="p">,</span> <span class="n">MonitorTimeElapsed</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.experimental.trainers</span> <span class="kn">import</span> <span class="n">Trainer</span><span class="p">,</span> <span class="n">Updater</span><span class="p">,</span> <span class="n">Evaluator</span>
+
+<span class="c1"># Batch, channel, height, width</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span>
+
+<span class="c1"># Train Input</span>
+<span class="n">tinput</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+<span class="n">tlabel</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># Train Model and Loss</span>
+<span class="n">tpred</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">training</span> <span class="n">model</span><span class="o">&gt;.</span><span class="n">apply</span><span class="p">(</span><span class="n">persistent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tloss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">tpred</span><span class="p">,</span> <span class="n">tlabel</span><span class="p">))</span>
+
+<span class="c1"># Test Input</span>
+<span class="n">vinput</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+<span class="n">vlabel</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># Test Model and Error</span>
+<span class="n">vpred</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">evaluation</span> <span class="n">model</span><span class="o">&gt;.</span><span class="n">apply</span><span class="p">(</span><span class="n">persistent</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">vloss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">vpred</span><span class="p">,</span> <span class="n">vlabel</span><span class="p">))</span>
+<span class="n">verror</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">top_n_error</span><span class="p">(</span><span class="n">vpred</span><span class="o">.</span><span class="n">get_unlinked_variable</span><span class="p">(),</span> <span class="n">vlabel</span><span class="p">))</span>
+
+<span class="c1"># Solver</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+
+<span class="c1"># DataIterator</span>
+<span class="n">tdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">training_data_iterator</span><span class="o">&gt;</span>
+<span class="n">vdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">validation_data_iterator</span><span class="o">&gt;</span>
+
+<span class="c1"># Monitor</span>
+<span class="n">monitor</span> <span class="o">=</span> <span class="n">Monitor</span><span class="p">(</span><span class="o">&lt;</span><span class="n">monitor_path</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">monitor_loss</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Training loss&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">monitor_err</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Training error&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="n">monitor_time</span> <span class="o">=</span> <span class="n">MonitorTimeElapsed</span><span class="p">(</span><span class="s2">&quot;Training time&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+<span class="n">monitor_verr</span> <span class="o">=</span> <span class="n">MonitorSeries</span><span class="p">(</span><span class="s2">&quot;Valid error&quot;</span><span class="p">,</span> <span class="n">monitor</span><span class="p">,</span> <span class="n">interval</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+<span class="c1"># Updater</span>
+<span class="k">def</span> <span class="nf">tdata_feeder</span><span class="p">():</span>
+    <span class="n">tinput</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">tlabel</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">tdata</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">update_callback_on_finish</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="n">monitor_loss</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">tloss</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+    <span class="n">monitor_time</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+<span class="n">updater</span> <span class="o">=</span> <span class="n">Updater</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">tloss</span><span class="p">,</span>
+                  <span class="n">data_feeder</span><span class="o">=</span><span class="n">tdata_feeder</span><span class="p">,</span>
+                  <span class="n">update_callback_on_finish</span><span class="o">=</span><span class="n">update_callback_on_finish</span><span class="p">)</span>
+
+<span class="c1"># Evaluator</span>
+<span class="k">def</span> <span class="nf">vdata_feeder</span><span class="p">():</span>
+    <span class="n">vinput</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">vlabel</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">vdata</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="k">def</span> <span class="nf">eval_callback_on_finish</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ve</span><span class="p">):</span>
+    <span class="n">monitor_verr</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ve</span><span class="p">)</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">Evaluator</span><span class="p">(</span><span class="n">verror</span><span class="p">,</span>
+                      <span class="n">data_feeder</span><span class="o">=</span><span class="n">vdata_feeder</span><span class="p">,</span>
+                      <span class="n">val_iter</span><span class="o">=</span><span class="n">vdata</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">b</span><span class="p">,</span>
+                      <span class="n">callback_on_finish</span><span class="o">=</span><span class="n">eval_callback_on_finish</span><span class="p">)</span>
+
+<span class="c1"># Trainer</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">Trainer</span><span class="p">(</span><span class="n">updater</span><span class="p">,</span> <span class="n">evaluator</span><span class="p">,</span> <span class="o">&lt;</span><span class="n">model_save_path</span><span class="o">&gt;</span><span class="p">,</span>
+                  <span class="n">max_epoch</span><span class="o">=&lt;</span><span class="n">max_epoch</span><span class="o">&gt;</span><span class="p">,</span> <span class="n">iter_per_epoch</span><span class="o">=</span><span class="n">tdata</span><span class="o">.</span><span class="n">size</span> <span class="o">//</span> <span class="n">b</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.trainers.NaiveClassificationTrainer">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.trainers.</code><code class="descname">NaiveClassificationTrainer</code><span class="sig-paren">(</span><em>solver</em>, <em>tinput=None</em>, <em>tlabel=None</em>, <em>tpred=None</em>, <em>tdata=None</em>, <em>vinput=None</em>, <em>vlabel=None</em>, <em>vpred=None</em>, <em>vdata=None</em>, <em>monitor_path=None</em>, <em>model_save_path=None</em>, <em>max_epoch=1</em>, <em>iter_per_epoch=None</em>, <em>val_iter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/trainers/trainer.html#NaiveClassificationTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.trainers.NaiveClassificationTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Naive Classification Trainer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solver</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Solver</span></code>) – Solver object.</li>
+<li><strong>tinput</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Input variable for input feature in training.</li>
+<li><strong>tlabel</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Label variable for lable in training.</li>
+<li><strong>tpred</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Root variable for prediction in the training graph.</li>
+<li><strong>tdata</strong> (<a class="reference internal" href="utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.data_iterator.DataIterator</span></code></a>) – DataIterator for training.</li>
+<li><strong>vinput</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Input variable for input feature in evaluation.</li>
+<li><strong>vlabel</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Label variable for label in evaluation.</li>
+<li><strong>vpred</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Root variable for prediction in the evaluation graph.</li>
+<li><strong>vdata</strong> (<a class="reference internal" href="utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataIterator</span></code></a>) – DataIterator for evaluation.</li>
+<li><strong>monitor_path</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Monitor path.</li>
+<li><strong>model_save_path</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Model save path.</li>
+<li><strong>max_epoch</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Max epoch to train.</li>
+<li><strong>iter_per_epoch</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Iterations per one epoch. If not set, this value are determined by <code class="xref any docutils literal notranslate"><span class="pre">tdata.size</span> <span class="pre">//</span> <span class="pre">tdata.batch_size</span></code>.</li>
+<li><strong>val_iter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Iterations for evaluation. If not set, this value are determined by <code class="xref any docutils literal notranslate"><span class="pre">vdata.size</span> <span class="pre">//</span> <span class="pre">vdata.batch_size</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The following example is a complete snippet to use this base trainer.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="kn">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="kn">as</span> <span class="nn">S</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.experimental.trainers</span> <span class="kn">import</span> <span class="n">NaiveClassificationTrainer</span>
+
+<span class="c1"># Batch, channel, height, width</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span>
+
+<span class="c1"># Train Input</span>
+<span class="n">tinput</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+<span class="n">tlabel</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># Train Model and Loss</span>
+<span class="n">tpred</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">training</span> <span class="n">model</span><span class="o">&gt;</span>
+
+<span class="c1"># Test Input</span>
+<span class="n">vinput</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># Test Model</span>
+<span class="n">vpred</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">evaluation</span> <span class="n">model</span><span class="o">&gt;</span>
+
+<span class="c1"># Solver</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+
+<span class="c1"># DataIterator</span>
+<span class="n">tdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">training_data_iterator</span><span class="o">&gt;</span>
+<span class="n">vdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">validation_data_iterator</span><span class="o">&gt;</span>
+
+<span class="c1"># Trainer</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">NaiveClassificationTrainer</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span>
+                                     <span class="n">tinput</span><span class="p">,</span> <span class="n">tlabel</span><span class="p">,</span> <span class="n">tpred</span><span class="p">,</span> <span class="n">tdata</span><span class="p">,</span>
+                                     <span class="n">vinput</span><span class="p">,</span> <span class="n">vlabel</span><span class="p">,</span> <span class="n">vpred</span><span class="p">,</span> <span class="n">vdata</span><span class="p">,</span>
+                                     <span class="o">&lt;</span><span class="n">monitor_path</span><span class="o">&gt;</span><span class="p">,</span>
+                                     <span class="o">&lt;</span><span class="n">model_save_path</span><span class="o">&gt;</span><span class="p">,</span>
+                                     <span class="n">max_epoch</span><span class="o">=&lt;</span><span class="n">max_epoch</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.trainers.NaiveRegressionTrainer">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.trainers.</code><code class="descname">NaiveRegressionTrainer</code><span class="sig-paren">(</span><em>solver</em>, <em>tinput=None</em>, <em>tlabel=None</em>, <em>tpred=None</em>, <em>tdata=None</em>, <em>vinput=None</em>, <em>vlabel=None</em>, <em>vpred=None</em>, <em>vdata=None</em>, <em>monitor_path=None</em>, <em>model_save_path=None</em>, <em>max_epoch=1</em>, <em>iter_per_epoch=None</em>, <em>val_iter=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/trainers/trainer.html#NaiveRegressionTrainer"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.trainers.NaiveRegressionTrainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Naive Regression Trainer</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solver</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">Solver</span></code>) – Solver object.</li>
+<li><strong>tinput</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Input variable for input feature in training.</li>
+<li><strong>tlabel</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Label variable for lable in training.</li>
+<li><strong>tpred</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Root variable for prediction in the training graph.</li>
+<li><strong>tdata</strong> (<a class="reference internal" href="utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.data_iterator.DataIterator</span></code></a>) – DataIterator for training.</li>
+<li><strong>vinput</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Input variable for input feature in evaluation.</li>
+<li><strong>vlabel</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Label variable for label in evaluation.</li>
+<li><strong>vpred</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Root variable for prediction in the evaluation graph.</li>
+<li><strong>vdata</strong> (<a class="reference internal" href="utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator" title="nnabla.utils.data_iterator.DataIterator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">DataIterator</span></code></a>) – DataIterator for evaluation.</li>
+<li><strong>monitor_path</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Monitor path.</li>
+<li><strong>model_save_path</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Model save path.</li>
+<li><strong>max_epoch</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Max epoch to train.</li>
+<li><strong>iter_per_epoch</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Iterations per one epoch. If not set, this value are determined by <code class="xref any docutils literal notranslate"><span class="pre">tdata.size</span> <span class="pre">//</span> <span class="pre">tdata.batch_size</span></code>.</li>
+<li><strong>val_iter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Iterations for evaluation. If not set, this value are determined by <code class="xref any docutils literal notranslate"><span class="pre">vdata.size</span> <span class="pre">//</span> <span class="pre">vdata.batch_size</span></code>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="kn">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="kn">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="kn">as</span> <span class="nn">S</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.experimental.trainers</span> <span class="kn">import</span> <span class="n">NaiveRegressionTrainer</span>
+
+<span class="c1"># Batch, channel, height, width</span>
+<span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">128</span><span class="p">,</span> <span class="mi">128</span>
+
+<span class="c1"># Train Input</span>
+<span class="n">tinput</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+<span class="n">tlabel</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># Train Model and Loss</span>
+<span class="n">tpred</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">training</span> <span class="n">model</span><span class="o">&gt;</span>
+
+<span class="c1"># Test Input</span>
+<span class="n">vinput</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+<span class="n">vlabel</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">])</span>
+
+<span class="c1"># Test Model</span>
+<span class="n">vpred</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">evaluation</span> <span class="n">model</span><span class="o">&gt;</span>
+
+<span class="c1"># Solver</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Adam</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+
+<span class="c1"># DataIterator</span>
+<span class="n">tdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">training_data_iterator</span><span class="o">&gt;</span>
+<span class="n">vdata</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">validation_data_iterator</span><span class="o">&gt;</span>
+
+<span class="c1"># Trainer</span>
+<span class="n">trainer</span> <span class="o">=</span> <span class="n">NaiveRegressionTrainer</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span>
+                                 <span class="n">tinput</span><span class="p">,</span> <span class="n">tlabel</span><span class="p">,</span> <span class="n">tpred</span><span class="p">,</span> <span class="n">tdata</span><span class="p">,</span>
+                                 <span class="n">vinput</span><span class="p">,</span> <span class="n">vlabel</span><span class="p">,</span> <span class="n">vpred</span><span class="p">,</span> <span class="n">vdata</span><span class="p">,</span>
+                                 <span class="o">&lt;</span><span class="n">monitor_path</span><span class="o">&gt;</span><span class="p">,</span>
+                                 <span class="o">&lt;</span><span class="n">model_save_path</span><span class="o">&gt;</span><span class="p">,</span>
+                                 <span class="n">max_epoch</span><span class="o">=&lt;</span><span class="n">max_epoch</span><span class="o">&gt;</span><span class="p">)</span>
+<span class="n">trainer</span><span class="o">.</span><span class="n">train</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.trainers.Updater">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.trainers.</code><code class="descname">Updater</code><span class="sig-paren">(</span><em>solver=None</em>, <em>loss=None</em>, <em>data_feeder=&lt;function &lt;lambda&gt;&gt;</em>, <em>forward_callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>forward_callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em>, <em>backward_callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>backward_callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em>, <em>comm_callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>comm_callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em>, <em>update_callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>update_callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em>, <em>clear_buffer=True</em>, <em>accum_grad=1</em>, <em>comm=None</em>, <em>grads=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/trainers/updater.html#Updater"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.trainers.Updater" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>solver</strong> (<a class="reference internal" href="solver.html#nnabla.solvers.Solver" title="nnabla.solvers.Solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.solvers.Solver</span></code></a>) – Solver object. E.g., Momentum or Adam.</li>
+<li><strong>loss</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – Loss variable from which the forward and the backward is called.</li>
+<li><strong>data_feeder</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, or lambda) – Data feeder.</li>
+<li><strong>forward_callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before forward function.</li>
+<li><strong>forward_callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after forward function.</li>
+<li><strong>backward_callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before backward function.</li>
+<li><strong>backward_callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after backward function.</li>
+<li><strong>comm_callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before comm.all_reduce.</li>
+<li><strong>comm_callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after comm.all_reduce.</li>
+<li><strong>update_callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before update function.</li>
+<li><strong>update_callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after update function.</li>
+<li><strong>clear_buffer</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>, optional) – Clears the no longer referenced variables during backpropagation to save memory.</li>
+<li><strong>accum_grad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Number of accumulation of gradients. Update method of the <a class="reference internal" href="solver.html"><span class="doc">Solvers</span></a> is called after the <a class="reference internal" href="#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad" title="nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">accum_grad</span></code></a> number of the forward and backward is called. Default is 1.</li>
+<li><strong>comm</strong> (<a class="reference internal" href="communicator.html#nnabla.communicators.Communicator" title="nnabla.communicators.Communicator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.communicators.Communicator</span></code></a>, optional) – Communicator when to do distributed training. Default is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#None" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</li>
+<li><strong>grads</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a> of <a class="reference internal" href="nd_array.html#nnabla._nd_array.NdArray" title="nnabla._nd_array.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla._nd_array.NdArray</span></code></a>, optional) – The list of gradients to be exchanged when to do distributed training. Default is the empty <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">list</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.experimental.trainers</span> <span class="kn">import</span> <span class="n">Updater</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Solver</span><span class="o">&gt;</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Loss</span> <span class="n">Variable</span> <span class="n">of</span> <span class="n">Network</span><span class="o">&gt;</span>
+
+<span class="k">def</span> <span class="nf">tdata_feeder</span><span class="p">():</span>
+    <span class="o">...</span>
+<span class="k">def</span> <span class="nf">update_callback_on_finish</span><span class="p">(</span><span class="n">i</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="n">updater</span> <span class="o">=</span> <span class="n">Updater</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">tdata_feeder</span><span class="p">,</span> <span class="n">updater_callback_on_finish</span><span class="p">)</span>
+
+<span class="c1"># Training iteration</span>
+<span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="o">&lt;</span><span class="n">max_iter</span><span class="o">&gt;</span><span class="p">):</span>
+    <span class="n">updater</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="method">
+<dt id="nnabla.experimental.trainers.Updater.update">
+<code class="descname">update</code><span class="sig-paren">(</span><em>i</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/trainers/updater.html#Updater.update"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.trainers.Updater.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>Monolithic update method.</p>
+<p>This method calls the following methods with the dynamic loss scaling.</p>
+<ol class="arabic simple">
+<li>solver.zerograd</li>
+<li>feed data</li>
+<li>loss.forward</li>
+<li>loss.backward</li>
+<li>comm.all_reduce (if it is specified)</li>
+<li>solver.update</li>
+</ol>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.trainers.Evaluator">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.trainers.</code><code class="descname">Evaluator</code><span class="sig-paren">(</span><em>vroot=None</em>, <em>data_feeder=None</em>, <em>val_iter=None</em>, <em>callback_on_start=&lt;function &lt;lambda&gt;&gt;</em>, <em>callback_on_finish=&lt;function &lt;lambda&gt;&gt;</em>, <em>clear_buffer=True</em>, <em>comm=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/trainers/evaluator.html#Evaluator"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.trainers.Evaluator" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>vroot</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a>) – Root varible of the evaluation graph.</li>
+<li><strong>data_feeder</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, or lambda) – Data feeder.</li>
+<li><strong>val_iter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – Iterations for evaluation.</li>
+<li><strong>callback_on_start</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called before the evaluator.evalute.</li>
+<li><strong>callback_on_finish</strong> (callable <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">object</span></code></a>, function, lambda, or list of these, optional) – Callback called after the evaluator.evalute.</li>
+<li><strong>clear_buffer</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">bool</span></code></a>, optional) – Clears the no longer referenced variables during backpropagation to save memory.</li>
+<li><strong>comm</strong> (<a class="reference internal" href="communicator.html#nnabla.communicators.Communicator" title="nnabla.communicators.Communicator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.communicators.Communicator</span></code></a>, optional) – Communicator when to do distributed training. Default is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#None" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></a>.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.experimental.trainers</span> <span class="kn">import</span> <span class="n">Evaluator</span>
+
+<span class="c1"># Evaluator</span>
+<span class="k">def</span> <span class="nf">vdata_feeder</span><span class="p">():</span>
+    <span class="o">...</span>
+<span class="k">def</span> <span class="nf">eval_callback_on_finish</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">ve</span><span class="p">):</span>
+    <span class="o">...</span>
+<span class="n">evaluator</span> <span class="o">=</span> <span class="n">Evaluator</span><span class="p">(</span><span class="n">verror</span><span class="p">,</span>
+                      <span class="n">data_feeder</span><span class="o">=</span><span class="n">vdata_feeder</span><span class="p">,</span>
+                      <span class="n">val_iter</span><span class="o">=&lt;</span><span class="n">val_iter</span><span class="o">&gt;</span><span class="p">,</span>
+                      <span class="n">callback_on_finish</span><span class="o">=</span><span class="n">eval_callback_on_finish</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="parametric-function-classes">
+<h2>Parametric Function Classes<a class="headerlink" href="#parametric-function-classes" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.affine.Affine">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.affine.</code><code class="descname">Affine</code><span class="sig-paren">(</span><em>n_inmaps</em>, <em>n_outmaps</em>, <em>base_axis=1</em>, <em>w_init=None</em>, <em>b_init=None</em>, <em>fix_parameters=False</em>, <em>rng=None</em>, <em>with_bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/affine.html#Affine"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.affine.Affine" title="Permalink to this definition">¶</a></dt>
+<dd><p>The affine layer, also known as the fully connected layer. Computes</p>
+<div class="math notranslate nohighlight">
+\[{\mathbf y} = {\mathbf A} {\mathbf x} + {\mathbf b}.\]</div>
+<p>where <span class="math notranslate nohighlight">\({\mathbf x}, {\mathbf y}\)</span> are the inputs and outputs respectively,
+and <span class="math notranslate nohighlight">\({\mathbf A}, {\mathbf b}\)</span> are constants.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – Input N-D array with shape (<span class="math notranslate nohighlight">\(M_0 \times \ldots \times M_{B-1} \times D_B \times \ldots \times D_N\)</span>). Dimensions before and after base_axis are flattened as if it is a matrix.</li>
+<li><strong>n_outmaps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a> or <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Number of output neurons per data.</li>
+<li><strong>base_axis</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Dimensions up to <code class="xref any docutils literal notranslate"><span class="pre">base_axis</span></code> are treated as the sample dimensions.</li>
+<li><strong>w_init</strong> (<a class="reference internal" href="parametric_function.html#nnabla.initializer.BaseInitializer" title="nnabla.initializer.BaseInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.BaseInitializer</span></code></a> or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Initializer for weight. By default, it is initialized with <a class="reference internal" href="parametric_function.html#nnabla.initializer.UniformInitializer" title="nnabla.initializer.UniformInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.UniformInitializer</span></code></a> within the range determined by <a class="reference internal" href="parametric_function.html#nnabla.initializer.calc_uniform_lim_glorot" title="nnabla.initializer.calc_uniform_lim_glorot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.calc_uniform_lim_glorot</span></code></a>.</li>
+<li><strong>b_init</strong> (<a class="reference internal" href="parametric_function.html#nnabla.initializer.BaseInitializer" title="nnabla.initializer.BaseInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.BaseInitializer</span></code></a> or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Initializer for bias. By default, it is initialized with zeros if <code class="xref any docutils literal notranslate"><span class="pre">with_bias</span></code> is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the weights and biases will not be updated.</li>
+<li><strong>rng</strong> (<em>numpy.random.RandomState</em>) – Random generator for Initializer.</li>
+<li><strong>with_bias</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Specify whether to include the bias term.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first"><span class="math notranslate nohighlight">\((B + 1)\)</span>-D array. (<span class="math notranslate nohighlight">\(M_0 \times \ldots \times M_{B-1} \times L\)</span>)f</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.affine.Linear">
+<code class="descclassname">nnabla.experimental.parametric_function_class.affine.</code><code class="descname">Linear</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.affine.Linear" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.affine.Affine" title="nnabla.experimental.parametric_function_class.affine.Affine"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.affine.Affine</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.convolution.Convolution">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.convolution.</code><code class="descname">Convolution</code><span class="sig-paren">(</span><em>inmaps</em>, <em>outmaps</em>, <em>kernel</em>, <em>pad=None</em>, <em>stride=None</em>, <em>dilation=None</em>, <em>group=1</em>, <em>w_init=None</em>, <em>b_init=None</em>, <em>base_axis=1</em>, <em>fix_parameters=False</em>, <em>rng=None</em>, <em>with_bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/convolution.html#Convolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.convolution.Convolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>N-D Convolution with a bias term.</p>
+<p>For Dilated Convolution (a.k.a. Atrous Convolution), refer to:</p>
+<ul class="simple">
+<li>Chen et al., DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs. <a class="reference external" href="https://arxiv.org/abs/1606.00915">https://arxiv.org/abs/1606.00915</a></li>
+<li>Yu et al., Multi-Scale Context Aggregation by Dilated Convolutions. <a class="reference external" href="https://arxiv.org/abs/1511.07122">https://arxiv.org/abs/1511.07122</a></li>
+</ul>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Convolution is a computationally intensive operation that
+should preferrably be run with the <code class="xref any docutils literal notranslate"><span class="pre">cudnn</span></code> backend. NNabla
+then uses CuDNN library functions to determine and cache the
+fastest algorithm for the given set of convolution parameters,
+which results in additional memory consumption which may pose
+a problem for GPUs with insufficient memory size. In that
+case, the <code class="xref any docutils literal notranslate"><span class="pre">NNABLA_CUDNN_WORKSPACE_LIMIT</span></code> environment variable
+can be used to restrict the choice of algorithms to those that
+fit the given workspace memory limit, expressed in bytes. In
+some cases it may also be desired to restrict the automatic
+search to algorithms that produce deterministic (reproducable)
+results. This can be requested by setting the the environment
+variable <code class="xref any docutils literal notranslate"><span class="pre">NNABLA_CUDNN_DETERMINISTIC</span></code> to a non-zero value.</p>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – N-D array.</li>
+<li><strong>outmaps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Number of convolution kernels (which is equal to the number of output channels). For example, to apply convolution on an input with 16 types of filters, specify 16.</li>
+<li><strong>kernel</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Convolution kernel size. For example, to apply convolution on an image with a 3 (height) by 5 (width) two-dimensional kernel, specify (3,5).</li>
+<li><strong>pad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Padding sizes for dimensions.</li>
+<li><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Stride sizes for dimensions.</li>
+<li><strong>dilation</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Dilation sizes for dimensions.</li>
+<li><strong>group</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Number of groups of channels. This makes connections across channels more sparse by grouping connections along map direction.</li>
+<li><strong>w_init</strong> (<a class="reference internal" href="parametric_function.html#nnabla.initializer.BaseInitializer" title="nnabla.initializer.BaseInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.BaseInitializer</span></code></a> or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Initializer for weight. By default, it is initialized with <a class="reference internal" href="parametric_function.html#nnabla.initializer.UniformInitializer" title="nnabla.initializer.UniformInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.UniformInitializer</span></code></a> within the range determined by <a class="reference internal" href="parametric_function.html#nnabla.initializer.calc_uniform_lim_glorot" title="nnabla.initializer.calc_uniform_lim_glorot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.calc_uniform_lim_glorot</span></code></a>.</li>
+<li><strong>b_init</strong> (<a class="reference internal" href="parametric_function.html#nnabla.initializer.BaseInitializer" title="nnabla.initializer.BaseInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.BaseInitializer</span></code></a> or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Initializer for bias. By default, it is initialized with zeros if <code class="xref any docutils literal notranslate"><span class="pre">with_bias</span></code> is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>.</li>
+<li><strong>base_axis</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Dimensions up to <code class="xref any docutils literal notranslate"><span class="pre">base_axis</span></code> are treated as the sample dimensions.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the weights and biases will not be updated.</li>
+<li><strong>rng</strong> (<em>numpy.random.RandomState</em>) – Random generator for Initializer.</li>
+<li><strong>with_bias</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Specify whether to include the bias term.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">N-D array. See <a class="reference internal" href="function.html#nnabla.functions.convolution" title="nnabla.functions.convolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">convolution</span></code></a> for the output shape.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.convolution.Conv1d">
+<code class="descclassname">nnabla.experimental.parametric_function_class.convolution.</code><code class="descname">Conv1d</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.convolution.Conv1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.convolution.Convolution</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.convolution.Conv2d">
+<code class="descclassname">nnabla.experimental.parametric_function_class.convolution.</code><code class="descname">Conv2d</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.convolution.Conv2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.convolution.Convolution</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.convolution.Conv3d">
+<code class="descclassname">nnabla.experimental.parametric_function_class.convolution.</code><code class="descname">Conv3d</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.convolution.Conv3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.convolution.Convolution</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.convolution.ConvNd">
+<code class="descclassname">nnabla.experimental.parametric_function_class.convolution.</code><code class="descname">ConvNd</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.convolution.ConvNd" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.convolution.Convolution</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.deconvolution.</code><code class="descname">Deconvolution</code><span class="sig-paren">(</span><em>inmaps</em>, <em>outmaps</em>, <em>kernel</em>, <em>pad=None</em>, <em>stride=None</em>, <em>dilation=None</em>, <em>group=1</em>, <em>w_init=None</em>, <em>b_init=None</em>, <em>base_axis=1</em>, <em>fix_parameters=False</em>, <em>rng=None</em>, <em>with_bias=True</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/deconvolution.html#Deconvolution"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deconvolution layer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – N-D array.</li>
+<li><strong>outmaps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Number of deconvolution kernels (which is equal to the number of output channels). For example, to apply deconvolution on an input with 16 types of filters, specify 16.</li>
+<li><strong>kernel</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Convolution kernel size. For example, to apply deconvolution on an image with a 3 (height) by 5 (width) two-dimensional kernel, specify (3,5).</li>
+<li><strong>pad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Padding sizes for dimensions.</li>
+<li><strong>stride</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Stride sizes for dimensions.</li>
+<li><strong>dilation</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Dilation sizes for dimensions.</li>
+<li><strong>group</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Number of groups of channels. This makes connections across channels sparser by grouping connections along map direction.</li>
+<li><strong>w_init</strong> (<a class="reference internal" href="parametric_function.html#nnabla.initializer.BaseInitializer" title="nnabla.initializer.BaseInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.BaseInitializer</span></code></a> or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Initializer for weight. By default, it is initialized with <a class="reference internal" href="parametric_function.html#nnabla.initializer.UniformInitializer" title="nnabla.initializer.UniformInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.UniformInitializer</span></code></a> within the range determined by <a class="reference internal" href="parametric_function.html#nnabla.initializer.calc_uniform_lim_glorot" title="nnabla.initializer.calc_uniform_lim_glorot"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.calc_uniform_lim_glorot</span></code></a>.</li>
+<li><strong>b_init</strong> (<a class="reference internal" href="parametric_function.html#nnabla.initializer.BaseInitializer" title="nnabla.initializer.BaseInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.BaseInitializer</span></code></a> or <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – Initializer for bias. By default, it is initialized with zeros if <code class="xref any docutils literal notranslate"><span class="pre">with_bias</span></code> is <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>.</li>
+<li><strong>base_axis</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Dimensions up to <code class="xref any docutils literal notranslate"><span class="pre">base_axis</span></code> are treated as the sample dimensions.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the weights and biases will not be updated.</li>
+<li><strong>rng</strong> (<em>numpy.random.RandomState</em>) – Random generator for Initializer.</li>
+<li><strong>with_bias</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Specify whether to include the bias term.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">N-D array. See <a class="reference internal" href="function.html#nnabla.functions.deconvolution" title="nnabla.functions.deconvolution"><code class="xref py py-obj docutils literal notranslate"><span class="pre">deconvolution</span></code></a> for the output shape.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.deconvolution.Deconv1d">
+<code class="descclassname">nnabla.experimental.parametric_function_class.deconvolution.</code><code class="descname">Deconv1d</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconv1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.deconvolution.Deconvolution</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.deconvolution.Deconv2d">
+<code class="descclassname">nnabla.experimental.parametric_function_class.deconvolution.</code><code class="descname">Deconv2d</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconv2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.deconvolution.Deconvolution</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.deconvolution.Deconv3d">
+<code class="descclassname">nnabla.experimental.parametric_function_class.deconvolution.</code><code class="descname">Deconv3d</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconv3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.deconvolution.Deconvolution</span></code></a></p>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.experimental.parametric_function_class.deconvolution.DeconvNd">
+<code class="descclassname">nnabla.experimental.parametric_function_class.deconvolution.</code><code class="descname">DeconvNd</code><a class="headerlink" href="#nnabla.experimental.parametric_function_class.deconvolution.DeconvNd" title="Permalink to this definition">¶</a></dt>
+<dd><p>alias of <a class="reference internal" href="#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.experimental.parametric_function_class.deconvolution.Deconvolution</span></code></a></p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.batch_normalization.</code><code class="descname">BatchNormalization</code><span class="sig-paren">(</span><em>n_features, n_dims, axes=[1], decay_rate=0.9, eps=1e-05, batch_stat=True, output_stat=False, fix_parameters=False, param_init=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/batch_normalization.html#BatchNormalization"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch normalization layer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcl}
+\mu &amp;=&amp; \frac{1}{M} \sum x_i\\
+\sigma^2 &amp;=&amp; \frac{1}{M} \left(\sum x_i - \mu\right)^2\\
+\hat{x}_i &amp;=&amp; \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon }}\\
+y_i &amp;= &amp; \hat{x}_i \gamma + \beta.
+\end{array}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i, y_i\)</span> are the inputs.
+In testing, the mean and variance computed by moving average calculated during training are used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – N-D array of input.</li>
+<li><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Mean and variance for each element in <code class="docutils literal notranslate"><span class="pre">axes</span></code> are calculated using
+elements on the rest axes. For example, if an input is 4 dimensions,
+and <code class="docutils literal notranslate"><span class="pre">axes</span></code> is <code class="docutils literal notranslate"><span class="pre">[1]</span></code>,  batch mean is calculated as
+<code class="docutils literal notranslate"><span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True)</span></code>
+(using numpy expression as an example).</li>
+<li><strong>decay_rate</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of running mean and variance.</li>
+<li><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Tiny value to avoid zero division by std.</li>
+<li><strong>batch_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Use mini-batch statistics rather than running ones.</li>
+<li><strong>output_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Output batch mean and variance.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the beta and gamma will not be updated.</li>
+<li><strong>param_init</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – Parameter initializers can be set with a dict. A key of the dict must
+be <code class="docutils literal notranslate"><span class="pre">'beta'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gamma'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mean'</span></code> or <code class="docutils literal notranslate"><span class="pre">'var'</span></code>.
+A value of the dict must be an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Initializer</span></code>
+or a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+E.g. <code class="docutils literal notranslate"><span class="pre">{'beta':</span> <span class="pre">ConstantIntializer(0),</span> <span class="pre">'gamma':</span> <span class="pre">np.ones(gamma_shape)</span> <span class="pre">*</span> <span class="pre">2}</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">N-D array.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Ioffe and Szegedy, Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. <a class="reference external" href="https://arxiv.org/abs/1502.03167">https://arxiv.org/abs/1502.03167</a></li>
+</ul>
+<p>The shape of parameters has the same number of dimensions with the input
+data, and the shapes in <code class="docutils literal notranslate"><span class="pre">axes</span></code> has the same dimensions with the input, while the rest has <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+If an input is 4-dim and <code class="docutils literal notranslate"><span class="pre">axes=[1]</span></code>, the parameter shape will be
+<code class="docutils literal notranslate"><span class="pre">param_shape</span>&#160; <span class="pre">=</span> <span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True).shape</span></code>
+(using numpy expression as an example).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm1d">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.batch_normalization.</code><code class="descname">BatchNorm1d</code><span class="sig-paren">(</span><em>n_features, axes=[1], decay_rate=0.9, eps=1e-05, batch_stat=True, output_stat=False, fix_parameters=False, param_init=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/batch_normalization.html#BatchNorm1d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm1d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch normalization layer for 3d-Array or 3d-Variable. This is typically used together with <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Conv1d" title="nnabla.experimental.parametric_function_class.convolution.Conv1d"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">Conv1d</span></code></a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcl}
+\mu &amp;=&amp; \frac{1}{M} \sum x_i\\
+\sigma^2 &amp;=&amp; \frac{1}{M} \left(\sum x_i - \mu\right)^2\\
+\hat{x}_i &amp;=&amp; \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon }}\\
+y_i &amp;= &amp; \hat{x}_i \gamma + \beta.
+\end{array}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i, y_i\)</span> are the inputs.
+In testing, the mean and variance computed by moving average calculated during training are used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – N-D array of input.</li>
+<li><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Mean and variance for each element in <code class="docutils literal notranslate"><span class="pre">axes</span></code> are calculated using
+elements on the rest axes. For example, if an input is 4 dimensions,
+and <code class="docutils literal notranslate"><span class="pre">axes</span></code> is <code class="docutils literal notranslate"><span class="pre">[1]</span></code>,  batch mean is calculated as
+<code class="docutils literal notranslate"><span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True)</span></code>
+(using numpy expression as an example).</li>
+<li><strong>decay_rate</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of running mean and variance.</li>
+<li><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Tiny value to avoid zero division by std.</li>
+<li><strong>batch_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Use mini-batch statistics rather than running ones.</li>
+<li><strong>output_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Output batch mean and variance.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the beta and gamma will not be updated.</li>
+<li><strong>param_init</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – Parameter initializers can be set with a dict. A key of the dict must
+be <code class="docutils literal notranslate"><span class="pre">'beta'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gamma'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mean'</span></code> or <code class="docutils literal notranslate"><span class="pre">'var'</span></code>.
+A value of the dict must be an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Initializer</span></code>
+or a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+E.g. <code class="docutils literal notranslate"><span class="pre">{'beta':</span> <span class="pre">ConstantIntializer(0),</span> <span class="pre">'gamma':</span> <span class="pre">np.ones(gamma_shape)</span> <span class="pre">*</span> <span class="pre">2}</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">N-D array.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Ioffe and Szegedy, Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. <a class="reference external" href="https://arxiv.org/abs/1502.03167">https://arxiv.org/abs/1502.03167</a></li>
+</ul>
+<p>The shape of parameters has the same number of dimensions with the input
+data, and the shapes in <code class="docutils literal notranslate"><span class="pre">axes</span></code> has the same dimensions with the input, while the rest has <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+If an input is 4-dim and <code class="docutils literal notranslate"><span class="pre">axes=[1]</span></code>, the parameter shape will be
+<code class="docutils literal notranslate"><span class="pre">param_shape</span>&#160; <span class="pre">=</span> <span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True).shape</span></code>
+(using numpy expression as an example).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm2d">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.batch_normalization.</code><code class="descname">BatchNorm2d</code><span class="sig-paren">(</span><em>n_features, axes=[1], decay_rate=0.9, eps=1e-05, batch_stat=True, output_stat=False, fix_parameters=False, param_init=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/batch_normalization.html#BatchNorm2d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm2d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch normalization layer for 4d-Array or 4d-Variable. This is typically used together with <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Conv2d" title="nnabla.experimental.parametric_function_class.convolution.Conv2d"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">Conv2d</span></code></a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcl}
+\mu &amp;=&amp; \frac{1}{M} \sum x_i\\
+\sigma^2 &amp;=&amp; \frac{1}{M} \left(\sum x_i - \mu\right)^2\\
+\hat{x}_i &amp;=&amp; \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon }}\\
+y_i &amp;= &amp; \hat{x}_i \gamma + \beta.
+\end{array}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i, y_i\)</span> are the inputs.
+In testing, the mean and variance computed by moving average calculated during training are used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – N-D array of input.</li>
+<li><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Mean and variance for each element in <code class="docutils literal notranslate"><span class="pre">axes</span></code> are calculated using
+elements on the rest axes. For example, if an input is 4 dimensions,
+and <code class="docutils literal notranslate"><span class="pre">axes</span></code> is <code class="docutils literal notranslate"><span class="pre">[1]</span></code>,  batch mean is calculated as
+<code class="docutils literal notranslate"><span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True)</span></code>
+(using numpy expression as an example).</li>
+<li><strong>decay_rate</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of running mean and variance.</li>
+<li><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Tiny value to avoid zero division by std.</li>
+<li><strong>batch_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Use mini-batch statistics rather than running ones.</li>
+<li><strong>output_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Output batch mean and variance.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the beta and gamma will not be updated.</li>
+<li><strong>param_init</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – Parameter initializers can be set with a dict. A key of the dict must
+be <code class="docutils literal notranslate"><span class="pre">'beta'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gamma'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mean'</span></code> or <code class="docutils literal notranslate"><span class="pre">'var'</span></code>.
+A value of the dict must be an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Initializer</span></code>
+or a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+E.g. <code class="docutils literal notranslate"><span class="pre">{'beta':</span> <span class="pre">ConstantIntializer(0),</span> <span class="pre">'gamma':</span> <span class="pre">np.ones(gamma_shape)</span> <span class="pre">*</span> <span class="pre">2}</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">N-D array.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Ioffe and Szegedy, Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. <a class="reference external" href="https://arxiv.org/abs/1502.03167">https://arxiv.org/abs/1502.03167</a></li>
+</ul>
+<p>The shape of parameters has the same number of dimensions with the input
+data, and the shapes in <code class="docutils literal notranslate"><span class="pre">axes</span></code> has the same dimensions with the input, while the rest has <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+If an input is 4-dim and <code class="docutils literal notranslate"><span class="pre">axes=[1]</span></code>, the parameter shape will be
+<code class="docutils literal notranslate"><span class="pre">param_shape</span>&#160; <span class="pre">=</span> <span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True).shape</span></code>
+(using numpy expression as an example).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm3d">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.batch_normalization.</code><code class="descname">BatchNorm3d</code><span class="sig-paren">(</span><em>n_features, axes=[1], decay_rate=0.9, eps=1e-05, batch_stat=True, output_stat=False, fix_parameters=False, param_init=None</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/batch_normalization.html#BatchNorm3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm3d" title="Permalink to this definition">¶</a></dt>
+<dd><p>Batch normalization layer for 5d-Array or 5d-Variable. This is typically used together with <a class="reference internal" href="#nnabla.experimental.parametric_function_class.convolution.Conv3d" title="nnabla.experimental.parametric_function_class.convolution.Conv3d"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">Conv3d</span></code></a>.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\begin{array}{lcl}
+\mu &amp;=&amp; \frac{1}{M} \sum x_i\\
+\sigma^2 &amp;=&amp; \frac{1}{M} \left(\sum x_i - \mu\right)^2\\
+\hat{x}_i &amp;=&amp; \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon }}\\
+y_i &amp;= &amp; \hat{x}_i \gamma + \beta.
+\end{array}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(x_i, y_i\)</span> are the inputs.
+In testing, the mean and variance computed by moving average calculated during training are used.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inp</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – N-D array of input.</li>
+<li><strong>axes</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">tuple</span></code></a> of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>) – Mean and variance for each element in <code class="docutils literal notranslate"><span class="pre">axes</span></code> are calculated using
+elements on the rest axes. For example, if an input is 4 dimensions,
+and <code class="docutils literal notranslate"><span class="pre">axes</span></code> is <code class="docutils literal notranslate"><span class="pre">[1]</span></code>,  batch mean is calculated as
+<code class="docutils literal notranslate"><span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True)</span></code>
+(using numpy expression as an example).</li>
+<li><strong>decay_rate</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of running mean and variance.</li>
+<li><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Tiny value to avoid zero division by std.</li>
+<li><strong>batch_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Use mini-batch statistics rather than running ones.</li>
+<li><strong>output_stat</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Output batch mean and variance.</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the beta and gamma will not be updated.</li>
+<li><strong>param_init</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – Parameter initializers can be set with a dict. A key of the dict must
+be <code class="docutils literal notranslate"><span class="pre">'beta'</span></code>, <code class="docutils literal notranslate"><span class="pre">'gamma'</span></code>, <code class="docutils literal notranslate"><span class="pre">'mean'</span></code> or <code class="docutils literal notranslate"><span class="pre">'var'</span></code>.
+A value of the dict must be an <code class="xref py py-obj docutils literal notranslate"><span class="pre">Initializer</span></code>
+or a <a class="reference external" href="https://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.17)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+E.g. <code class="docutils literal notranslate"><span class="pre">{'beta':</span> <span class="pre">ConstantIntializer(0),</span> <span class="pre">'gamma':</span> <span class="pre">np.ones(gamma_shape)</span> <span class="pre">*</span> <span class="pre">2}</span></code>.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">N-D array.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">References</p>
+<ul class="simple">
+<li>Ioffe and Szegedy, Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift. <a class="reference external" href="https://arxiv.org/abs/1502.03167">https://arxiv.org/abs/1502.03167</a></li>
+</ul>
+<p>The shape of parameters has the same number of dimensions with the input
+data, and the shapes in <code class="docutils literal notranslate"><span class="pre">axes</span></code> has the same dimensions with the input, while the rest has <code class="docutils literal notranslate"><span class="pre">1</span></code>.
+If an input is 4-dim and <code class="docutils literal notranslate"><span class="pre">axes=[1]</span></code>, the parameter shape will be
+<code class="docutils literal notranslate"><span class="pre">param_shape</span>&#160; <span class="pre">=</span> <span class="pre">np.mean(inp.d,</span> <span class="pre">axis=(0,</span> <span class="pre">2,</span> <span class="pre">3),</span> <span class="pre">keepdims=True).shape</span></code>
+(using numpy expression as an example).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="nnabla.experimental.parametric_function_class.embed.Embed">
+<em class="property">class </em><code class="descclassname">nnabla.experimental.parametric_function_class.embed.</code><code class="descname">Embed</code><span class="sig-paren">(</span><em>n_inputs</em>, <em>n_features</em>, <em>w_init=None</em>, <em>fix_parameters=False</em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/experimental/parametric_function_class/embed.html#Embed"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.experimental.parametric_function_class.embed.Embed" title="Permalink to this definition">¶</a></dt>
+<dd><p>Embed.</p>
+<p>Embed slices a matrix/tensor with indexing array/tensor. Weights are initialized with <a class="reference internal" href="parametric_function.html#nnabla.initializer.UniformInitializer" title="nnabla.initializer.UniformInitializer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.initializer.UniformInitializer</span></code></a> within the range of <span class="math notranslate nohighlight">\(-\sqrt{3}\)</span> and <span class="math notranslate nohighlight">\(\sqrt{3}\)</span>.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a>) – [Integer] Indices with shape <span class="math notranslate nohighlight">\((I_0, ..., I_N)\)</span></li>
+<li><strong>n_inputs</strong> – number of possible inputs, words or vocabraries</li>
+<li><strong>n_features</strong> – number of embedding features</li>
+<li><strong>fix_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When set to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#True" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">True</span></code></a>, the embedding weight matrix
+will not be updated.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Output with shape <span class="math notranslate nohighlight">\((I_0, ..., I_N, W_1, ..., W_M)\)</span></p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last"><a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable">Variable</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../../cpp.html" class="btn btn-neutral float-right" title="C++ API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="models/object_detection.html" class="btn btn-neutral float-left" title="Object Detection Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
