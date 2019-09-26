@@ -1,0 +1,434 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Semantic Segmentation Models &mdash; Neural Network Libraries 1.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Experimental" href="../experimental.html" />
+    <link rel="prev" title="Object Detection Models" href="object_detection.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.2.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator API</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../models.html">Pretrained Models</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="imagenet.html">ImageNet Models</a></li>
+<li class="toctree-l4"><a class="reference internal" href="object_detection.html">Object Detection Models</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Semantic Segmentation Models</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../../api.html">Python API Reference</a> &raquo;</li>
+        
+          <li><a href="../models.html">Pretrained Models</a> &raquo;</li>
+        
+      <li>Semantic Segmentation Models</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../../_sources/python/api/models/semantic_segmentation.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="semantic-segmentation-models">
+<h1>Semantic Segmentation Models<a class="headerlink" href="#semantic-segmentation-models" title="Permalink to this headline">¶</a></h1>
+<p>This subpackage provides a pre-trained state-of-the-art model for the purpose of semantic segmentation (DeepLabv3+, Xception-65 as backbone) which is trained on <a class="reference external" href="http://www.image-net.org/">ImageNet</a> dataset and fine-tuned on
+<a class="reference external" href="http://host.robots.ox.ac.uk/pascal/VOC/">Pascal VOC</a> and <a class="reference external" href="http://www.cocodataset.org/">MS COCO</a> dataset.</p>
+<p>The pre-trained models can be used for inference as following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#Import reauired modules</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="kn">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.image_utils</span> <span class="kn">import</span> <span class="n">imread</span>
+<span class="kn">from</span> <span class="nn">nnabla.models.semantic_segmentation</span> <span class="kn">import</span> <span class="n">DeepLabV3plus</span>
+<span class="kn">from</span> <span class="nn">nnabla.models.semantic_segmentation.utils</span> <span class="kn">import</span> <span class="n">ProcessImage</span>
+
+<span class="n">target_h</span> <span class="o">=</span> <span class="mi">513</span>
+<span class="n">target_w</span> <span class="o">=</span> <span class="mi">513</span>
+<span class="c1"># Get context</span>
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="kn">import</span> <span class="n">get_extension_context</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">get_extension_context</span><span class="p">(</span><span class="s1">&#39;cudnn&#39;</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">))</span>
+
+<span class="c1"># Build a Deeplab v3+ network</span>
+<span class="n">image</span> <span class="o">=</span> <span class="n">imread</span><span class="p">(</span><span class="s2">&quot;./test.jpg&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="n">target_h</span><span class="p">,</span> <span class="n">target_w</span><span class="p">),</span> <span class="n">need_grad</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">deeplabv3</span> <span class="o">=</span> <span class="n">DeepLabV3plus</span><span class="p">(</span><span class="s1">&#39;voc-coco&#39;</span><span class="p">,</span><span class="n">output_stride</span><span class="o">=</span><span class="mi">8</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">deeplabv3</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="c1"># preprocess image</span>
+<span class="n">processed_image</span> <span class="o">=</span> <span class="n">ProcessImage</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">target_h</span><span class="p">,</span> <span class="n">target_w</span><span class="p">)</span>
+<span class="n">input_array</span> <span class="o">=</span> <span class="n">processed_image</span><span class="o">.</span><span class="n">pre_process</span><span class="p">()</span>
+
+<span class="c1"># Compute inference</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">input_array</span>
+<span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">clear_buffer</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span> <span class="p">(</span><span class="s2">&quot;done&quot;</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+<span class="c1"># Apply post processing</span>
+<span class="n">post_processed</span> <span class="o">=</span> <span class="n">processed_image</span><span class="o">.</span><span class="n">post_process</span><span class="p">(</span><span class="n">output</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+<span class="c1">#Display predicted class names</span>
+<span class="n">predicted_classes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="n">post_processed</span><span class="p">)</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">predicted_classes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="k">print</span><span class="p">(</span><span class="s1">&#39;Classes Segmented: &#39;</span><span class="p">,</span> <span class="n">deeplabv3</span><span class="o">.</span><span class="n">category_names</span><span class="p">[</span><span class="n">predicted_classes</span><span class="p">[</span><span class="n">i</span><span class="p">]])</span>
+
+<span class="c1"># save inference result</span>
+<span class="n">processed_image</span><span class="o">.</span><span class="n">save_segmentation_image</span><span class="p">(</span><span class="s2">&quot;./output.png&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<table border="1" class="docutils" id="id7">
+<caption><span class="caption-text">Available models trained on voc dataset</span><a class="headerlink" href="#id7" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Class</th>
+<th class="head">Output stride</th>
+<th class="head">mIOU</th>
+<th class="head">Training framework</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/semantic_segmentation/DeepLabV3-voc-os-8.nnp">DeepLabv3+</a></td>
+<td>DeepLabv3+</td>
+<td>8</td>
+<td>81.48</td>
+<td>Nnabla</td>
+<td>Backbone (Xception-65) weights converted from <a class="reference external" href="http://download.tensorflow.org/models/deeplabv3_xception_2018_01_04.tar.gz/">author’s model</a> and used for finetuning</td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/semantic_segmentation/DeepLabV3-voc-os-16.nnp">DeepLabv3+</a></td>
+<td>DeepLabv3+</td>
+<td>16</td>
+<td>82.20</td>
+<td>Nnabla</td>
+<td>Backbone (Xception-65) weights converted from <a class="reference external" href="http://download.tensorflow.org/models/deeplabv3_xception_2018_01_04.tar.gz/">author’s model</a> and used for finetuning</td>
+</tr>
+</tbody>
+</table>
+<table border="1" class="docutils" id="id8">
+<caption><span class="caption-text">Available models trained on Voc and coco dataset</span><a class="headerlink" href="#id8" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+<col width="17%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Name</th>
+<th class="head">Class</th>
+<th class="head">Output stride</th>
+<th class="head">mIOU</th>
+<th class="head">Training framework</th>
+<th class="head">Notes</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/semantic_segmentation/DeepLabV3-voc-coco-os-8.nnp">DeepLabv3+</a></td>
+<td>DeepLabv3+</td>
+<td>8</td>
+<td>82.20</td>
+<td>Tensorflow</td>
+<td>Weights converted from <a class="reference external" href="http://download.tensorflow.org/models/deeplabv3_pascal_trainval_2018_01_04.tar.gz/">author’s model</a></td>
+</tr>
+<tr class="row-odd"><td><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/semantic_segmentation/DeepLabV3-voc-coco-os-16.nnp">DeepLabv3+</a></td>
+<td>DeepLabv3+</td>
+<td>16</td>
+<td>83.58</td>
+<td>Tensorflow</td>
+<td>Weights converted from <a class="reference external" href="http://download.tensorflow.org/models/deeplabv3_pascal_trainval_2018_01_04.tar.gz/">author’s model</a></td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="module-nnabla.models.semantic_segmentation.base">
+<span id="common-interfaces"></span><h2>Common interfaces<a class="headerlink" href="#module-nnabla.models.semantic_segmentation.base" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.models.semantic_segmentation.base.SemanticSegmentation">
+<em class="property">class </em><code class="descclassname">nnabla.models.semantic_segmentation.base.</code><code class="descname">SemanticSegmentation</code><a class="reference internal" href="../../../_modules/nnabla/models/semantic_segmentation/base.html#SemanticSegmentation"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.models.semantic_segmentation.base.SemanticSegmentation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Semantic Segmentation pretrained models are inherited from this class
+so that it provides some common interfaces.</p>
+<dl class="method">
+<dt id="nnabla.models.semantic_segmentation.base.SemanticSegmentation.__call__">
+<code class="descname">__call__</code><span class="sig-paren">(</span><em>input_var=None</em>, <em>use_from=None</em>, <em>use_up_to='segmentation'</em>, <em>training=False</em>, <em>returns_net=False</em>, <em>verbose=0</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/models/semantic_segmentation/base.html#SemanticSegmentation.__call__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.models.semantic_segmentation.base.SemanticSegmentation.__call__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a network (computation graph) from a loaded model.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>input_var</strong> (<a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><em>Variable</em></a><em>, </em><em>optional</em>) – If given, input variable is replaced with the given variable and a network is constructed on top of the variable. Otherwise, a variable with batch size as 1 and a default shape from <code class="docutils literal notranslate"><span class="pre">self.input_shape</span></code>.</li>
+<li><strong>use_up_to</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Network is constructed up to a variable specified by a string. A list of string-variable correspondences in a model is described in documentation for each model class.</li>
+<li><strong>training</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – This option enables additional training (fine-tuning, transfer learning etc.) for the constructed network. If True, the <code class="docutils literal notranslate"><span class="pre">batch_stat</span></code> option in batch normalization is turned <code class="docutils literal notranslate"><span class="pre">True</span></code>, and <code class="docutils literal notranslate"><span class="pre">need_grad</span></code> attribute in trainable variables (conv weights and gamma and beta of bn etc.) is turned <code class="docutils literal notranslate"><span class="pre">True</span></code>. The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>returns_net</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – When <code class="docutils literal notranslate"><span class="pre">True</span></code>, it returns a <a class="reference internal" href="../utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork" title="nnabla.utils.nnp_graph.NnpNetwork"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NnpNetwork</span></code></a> object. Otherwise, It only returns the last variable of the constructed network. The default is <code class="docutils literal notranslate"><span class="pre">False</span></code>.</li>
+<li><strong>verbose</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, or </em><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Verbose level. With <code class="docutils literal notranslate"><span class="pre">0</span></code>, it says nothing during network construction.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="nnabla.models.semantic_segmentation.base.SemanticSegmentation.input_shape">
+<code class="descname">input_shape</code><a class="headerlink" href="#nnabla.models.semantic_segmentation.base.SemanticSegmentation.input_shape" title="Permalink to this definition">¶</a></dt>
+<dd><p>Should return default image size (channel, height, width) as a tuple.</p>
+</dd></dl>
+
+</dd></dl>
+
+<span class="target" id="module-nnabla.models.semantic_segmentation.utils"></span></div>
+<div class="section" id="module-nnabla.models.semantic_segmentation">
+<span id="list-of-models"></span><h2>List of models<a class="headerlink" href="#module-nnabla.models.semantic_segmentation" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="nnabla.models.semantic_segmentation.DeepLabV3plus">
+<em class="property">class </em><code class="descclassname">nnabla.models.semantic_segmentation.</code><code class="descname">DeepLabV3plus</code><span class="sig-paren">(</span><em>dataset='voc'</em>, <em>output_stride=16</em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/models/semantic_segmentation/deeplabv3plus.html#DeepLabV3plus"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#nnabla.models.semantic_segmentation.DeepLabV3plus" title="Permalink to this definition">¶</a></dt>
+<dd><p>DeepLabV3+.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>dataset</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Specify a training dataset name from ‘voc’ or ‘coco’.</li>
+<li><strong>output_stride</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – DeepLabV3 uses atrous (a.k.a. dilated) convolutions. The atrous rate depends on the output stride. the output stride has
+to be selected from 8 or 16. Default is 8. If the output_stride is 8 the atrous rate will be [12,24,36]
+and if the output_stride is 16 the atrous rate will be [6,12,18].</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<p>The following is a list of string that can be specified to <code class="docutils literal notranslate"><span class="pre">use_up_to</span></code> option in <code class="docutils literal notranslate"><span class="pre">__call__</span></code> method;</p>
+<ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">'segmentation'</span></code> (default): The output of the final layer.</li>
+<li><code class="docutils literal notranslate"><span class="pre">'lastconv'</span></code>: The output from last Convolution.</li>
+<li><code class="docutils literal notranslate"><span class="pre">'lastconv+relu'</span></code>: Network up to <code class="docutils literal notranslate"><span class="pre">'lastconv'</span></code> followed by ReLU activation.</li>
+</ul>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><a class="reference external" href="https://arxiv.org/abs/1706.05587">Chen et al., Rethinking Atrous Convolution for Semantic Image Segmentation.</a></li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../experimental.html" class="btn btn-neutral float-right" title="Experimental" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="object_detection.html" class="btn btn-neutral float-left" title="Object Detection Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
