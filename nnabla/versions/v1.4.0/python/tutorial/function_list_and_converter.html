@@ -1,0 +1,412 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Function list and converter &mdash; Neural Network Libraries 1.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Python Command Line Interface" href="../command_line_interface.html" />
+    <link rel="prev" title="Graph Converter for Inference" href="graph_converter_for_inference.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="by_examples.html">NNabla by Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">NNabla Python API Demonstration Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_and_static_nn.html">Static vs Dynamic Neural Networks in NNabla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mixed_precision_training.html">Mixed Precision Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multi_device_training.html">Data Parallel Distributed Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_converter_for_inference.html">Graph Converter for Inference</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Function list and converter</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#some-simple-use-cases">Some simple use cases</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#tailored-nnabla-c-runtime-library">Tailored nnabla-c-runtime library</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#skip-functions-unsupported">Skip functions unsupported</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#converting-to-onnx">Converting to ONNX</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html">Python API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../tutorial.html">Python API Tutorial</a> &raquo;</li>
+        
+      <li>Function list and converter</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/tutorial/function_list_and_converter.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="function-list-and-converter">
+<h1>Function list and converter<a class="headerlink" href="#function-list-and-converter" title="Permalink to this headline">¶</a></h1>
+<p><code class="docutils literal notranslate"><span class="pre">nnabla_cli</span></code> is the command line interface of nnabla. With this command line interface, user may know current NNabla support status, and know whether or how to convert a nnabla model(e.g. <a href="#id1"><span class="problematic" id="id2">*</span></a>.nnp)
+to other format of model(e.g. <a href="#id3"><span class="problematic" id="id4">*</span></a>.onnx).</p>
+<p>The subcommand <code class="docutils literal notranslate"><span class="pre">function_info</span></code> provides a set of functions to output implemented function information.
+With this information, you may build tailored nnabla-c-runtime library for your model, or skip some unsupported
+functions for the target model.</p>
+<div class="section" id="some-simple-use-cases">
+<h2>Some simple use cases<a class="headerlink" href="#some-simple-use-cases" title="Permalink to this headline">¶</a></h2>
+<p>Please let us introduce some simple use cases:</p>
+<p>At first, you want to know how many functions (which functions) nnabla currently supports:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info
+</pre></div>
+</div>
+<p>You get the following list:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2019</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span> <span class="mi">16</span><span class="p">:</span><span class="mi">16</span><span class="p">:</span><span class="mi">13</span><span class="p">,</span><span class="mi">106</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="n">Initializing</span> <span class="n">CPU</span> <span class="n">extension</span><span class="o">...</span>
+<span class="n">NNabla</span> <span class="n">command</span> <span class="n">line</span> <span class="n">interface</span> <span class="p">(</span><span class="n">Version</span><span class="p">:</span><span class="mf">1.0</span><span class="o">.</span><span class="mf">18.</span><span class="n">dev1</span><span class="p">,</span> <span class="n">Build</span><span class="p">:</span><span class="mi">190531084842</span><span class="p">)</span>
+<span class="n">LSTM</span>
+<span class="n">Sub2</span>
+<span class="n">Mul2</span>
+<span class="n">GreaterEqual</span>
+<span class="n">Sigmoid</span>
+<span class="n">NotEqual</span>
+<span class="n">Unpooling</span>
+<span class="n">Log</span>
+<span class="n">CategoricalCrossEntropy</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>That is the list of current nnabla all supported functions. Only function names are
+shown, no more detail, only for seeking certain function by name. For the detail of each function, you have to check with online document.</p>
+<p>As you known, nnabla’s model <a href="#id5"><span class="problematic" id="id6">*</span></a>.nnp can be converted to a compact version, it has the postfix <code class="docutils literal notranslate"><span class="pre">.nnb</span></code>, can be inferred by nnabla-c-runtime library. We simply named this format as <code class="docutils literal notranslate"><span class="pre">NNB</span></code>. To know how many functions are supported in this format, you may use this command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info -f NNB
+</pre></div>
+</div>
+<p>Similar as above, a function list is shown.</p>
+<p>Do we simple list the functions used in a .nnp model? Yes, of course.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info my_model.nnp
+</pre></div>
+</div>
+<p>Similar as above, a function list used in this model is listed.</p>
+<p>Then, we may know whether our model can be converted to nnabla-c-runtime model format,
+or formally speaking, we can know the intersection of 2 function sets, one is the function set in .nnp and the other is nnabla-c-runtime has supported.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info my_model.nnp -f NNB
+</pre></div>
+</div>
+<p>The output looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">2019</span><span class="o">-</span><span class="mi">06</span><span class="o">-</span><span class="mi">14</span> <span class="mi">17</span><span class="p">:</span><span class="mi">01</span><span class="p">:</span><span class="mi">29</span><span class="p">,</span><span class="mi">393</span> <span class="p">[</span><span class="n">nnabla</span><span class="p">][</span><span class="n">INFO</span><span class="p">]:</span> <span class="n">Initializing</span> <span class="n">CPU</span> <span class="n">extension</span><span class="o">...</span>
+<span class="n">NNabla</span> <span class="n">command</span> <span class="n">line</span> <span class="n">interface</span> <span class="p">(</span><span class="n">Version</span><span class="p">:</span><span class="mf">1.0</span><span class="o">.</span><span class="mf">18.</span><span class="n">dev1</span><span class="p">,</span> <span class="n">Build</span><span class="p">:</span><span class="mi">190531084842</span><span class="p">)</span>
+<span class="n">Importing</span> <span class="n">mnist_nnp</span><span class="o">/</span><span class="n">lenet_010000</span><span class="o">.</span><span class="n">nnp</span>
+ <span class="n">Expanding</span> <span class="n">runtime</span><span class="o">.</span>
+<span class="n">nnabla</span><span class="o">-</span><span class="n">c</span><span class="o">-</span><span class="n">runtime</span> <span class="n">currently</span> <span class="n">support</span> <span class="n">the</span> <span class="n">following</span> <span class="n">functions</span> <span class="ow">in</span> <span class="n">model</span><span class="p">:</span>
+<span class="n">Convolution</span>
+<span class="n">MulScalar</span>
+<span class="n">Affine</span>
+<span class="n">MaxPooling</span>
+<span class="n">ReLU</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>Unsupported functions are also listed up if there are any in this model.</p>
+</div>
+<div class="section" id="tailored-nnabla-c-runtime-library">
+<h2>Tailored nnabla-c-runtime library<a class="headerlink" href="#tailored-nnabla-c-runtime-library" title="Permalink to this headline">¶</a></h2>
+<p>When implementing nnabla-c-runtime library, we hope to implement all functions
+we can. But from customer’s aspect, that is sometimes no need. If user only wants to use nnabla-c-runtime for enumerable models, the nnabla-c-runtime should be tailed exactly as what these models required. How to do then?</p>
+<p>It can be implemented with the following steps:</p>
+<ol class="arabic simple">
+<li>generate function list</li>
+<li>config your nnabla-c-runtime library</li>
+<li>build nnabla-c-runtime library</li>
+</ol>
+<div class="section" id="generate-function-list">
+<h3>1. Generate function list<a class="headerlink" href="#generate-function-list" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info my_model.nnp -f NNB -o functions.txt
+</pre></div>
+</div>
+<p>This is similar as above, except that with <code class="docutils literal notranslate"><span class="pre">-o</span></code> parameter, which pointed out which file should be written to. (of course, the format is different from the version output to stdout, it is more compact)</p>
+</div>
+<div class="section" id="config-your-nnabla-c-runtime-library">
+<h3>2. config your nnabla-c-runtime library<a class="headerlink" href="#config-your-nnabla-c-runtime-library" title="Permalink to this headline">¶</a></h3>
+<p>User may manually modify <code class="docutils literal notranslate"><span class="pre">functions.txt</span></code>. Then, this file is used as input, used to generate nnabla-c-runtime library’s config file:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info -c functions.txt -o nnabla-c-runtime/build-tools/code-generator/functions.yaml
+</pre></div>
+</div>
+<p>As we inferred, if there is no <code class="docutils literal notranslate"><span class="pre">-c</span></code> parameter, a full function set will be used to generate this config file, of course, the library will finally contain all implemented functions. This is the default behavior.</p>
+</div>
+<div class="section" id="build-nnabla-c-runtime-library">
+<h3>3. build nnabla-c-runtime library<a class="headerlink" href="#build-nnabla-c-runtime-library" title="Permalink to this headline">¶</a></h3>
+<p>The build process is relatively directly, as the following:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>#&gt; nnabla-c-runtime&gt;mkdir build
+#&gt; nnabla-c-runtime&gt;cd build
+#&gt; nnabla-c-runtime&gt;cmake ..
+#&gt; nnabla-c-runtime&gt;make
+</pre></div>
+</div>
+<p>The nnabla-c-runtime library <code class="docutils literal notranslate"><span class="pre">libnnablart_functions.a</span></code> will contain the functions what you want.</p>
+</div>
+</div>
+<div class="section" id="skip-functions-unsupported">
+<h2>Skip functions unsupported<a class="headerlink" href="#skip-functions-unsupported" title="Permalink to this headline">¶</a></h2>
+<p>When you want to convert <code class="docutils literal notranslate"><span class="pre">*.nnp</span></code> to <code class="docutils literal notranslate"><span class="pre">*.onnx</span></code> or <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code>, there are some functions are not supported in target function list. For example, you want to convert a network to nnabla-c-runtime. The network looks like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Affine</span>
+<span class="n">Softmax</span>
+<span class="n">Tanh</span>
+<span class="n">Convolution</span>
+<span class="n">MaxPooling</span>
+<span class="n">ReLU</span>
+</pre></div>
+</div>
+<p>You do not want to use nnabla-c-runtime library’s <code class="docutils literal notranslate"><span class="pre">Convolution</span></code>, you want to split the network in 2 pieces at the point of <code class="docutils literal notranslate"><span class="pre">Convolution</span></code>. 2 Steps are needed to do so:</p>
+<ol class="arabic simple">
+<li>comment out the function in functions.txt</li>
+<li>convert the network with <code class="docutils literal notranslate"><span class="pre">-c</span></code> parameter</li>
+</ol>
+<div class="section" id="comment-out-the-function-in-functions-txt">
+<h3>1. comment out the function in functions.txt<a class="headerlink" href="#comment-out-the-function-in-functions-txt" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="p">;</span><span class="n">Affine</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="convert-the-network-with-c-parameter">
+<h3>2. convert the network with <code class="docutils literal notranslate"><span class="pre">-c</span></code> parameter<a class="headerlink" href="#convert-the-network-with-c-parameter" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert -c functions.txt a.nnp b.nnb
+</pre></div>
+</div>
+<p>Thus, the network is splitted into pieces, the output shows as the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">...</span>
+<span class="n">LeNet_036_0_5</span><span class="o">.</span><span class="n">nnb</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Input</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">28</span><span class="p">,</span> <span class="mi">28</span><span class="p">)</span>
+  <span class="n">output</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Tanh_2</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="n">LeNet_036_7_7</span><span class="o">.</span><span class="n">nnb</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Affine</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+  <span class="n">output</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">ReLU_2</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">150</span><span class="p">)</span>
+<span class="n">LeNet_036_9_9</span><span class="o">.</span><span class="n">nnb</span><span class="p">:</span>
+  <span class="nb">input</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Affine_2</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+  <span class="n">output</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Softmax</span>
+    <span class="n">shape</span><span class="p">:</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The network is split at the <code class="docutils literal notranslate"><span class="pre">Affine</span></code> function. Since there are 2 <code class="docutils literal notranslate"><span class="pre">Affine</span></code> in network, 3 sub-networks is generated.</p>
+</div>
+</div>
+<div class="section" id="converting-to-onnx">
+<h2>Converting to ONNX<a class="headerlink" href="#converting-to-onnx" title="Permalink to this headline">¶</a></h2>
+<p>The following commands just do similar as above, exactly to <a href="#id7"><span class="problematic" id="id8">*</span></a>.onnx.</p>
+<p>List all functions supported:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info -f ONNX
+</pre></div>
+</div>
+<p>List the intersection of function sets, in a model and supported by ONNX:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli function_info LeNet_036.nnp -f ONNX
+</pre></div>
+</div>
+<p>Split network to skip some function:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>$ nnabla_cli convert -c functions.txt a.nnp a.onnx
+</pre></div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../command_line_interface.html" class="btn btn-neutral float-right" title="Python Command Line Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="graph_converter_for_inference.html" class="btn btn-neutral float-left" title="Graph Converter for Inference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

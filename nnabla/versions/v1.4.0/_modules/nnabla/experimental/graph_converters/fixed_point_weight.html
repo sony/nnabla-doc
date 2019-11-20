@@ -1,0 +1,354 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>nnabla.experimental.graph_converters.fixed_point_weight &mdash; Neural Network Libraries 1.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nnabla.experimental.graph_converters.fixed_point_weight</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nnabla.experimental.graph_converters.fixed_point_weight</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="kn">from</span> <span class="nn">.identity</span> <span class="k">import</span> <span class="n">IdentityConverter</span>
+<span class="kn">from</span> <span class="nn">.helpers</span> <span class="k">import</span> <span class="n">GraphInfo</span>
+
+
+<div class="viewcode-block" id="FixedPointWeightConverter"><a class="viewcode-back" href="../../../../python/api/experimental.html#nnabla.experimental.graph_converters.fixed_point_weight.FixedPointWeightConverter">[docs]</a><span class="k">class</span> <span class="nc">FixedPointWeightConverter</span><span class="p">(</span><span class="n">IdentityConverter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    All functions specified by `inner_prod_functions` are replaced with the fixed-point counter-part. The other functions are replaced with the same `new` function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        black_list (list): Black list of the function list.</span>
+<span class="sd">        params (:obj:`OrderedDict`): Result of nn.get_parameters().</span>
+<span class="sd">        inner_prod_functions (list of function name): Function names to be replaced. Default is [&quot;Affine&quot;, &quot;Convolution&quot;, &quot;Deconvolution&quot;].</span>
+<span class="sd">        call_forward (:obj:`bool`): Call forward function to obtain `W_q`. Default is &quot;True&quot;, so one does not need to call the forward function to sync quantized weights. Note that if the network contains batch normalization or any other normalization that computes running stats (e.g., a running mean and variance), these stats are automatically updated by call_forward. To avoid that, change the argument batch_stat of the batch normalization layer to False when using this call_forward option True.</span>
+<span class="sd">        floor (:obj:`bool`): When computing the step size, it is coerced to be the power-of-2 by using either :math:`2^ceil(log_2(abs(W)_max / (2^n - 1)))` or :math:`2^floor(log_2(abs(W)_max / (2^n - 1)))`. Default is `False`.</span>
+<span class="sd">        args_fpq (`dict`): Argument into F.quantize. Default is `{&quot;sign_w&quot;: True, &quot;n_w&quot;: 8, &quot;delta_w&quot;: 2e-4, &quot;quantize_w&quot;: True, &quot;sign_b&quot;: True, &quot;n_b&quot;: 8, &quot;delta_b&quot;: 2e-4, &quot;quantize_b&quot;: True}`</span>
+<span class="sd">        name (:obj:`str`): Prefix of the parameter scope.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">black_list</span><span class="o">=</span><span class="p">[],</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">inner_prod_functions</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">call_forward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                 <span class="n">floor</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">args_fpq</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;sign_w&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;n_w&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;delta_w&quot;</span><span class="p">:</span> <span class="mf">2e-4</span><span class="p">,</span> <span class="s2">&quot;quantize_w&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                           <span class="s2">&quot;sign_b&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s2">&quot;n_b&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span> <span class="s2">&quot;delta_b&quot;</span><span class="p">:</span> <span class="mf">2e-4</span><span class="p">,</span> <span class="s2">&quot;quantize_b&quot;</span><span class="p">:</span> <span class="kc">True</span><span class="p">},</span>
+                 <span class="n">name</span><span class="o">=</span><span class="s2">&quot;fixed-point-weight-graph&quot;</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FixedPointWeightConverter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+            <span class="n">black_list</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">call_forward</span> <span class="o">=</span> <span class="n">call_forward</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">round_func</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ceil</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">floor</span> <span class="k">else</span> <span class="n">np</span><span class="o">.</span><span class="n">floor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span> <span class="o">=</span> <span class="n">args_fpq</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">inner_prod_functions</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Affine&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;Convolution&quot;</span><span class="p">,</span>
+                                     <span class="s2">&quot;Deconvolution&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">inner_prod_functions</span> <span class="ow">is</span> <span class="kc">None</span> \
+            <span class="k">else</span> <span class="n">inner_prod_functions</span>
+
+<div class="viewcode-block" id="FixedPointWeightConverter.convert"><a class="viewcode-back" href="../../../../python/api/experimental.html#nnabla.experimental.graph_converters.fixed_point_weight.FixedPointWeightConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vroot</span><span class="p">,</span> <span class="n">entry_variables</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        All functions are replaced with the same `new` function.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            vroot (:obj:`Variable`): NNabla Variable</span>
+<span class="sd">            entry_variables (:obj:`Variable`): Entry variable from which the conversion starts.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">graph_info</span> <span class="o">=</span> <span class="n">GraphInfo</span><span class="p">(</span><span class="n">vroot</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">entry_variables</span> <span class="o">=</span> <span class="n">entry_variables</span>
+
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">):</span>
+            <span class="c1"># Function loop in the forward order</span>
+            <span class="k">for</span> <span class="n">t</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">graph_info</span><span class="o">.</span><span class="n">funcs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">func</span><span class="o">.</span><span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">inner_prod_functions</span><span class="p">:</span>
+                    <span class="n">inner_prod_func</span> <span class="o">=</span> <span class="n">func</span>
+                    <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fixed_point_weight_conversion</span><span class="p">(</span><span class="n">inner_prod_func</span><span class="p">)</span>
+                    <span class="k">continue</span>
+                <span class="c1"># Identity conversion</span>
+                <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identity_conversion</span><span class="p">(</span><span class="n">func</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_variable</span> <span class="o">=</span> <span class="n">o</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">call_forward</span><span class="p">:</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">clear_buffer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">end_variable</span></div>
+
+    <span class="k">def</span> <span class="nf">_fixed_point_weight_conversion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inner_prod_func</span><span class="p">):</span>
+        <span class="c1"># Input</span>
+        <span class="n">w_init</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">d</span>
+        <span class="n">b_init</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">d</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span>
+            <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_map</span> <span class="k">else</span> <span class="n">x</span>
+
+        <span class="c1"># Quantization params</span>
+        <span class="n">sign_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;sign_w&quot;</span><span class="p">]</span>
+        <span class="n">n_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;n_w&quot;</span><span class="p">]</span>
+        <span class="n">delta_w</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;delta_w&quot;</span><span class="p">]</span>
+        <span class="n">sign_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;sign_b&quot;</span><span class="p">]</span>
+        <span class="n">n_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;n_b&quot;</span><span class="p">]</span>
+        <span class="n">quantize_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;quantize_b&quot;</span><span class="p">]</span>
+        <span class="n">delta_b</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">[</span><span class="s2">&quot;delta_b&quot;</span><span class="p">]</span>
+
+        <span class="c1"># Determine delta</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;delta_w&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">n_w</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">sign_w</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">n_w</span>
+            <span class="n">w_abs_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">w_init</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">delta_w</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">round_func</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">w_abs_max</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;delta_b&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">args_fpq</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">n</span> <span class="o">=</span> <span class="n">n_b</span> <span class="o">-</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">sign_b</span> <span class="ow">is</span> <span class="kc">True</span> <span class="k">else</span> <span class="n">n_b</span>
+            <span class="n">b_abs_max</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">b_init</span><span class="o">.</span><span class="n">flatten</span><span class="p">()))[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">b_abs_max</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">delta_b</span> <span class="o">=</span> <span class="mi">2</span> <span class="o">**</span> <span class="n">np</span><span class="o">.</span><span class="n">round_func</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log2</span><span class="p">(</span><span class="n">b_abs_max</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">**</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">delta_b</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Parameter name</span>
+        <span class="n">w</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">params</span><span class="o">.</span><span class="n">keys</span><span class="p">())[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">rstrip</span><span class="p">(</span><span class="s2">&quot;W/&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Bias</span>
+        <span class="n">with_bias</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inner_prod_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="kc">False</span>
+
+        <span class="c1"># Conversion</span>
+        <span class="k">if</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Affine&quot;</span><span class="p">:</span>
+            <span class="n">omaps</span> <span class="o">=</span> <span class="n">w_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">args</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">fixed_point_quantized_affine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">omaps</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="n">with_bias</span><span class="p">,</span>
+                                                <span class="n">w_init</span><span class="o">=</span><span class="n">w_init</span><span class="p">,</span> <span class="n">b_init</span><span class="o">=</span><span class="n">b_init</span><span class="p">,</span>
+                                                <span class="n">sign_w</span><span class="o">=</span><span class="n">sign_w</span><span class="p">,</span> <span class="n">n_w</span><span class="o">=</span><span class="n">n_w</span><span class="p">,</span> <span class="n">delta_w</span><span class="o">=</span><span class="n">delta_w</span><span class="p">,</span>
+                                                <span class="n">sign_b</span><span class="o">=</span><span class="n">sign_b</span><span class="p">,</span> <span class="n">n_b</span><span class="o">=</span><span class="n">n_b</span><span class="p">,</span> <span class="n">delta_b</span><span class="o">=</span><span class="n">delta_b</span><span class="p">,</span>
+                                                <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                                <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Convolution&quot;</span><span class="p">:</span>
+            <span class="n">omaps</span> <span class="o">=</span> <span class="n">w_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">kernel</span> <span class="o">=</span> <span class="n">w_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">args</span>
+            <span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;channel_last&#39;</span><span class="p">,</span> <span class="kc">False</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">&#39;channel_last=True is not supported in fixed_point_quantized_convolution.&#39;</span><span class="p">)</span>
+            <span class="k">del</span> <span class="n">args</span><span class="p">[</span><span class="s1">&#39;channel_last&#39;</span><span class="p">]</span>
+
+            <span class="n">o</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">fixed_point_quantized_convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">omaps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="n">with_bias</span><span class="p">,</span>
+                                                     <span class="n">w_init</span><span class="o">=</span><span class="n">w_init</span><span class="p">,</span> <span class="n">b_init</span><span class="o">=</span><span class="n">b_init</span><span class="p">,</span>
+                                                     <span class="n">sign_w</span><span class="o">=</span><span class="n">sign_w</span><span class="p">,</span> <span class="n">n_w</span><span class="o">=</span><span class="n">n_w</span><span class="p">,</span> <span class="n">delta_w</span><span class="o">=</span><span class="n">delta_w</span><span class="p">,</span>
+                                                     <span class="n">sign_b</span><span class="o">=</span><span class="n">sign_b</span><span class="p">,</span> <span class="n">n_b</span><span class="o">=</span><span class="n">n_b</span><span class="p">,</span> <span class="n">delta_b</span><span class="o">=</span><span class="n">delta_b</span><span class="p">,</span>
+                                                     <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                                     <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;Deconvolution&quot;</span><span class="p">:</span>
+            <span class="n">omaps</span> <span class="o">=</span> <span class="n">w_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="n">kernel</span> <span class="o">=</span> <span class="n">w_init</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>
+            <span class="n">args</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">args</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">fixed_point_quantized_deconvolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">omaps</span><span class="p">,</span> <span class="n">kernel</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="n">with_bias</span><span class="p">,</span>
+                                                       <span class="n">w_init</span><span class="o">=</span><span class="n">w_init</span><span class="p">,</span> <span class="n">b_init</span><span class="o">=</span><span class="n">b_init</span><span class="p">,</span>
+                                                       <span class="n">sign_w</span><span class="o">=</span><span class="n">sign_w</span><span class="p">,</span> <span class="n">n_w</span><span class="o">=</span><span class="n">n_w</span><span class="p">,</span> <span class="n">delta_w</span><span class="o">=</span><span class="n">delta_w</span><span class="p">,</span>
+                                                       <span class="n">sign_b</span><span class="o">=</span><span class="n">sign_b</span><span class="p">,</span> <span class="n">n_b</span><span class="o">=</span><span class="n">n_b</span><span class="p">,</span> <span class="n">delta_b</span><span class="o">=</span><span class="n">delta_b</span><span class="p">,</span>
+                                                       <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
+                                                       <span class="o">**</span><span class="n">args</span><span class="p">)</span>
+
+        <span class="c1"># Map output of ref graph to output of new graph</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">inner_prod_func</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_map</span><span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">o</span>
+
+        <span class="c1"># Store output (just in case)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">o</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

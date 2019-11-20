@@ -1,0 +1,6454 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Function-Level Support Status &mdash; Neural Network Libraries 1.4.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Model Support Status" href="Model_Support_Status.html" />
+    <link rel="prev" title="Support Status" href="../../support_status.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.4.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../support_status.html">Support Status</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Function-Level Support Status</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#onnx-support-status">ONNX Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#import">Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#export">Export</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow-support-status">Tensorflow Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Export</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nnabla-c-runtime-support-status">NNabla C Runtime Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id17">Export</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Support_Status.html">Model Support Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../support_status.html">Support Status</a> &raquo;</li>
+        
+      <li>Function-Level Support Status</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/file_format_converter/Function-Level_Support_Status.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="function-level-support-status">
+<h1>Function-Level Support Status<a class="headerlink" href="#function-level-support-status" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><a class="reference internal" href="#onnx-support-status" id="id33">ONNX Support Status</a><ul>
+<li><a class="reference internal" href="#import" id="id34">Import</a></li>
+<li><a class="reference internal" href="#export" id="id35">Export</a><ul>
+<li><a class="reference internal" href="#neural-network-layer" id="id36">Neural Network Layer</a></li>
+<li><a class="reference internal" href="#neural-network-activation-functions" id="id37">Neural Network Activation Functions</a></li>
+<li><a class="reference internal" href="#normalization" id="id38">Normalization</a></li>
+<li><a class="reference internal" href="#reduction" id="id39">Reduction</a></li>
+<li><a class="reference internal" href="#arithmetic" id="id40">Arithmetic</a></li>
+<li><a class="reference internal" href="#logical" id="id41">Logical</a></li>
+<li><a class="reference internal" href="#math" id="id42">Math</a></li>
+<li><a class="reference internal" href="#array-manipulation" id="id43">Array Manipulation</a></li>
+<li><a class="reference internal" href="#signal-processing" id="id44">Signal Processing</a></li>
+<li><a class="reference internal" href="#stochasticity" id="id45">Stochasticity</a></li>
+<li><a class="reference internal" href="#loss-functions" id="id46">Loss Functions</a></li>
+<li><a class="reference internal" href="#quantization-neural-network-layers" id="id47">Quantization Neural Network Layers</a></li>
+<li><a class="reference internal" href="#validation" id="id48">Validation</a></li>
+<li><a class="reference internal" href="#unsupported-special-use" id="id49">Unsupported, Special Use</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#tensorflow-support-status" id="id50">Tensorflow Support Status</a><ul>
+<li><a class="reference internal" href="#id1" id="id51">Import</a></li>
+<li><a class="reference internal" href="#id2" id="id52">Export</a><ul>
+<li><a class="reference internal" href="#id3" id="id53">Neural Network Layer</a></li>
+<li><a class="reference internal" href="#id4" id="id54">Neural Network Activation Functions</a></li>
+<li><a class="reference internal" href="#id5" id="id55">Normalization</a></li>
+<li><a class="reference internal" href="#id6" id="id56">Reduction</a></li>
+<li><a class="reference internal" href="#id7" id="id57">Arithmetic</a></li>
+<li><a class="reference internal" href="#id8" id="id58">Logical</a></li>
+<li><a class="reference internal" href="#id9" id="id59">Math</a></li>
+<li><a class="reference internal" href="#id10" id="id60">Array Manipulation</a></li>
+<li><a class="reference internal" href="#id11" id="id61">Signal Processing</a></li>
+<li><a class="reference internal" href="#id12" id="id62">Stochasticity</a></li>
+<li><a class="reference internal" href="#id13" id="id63">Loss Functions</a></li>
+<li><a class="reference internal" href="#id14" id="id64">Quantization Neural Network Layers</a></li>
+<li><a class="reference internal" href="#id15" id="id65">Validation</a></li>
+<li><a class="reference internal" href="#id16" id="id66">Unsupported, Special Use</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a class="reference internal" href="#nnabla-c-runtime-support-status" id="id67">NNabla C Runtime Support Status</a><ul>
+<li><a class="reference internal" href="#id17" id="id68">Export</a><ul>
+<li><a class="reference internal" href="#id18" id="id69">Neural Network Layer</a></li>
+<li><a class="reference internal" href="#id19" id="id70">Neural Network Activation Functions</a></li>
+<li><a class="reference internal" href="#id20" id="id71">Normalization</a></li>
+<li><a class="reference internal" href="#id21" id="id72">Reduction</a></li>
+<li><a class="reference internal" href="#id22" id="id73">Arithmetic</a></li>
+<li><a class="reference internal" href="#id23" id="id74">Logical</a></li>
+<li><a class="reference internal" href="#id24" id="id75">Math</a></li>
+<li><a class="reference internal" href="#id25" id="id76">Array Manipulation</a></li>
+<li><a class="reference internal" href="#id26" id="id77">Signal Processing</a></li>
+<li><a class="reference internal" href="#id27" id="id78">Stochasticity</a></li>
+<li><a class="reference internal" href="#id28" id="id79">Loss Functions</a></li>
+<li><a class="reference internal" href="#id29" id="id80">Quantization Neural Network Layers</a></li>
+<li><a class="reference internal" href="#id30" id="id81">Validation</a></li>
+<li><a class="reference internal" href="#id31" id="id82">Unsupported, Special Use</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="onnx-support-status">
+<h2><a class="toc-backref" href="#id33">ONNX Support Status</a><a class="headerlink" href="#onnx-support-status" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">In this document, the numbers in the header of all tables represent the version of onnx opset.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">ONNX Version:</th><td class="field-body">1.4.1</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="import">
+<h3><a class="toc-backref" href="#id34">Import</a><a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>✓: onnx specification defined, and supported.</li>
+<li>X: onnx specification defined, but not support yet.</li>
+<li>Empty: Not defined (Support status follows latest).</li>
+</ul>
+<p>Total: 81/129</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="1%" />
+<col width="19%" />
+<col width="64%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">ONNX Operator</th>
+<th class="head">1</th>
+<th class="head">2</th>
+<th class="head">3</th>
+<th class="head">4</th>
+<th class="head">5</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">8</th>
+<th class="head">9</th>
+<th class="head">NNabla Func</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Abs</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Abs</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Acos</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ACos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Acosh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>ACosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Add</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape, Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>And</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>LogicalAnd, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ArgMax</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ArgMin</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Min</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Asin</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ASin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Asinh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>ASinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Atan</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ATan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Atanh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>ATanh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AveragePool</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Pad, AveragePooling</td>
+<td>Not all features are verified, since some features are not supported by caffe2. Those features can be verified by ONNXRuntime when opset &gt; 6. Some feature is not supported by Nnabla such as Pad’s edge mode.</td>
+</tr>
+<tr class="row-even"><td>BatchNormalization</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>X</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>BatchNormalization</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cast</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Ceil</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Ceil</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Clip</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>MinimumScalar, MaximumScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Compress</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Concat</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Concatenate</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Constant</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ConstantOfShape</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Conv</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Convolution</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ConvTranspose</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Deconvolution, Pad</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cos</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Cos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cosh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Cosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>DepthToSpace</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Transpose, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Div</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Dropout</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Elu</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ELU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape, Equal</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Erf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Exp</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Exp</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Expand</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>EyeLike</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Flatten</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Floor</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Floor</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GRU</td>
+<td>X</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Gather</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Gemm</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>MulScalar, Broadcast, BatchMatmul, Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GlobalAveragePool</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>GlobalAveragePooling</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GlobalLpPool</td>
+<td>X</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>GlobalMaxPool</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Greater</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Greater, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>HardSigmoid</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Hardmax</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Identity</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>If</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>InstanceNormalization</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>IsNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>IsNaN</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LRN</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>AddScalar, MulScalar, Transpose, PowScalar, SumPooling, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LSTM</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LeakyRelu</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>LeakyReLU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Less</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Less, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Log</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Log</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogSoftmax</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Log, Sum, Reshape, Exp, Add2, Sub2, Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Loop</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LpNormalization</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LpPool</td>
+<td>X</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MatMul</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>BatchMatmul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>Maximum2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MaxPool</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Pad, MaxPooling</td>
+<td>Not all features are verified, since some features are not supported by caffe2. Those features can be verified by ONNXRuntime.</td>
+</tr>
+<tr class="row-even"><td>MaxRoiPool</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MaxUnpool</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Mean</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>Stack, Broadcast, Mean</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Min</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>Minimum2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Mul</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Mul2, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Multinomial</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Neg</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>MulScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NonZero</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Not</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>LogicalNot</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>OneHot</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Or</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape, LogicalOr</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>PRelu</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>X</td>
+<td>&#160;</td>
+<td>X</td>
+<td>PReLU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Pad</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Pad</td>
+<td>Onnx required to support “edge” mode, while nnabla does not support it.</td>
+</tr>
+<tr class="row-odd"><td>Pow</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Pow2, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RNN</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomNormal</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomNormalLike</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomUniform</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomUniformLike</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Reciprocal</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>RDivScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceL1</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ReduceL2</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ReduceLogSum</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ReduceLogSumExp</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ReduceMax</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceMean</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Mean</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceMin</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Min</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceProd</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Prod</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceSum</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Sum</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceSumSquare</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Relu</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>ReLU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Reshape</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Resize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Scan</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Scatter</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Selu</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>SELU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Shape</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Shrink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sigmoid</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Sigmoid</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Sign</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sin</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Sin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sinh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Sinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Size</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Slice</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Slice</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Softmax</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Sum, Reshape, Exp, Sub2, Max, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Softplus</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Log, AddScalar, Exp</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Softsign</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>AddScalar, Abs, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SpaceToDepth</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Transpose, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Split</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Stack, Split</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sqrt</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>PowScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Squeeze</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>StringNormalizer</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sub</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Sub2, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sum</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tan</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Tan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Tanh</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Tanh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TfIdfVectorizer</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ThresholdedRelu</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Tile</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Tile</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TopK</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Transpose</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Transpose</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Unsqueeze</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Upsample</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>Unpooling</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Where</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>X</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Xor</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Reshape, LogicalXor</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>experimental ATen</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>experimental GRUUnit</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>experimental GivenTensorFill</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>experimental Scale</td>
+<td>X</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="export">
+<h3><a class="toc-backref" href="#id35">Export</a><a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>✓: Support to export this opset.</li>
+<li>△: Partially support to export this opset (e.g. some cases cannot be supported, or not completely tested).</li>
+<li>X: Supported, but test failed.</li>
+<li>Empty: Not support corresponding opset version.</li>
+</ul>
+<p>Total: 81/172</p>
+<div class="section" id="neural-network-layer">
+<h4><a class="toc-backref" href="#id36">Neural Network Layer</a><a class="headerlink" href="#neural-network-layer" title="Permalink to this headline">¶</a></h4>
+<p>Count 10/14</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="16%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="25%" />
+<col width="54%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Affine</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Gemm, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RNN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LSTM</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>GRU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Convolution</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Reshape, Conv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseConvolution</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Reshape, Conv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Deconvolution</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>ConvTranspose, Reshape</td>
+<td>Caffe2 and onnxruntime do not support dilations != 1.</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseDeconvolution</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>ConvTranspose, Reshape</td>
+<td>Caffe2 and onnxruntime do not support dilations != 1.</td>
+</tr>
+<tr class="row-even"><td>MaxPooling</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Pad, Reshape, MaxPool</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AveragePooling</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>Pad, AveragePool, Reshape</td>
+<td>Currently only supports the cases where both ignore_border and including_pad are True.</td>
+</tr>
+<tr class="row-even"><td>GlobalAveragePooling</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>GlobalAveragePool</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SumPooling</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Pad, Reshape, AveragePool, Constant, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Unpooling</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Upsample, Reshape</td>
+<td>The kernel only supports 2d on opset 6.</td>
+</tr>
+<tr class="row-odd"><td>Embed</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="neural-network-activation-functions">
+<h4><a class="toc-backref" href="#id37">Neural Network Activation Functions</a><a class="headerlink" href="#neural-network-activation-functions" title="Permalink to this headline">¶</a></h4>
+<p>Count 8/21</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="25%" />
+<col width="57%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sigmoid</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Sigmoid</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Swish</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Tanh</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Tanh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReLU</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Relu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LeakyReLU</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>LeakyRelu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Softmax</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Exp, Sub, ReduceMax, ReduceSum, Div</td>
+<td>ONNX Add, Sub operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-even"><td>LogSoftmax</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ELU</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Elu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SELU</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Selu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>CReLU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>CELU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>PReLU</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>PRelu, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GELU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ReLU6</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>HardSigmoid</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>HardTanh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LogSigmoid</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>SoftPlus</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>SoftSign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>TanhShrink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sinc</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="normalization">
+<h4><a class="toc-backref" href="#id38">Normalization</a><a class="headerlink" href="#normalization" title="Permalink to this headline">¶</a></h4>
+<p>Count 1/6</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="14%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="27%" />
+<col width="55%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FusedBatchNormalization</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BatchNormalization</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>InstanceNormalization, BatchNormalization, Reshape</td>
+<td>In inferring stage, caffe2 mistmatch onnx 1.4.x’s implementation, “in-place” feature cannot be applied.</td>
+</tr>
+<tr class="row-even"><td>SyncBatchNormalization</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MeanSubtraction</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ClipGradByValue</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ClipGradByNorm</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="reduction">
+<h4><a class="toc-backref" href="#id39">Reduction</a><a class="headerlink" href="#reduction" title="Permalink to this headline">¶</a></h4>
+<p>Count 5/7</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="30%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="18%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sum</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>ReduceSum</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Mean</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>ReduceMean</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>ReduceMax</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Min</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>ReduceMin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Prod</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>ReduceProd</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceSum</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ReduceMean</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="arithmetic">
+<h4><a class="toc-backref" href="#id40">Arithmetic</a><a class="headerlink" href="#arithmetic" title="Permalink to this headline">¶</a></h4>
+<p>Count 11/12</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="3%" />
+<col width="3%" />
+<col width="3%" />
+<col width="11%" />
+<col width="66%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Add2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Add</td>
+<td>ONNX Add operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-odd"><td>BcAdd2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sub2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Sub</td>
+<td>ONNX Sub operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-odd"><td>Mul2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Mul</td>
+<td>ONNX Mul operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-even"><td>Div2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Div</td>
+<td>ONNX Div operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-odd"><td>Pow2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Pow</td>
+<td>ONNX Pow operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-even"><td>AddScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Constant, Add</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MulScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Constant, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>PowScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Constant, Pow</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RSubScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Sub</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RDivScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Div</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RPowScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Pow</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="logical">
+<h4><a class="toc-backref" href="#id41">Logical</a><a class="headerlink" href="#logical" title="Permalink to this headline">¶</a></h4>
+<p>Count 12/29</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="15%" />
+<col width="61%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sign</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Sign</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Minimum2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Add, Min, Constant</td>
+<td>ONNX Add operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-even"><td>Maximum2</td>
+<td>△</td>
+<td>✓</td>
+<td>✓</td>
+<td>Max, Constant, Add</td>
+<td>ONNX Add operator does not support multidirectional broadcasting on opset 6.</td>
+</tr>
+<tr class="row-odd"><td>MinimumScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Add, Min, Constant</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MaximumScalar</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Max, Constant, Add</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalAnd</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>And</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalOr</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Or</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalXor</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Xor</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Equal</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NotEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>GreaterEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Greater</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Greater</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Less</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Less</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalAndScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LogicalOrScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LogicalXorScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>EqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>NotEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>GreaterEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>GreaterScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LessEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LessScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LogicalNot</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Not</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>IsNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>IsInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ResetNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ResetInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Where</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="math">
+<h4><a class="toc-backref" href="#id42">Math</a><a class="headerlink" href="#math" title="Permalink to this headline">¶</a></h4>
+<p>Count 19/22</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="36%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Constant</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Arange</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Abs</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Abs</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Exp</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Exp</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Log</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Log</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Identity</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BatchMatmul</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>MatMul, Transpose, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Round</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Ceil</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Ceil</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Floor</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Floor</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sin</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Sin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cos</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Cos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tan</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Tan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sinh</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Sinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cosh</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Cosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASin</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Asin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACos</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Acos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATan</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Atan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ATan2</td>
+<td>X</td>
+<td>✓</td>
+<td>✓</td>
+<td>Atan, Div</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASinh</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Asinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACosh</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Acosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATanh</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Atanh</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="array-manipulation">
+<h4><a class="toc-backref" href="#id43">Array Manipulation</a><a class="headerlink" href="#array-manipulation" title="Permalink to this headline">¶</a></h4>
+<p>Count 9/19</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="15%" />
+<col width="70%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Concatenate</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Concat</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Split</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Squeeze, Split</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Stack</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Concat, Unsqueeze</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Slice</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>Slice</td>
+<td>ONNX slice cannot support step != 1 on opset &lt; 10.</td>
+</tr>
+<tr class="row-even"><td>Pad</td>
+<td>△</td>
+<td>△</td>
+<td>△</td>
+<td>Pad</td>
+<td>When the mode of the pad is reflect, if the size of the pad exceeds the input size, caffe2 and onnxruntime cannot handle it.</td>
+</tr>
+<tr class="row-odd"><td>Transpose</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Transpose</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Broadcast</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BroadcastTo</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tile</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>OneHot</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Flip</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Transpose, Identity, Gather</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Shift</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sort</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Reshape</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Constant, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MatrixDiag</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MatrixDiagPart</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Assign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>GatherNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ScatterNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="signal-processing">
+<h4><a class="toc-backref" href="#id44">Signal Processing</a><a class="headerlink" href="#signal-processing" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/3</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="31%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="16%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Interpolate</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>FFT</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>IFFT</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="stochasticity">
+<h4><a class="toc-backref" href="#id45">Stochasticity</a><a class="headerlink" href="#stochasticity" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/11</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="2%" />
+<col width="2%" />
+<col width="2%" />
+<col width="6%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Dropout</td>
+<td>X</td>
+<td>X</td>
+<td>X</td>
+<td>Dropout</td>
+<td>The Dropout in nnabla has no test mode and contains random parameters, so the test result is not the same as onnx.</td>
+</tr>
+<tr class="row-odd"><td>TopKData</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>TopKGrad</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Rand</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Randint</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Randn</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomChoice</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomCrop</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomFlip</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomShift</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ImageAugmentation</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="loss-functions">
+<h4><a class="toc-backref" href="#id46">Loss Functions</a><a class="headerlink" href="#loss-functions" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/9</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="41%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="14%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SigmoidCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BinaryCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>SoftmaxCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>CategoricalCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>SquaredError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>AbsoluteError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>HuberLoss</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>EpsilonInsensitiveLoss</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>KLMultinomial</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="quantization-neural-network-layers">
+<h4><a class="toc-backref" href="#id47">Quantization Neural Network Layers</a><a class="headerlink" href="#quantization-neural-network-layers" title="Permalink to this headline">¶</a></h4>
+<p>Count 6/11</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="4%" />
+<col width="4%" />
+<col width="4%" />
+<col width="31%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BinarySigmoid</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Greater, Constant, Where</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryTanh</td>
+<td>X</td>
+<td>X</td>
+<td>✓</td>
+<td>Greater, Constant, Where</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryConnectAffine</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Gemm, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryConnectConvolution</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Reshape, Conv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryWeightAffine</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>MatMul, Mul, Reshape, Add</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryWeightConvolution</td>
+<td>✓</td>
+<td>✓</td>
+<td>✓</td>
+<td>Mul, Reshape, Add, Conv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>INQAffine</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>INQConvolution</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>FixedPointQuantize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Pow2Quantize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Prune</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="validation">
+<h4><a class="toc-backref" href="#id48">Validation</a><a class="headerlink" href="#validation" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/3</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="32%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="16%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TopNError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BinaryError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ConfusionMatrix</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="unsupported-special-use">
+<h4><a class="toc-backref" href="#id49">Unsupported, Special Use</a><a class="headerlink" href="#unsupported-special-use" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/5</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="36%" />
+<col width="5%" />
+<col width="5%" />
+<col width="5%" />
+<col width="15%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">6</th>
+<th class="head">7</th>
+<th class="head">9</th>
+<th class="head">ONNX Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>VATNoise</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Unlink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>NmsDetection2d</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>MaxPoolingBackward</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="tensorflow-support-status">
+<h2><a class="toc-backref" href="#id50">Tensorflow Support Status</a><a class="headerlink" href="#tensorflow-support-status" title="Permalink to this headline">¶</a></h2>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Note:</th><td class="field-body">In this document, the numbers in the header of all tables represent the version of onnx opset.</td>
+</tr>
+</tbody>
+</table>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id51">Import</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>✓: Supported</li>
+<li>△: Partially supported</li>
+<li>X: Supported, but test failed.</li>
+<li>Empty: Not support yet.</li>
+</ul>
+<p>Total: 86/120</p>
+<table border="1" class="docutils" id="id32">
+<caption><span class="caption-text">Tensorflow support status</span><a class="headerlink" href="#id32" title="Permalink to this table">¶</a></caption>
+<colgroup>
+<col width="21%" />
+<col width="4%" />
+<col width="19%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Tensorflow Function</th>
+<th class="head">Status</th>
+<th class="head">NNabla Func</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Abs</td>
+<td>✓</td>
+<td>Abs</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Acos</td>
+<td>✓</td>
+<td>ACos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Acosh</td>
+<td>✓</td>
+<td>ACosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Add</td>
+<td>✓</td>
+<td>Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>AddN</td>
+<td>✓</td>
+<td>Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>All</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Any</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ArgMax</td>
+<td>✓</td>
+<td>Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ArgMin</td>
+<td>✓</td>
+<td>Min</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Asin</td>
+<td>✓</td>
+<td>ASin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Asinh</td>
+<td>✓</td>
+<td>ASinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Atan</td>
+<td>✓</td>
+<td>ATan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Atan2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Atanh</td>
+<td>✓</td>
+<td>ATanh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>AvgPool</td>
+<td>△</td>
+<td>Pad, Transpose, AveragePooling</td>
+<td>Some feature is not supported by Nnabla such as Pad’s edge mode.</td>
+</tr>
+<tr class="row-odd"><td>AvgPool3D</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>BatchMatMul</td>
+<td>✓</td>
+<td>Transpose, BatchMatmul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BiasAdd</td>
+<td>✓</td>
+<td>Reshape, Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cast</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Ceil</td>
+<td>✓</td>
+<td>Ceil</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ConcatV2</td>
+<td>✓</td>
+<td>Concatenate</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Const</td>
+<td>✓</td>
+<td>Add2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Conv2D</td>
+<td>△</td>
+<td>Pad, Transpose, Convolution</td>
+<td>Tensorflow require GPU to perform related test cases. This issue is recorded only for memo.</td>
+</tr>
+<tr class="row-odd"><td>Conv2DBackpropFilter</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Conv2DBackpropInput</td>
+<td>△</td>
+<td>Deconvolution, Transpose</td>
+<td>Tensorflow require GPU to perform related test cases. This issue is recorded only for memo.</td>
+</tr>
+<tr class="row-odd"><td>Conv3D</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Conv3DBackpropFilterV2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Conv3DBackpropInputV2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Cos</td>
+<td>✓</td>
+<td>Cos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cosh</td>
+<td>✓</td>
+<td>Cosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>DepthToSpace</td>
+<td>△</td>
+<td>Transpose, Reshape</td>
+<td>Tensorflow require GPU to perform related test cases. This issue is recorded only for memo.</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseConv2dNative</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>DepthwiseConv2dNativeBackpropFilter</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseConv2dNativeBackpropInput</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Div</td>
+<td>✓</td>
+<td>Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Elu</td>
+<td>✓</td>
+<td>ELU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>✓</td>
+<td>Equal</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Erf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Erfc</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Exp</td>
+<td>✓</td>
+<td>Exp</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ExpandDims</td>
+<td>✓</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Fill</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Flatten</td>
+<td>✓</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Floor</td>
+<td>✓</td>
+<td>Floor</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>FloorDiv</td>
+<td>✓</td>
+<td>Floor, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>FloorMod</td>
+<td>✓</td>
+<td>Mul2, Sub2, Floor, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>FusedBatchNorm</td>
+<td>△</td>
+<td>Transpose, BatchNormalization</td>
+<td>It did not pass testing for training mode.</td>
+</tr>
+<tr class="row-odd"><td>GatherNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>GatherV2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Greater</td>
+<td>✓</td>
+<td>Greater</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GreaterEqual</td>
+<td>✓</td>
+<td>LogicalNot, Less</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Identity</td>
+<td>✓</td>
+<td>Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>IsInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>IsNan</td>
+<td>✓</td>
+<td>IsNaN</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LeakyRelu</td>
+<td>✓</td>
+<td>LeakyReLU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Less</td>
+<td>✓</td>
+<td>Less</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessEqual</td>
+<td>✓</td>
+<td>LogicalNot, Greater</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Log</td>
+<td>✓</td>
+<td>Log</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogSoftmax</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LogicalAnd</td>
+<td>✓</td>
+<td>LogicalAnd</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalNot</td>
+<td>✓</td>
+<td>LogicalNot</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalOr</td>
+<td>✓</td>
+<td>LogicalOr</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalXor</td>
+<td>✓</td>
+<td>LogicalNot, LogicalAnd, LogicalOr</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MatrixBandPart</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>✓</td>
+<td>Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MaxPool</td>
+<td>✓</td>
+<td>Transpose, MaxPooling, Pad</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MaxPool3D</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MaxPoolWithArgmax</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Maximum</td>
+<td>✓</td>
+<td>Maximum2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Mean</td>
+<td>✓</td>
+<td>Mean</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Min</td>
+<td>✓</td>
+<td>Min</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Minimum</td>
+<td>✓</td>
+<td>Minimum2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Mul</td>
+<td>✓</td>
+<td>Mul2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Neg</td>
+<td>✓</td>
+<td>MulScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>NotEqual</td>
+<td>✓</td>
+<td>LogicalNot, Equal</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>OneHot</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Pack</td>
+<td>✓</td>
+<td>Reshape, Concatenate</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Pad</td>
+<td>✓</td>
+<td>Pad</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Pow</td>
+<td>✓</td>
+<td>Pow2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Prod</td>
+<td>✓</td>
+<td>Prod</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RandomShuffle</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomStandardNormal</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomUniform</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RealDiv</td>
+<td>✓</td>
+<td>Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Reciprocal</td>
+<td>✓</td>
+<td>RDivScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Relu</td>
+<td>✓</td>
+<td>ReLU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Relu6</td>
+<td>✓</td>
+<td>MinimumScalar, MaximumScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Reshape</td>
+<td>△</td>
+<td>Reshape</td>
+<td>Some test cases failed for some nnabla’s implementation limitation (e.g. -1 is regarded as batch_size).</td>
+</tr>
+<tr class="row-even"><td>ReverseSequence</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Rsqrt</td>
+<td>✓</td>
+<td>PowScalar, RDivScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Select</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Selu</td>
+<td>✓</td>
+<td>SELU</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Shape</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Sigmoid</td>
+<td>✓</td>
+<td>Sigmoid</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sign</td>
+<td>✓</td>
+<td>Sign</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sin</td>
+<td>✓</td>
+<td>Sin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sinh</td>
+<td>✓</td>
+<td>Sinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Size</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Slice</td>
+<td>✓</td>
+<td>Slice</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Softmax</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Softplus</td>
+<td>✓</td>
+<td>Log, AddScalar, Exp</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Softsign</td>
+<td>✓</td>
+<td>AddScalar, Abs, Div2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SpaceToDepth</td>
+<td>△</td>
+<td>Transpose, Reshape</td>
+<td>Tensorflow require GPU to perform related test cases. This issue is recorded only for memo.</td>
+</tr>
+<tr class="row-odd"><td>SplitV</td>
+<td>✓</td>
+<td>Stack, Split</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sqrt</td>
+<td>✓</td>
+<td>PowScalar</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Square</td>
+<td>✓</td>
+<td>Mul2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SquaredDifference</td>
+<td>✓</td>
+<td>Mul2, Sub2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Squeeze</td>
+<td>✓</td>
+<td>Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>StopGradient</td>
+<td>✓</td>
+<td>Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>StridedSlice</td>
+<td>✓</td>
+<td>Slice</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sub</td>
+<td>✓</td>
+<td>Sub2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sum</td>
+<td>✓</td>
+<td>Sum</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tan</td>
+<td>✓</td>
+<td>Tan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Tanh</td>
+<td>✓</td>
+<td>Tanh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tile</td>
+<td>✓</td>
+<td>Tile</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TopKV2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Transpose</td>
+<td>✓</td>
+<td>Transpose</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TruncateDiv</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>TruncateMod</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Unpack</td>
+<td>✓</td>
+<td>Stack, Concatenate, Reshape, Split</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id52">Export</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li>✓: Supported</li>
+<li>△: Partially supported</li>
+<li>X: Supported, but test failed.</li>
+<li>Empty: Not support yet.</li>
+</ul>
+<p>Total: 81/172</p>
+<div class="section" id="id3">
+<h4><a class="toc-backref" href="#id53">Neural Network Layer</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>Count 10/14</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="10%" />
+<col width="3%" />
+<col width="56%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Affine</td>
+<td>✓</td>
+<td>MatMul, Placeholder, Reshape, Add, Const, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RNN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LSTM</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>GRU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Convolution</td>
+<td>△</td>
+<td>BatchToSpaceND, Placeholder, Pad, SpaceToBatchND, Reshape, Split, Add, ConcatV2, Const, Transpose, Identity, Conv2D</td>
+<td>The cases <code class="xref any docutils literal notranslate"><span class="pre">dilations</span></code> and <a class="reference internal" href="../api/nd_array.html#nnabla._nd_array.NdArray.strides" title="nnabla._nd_array.NdArray.strides"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">strides</span></code></a> larger than 1 are not supported by tensorflow.</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseConvolution</td>
+<td>△</td>
+<td>BatchToSpaceND, Placeholder, Pad, SpaceToBatchND, Reshape, Split, Add, ConcatV2, Const, Transpose, Conv2D</td>
+<td>The cases <code class="xref any docutils literal notranslate"><span class="pre">dilations</span></code> and <a class="reference internal" href="../api/nd_array.html#nnabla._nd_array.NdArray.strides" title="nnabla._nd_array.NdArray.strides"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">strides</span></code></a> larger than 1 are not supported by tensorflow.</td>
+</tr>
+<tr class="row-even"><td>Deconvolution</td>
+<td>△</td>
+<td>Placeholder, Reshape, Split, Add, ConcatV2, Const, Transpose, Conv2DBackpropInput, Slice, Identity</td>
+<td>The cases <code class="xref any docutils literal notranslate"><span class="pre">dilations</span></code> larger than 1 are not supported by tensorflow.</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseDeconvolution</td>
+<td>△</td>
+<td>Placeholder, Reshape, Split, Add, ConcatV2, Const, Transpose, Conv2DBackpropInput, Slice</td>
+<td>The cases <code class="xref any docutils literal notranslate"><span class="pre">dilations</span></code> larger than 1 are not supported by tensorflow.</td>
+</tr>
+<tr class="row-even"><td>MaxPooling</td>
+<td>✓</td>
+<td>Placeholder, Reshape, PadV2, MaxPool, Const, Transpose, MaxPool3D</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AveragePooling</td>
+<td>△</td>
+<td>Placeholder, Pad, AvgPool, Reshape, Const, Transpose, AvgPool3D</td>
+<td>Currently only supports the cases both ignore_border and including_pad are True.</td>
+</tr>
+<tr class="row-even"><td>GlobalAveragePooling</td>
+<td>✓</td>
+<td>Pack, SplitV, Sub, Mean, Range, Const</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SumPooling</td>
+<td>✓</td>
+<td>Placeholder, Pad, AvgPool, Reshape, AvgPool3D, Const, Transpose, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Unpooling</td>
+<td>△</td>
+<td>Placeholder, Switch, Equal, Reshape, ResizeNearestNeighbor, Cast, NoOp, Assert, Transpose, Const, Merge, LogicalAnd, StridedSlice, Identity, Mul</td>
+<td>The kernel only supports 2d.</td>
+</tr>
+<tr class="row-odd"><td>Embed</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id4">
+<h4><a class="toc-backref" href="#id54">Neural Network Activation Functions</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+<p>Count 8/21</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="15%" />
+<col width="7%" />
+<col width="61%" />
+<col width="18%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sigmoid</td>
+<td>✓</td>
+<td>Placeholder, Sigmoid</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Swish</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Tanh</td>
+<td>✓</td>
+<td>Tanh, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReLU</td>
+<td>✓</td>
+<td>Placeholder, Relu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LeakyReLU</td>
+<td>✓</td>
+<td>Placeholder, LeakyRelu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Softmax</td>
+<td>✓</td>
+<td>Sum, Placeholder, Exp, Sub, Const, RealDiv, Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogSoftmax</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ELU</td>
+<td>✓</td>
+<td>Placeholder, Add, Sub, Exp, Mul, Elu, Const, GreaterEqual, Less, Cast</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SELU</td>
+<td>✓</td>
+<td>Placeholder, Add, Sub, Exp, Const, Minimum, Mul, Maximum</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>CReLU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>CELU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>PReLU</td>
+<td>✓</td>
+<td>Placeholder, Reshape, Add, Sub, Abs, Const, Mul, Relu</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GELU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ReLU6</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>HardSigmoid</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>HardTanh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LogSigmoid</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>SoftPlus</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>SoftSign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>TanhShrink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sinc</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id5">
+<h4><a class="toc-backref" href="#id55">Normalization</a><a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h4>
+<p>Count 1/6</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="4%" />
+<col width="39%" />
+<col width="46%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FusedBatchNormalization</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BatchNormalization</td>
+<td>△</td>
+<td>Placeholder, Reshape, Add, Sub, StopGradient, Mean, Rsqrt, Const, Mul, SquaredDifference</td>
+<td>In inferring stage, caffe2 mistmatch onnx 1.4.x’s implementation, “in-place” feature cannot be applied.</td>
+</tr>
+<tr class="row-even"><td>SyncBatchNormalization</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MeanSubtraction</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ClipGradByValue</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ClipGradByNorm</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id6">
+<h4><a class="toc-backref" href="#id56">Reduction</a><a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h4>
+<p>Count 5/7</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="12%" />
+<col width="35%" />
+<col width="29%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sum</td>
+<td>✓</td>
+<td>Sum, Placeholder, Const</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Mean</td>
+<td>✓</td>
+<td>Const, Placeholder, Mean</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>✓</td>
+<td>Const, Placeholder, Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Min</td>
+<td>✓</td>
+<td>Const, Placeholder, Min</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Prod</td>
+<td>✓</td>
+<td>Const, Placeholder, Prod</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceSum</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ReduceMean</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id7">
+<h4><a class="toc-backref" href="#id57">Arithmetic</a><a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h4>
+<p>Count 11/12</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="11%" />
+<col width="38%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Add2</td>
+<td>✓</td>
+<td>Placeholder, Add</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BcAdd2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sub2</td>
+<td>✓</td>
+<td>Placeholder, Sub</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Mul2</td>
+<td>✓</td>
+<td>Placeholder, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Div2</td>
+<td>✓</td>
+<td>Placeholder, RealDiv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Pow2</td>
+<td>✓</td>
+<td>Placeholder, Pow</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>AddScalar</td>
+<td>✓</td>
+<td>Const, Placeholder, Add</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MulScalar</td>
+<td>✓</td>
+<td>Const, Placeholder, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>PowScalar</td>
+<td>✓</td>
+<td>Const, Placeholder, Pow</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RSubScalar</td>
+<td>✓</td>
+<td>Const, Placeholder, Sub</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RDivScalar</td>
+<td>✓</td>
+<td>Const, Placeholder, RealDiv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RPowScalar</td>
+<td>✓</td>
+<td>Const, Placeholder, Pow</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id8">
+<h4><a class="toc-backref" href="#id58">Logical</a><a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h4>
+<p>Count 12/29</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="22%" />
+<col width="8%" />
+<col width="48%" />
+<col width="21%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sign</td>
+<td>✓</td>
+<td>Placeholder, Sign</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Minimum2</td>
+<td>✓</td>
+<td>Placeholder, Min, Pack, Add, Const</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Maximum2</td>
+<td>✓</td>
+<td>Placeholder, Pack, Add, Const, Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MinimumScalar</td>
+<td>✓</td>
+<td>Placeholder, Min, Pack, Add, Const</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MaximumScalar</td>
+<td>✓</td>
+<td>Placeholder, Pack, Add, Const, Max</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalAnd</td>
+<td>✓</td>
+<td>Placeholder, LogicalAnd</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalOr</td>
+<td>✓</td>
+<td>Placeholder, LogicalOr</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalXor</td>
+<td>✓</td>
+<td>LogicalNot, Placeholder, LogicalAnd, LogicalOr</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>✓</td>
+<td>Placeholder, Equal</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NotEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>GreaterEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Greater</td>
+<td>✓</td>
+<td>Greater, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Less</td>
+<td>✓</td>
+<td>Placeholder, Less</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalAndScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LogicalOrScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LogicalXorScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>EqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>NotEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>GreaterEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>GreaterScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LessEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>LessScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>LogicalNot</td>
+<td>✓</td>
+<td>LogicalNot, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>IsNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>IsInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ResetNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>ResetInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Where</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id9">
+<h4><a class="toc-backref" href="#id59">Math</a><a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h4>
+<p>Count 19/22</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="17%" />
+<col width="8%" />
+<col width="54%" />
+<col width="20%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Constant</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Arange</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Abs</td>
+<td>✓</td>
+<td>Placeholder, Abs</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Exp</td>
+<td>✓</td>
+<td>Placeholder, Exp</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Log</td>
+<td>✓</td>
+<td>Log, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Identity</td>
+<td>✓</td>
+<td>Placeholder, Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BatchMatmul</td>
+<td>✓</td>
+<td>Placeholder, Reshape, Const, Transpose, BatchMatMulV2</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Round</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Ceil</td>
+<td>✓</td>
+<td>Ceil, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Floor</td>
+<td>✓</td>
+<td>Placeholder, Floor</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sin</td>
+<td>✓</td>
+<td>Sin, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cos</td>
+<td>✓</td>
+<td>Placeholder, Cos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tan</td>
+<td>✓</td>
+<td>Placeholder, Tan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sinh</td>
+<td>✓</td>
+<td>Placeholder, Sinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cosh</td>
+<td>✓</td>
+<td>Cosh, Placeholder</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASin</td>
+<td>✓</td>
+<td>Placeholder, Asin</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACos</td>
+<td>✓</td>
+<td>Placeholder, Acos</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATan</td>
+<td>✓</td>
+<td>Placeholder, Atan</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ATan2</td>
+<td>✓</td>
+<td>Placeholder, Atan, RealDiv</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASinh</td>
+<td>✓</td>
+<td>Placeholder, Asinh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACosh</td>
+<td>✓</td>
+<td>Placeholder, Acosh</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATanh</td>
+<td>✓</td>
+<td>Placeholder, Atanh</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id10">
+<h4><a class="toc-backref" href="#id60">Array Manipulation</a><a class="headerlink" href="#id10" title="Permalink to this headline">¶</a></h4>
+<p>Count 9/19</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="9%" />
+<col width="4%" />
+<col width="26%" />
+<col width="60%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Concatenate</td>
+<td>✓</td>
+<td>ConcatV2, Placeholder, Const</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Split</td>
+<td>✓</td>
+<td>Const, Placeholder, SplitV, Squeeze</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Stack</td>
+<td>✓</td>
+<td>ConcatV2, Placeholder, ExpandDims, Const</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Slice</td>
+<td>△</td>
+<td>Const, Placeholder, Slice</td>
+<td>step != 1” exceed the scope of onnx opset 9,  not supported.</td>
+</tr>
+<tr class="row-even"><td>Pad</td>
+<td>△</td>
+<td>Const, Placeholder, MirrorPad, PadV2</td>
+<td>When the mode of the pad is reflect, if the size of the pad exceeds the input size, tensorflow cannot handle it.</td>
+</tr>
+<tr class="row-odd"><td>Transpose</td>
+<td>✓</td>
+<td>Const, Placeholder, Transpose</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Broadcast</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BroadcastTo</td>
+<td>✓</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tile</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>OneHot</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Flip</td>
+<td>✓</td>
+<td>Placeholder, GatherV2, Const, Transpose, Identity</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Shift</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sort</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Reshape</td>
+<td>✓</td>
+<td>Const, Placeholder, Reshape</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MatrixDiag</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>MatrixDiagPart</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Assign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>GatherNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ScatterNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id11">
+<h4><a class="toc-backref" href="#id61">Signal Processing</a><a class="headerlink" href="#id11" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/3</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="33%" />
+<col width="15%" />
+<col width="13%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Interpolate</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>FFT</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>IFFT</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id12">
+<h4><a class="toc-backref" href="#id62">Stochasticity</a><a class="headerlink" href="#id12" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/11</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="5%" />
+<col width="7%" />
+<col width="75%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Dropout</td>
+<td>X</td>
+<td>Placeholder</td>
+<td>The Dropout in nnabla has no test mode and contains random parameters, so the test result is not the same as tensorflow.</td>
+</tr>
+<tr class="row-odd"><td>TopKData</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>TopKGrad</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Rand</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Randint</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Randn</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomChoice</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomCrop</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>RandomFlip</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>RandomShift</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ImageAugmentation</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id13">
+<h4><a class="toc-backref" href="#id63">Loss Functions</a><a class="headerlink" href="#id13" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/9</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="43%" />
+<col width="13%" />
+<col width="11%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SigmoidCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BinaryCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>SoftmaxCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>CategoricalCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>SquaredError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>AbsoluteError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>HuberLoss</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>EpsilonInsensitiveLoss</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>KLMultinomial</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id14">
+<h4><a class="toc-backref" href="#id64">Quantization Neural Network Layers</a><a class="headerlink" href="#id14" title="Permalink to this headline">¶</a></h4>
+<p>Count 6/11</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="13%" />
+<col width="4%" />
+<col width="43%" />
+<col width="40%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BinarySigmoid</td>
+<td>✓</td>
+<td>Const, Greater, Placeholder, Select</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryTanh</td>
+<td>✓</td>
+<td>Const, Greater, Placeholder, Select</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryConnectAffine</td>
+<td>✓</td>
+<td>MatMul, Placeholder, Reshape, Add, Const, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryConnectConvolution</td>
+<td>△</td>
+<td>Placeholder, Pad, Reshape, Split, Add, ConcatV2, Const, Transpose, Identity, Conv2D</td>
+<td>The cases <code class="xref any docutils literal notranslate"><span class="pre">dilations</span></code> and <a class="reference internal" href="../api/nd_array.html#nnabla._nd_array.NdArray.strides" title="nnabla._nd_array.NdArray.strides"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">strides</span></code></a> larger than 1 are not supported by tensorflow.</td>
+</tr>
+<tr class="row-even"><td>BinaryWeightAffine</td>
+<td>✓</td>
+<td>MatMul, Placeholder, Reshape, Add, Const, Mul</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryWeightConvolution</td>
+<td>△</td>
+<td>Placeholder, Pad, Reshape, Split, Add, ConcatV2, Const, Transpose, Identity, Mul, Conv2D</td>
+<td>The cases <code class="xref any docutils literal notranslate"><span class="pre">dilations</span></code> and <a class="reference internal" href="../api/nd_array.html#nnabla._nd_array.NdArray.strides" title="nnabla._nd_array.NdArray.strides"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">strides</span></code></a> larger than 1 are not supported by tensorflow.</td>
+</tr>
+<tr class="row-even"><td>INQAffine</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>INQConvolution</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>FixedPointQuantize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Pow2Quantize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Prune</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id15">
+<h4><a class="toc-backref" href="#id65">Validation</a><a class="headerlink" href="#id15" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/3</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="34%" />
+<col width="15%" />
+<col width="13%" />
+<col width="38%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TopNError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>BinaryError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>ConfusionMatrix</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id16">
+<h4><a class="toc-backref" href="#id66">Unsupported, Special Use</a><a class="headerlink" href="#id16" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/5</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="38%" />
+<col width="14%" />
+<col width="13%" />
+<col width="36%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">TF Op</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>VATNoise</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>Unlink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>Sink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-odd"><td>NmsDetection2d</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+<tr class="row-even"><td>MaxPoolingBackward</td>
+<td>&#160;</td>
+<td>&#160;</td>
+<td>Not yet implemented.</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="nnabla-c-runtime-support-status">
+<h2><a class="toc-backref" href="#id67">NNabla C Runtime Support Status</a><a class="headerlink" href="#nnabla-c-runtime-support-status" title="Permalink to this headline">¶</a></h2>
+<p>nnabla version: 1.0.21</p>
+<ul class="simple">
+<li>✓: Supported</li>
+<li>△: Partially supported</li>
+<li>X: Supported, but test failed or no test data.</li>
+<li>Empty: Not support yet.</li>
+</ul>
+<div class="section" id="id17">
+<h3><a class="toc-backref" href="#id68">Export</a><a class="headerlink" href="#id17" title="Permalink to this headline">¶</a></h3>
+<p>Total: 52/172</p>
+<div class="section" id="id18">
+<h4><a class="toc-backref" href="#id69">Neural Network Layer</a><a class="headerlink" href="#id18" title="Permalink to this headline">¶</a></h4>
+<p>Count 8/14</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="54%" />
+<col width="17%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Affine</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RNN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LSTM</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GRU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Convolution</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseConvolution</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Deconvolution</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>DepthwiseDeconvolution</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MaxPooling</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AveragePooling</td>
+<td>△</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GlobalAveragePooling</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SumPooling</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Unpooling</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Embed</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id19">
+<h4><a class="toc-backref" href="#id70">Neural Network Activation Functions</a><a class="headerlink" href="#id19" title="Permalink to this headline">¶</a></h4>
+<p>Count 8/21</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="21%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sigmoid</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Swish</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tanh</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReLU</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LeakyReLU</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Softmax</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogSoftmax</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ELU</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SELU</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>CReLU</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>CELU</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>PReLU</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GELU</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReLU6</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>HardSigmoid</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>HardTanh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogSigmoid</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>SoftPlus</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SoftSign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TanhShrink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sinc</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id20">
+<h4><a class="toc-backref" href="#id71">Normalization</a><a class="headerlink" href="#id20" title="Permalink to this headline">¶</a></h4>
+<p>Count 1/6</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="17%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>FusedBatchNormalization</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BatchNormalization</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SyncBatchNormalization</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MeanSubtraction</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ClipGradByValue</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ClipGradByNorm</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id21">
+<h4><a class="toc-backref" href="#id72">Reduction</a><a class="headerlink" href="#id21" title="Permalink to this headline">¶</a></h4>
+<p>Count 1/7</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="21%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sum</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Mean</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Max</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Min</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Prod</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ReduceSum</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ReduceMean</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id22">
+<h4><a class="toc-backref" href="#id73">Arithmetic</a><a class="headerlink" href="#id22" title="Permalink to this headline">¶</a></h4>
+<p>Count 11/12</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="21%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Add2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BcAdd2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sub2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Mul2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Div2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Pow2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>AddScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MulScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>PowScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RSubScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RDivScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RPowScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id23">
+<h4><a class="toc-backref" href="#id74">Logical</a><a class="headerlink" href="#id23" title="Permalink to this headline">¶</a></h4>
+<p>Count 5/29</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="19%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Sign</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Minimum2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Maximum2</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MinimumScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MaximumScalar</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalAnd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalOr</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalXor</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Equal</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NotEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GreaterEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Greater</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessEqual</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Less</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalAndScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalOrScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LogicalXorScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>EqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>NotEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GreaterEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>GreaterScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LessEqualScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>LessScalar</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>LogicalNot</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>IsNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>IsInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ResetNaN</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ResetInf</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Where</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id24">
+<h4><a class="toc-backref" href="#id75">Math</a><a class="headerlink" href="#id24" title="Permalink to this headline">¶</a></h4>
+<p>Count 5/22</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="21%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Constant</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Arange</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Abs</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Exp</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Log</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Identity</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BatchMatmul</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Round</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Ceil</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Floor</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sin</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Cos</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tan</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Sinh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Cosh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASin</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACos</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATan</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ATan2</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ASinh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ACosh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>ATanh</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id25">
+<h4><a class="toc-backref" href="#id76">Array Manipulation</a><a class="headerlink" href="#id25" title="Permalink to this headline">¶</a></h4>
+<p>Count 7/19</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="21%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Concatenate</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Split</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Stack</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Slice</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Pad</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Transpose</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Broadcast</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BroadcastTo</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Tile</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>OneHot</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Flip</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Shift</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sort</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Reshape</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MatrixDiag</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>MatrixDiagPart</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Assign</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>GatherNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ScatterNd</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id26">
+<h4><a class="toc-backref" href="#id77">Signal Processing</a><a class="headerlink" href="#id26" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/3</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="45%" />
+<col width="21%" />
+<col width="34%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Interpolate</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>FFT</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>IFFT</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id27">
+<h4><a class="toc-backref" href="#id78">Stochasticity</a><a class="headerlink" href="#id27" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/11</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="49%" />
+<col width="20%" />
+<col width="32%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>Dropout</td>
+<td>X</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>TopKData</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>TopKGrad</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Rand</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Randint</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Randn</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RandomChoice</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RandomCrop</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>RandomFlip</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>RandomShift</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ImageAugmentation</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id28">
+<h4><a class="toc-backref" href="#id79">Loss Functions</a><a class="headerlink" href="#id28" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/9</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="55%" />
+<col width="17%" />
+<col width="28%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>SigmoidCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SoftmaxCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>CategoricalCrossEntropy</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>SquaredError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>AbsoluteError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>HuberLoss</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>EpsilonInsensitiveLoss</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>KLMultinomial</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id29">
+<h4><a class="toc-backref" href="#id80">Quantization Neural Network Layers</a><a class="headerlink" href="#id29" title="Permalink to this headline">¶</a></h4>
+<p>Count 6/11</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="56%" />
+<col width="17%" />
+<col width="27%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>BinarySigmoid</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryTanh</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryConnectAffine</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryConnectConvolution</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>BinaryWeightAffine</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryWeightConvolution</td>
+<td>✓</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>INQAffine</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>INQConvolution</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>FixedPointQuantize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Pow2Quantize</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Prune</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id30">
+<h4><a class="toc-backref" href="#id81">Validation</a><a class="headerlink" href="#id30" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/3</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="46%" />
+<col width="21%" />
+<col width="33%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>TopNError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>BinaryError</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>ConfusionMatrix</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="id31">
+<h4><a class="toc-backref" href="#id82">Unsupported, Special Use</a><a class="headerlink" href="#id31" title="Permalink to this headline">¶</a></h4>
+<p>Count 0/5</p>
+<blockquote>
+<div><table border="1" class="docutils">
+<colgroup>
+<col width="50%" />
+<col width="19%" />
+<col width="31%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">NNabla Function</th>
+<th class="head">Status</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>VATNoise</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>Unlink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>Sink</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-odd"><td>NmsDetection2d</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+<tr class="row-even"><td>MaxPoolingBackward</td>
+<td>&#160;</td>
+<td>&#160;</td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="Model_Support_Status.html" class="btn btn-neutral float-right" title="Model Support Status" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="../../support_status.html" class="btn btn-neutral float-left" title="Support Status" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
