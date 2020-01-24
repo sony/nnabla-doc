@@ -1,0 +1,488 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Mixed Precision Training &mdash; Neural Network Libraries 1.5.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Data Parallel Distributed Training" href="multi_device_training.html" />
+    <link rel="prev" title="Static vs Dynamic Neural Networks in NNabla" href="dynamic_and_static_nn.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.5.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="by_examples.html">NNabla by Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">NNabla Python API Demonstration Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_and_static_nn.html">Static vs Dynamic Neural Networks in NNabla</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Mixed Precision Training</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#step-by-step-instruction">Step-by-Step Instruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#all-in-one-instruction">All-in-one Instruction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#notice">Notice</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="multi_device_training.html">Data Parallel Distributed Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_converter_for_inference.html">Graph Converter for Inference</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function_list_and_converter.html">Function list and converter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html">Python API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../tutorial.html">Python API Tutorial</a> &raquo;</li>
+        
+      <li>Mixed Precision Training</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/tutorial/mixed_precision_training.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="mixed-precision-training">
+<h1>Mixed Precision Training<a class="headerlink" href="#mixed-precision-training" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Traditionally, for training a neural network, we used to use <code class="docutils literal notranslate"><span class="pre">FP32</span></code>
+for weights and activations; however computation costs for training a
+neural network rapidly increase over years as the success of deep
+learning and the growing size of a neural network. It indicates that we
+need to spend much more time for training a huge size of a neural
+network while we would like to do lots of trials before a product
+launch. To address this problem, companies (e.g., NVIDIA) introduced an
+accelerator for speeding up computation. For example, NVIDIA Volta has
+<a class="reference external" href="https://devblogs.nvidia.com/programming-tensor-cores-cuda-9/">Tensor
+Cores</a>
+to speed up computation.</p>
+<p>However, it uses <code class="docutils literal notranslate"><span class="pre">FP16</span></code> weights, activations, gradients, and the range
+of <code class="docutils literal notranslate"><span class="pre">FP16</span></code> is very limited when compared to that of <code class="docutils literal notranslate"><span class="pre">FP32</span></code>, meaning
+that sometimes (or often) values of gradients overflow and/or underflow,
+which affects the performance of a neural network or makes it collapse
+during training.</p>
+<p>Mixed precision training is one of the algorithms to circumvent that
+problem while maintaining the same results that we could obtain with
+<code class="docutils literal notranslate"><span class="pre">FP32</span></code> networks. It is well-described in <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/mixed-precision-training/index.html">The Training with Mixed
+Precision User
+Guide</a>
+and <a class="reference external" href="https://arxiv.org/abs/1710.03740">Mixed Precision Training</a>.</p>
+<p>This tutorial explains how to do the mixed precision training in NNabla
+step-by-step.</p>
+</div>
+<div class="section" id="step-by-step-instruction">
+<h2>Step-by-Step Instruction<a class="headerlink" href="#step-by-step-instruction" title="Permalink to this headline">¶</a></h2>
+<p>Basically, the mixed precision training are composed of three parts.</p>
+<ol class="arabic simple">
+<li><p>Use the accelerator for computation (here we assume Tensor Cores)</p></li>
+<li><p>Use loss scaling to prevent underflow</p></li>
+<li><p>Use dynamic loss calling to prevent overflow/underflow</p></li>
+</ol>
+<p>In NNabla, we can do the correspondences as follows.</p>
+<div class="section" id="use-tensor-cores">
+<h3>1. Use Tensor Cores<a class="headerlink" href="#use-tensor-cores" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="s2">&quot;cudnn&quot;</span><span class="p">,</span> <span class="n">type_config</span><span class="o">=</span><span class="s2">&quot;half&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-loss-scaling-to-prevent-underflow">
+<h3>2. Use loss scaling to prevent underflow<a class="headerlink" href="#use-loss-scaling-to-prevent-underflow" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss_scale</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">loss_scale</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">scale_grad</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">loss_scale</span><span class="p">)</span>  <span class="c1"># do some gradient clipping, etc. after this</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="use-dynamic-loss-scaling-to-prevent-overflow-underflow">
+<h3>3. Use dynamic loss scaling to prevent overflow/underflow<a class="headerlink" href="#use-dynamic-loss-scaling-to-prevent-overflow-underflow" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss_scale</span> <span class="o">=</span> <span class="mi">8</span>
+<span class="n">scaling_factor</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">interval</span> <span class="o">=</span> <span class="mi">2000</span>
+<span class="o">...</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">loss_scale</span><span class="p">,</span> <span class="o">...</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="k">if</span> <span class="n">solver</span><span class="o">.</span><span class="n">check_inf_or_nan_grad</span><span class="p">():</span>
+    <span class="n">loss_scale</span> <span class="o">/=</span> <span class="n">scaling_factor</span>
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">scale_grad</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="n">loss_scale</span><span class="p">)</span> <span class="c1"># do some gradient clipping, etc. after this</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">counter</span> <span class="o">&gt;</span> <span class="n">interval</span><span class="p">:</span>
+        <span class="n">loss_scale</span> <span class="o">*=</span> <span class="n">scaling_factor</span>
+        <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p><strong>Note</strong> that currently the procedures of 2nd (Use loss scaling to
+prevent underflow) and 3rd (Use loss scaling to prevent overflow) are
+experimental, and we are now trying to speed up the mixed precision
+training, so API might change for future use, especially 3rd.</p>
+</div>
+</div>
+<div class="section" id="all-in-one-instruction">
+<h2>All-in-one Instruction<a class="headerlink" href="#all-in-one-instruction" title="Permalink to this headline">¶</a></h2>
+<p>In the previous step-by-step example, the 3rd step is lengthy in a
+training loop, thus we can write a wrapper class like the following.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">DynamicLossScalingUpdater</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Dynamic Loss Scaling Updater for the mixed precision training.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        solver (:obj:`nnabla.solvers.Solver`): Solver object. E.g., Momentum or Adam.</span>
+<span class="sd">        loss (:obj:`nnabla.Variable`): Loss variable from which the forward and the backward is called.</span>
+<span class="sd">        data_feeder (callable :obj:`object`, function, or lambda): Data feeder</span>
+<span class="sd">        scale (:obj:`float`): Loss scale constant. This is dynamically changing during training.</span>
+<span class="sd">        scaling_factor (:obj:`float`): Scaling factor for the dynamic loss scaling.</span>
+<span class="sd">        N (:obj:`int`): Interval, the number of iterations in training for increasing `loss scale` by `scaling_factor`.</span>
+<span class="sd">        clear_buffer (:obj:`bool`): Clears the no longer referenced variables during backpropagation to save memory.</span>
+<span class="sd">        accum_grad (:obj:`int`): Number of accumulation of gradients. Update method of the `solver` is called after the `accum_grad` number of the forward and backward is called.</span>
+<span class="sd">        weight_decay (:obj:`float`): Decay constant. Default is `None`, not applying the weight decay.</span>
+<span class="sd">        comm (:obj:`nnabla.communicators.Communicator`): Communicator when to do distributed training. Default is :obj:`None`.</span>
+<span class="sd">        grads (:obj:`list` of :obj:`nnabla._nd_array.NdArray`): The list of gradients to be exchanged when to do distributed training. Default is the empty :obj:`list`.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        solver (:obj:`nnabla.solvers.Solver`): Solver object. E.g., Momentum or Adam.</span>
+<span class="sd">        loss (:obj:`nnabla.Variable`): Loss variable from which the forward and the backward is called.</span>
+<span class="sd">        data_feeder (callable :obj:`object`, function, lambda): Data feeder</span>
+<span class="sd">        scale (:obj:`float`): Loss scale constant. This is dynamically changing during training.</span>
+<span class="sd">        scaling_factor (:obj:`float`): Scaling factor for the dynamic loss scaling.</span>
+<span class="sd">        N (:obj:`int`): Interval, the number of iterations in training for increasing `loss scale` by `scaling_factor`.</span>
+<span class="sd">        clear_buffer (:obj:`bool`): Clears the no longer referenced variables during backpropagation to save memory.</span>
+<span class="sd">        accum_grad (:obj:`int`): Number of accumulation of gradients. Update method of the `solver` is called after the `accum_grad` number of the forward and backward is called.</span>
+<span class="sd">        weight_decay (:obj:`float`): Decay constant. Default is `None`, not applying the weight decay.</span>
+<span class="sd">        comm (:obj:`nnabla.communicators.Communicator`): Communicator when to do distributed training.</span>
+<span class="sd">        grads (:obj:`list` of :obj:`nnabla._nd_array.NdArray`): The list of gradients to be exchanged when to do distributed training.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+<span class="sd">            solver = &lt;Solver&gt;</span>
+<span class="sd">            loss = &lt;Loss Variable of Network&gt;</span>
+<span class="sd">            data_feeder = &lt;DataFeeder&gt;</span>
+
+<span class="sd">            updater = DynamicLossScalingUpdater(solver, loss, data_feeder)</span>
+
+<span class="sd">            # Training iteration</span>
+<span class="sd">            for itr in range(max_iter):</span>
+<span class="sd">                # Call solver.zero_grad, data_feeder, loss.forward, loss.backward</span>
+<span class="sd">                # and solver.update with the dynamic loss scaling.</span>
+<span class="sd">                updater.update()</span>
+
+<span class="sd">    Reference:</span>
+
+<span class="sd">        https://docs.nvidia.com/deeplearning/sdk/mixed-precision-training/index.html#scalefactor</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">solver</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">data_feeder</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">,</span>
+                  <span class="n">scale</span><span class="o">=</span><span class="mf">8.0</span><span class="p">,</span> <span class="n">scaling_factor</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">N</span><span class="o">=</span><span class="mi">2000</span><span class="p">,</span> <span class="n">clear_buffer</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                  <span class="n">accum_grad</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">weight_decay</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">comm</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                  <span class="n">grads</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span> <span class="o">=</span> <span class="n">solver</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loss</span> <span class="o">=</span> <span class="n">loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data_feeder</span> <span class="o">=</span> <span class="n">data_feeder</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">=</span> <span class="n">scale</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scaling_factor</span> <span class="o">=</span> <span class="n">scaling_factor</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">N</span> <span class="o">=</span> <span class="n">N</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">clear_buffer</span> <span class="o">=</span> <span class="n">clear_buffer</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">accum_grad</span> <span class="o">=</span> <span class="n">accum_grad</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">weight_decay</span> <span class="o">=</span> <span class="n">weight_decay</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">comm</span> <span class="o">=</span> <span class="n">comm</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">grads</span> <span class="o">=</span> <span class="n">grads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_count</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_max_recursive_count</span> <span class="o">=</span> <span class="mi">100</span>
+
+    <span class="k">def</span> <span class="nf">update</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Monolithic update method.</span>
+
+<span class="sd">        This method calls the following methods with the dynamic loss scaling.</span>
+
+<span class="sd">        1. solver.zerograd</span>
+<span class="sd">        2. feed data</span>
+<span class="sd">        3. loss.forward</span>
+<span class="sd">        4. loss.backward</span>
+<span class="sd">        5. comm.all_reduce (if it is specified)</span>
+<span class="sd">        6. solver.update</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="c1"># Initialize gradients.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+
+        <span class="c1"># Forward and backward</span>
+        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">accum_grad</span><span class="p">):</span>
+            <span class="c1"># feed data</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">data_feeder</span><span class="p">()</span>
+
+            <span class="c1"># forward</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">clear_no_need_grad</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_buffer</span><span class="p">)</span>
+
+            <span class="c1"># backward with scale</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">,</span> <span class="n">clear_buffer</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">clear_buffer</span><span class="p">)</span>
+
+        <span class="c1"># AllReduce</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">comm</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grads</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">comm</span><span class="o">.</span><span class="n">all_reduce</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">grads</span><span class="p">,</span> <span class="n">division</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="c1"># Check Inf/NaN in grads</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">check_inf_or_nan_grad</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">/=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaling_factor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+            <span class="c1"># Recursively call udpate function until no inf nor nan.</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_count</span> <span class="o">+=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_count</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_max_recursive_count</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_count</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="k">return</span>  <span class="c1"># skip</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_recursive_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+        <span class="c1"># Rescale grads</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">scale_grad</span><span class="p">(</span><span class="mf">1.</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">scale</span><span class="p">)</span>
+
+        <span class="c1"># Do some gradient clipping, etc.</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">weight_decay</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">weight_decay</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">weight_decay</span><span class="p">)</span>
+
+        <span class="c1"># Update</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">N</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scale</span> <span class="o">*=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaling_factor</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+</pre></div>
+</div>
+<p>Then, call the update method in a training loop:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.experimental.mixed_precision_training</span> <span class="kn">import</span> <span class="n">DynamicLossScalingUpdater</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Solver</span><span class="o">&gt;</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Loss</span> <span class="n">Variable</span> <span class="n">of</span> <span class="n">Network</span><span class="o">&gt;</span>
+<span class="n">data_feeder</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">DataFeeder</span><span class="o">&gt;</span>
+
+<span class="n">updater</span> <span class="o">=</span> <span class="n">DynamicLossScalingUpdater</span><span class="p">(</span><span class="n">solver</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">data_feeder</span><span class="p">)</span>
+
+<span class="c1"># Training iteration</span>
+<span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+    <span class="c1"># Call solver.zero_grad, data_feeder, loss.forward, loss.backward</span>
+    <span class="c1"># and solver.update with the dynamic loss scaling.</span>
+    <span class="n">updater</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="notice">
+<h2>Notice<a class="headerlink" href="#notice" title="Permalink to this headline">¶</a></h2>
+<p>In the mixed-precision training, the followings are premise:</p>
+<ol class="arabic simple">
+<li><p>Solver contains <code class="docutils literal notranslate"><span class="pre">FP16</span></code> weights and the <code class="docutils literal notranslate"><span class="pre">FP32</span></code> copy of weights.
+Solvers in NNabla hold <code class="docutils literal notranslate"><span class="pre">FP32</span></code> weights and weight gradients and cast
+it to <code class="docutils literal notranslate"><span class="pre">FP16</span></code> weights in forward pass and to <code class="docutils literal notranslate"><span class="pre">FP16</span></code> weight
+gradients in backward pass if one sets <code class="docutils literal notranslate"><span class="pre">type_config=&quot;half&quot;</span></code>.</p></li>
+<li><p>Reductions should be left in <code class="docutils literal notranslate"><span class="pre">FP32</span></code>, for examples, the statistics
+(mean and variance) computed by the batch-normalization, Mean, Sum,
+SoftMax, SoftMaxCrossEntropy, etc. (see <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/mixed-precision-training/index.html">The Training with Mixed
+Precision User
+Guide</a>).
+In NNabla, these functions are automatically fallbacked to use
+<code class="docutils literal notranslate"><span class="pre">FP32</span></code>.</p></li>
+</ol>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="multi_device_training.html" class="btn btn-neutral float-right" title="Data Parallel Distributed Training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="dynamic_and_static_nn.html" class="btn btn-neutral float-left" title="Static vs Dynamic Neural Networks in NNabla" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
