@@ -1,0 +1,10 @@
+<map id="Reduction" name="Reduction">
+<area shape="rect" id="node1" href="$de/d3a/group__Sum.html" title="Sum" alt="" coords="293,5,345,32"/>
+<area shape="rect" id="node2" href="$dd/d7e/group__Functions.html" title="Feed forward function implementations. " alt="" coords="5,157,88,184"/>
+<area shape="rect" id="node3" href="$d7/dce/group__Max.html" title="Max" alt="" coords="295,56,343,83"/>
+<area shape="rect" id="node4" href="$dc/d90/group__Min.html" title="Min" alt="" coords="297,107,341,133"/>
+<area shape="rect" id="node6" href="$d1/d9f/group__ReduceMean.html" title="ReduceMean" alt="" coords="268,157,371,184"/>
+<area shape="rect" id="node7" href="$d2/d71/group__Prod.html" title="Prod" alt="" coords="294,208,345,235"/>
+<area shape="rect" id="node8" href="$d5/d89/group__ReduceSum.html" title="ReduceSum" alt="" coords="270,259,369,285"/>
+<area shape="rect" id="node9" href="$d5/d66/group__Mean.html" title="Mean" alt="" coords="291,309,348,336"/>
+</map>
