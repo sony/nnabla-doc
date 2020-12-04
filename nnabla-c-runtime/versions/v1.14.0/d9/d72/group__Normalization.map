@@ -1,0 +1,11 @@
+<map id="Normalization" name="Normalization">
+<area shape="rect" id="node1" href="$dd/da6/group__NormNormalization.html" title="NormNormalization" alt="" coords="314,5,461,32"/>
+<area shape="rect" id="node2" href="$d9/dab/group__FusedBatchNormalization.html" title="FusedBatchNormalization" alt="" coords="295,56,480,83"/>
+<area shape="rect" id="node3" href="$d3/df5/group__ClipGradByNorm.html" title="ClipGradByNorm" alt="" coords="323,107,451,133"/>
+<area shape="rect" id="node4" href="$dd/d7e/group__Functions.html" title="Feed forward function implementations. " alt="" coords="5,183,88,209"/>
+<area shape="rect" id="node5" href="$d9/d02/group__SyncBatchNormalization.html" title="SyncBatchNormalization" alt="" coords="298,157,477,184"/>
+<area shape="rect" id="node6" href="$d5/dac/group__WeightNormalization.html" title="WeightNormalization" alt="" coords="311,208,464,235"/>
+<area shape="rect" id="node8" href="$db/deb/group__ClipGradByValue.html" title="ClipGradByValue" alt="" coords="324,259,451,285"/>
+<area shape="rect" id="node9" href="$d4/dfe/group__MeanSubtraction.html" title="MeanSubtraction" alt="" coords="322,309,453,336"/>
+<area shape="rect" id="node10" href="$d1/df1/group__BatchNormalization.html" title="BatchNormalization" alt="" coords="313,360,461,387"/>
+</map>

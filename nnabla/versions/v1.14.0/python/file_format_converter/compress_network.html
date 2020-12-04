@@ -1,0 +1,829 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Compress network by fixed point quantization &mdash; Neural Network Libraries 1.14.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.14.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+      <li>Compress network by fixed point quantization</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/python/file_format_converter/compress_network.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="compress-network-by-fixed-point-quantization">
+<h1>Compress network by fixed point quantization<a class="headerlink" href="#compress-network-by-fixed-point-quantization" title="Permalink to this headline">¶</a></h1>
+<p>This tutorial introduces how to compress your network by fixed point
+quantization.</p>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>Neural networks show reliable results on AI fields, such as object recognition
+and detections are useful in real applications. Concurrent to the the
+progress in recognition, the increase of IoT devices at the edge of the
+network is producing a massive amount of data to be computed to data
+centers, pushing network bandwidth requirements to the limit. Despite
+the improvements of network technology, data centers cannot guarantee
+acceptable transfer rates and response times, which could be a critical
+requirement for many applications. But CNN-based recognition systems
+need large amounts of memory and computational power, which perform well
+on expensive GPU-based machines, for example, AlexNet has 61M parameters
+(249MB of memory) and performs 1.5B high precision operations to
+classify one image. These numbers are even higher for deeper CNNs
+e.g.,VGG. They are often unsuitable for such edge devices, like cell
+phones, small devices and embedded electronics. Hence, reducing the
+storage of network and computation complexity is the task of
+optimization.</p>
+<p>Currently, quantizing the weights and (or) input is the way which can
+dramatically reduce the memory and computation time and even keep
+original accuracy <a class="reference external" href="https://arxiv.org/pdf/1603.05279.pdf">[1]</a> (*).</p>
+<p>This tutorial tends to share a few of experiments using nnabla for such
+optimitions.</p>
+</div>
+<div class="section" id="two-approaches">
+<h2>Two approaches<a class="headerlink" href="#two-approaches" title="Permalink to this headline">¶</a></h2>
+<p>There are mainly 2 approaches to design a fixed-point deep convolution
+network.</p>
+<ul class="simple">
+<li><p>Train a network with fix-point constraint</p></li>
+<li><p>Convert a pretrain float-point network to its fixed-point version</p></li>
+</ul>
+<p>Binary Connect series functions, such as BinaryConnectAffine,
+BinaryConnectConvolution and Binary Weight series functions, such
+BinaryWeightAffine and BinaryWeightConvolution, fixed-point quantized
+series, such as FixedPointQuantizedAffine, FixedPointQuantizedConvolution
+acts as an important role for the first approach. These functions have different
+data paths for forward and backward. When forward, the float-point weights are
+converted to fixed-point weights or even binary weights, and the output is calculated
+by multiple such binary(quantized) weights with input. When backward,
+only float-point(or learnable) weights participate in the calculation of
+updating weights. In fact, binarizing weight is too extreme, fixed point
+quantization seems to be more commonly used.</p>
+<p>Due to the second approach, a few steps need to be performed to keep
+minimal loss of accuracy. <a class="reference external" href="http://proceedings.mlr.press/v48/linb16.pdf">[2]</a> provides a comprehensive analysis
+of such quantization for the relationship between quantization size and
+performance. Here, we shall do some experiments to illustrate the
+trade-off between accuracy and storage size.</p>
+<p>We compared the ResNet23’s original version and the version using
+<code class="docutils literal notranslate"><span class="pre">binary_weight_convolution()</span></code>, we can observe the accuracy loss after
+using <code class="docutils literal notranslate"><span class="pre">binary_weight_convolution()</span></code>, which is worse than <a class="reference external" href="http://arxiv.org/abs/1603.05279">[3]</a>
+mentioned. It should be possible to improve after more careful fine-tuning.</p>
+<p>This tutorial only shows a basic way to compress network. There are
+still a lot of new approach not presented in this tutorial. For example,
+a new way is proposed as in <a class="reference external" href="https://ai.facebook.com/blog/compressing-neural-networks-for-image-classification-and-detection/">[4]</a>,
+a quantization network is designed as a student network, a float-point
+high precision network is designed as a teacher network, the
+distillation technique is used to train to obtain the-state-of-art
+performance and accuracy.</p>
+</div>
+<div class="section" id="the-benchmark">
+<h2>The benchmark<a class="headerlink" href="#the-benchmark" title="Permalink to this headline">¶</a></h2>
+<p>We chose a simple network ResNet23 and CIFAR-10 dataset as the
+benchmark. First, let us obtain base metrics of this benchmark, such as
+accuracy, model size, and so on. The following shows the network
+structure:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 12%" />
+<col style="width: 67%" />
+<col style="width: 21%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Layer name</p></th>
+<th class="head"><p>Shape</p></th>
+<th class="head"><p>Required buffer size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>conv1</p></td>
+<td><p>(1, 3, 32, 32) -&gt; (1, 64, 32, 32)</p></td>
+<td><p>281344</p></td>
+</tr>
+<tr class="row-odd"><td><p>conv2</p></td>
+<td><p>(1, 64, 32, 32)-&gt;(1, 32, 32, 32)-&gt;(1, 32, 32, 32) -&gt; (1, 64, 32, 32)</p></td>
+<td><p>786432</p></td>
+</tr>
+<tr class="row-even"><td><p>conv3</p></td>
+<td><p>(1, 64, 16, 16)-&gt;(1, 32, 16, 16)-&gt;(1, 32, 16, 16) -&gt; (1, 64, 16, 16)</p></td>
+<td><p>196608</p></td>
+</tr>
+<tr class="row-odd"><td><p>conv4</p></td>
+<td><p>(1, 64, 16, 16)-&gt;(1, 32, 16, 16)-&gt;(1, 32, 16, 16) -&gt; (1, 64, 16, 16)</p></td>
+<td><p>196608</p></td>
+</tr>
+<tr class="row-even"><td><p>conv5</p></td>
+<td><p>(1, 64, 8, 8)-&gt;(1, 32, 8, 8)-&gt;(1, 32, 8, 8) -&gt; (1, 64, 8, 8)</p></td>
+<td><p>49152</p></td>
+</tr>
+<tr class="row-odd"><td><p>conv6</p></td>
+<td><p>(1, 64, 8, 8)-&gt;(1, 32, 8, 8)-&gt;(1, 32, 8, 8) -&gt; (1, 64, 8, 8)</p></td>
+<td><p>49152</p></td>
+</tr>
+<tr class="row-even"><td><p>conv7</p></td>
+<td><p>(1, 64, 4, 4)-&gt;(1, 32, 4, 4)-&gt;(1, 32, 4, 4) -&gt; (1, 64, 4, 4)</p></td>
+<td><p>12288</p></td>
+</tr>
+<tr class="row-odd"><td><p>conv8</p></td>
+<td><p>(1, 64, 4, 4)-&gt;(1, 32, 4, 4)-&gt;(1, 32, 4, 4) -&gt; (1, 64, 4, 4)</p></td>
+<td><p>12288</p></td>
+</tr>
+</tbody>
+</table>
+<p>To downsize the footprint, we should consider to downsize both the
+parameter size and variable buffer size, and especially prior for the
+maximal buffer size.</p>
+<div class="figure align-default">
+<img alt="buffer size bar chart" src="../../_images/buffer_size.png" />
+</div>
+<p>The network is created by the following code:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="k">def</span> <span class="nf">resnet23_prediction</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ncls</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nmaps</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">act</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct ResNet 23</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Residual Unit</span>
+    <span class="k">def</span> <span class="nf">res_unit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">dn</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">):</span>
+            <span class="c1"># Conv -&gt; BN -&gt; Nonlinear</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv1&quot;</span><span class="p">):</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                   <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="c1"># Conv -&gt; BN -&gt; Nonlinear</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv2&quot;</span><span class="p">):</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                   <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="c1"># Conv -&gt; BN</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv3&quot;</span><span class="p">):</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                   <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+            <span class="c1"># Residual -&gt; Nonlinear</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">add2</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="c1"># Maxpooling</span>
+            <span class="k">if</span> <span class="n">dn</span><span class="p">:</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pooling</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">h</span>
+    <span class="c1"># Conv -&gt; BN -&gt; Nonlinear</span>
+    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv1&quot;</span><span class="p">):</span>
+        <span class="c1"># Preprocess</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">test</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">image_augmentation</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">contrast</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                         <span class="n">angle</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+                                         <span class="n">flip_lr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">need_grad</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">nmaps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                           <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv2&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 32x32</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv3&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1"># -&gt; 16x16</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv4&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 16x16</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv5&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1"># -&gt; 8x8</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv6&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 8x8</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv7&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1"># -&gt; 4x4</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv8&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 4x4</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># -&gt; 1x1</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">ncls</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pred</span>
+</pre></div>
+</div>
+<p>The top-1 error reaches to 0.16 as the following diagram:</p>
+<div class="figure align-default">
+<img alt="traing\_status" src="../../_images/float_training_clr.png" />
+</div>
+<p>We compared the accuracy between <code class="docutils literal notranslate"><span class="pre">nnabla_cli</span> <span class="pre">infer</span></code> and
+<code class="docutils literal notranslate"><span class="pre">nnablart</span> <span class="pre">infer</span></code> in CIFAR10 test dataset. The comparison code is as
+the following:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">cifar10_data</span> <span class="kn">import</span> <span class="n">data_iterator_cifar10</span>
+
+<span class="n">data_iterator</span> <span class="o">=</span> <span class="n">data_iterator_cifar10</span>
+<span class="n">vdata</span> <span class="o">=</span> <span class="n">data_iterator</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+<span class="n">iter_num</span> <span class="o">=</span> <span class="mi">100</span>
+
+
+<span class="k">def</span> <span class="nf">get_infer_result</span><span class="p">(</span><span class="n">result_file</span><span class="p">):</span>
+    <span class="n">d0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="n">result_file</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">d0</span> <span class="o">=</span> <span class="n">d0</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span> <span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">d0</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">normalize_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="n">image</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">image</span> <span class="o">-=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="n">image_std</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">std</span><span class="p">(</span><span class="n">image</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">image</span> <span class="o">/</span> <span class="nb">max</span><span class="p">(</span><span class="n">image_std</span><span class="p">,</span> <span class="mf">1e-5</span><span class="p">)</span>
+
+
+<span class="n">nnp_correct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">nnb_correct</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iter_num</span><span class="p">):</span>
+    <span class="n">img</span><span class="p">,</span> <span class="n">gt</span> <span class="o">=</span> <span class="n">vdata</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">normalize_image</span><span class="p">(</span><span class="n">img</span><span class="p">)</span>
+    <span class="n">img</span><span class="o">.</span><span class="n">tofile</span><span class="p">(</span><span class="s1">&#39;input.bin&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;nnabla_cli infer -b 1 -c bin_class.nnp -o output_0 input.bin&#39;</span><span class="p">)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s1">&#39;./nnablart infer bin_class.nnb input.bin output_1&#39;</span><span class="p">)</span>
+
+    <span class="n">r1</span> <span class="o">=</span> <span class="n">get_infer_result</span><span class="p">(</span><span class="s1">&#39;output_0_0.bin&#39;</span><span class="p">)</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">get_infer_result</span><span class="p">(</span><span class="s1">&#39;output_1_0.bin&#39;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">r1</span> <span class="o">==</span> <span class="n">gt</span><span class="p">:</span>
+        <span class="n">nnp_correct</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">r2</span> <span class="o">==</span> <span class="n">gt</span><span class="p">:</span>
+        <span class="n">nnb_correct</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="k">if</span> <span class="n">r1</span> <span class="o">==</span> <span class="n">r2</span> <span class="o">==</span> <span class="n">gt</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:  all same!&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">:  not all same&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;nnp accuracy: </span><span class="si">{}</span><span class="s2">, nnb accuracy: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+    <span class="nb">float</span><span class="p">(</span><span class="n">nnp_correct</span><span class="p">)</span> <span class="o">/</span> <span class="n">iter_num</span><span class="p">,</span> <span class="nb">float</span><span class="p">(</span><span class="n">nnb_correct</span><span class="p">)</span> <span class="o">/</span> <span class="n">iter_num</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>In this code, <code class="docutils literal notranslate"><span class="pre">nnablart</span></code> is an executable implemented based on
+nnabla-c-runtime. <code class="docutils literal notranslate"><span class="pre">nnablart</span></code> is a simple command-line interface, which
+can infer the network defined by <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code> file. As we known,
+nnabla-c-runtime is a c implementation aims to small device with
+constraint memory, it contains carefully designed memory policy, and the
+code for training purpose is removed for saving memory. This test
+program iterates 100 samples, comparing with ground truth, figure out
+the accuracy.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>...
+NNabla command line interface (Version:1.0.18, Build:190619071959)
+     0: input.bin
+     1: output_1
+Input[0] size:3072
+Input[0] data type:NN_DATA_TYPE_FLOAT, fp:0
+Input[0] Shape ( 1 3 32 32 )
+Output[0] size:10
+Output[0] filename output_1_0.bin
+Output[0] Shape ( 1 10 )
+Output[0] data type:NN_DATA_TYPE_FLOAT, fp:0
+99:  all same!
+nnp accuracy: 0.81, nnb accuracy: 0.81
+</pre></div>
+</div>
+</div>
+<div class="section" id="binary-weight-convolution">
+<h2>binary_weight_convolution<a class="headerlink" href="#binary-weight-convolution" title="Permalink to this headline">¶</a></h2>
+<p>We replaced <code class="docutils literal notranslate"><span class="pre">PF.convolution()</span></code> with <code class="docutils literal notranslate"><span class="pre">PF.binary_weight_convolution()</span></code>
+as the following:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+
+<span class="k">def</span> <span class="nf">resnet23_bin_w</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">ncls</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">nmaps</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">act</span><span class="o">=</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Construct ResNet 23</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># Residual Unit</span>
+    <span class="k">def</span> <span class="nf">res_unit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">dn</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope_name</span><span class="p">):</span>
+            <span class="c1"># Conv -&gt; BN -&gt; Nonlinear</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv1&quot;</span><span class="p">):</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">binary_weight_convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                   <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="c1"># Conv -&gt; BN -&gt; Nonlinear</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv2&quot;</span><span class="p">):</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">binary_weight_convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">C</span> <span class="o">//</span> <span class="mi">2</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+                                   <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+            <span class="c1"># Conv -&gt; BN</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv3&quot;</span><span class="p">):</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">binary_weight_convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">C</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>
+                                   <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+            <span class="c1"># Residual -&gt; Nonlinear</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">add2</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+            <span class="c1"># Maxpooling</span>
+            <span class="k">if</span> <span class="n">dn</span><span class="p">:</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">max_pooling</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="k">return</span> <span class="n">h</span>
+    <span class="c1"># Conv -&gt; BN -&gt; Nonlinear</span>
+    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s2">&quot;conv1&quot;</span><span class="p">):</span>
+        <span class="c1"># Preprocess</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">test</span><span class="p">:</span>
+            <span class="n">image</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">image_augmentation</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">contrast</span><span class="o">=</span><span class="mf">1.0</span><span class="p">,</span>
+                                         <span class="n">angle</span><span class="o">=</span><span class="mf">0.25</span><span class="p">,</span>
+                                         <span class="n">flip_lr</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+            <span class="n">image</span><span class="o">.</span><span class="n">need_grad</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">binary_weight_convolution</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">nmaps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span>
+                           <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">batch_stat</span><span class="o">=</span><span class="ow">not</span> <span class="n">test</span><span class="p">)</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">act</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv2&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 32x32</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv3&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1"># -&gt; 16x16</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv4&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 16x16</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv5&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1"># -&gt; 8x8</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv6&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 8x8</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv7&quot;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>     <span class="c1"># -&gt; 4x4</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">res_unit</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="s2">&quot;conv8&quot;</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>    <span class="c1"># -&gt; 4x4</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>  <span class="c1"># -&gt; 1x1</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">ncls</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pred</span>
+</pre></div>
+</div>
+<p>The training become a bit slower and the accuracy loss can be detected.
+As the following:</p>
+<div class="figure align-default">
+<img alt="traing\_status" src="../../_images/float_binary_training.png" />
+</div>
+<p>We saved the model and parameters as <code class="docutils literal notranslate"><span class="pre">*.nnp</span></code> file. Then, we shall
+convert it to <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code> so that it can fit the memory-constraint device.</p>
+<div class="section" id="reduce-parameter-size-of-nnb-model">
+<h3>Reduce parameter size of <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code> model<a class="headerlink" href="#reduce-parameter-size-of-nnb-model" title="Permalink to this headline">¶</a></h3>
+<p>We need to set the data type of corresponding parameters, so that
+the binarized weights can be represented by <code class="xref any docutils literal notranslate"><span class="pre">SIGN</span></code> data type.</p>
+<p>Export a buffer setting file from our trained model</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$/&gt; nnabla_cli nnb_template bin_class.nnp setting.yaml
+</pre></div>
+</div>
+<p>The output <code class="docutils literal notranslate"><span class="pre">setting.yaml</span></code> looks like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>functions:
+  ...
+variables:
+  ...
+  input: FLOAT32                          &lt;-- buffer
+  conv1/bwn_conv/W: FLOAT32               &lt;-- parameter
+  conv1/bwn_conv/Wb: FLOAT32              &lt;-- parameter
+  conv1/bwn_conv/alpha: FLOAT32           &lt;-- parameter
+  BinaryWeightConvolution_Output: FLOAT32
+  conv1/bn/beta: FLOAT32
+  conv1/bn/gamma: FLOAT32
+  conv1/bn/mean: FLOAT32
+  conv1/bn/var: FLOAT32
+  BatchNormalization_Output: FLOAT32
+  ReLU_Output: FLOAT32
+  affine/W: FLOAT32
+  affine/b: FLOAT32
+  output: FLOAT32
+  ...
+</pre></div>
+</div>
+<p>We annotated buffer and parameter type based on its name character. The
+different between buffer and parameter is that: buffer value is
+undetermined at this time, while parameter values is determined. The
+quantization policy is different. As we known, <code class="docutils literal notranslate"><span class="pre">conv1/bwn_conv/W</span></code> is
+the float version, will not be used, just omit this. We need identify <code class="xref any docutils literal notranslate"><span class="pre">conv1/bwn_conv/Wb</span></code>
+to be “SIGN” type, it looks like:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>functions:
+  ...
+variables:
+  ...
+  input: FLOAT32
+  conv1/bwn_conv/W: FLOAT32               &lt;-- omit
+  conv1/bwn_conv/Wb: SIGN                 &lt;-- identified as SIGN
+  ...
+  output: FLOAT32
+  ...
+</pre></div>
+</div>
+<p>We tested the top-1 error in test dataset as the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nnp</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.76</span><span class="p">,</span> <span class="n">nnb</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.73</span>
+</pre></div>
+</div>
+<p>As we can see, accuracy loss is trivial compared with its float version.</p>
+<p>And the <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code> size is reduced from 830KB to 219KB.</p>
+</div>
+</div>
+<div class="section" id="binary-connect-convolution">
+<h2>binary_connect_convolution<a class="headerlink" href="#binary-connect-convolution" title="Permalink to this headline">¶</a></h2>
+<p>We replaced <code class="docutils literal notranslate"><span class="pre">PF.convolution()</span></code> with
+<code class="docutils literal notranslate"><span class="pre">PF.binary_connect_convolution()</span></code> and do same training as above.</p>
+<p>The training become a bit slower and the accuracy loss can be detected.
+As the following:</p>
+<div class="figure align-default">
+<img alt="traing\_status" src="../../_images/f_bw_bc.png" />
+</div>
+<p>We tested the top-1 error in test dataset as the following:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nnp</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.68</span><span class="p">,</span> <span class="n">nnb</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.71</span>
+</pre></div>
+</div>
+<p>As we can see, accuracy loss can be observed, but nnabla_cli got worse
+result than nnablart. From this test result, we found float32 version worse
+than binary quantized version. That seems a problem. The reason might be since the training
+process passes the data through 2 data paths, the binary weight data path has
+lower loss that the float32 data path at the same time.</p>
+</div>
+<div class="section" id="quantization-functions">
+<h2>Quantization functions<a class="headerlink" href="#quantization-functions" title="Permalink to this headline">¶</a></h2>
+<p>The mainly difference between binary_weight series functions and
+binary_connect series functions is the quantizing formular:</p>
+<p>For binary_weight_convolution or binary_weight_affine:</p>
+<div class="math notranslate nohighlight">
+\[\alpha^*=\frac{\sum{|W_i|}}{n}=\frac{1}{n}\|\mathbf{W}\|_{\ell_1}\]</div>
+<div class="math notranslate nohighlight">
+\[\begin{split}B=\left\{
+        \begin{array}{ll}
+          +1 &amp; if \ \ W \ge 0 \\
+          -1 &amp; if \ \ W &lt; 0
+        \end{array} \right.\end{split}\]</div>
+<div class="math notranslate nohighlight">
+\[W \approx \alpha B\]</div>
+<p>For binary_connect_convolution or binary_connect_affine, there are 2 alternative binarization operations, one is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W_b= \left\{
+         \begin{array}{ll}
+           +1 &amp; if\ w \ge 0 \\
+           -1 &amp; otherwise
+         \end{array} \right.\end{split}\]</div>
+<p>Another way is:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W_b= \left\{
+         \begin{array}{ll}
+           +1 &amp; if\ with\ probability\ p=\sigma (\omega ) \\
+           -1 &amp; if\ with\ probability\ 1 - p
+         \end{array} \right. \\\end{split}\]</div>
+<p>where sigma is the “hard sigmoid” function,</p>
+<div class="math notranslate nohighlight">
+\[\sigma (x) = clip(\frac{x + 1}{2}, 0, 1) = max (0, min(1, \frac{x+1}{2}))\]</div>
+<p>In nnabla implementation, binary_connect_xxxx() implements the
+following formular:</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}W_b=sign(W) = \left\{
+        \begin{array}{ll}
+          +1 &amp; if \ \ W &gt; 0 \\
+           0 &amp; if \ \ W = 0 \\
+          -1 &amp; if \ \ W &lt; 0
+        \end{array} \right.\end{split}\]</div>
+<p>According to this experiment, the accuracy is a bit different:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 32%" />
+<col style="width: 27%" />
+<col style="width: 29%" />
+<col style="width: 11%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Accuracy inferred by nnabla</p></th>
+<th class="head"><p>Accuracy inferred by nnablart</p></th>
+<th class="head"><p>Model size</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>float point</p></td>
+<td><p>0.81</p></td>
+<td><p>0.81</p></td>
+<td><p>449.5 KB</p></td>
+</tr>
+<tr class="row-odd"><td><p>using binary weight convolution</p></td>
+<td><p>0.76</p></td>
+<td><p>0.75</p></td>
+<td><p>52.1 KB</p></td>
+</tr>
+<tr class="row-even"><td><p>using binary connect convolution</p></td>
+<td><p>0.68</p></td>
+<td><p>0.71</p></td>
+<td><p>47.3 KB</p></td>
+</tr>
+</tbody>
+</table>
+<p>The model size has already been cut-down about 10x dramatically.</p>
+</div>
+<div class="section" id="further-reduce-footprint">
+<h2>Further reduce footprint<a class="headerlink" href="#further-reduce-footprint" title="Permalink to this headline">¶</a></h2>
+<p>In order to keep maximal accuracy and reduce footprint as much as possible,
+let us try the second method as mentioned before. This method tends to work
+based on a pretrained network. Quantization process is done after training. Here,
+we chose the float-point trained model and start our experiment.</p>
+<p>As previous analysis, we knew that the big share of footprint in this
+benchmark network is buffer size. As the following diagram, a circle
+represents a variable buffer, a rectangle represents a function. When
+perform function 1, buffer 1, buffer 2 and buffer 3 are occupied. After
+performing function 1, when function2 is performed, buffer 1 and buffer
+2 are released, and this function’s output reuse buffer 1 if the size of
+buffer 1 can hold the data of function 2’s output.</p>
+<div class="figure align-default">
+<img alt="func\_buffer" src="../../_images/func_exec.png" />
+</div>
+<p>This buffer-reuse policy has been implemented during converting from
+<code class="docutils literal notranslate"><span class="pre">*.nnp</span></code> to <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code>. The maximal of the occupying memory for each
+function represents the maximal footprint memory for inferring this
+network. In order to reduce this size, we may use quantization data type
+for variable buffer. As previous <code class="docutils literal notranslate"><span class="pre">setting.yaml</span></code>, if the following
+buffer type is changed, when converting from <code class="docutils literal notranslate"><span class="pre">*.nnp</span></code> to <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code>, the
+buffer size will be calculated based on this new buffer type definition.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">functions</span><span class="p">:</span>
+  <span class="o">...</span>
+<span class="n">variables</span><span class="p">:</span>
+  <span class="o">...</span>
+  <span class="nb">input</span><span class="p">:</span> <span class="n">FLOAT32</span>             <span class="o">==&gt;</span> <span class="nb">input</span><span class="p">:</span> <span class="n">FIXED8</span>
+  <span class="n">conv1</span><span class="o">/</span><span class="n">bwn_conv</span><span class="o">/</span><span class="n">W</span><span class="p">:</span> <span class="n">FIXED8</span>
+  <span class="n">conv1</span><span class="o">/</span><span class="n">bwn_conv</span><span class="o">/</span><span class="n">Wb</span><span class="p">:</span> <span class="n">FIXED8</span>
+  <span class="o">...</span>
+  <span class="n">output</span><span class="p">:</span> <span class="n">FLOAT32</span>
+<span class="o">...</span>
+</pre></div>
+</div>
+<p>As we known, this quantization process introduce quantization noise to
+the network, which sometimes cause obviously loss of the accuracy. How
+to choose best quantization step size, you may refer to <a class="reference external" href="http://proceedings.mlr.press/v48/linb16.pdf">[2]</a>.</p>
+</div>
+<div class="section" id="determine-the-fixed-point-position">
+<h2>Determine the fixed-point position<a class="headerlink" href="#determine-the-fixed-point-position" title="Permalink to this headline">¶</a></h2>
+<p>In converting from <code class="docutils literal notranslate"><span class="pre">*.nnp</span></code> to <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code>, the fixed-point position can
+be determined automatically when quantizing parameter type, since the
+histogram(or distribution) is known at that time. Due to the fixed-point
+position of the variable’s buffer, in order to keep distortion as little
+as possible, we should determine its fixed-point according to its
+histogram (or distribution). But it is hard to know exactly the
+distribution of each of variable buffer, even though we statistics
+during training time. We supposed future test dataset has same
+distribution as current known dataset, make fixed-point decision based
+on the collection of current known dataset.</p>
+<p>Manually tuning the fixed-point position is a work like an art. We shared
+some experience here. But an intelligent and automatic method seems be necessary.</p>
+<p>As the following diagram, we collected the variable buffer’s
+distribution in a small known dataset. (Not all variable distribution
+are listed here.)</p>
+<div class="figure align-default" id="id1">
+<img alt="distribution" src="../../_images/histogram_add2cudacudnn_2.png" />
+<p class="caption"><span class="caption-text">The distribution of buffer values</span><a class="headerlink" href="#id1" title="Permalink to this image">¶</a></p>
+</div>
+<p>Of course, the simplest way to determine fixed-point position is only to
+dump the minimal and maximal value that occurs in variable buffer, but
+doing so might cause the value range is enlarged for values that some
+seldom occurs, then, cause precision loss of decimal part.</p>
+<p>According to this distribution, we calculated the FP_POS as the
+following: (new_setting.yaml)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">variables</span><span class="p">:</span>
+  <span class="o">...</span>
+  <span class="n">Convolution_3_Output</span><span class="p">:</span> <span class="n">FIXED16_12</span>  <span class="o">&lt;--</span> <span class="n">Change</span> <span class="n">data</span> <span class="nb">type</span> <span class="n">according</span> <span class="n">to</span> <span class="n">value</span> <span class="n">distribution</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv2</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">beta</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv2</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">gamma</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv2</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">mean</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv2</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">var</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">BatchNormalization_3_Output</span><span class="p">:</span> <span class="n">FIXED16_12</span>
+  <span class="n">ReLU_3_Output</span><span class="p">:</span> <span class="n">FIXED16_12</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv3</span><span class="o">/</span><span class="n">conv</span><span class="o">/</span><span class="n">W</span><span class="p">:</span> <span class="n">FIXED8</span>
+  <span class="n">Convolution_4_Output</span><span class="p">:</span> <span class="n">FIXED16_12</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv3</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">beta</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv3</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">gamma</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv3</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">mean</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">conv2</span><span class="o">/</span><span class="n">conv3</span><span class="o">/</span><span class="n">bn</span><span class="o">/</span><span class="n">var</span><span class="p">:</span> <span class="n">FLOAT32</span>
+  <span class="n">BatchNormalization_4_Output</span><span class="p">:</span> <span class="n">FIXED8_4</span>
+  <span class="n">Add2_Output</span><span class="p">:</span> <span class="n">FIXED8_4</span>
+  <span class="n">ReLU_4_Output</span><span class="p">:</span> <span class="n">FIXED8_4</span>
+  <span class="o">...</span>
+</pre></div>
+</div>
+<p>After modifying <code class="docutils literal notranslate"><span class="pre">new_setting.yaml</span></code>, the following command is used to
+convert from <code class="docutils literal notranslate"><span class="pre">*.nnp</span></code> to <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$&gt; nnabla_cli convert -b <span class="m">1</span> -d nnb_3 models/bin_class_float.nnp models/bin_class_f_fq.nnb -s setting/setting_f_fq.yaml
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">-d</span> <span class="pre">nnb_3</span></code> is necessary to enable memory saving policy. By tuning, we
+got the the-state-of-art result:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nnp</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.81</span><span class="p">,</span> <span class="n">nnb</span> <span class="n">accuracy</span><span class="p">:</span> <span class="mf">0.79</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>After the quantization of variable buffer, the footprint is reduced noticeably
+from 1.2M to 495.2K, and accuracy is almost the same, as shown in the following table:</p>
+<table class="docutils align-default">
+<colgroup>
+<col style="width: 49%" />
+<col style="width: 18%" />
+<col style="width: 17%" />
+<col style="width: 15%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>model size</p></th>
+<th class="head"><p>footprint</p></th>
+<th class="head"><p>accuracy</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>float-point model</p></td>
+<td><p>449.5 KB</p></td>
+<td><p>1.2 M</p></td>
+<td><p>0.81</p></td>
+</tr>
+<tr class="row-odd"><td><p>parameter-quantized</p></td>
+<td><p>126.0 KB</p></td>
+<td><p>1.0 M</p></td>
+<td><p>0.81</p></td>
+</tr>
+<tr class="row-even"><td><p>parameter-and-buffer-quantized</p></td>
+<td><p>126.0 KB</p></td>
+<td><p>495.2 KB</p></td>
+<td><p>0.79</p></td>
+</tr>
+</tbody>
+</table>
+<p>Comparing these two ways, the second way shows better result on current nnabla’s implementation. The reason is currently
+nnabla does not support SIGN parameter mode, so binarization weights lose accuracy without gaining the best benefit of saving memory.
+Future work is needed such that float-point weight parameters are removed from <code class="docutils literal notranslate"><span class="pre">*.nnb</span></code> for binary series functions.</p>
+<ul class="simple">
+<li><p>Notice: Currently, all experiments focus on classification problem, and softmax operation has higher tolerance to quantization error. The testing against regression problem has not yet been performed, so the accuracy loss is still unconfirmed.</p></li>
+</ul>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Sony Corporation
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
