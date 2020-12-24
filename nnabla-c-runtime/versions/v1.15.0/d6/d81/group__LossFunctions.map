@@ -1,0 +1,12 @@
+<map id="Loss Functions" name="Loss Functions">
+<area shape="rect" id="node1" href="$dd/d39/group__KLMultinomial.html" title="KLMultinomial" alt="" coords="333,5,443,32"/>
+<area shape="rect" id="node2" href="$da/d28/group__EpsilonInsensitiveLoss.html" title="EpsilonInsensitiveLoss" alt="" coords="307,56,469,83"/>
+<area shape="rect" id="node3" href="$dd/d7e/group__Functions.html" title="Feed forward function implementations. " alt="" coords="5,208,88,235"/>
+<area shape="rect" id="node4" href="$d1/df1/group__AbsoluteError.html" title="AbsoluteError" alt="" coords="333,107,443,133"/>
+<area shape="rect" id="node5" href="$d3/d07/group__HuberLoss.html" title="HuberLoss" alt="" coords="343,157,433,184"/>
+<area shape="rect" id="node7" href="$db/d70/group__BinaryCrossEntropy.html" title="BinaryCrossEntropy" alt="" coords="315,208,461,235"/>
+<area shape="rect" id="node8" href="$d1/d39/group__SigmoidCrossEntropy.html" title="SigmoidCrossEntropy" alt="" coords="309,259,467,285"/>
+<area shape="rect" id="node9" href="$d7/da7/group__SquaredError.html" title="SquaredError" alt="" coords="335,309,441,336"/>
+<area shape="rect" id="node10" href="$d1/d3b/group__CategoricalCrossEntropy.html" title="CategoricalCrossEntropy" alt="" coords="299,360,477,387"/>
+<area shape="rect" id="node11" href="$d2/db6/group__SoftmaxCrossEntropy.html" title="SoftmaxCrossEntropy" alt="" coords="307,411,469,437"/>
+</map>
