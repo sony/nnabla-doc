@@ -1,0 +1,575 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nnabla.utils.inspection.profile &mdash; Neural Network Libraries 1.16.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.16.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nnabla.utils.inspection.profile</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nnabla.utils.inspection.profile</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2017 Sony Corporation. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">csv</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">importlib</span> <span class="kn">import</span> <span class="n">import_module</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="kn">import</span> <span class="n">import_extension_module</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">FunctionHookCallbackBase</span>
+
+
+<div class="viewcode-block" id="TimeProfiler"><a class="viewcode-back" href="../../../../python/api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler">[docs]</a><span class="k">class</span> <span class="nc">TimeProfiler</span><span class="p">(</span><span class="n">FunctionHookCallbackBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    An utility API to create function_hook callbacks to profile the execution time of each function.</span>
+<span class="sd">    Passing ``ext_name`` and ``device_id``, you can define which device time you want to profile.</span>
+<span class="sd">    If `ext_name` = &quot;cuda&quot; or &quot;cudnn&quot;, then cudaEvent will be used to measure the execution time.</span>
+<span class="sd">    For more information about cudaEvent, see the CUDA `document &lt;https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__EVENT.html&gt;`_.</span>
+<span class="sd">    If `ext_name`=&quot;cpu&quot; , then wall-clock-time on host will be used.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        ext_name = &quot;cpu&quot;</span>
+<span class="sd">        device_id = &quot;0&quot;</span>
+
+<span class="sd">        from nnabla.ext_utils import get_extension_context</span>
+<span class="sd">        ctx = get_extension_context(ext_name, device_id=device_id)</span>
+<span class="sd">        nn.set_default_context(ctx)</span>
+
+<span class="sd">        y = model(...)</span>
+
+<span class="sd">        from nnabla.utils.inspection import TimeProfiler</span>
+<span class="sd">        tp = TimeProfiler(ext_name=ext_name, device_id=device_id)</span>
+
+<span class="sd">        for i in range(max_iter):</span>
+<span class="sd">            # All results of executions under &quot;forward&quot; scope are registered as &quot;forward&quot; execution.</span>
+<span class="sd">            with tp.scope(&quot;forward&quot;):</span>
+<span class="sd">                y.forward(function_pre_hook=tp.pre_hook, function_post_hook=tp.post_hook)</span>
+
+<span class="sd">            # All results of executions under &quot;backward&quot; scope are registered as &quot;backward&quot; execution.</span>
+<span class="sd">            with tp.scope(&quot;backward&quot;) as tp:</span>
+<span class="sd">                y.backward(function_pre_hook=tp.pre_hook, function_post_hook=tp.post_hook)</span>
+
+<span class="sd">            # All results are evaluated by passing scopes to .calc_elapsed_time().</span>
+<span class="sd">            # Be sure to call calc_elapsed_time at each iteration, otherwise nothing is measured.</span>
+<span class="sd">            tp.calc_elapsed_time([&quot;forward&quot;, &quot;backward&quot;, &quot;summary&quot;])</span>
+
+<span class="sd">        # To output results on stdout, call instance as a function.</span>
+<span class="sd">        tp()</span>
+
+<span class="sd">        # To write out as csv file, call .to_csv().</span>
+<span class="sd">        tp.to_csv(output_file_name)</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext_name</span><span class="p">,</span> <span class="n">device_id</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">             ext_name (str): backend extension name (e.g. cpu, cuda, or cudnn)</span>
+<span class="sd">             device_id (str): device id</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">ext_name</span> <span class="o">==</span> <span class="s2">&quot;cpu&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="o">=</span> <span class="n">import_module</span><span class="p">(</span>
+                <span class="s2">&quot;nnabla.utils.inspection&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">CpuTimerCallback</span>
+
+        <span class="k">elif</span> <span class="n">ext_name</span> <span class="ow">in</span> <span class="p">[</span><span class="s2">&quot;cuda&quot;</span><span class="p">,</span> <span class="s2">&quot;cudnn&quot;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span> <span class="o">=</span> <span class="n">import_extension_module</span><span class="p">(</span>
+                <span class="s2">&quot;cuda.utils.inspection&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">CudaEventTimerCallback</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># Unsupported extension.</span>
+            <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+                <span class="s2">&quot;Profiler for the extension &#39;</span><span class="si">{}</span><span class="s2">&#39; is not implemented.&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ext_name</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ext_name</span> <span class="o">=</span> <span class="n">ext_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="n">device_id</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_scope_name</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_new_profiler</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">create_new_profiler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="n">scope_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">(</span>
+            <span class="n">ext_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TimeProfiler.scope"><a class="viewcode-back" href="../../../../python/api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.scope">[docs]</a>    <span class="nd">@contextmanager</span>
+    <span class="k">def</span> <span class="nf">scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Change a scope to aggregate results.</span>
+<span class="sd">        This function is used as context (`with` statement),</span>
+<span class="sd">         and all results under the context are labeled by ``scope_name``.</span>
+<span class="sd">        In adttion to the execution time of each function,</span>
+<span class="sd">        the elapsed times between entering and exiting the each context are also recorded</span>
+<span class="sd">         and they are aggregated as &quot;summary&quot; scope.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            scope_name (str): Scope name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">prev_scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_scope_name</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="c1"># create new profiler for the scope if not exist</span>
+            <span class="k">if</span> <span class="n">scope_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">create_new_profiler</span><span class="p">(</span><span class="n">scope_name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">call_pre_hook</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scope_name</span> <span class="o">=</span> <span class="n">scope_name</span>
+
+            <span class="k">yield</span> <span class="bp">self</span>
+
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_scope_name</span> <span class="o">=</span> <span class="n">prev_scope</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">call_post_hook</span><span class="p">(</span><span class="s2">&quot;summary&quot;</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">)</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pre_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a callback for function_pre_hook.</span>
+<span class="sd">        This function can be used like the example below:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            tp = TimeProfiler(..)</span>
+<span class="sd">            with tp.scope(&quot;forward&quot;):</span>
+<span class="sd">                v.forward(function_pre_hook=tp.pre_hook())</span>
+
+<span class="sd">            with tp.scope(&quot;backward&quot;):</span>
+<span class="sd">                v.backward(function_pre_hook=tp.pre_hook())</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">profiler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_scope_name</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+            <span class="n">profiler</span><span class="o">.</span><span class="n">pre_hook</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">post_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get a callback for function_post_hook.</span>
+<span class="sd">        This function can be used like the example below:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            tp = TimeProfiler(..)</span>
+<span class="sd">            with tp.scope(&quot;forward&quot;):</span>
+<span class="sd">                v.forward(function_post_hook=tp.post_hook())</span>
+
+<span class="sd">            with tp.scope(&quot;backward&quot;):</span>
+<span class="sd">                v.backward(function_post_hook=tp.post_hook())</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">profiler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_scope_name</span><span class="p">]</span>
+
+        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+            <span class="n">profiler</span><span class="o">.</span><span class="n">post_hook</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">callback</span>
+
+    <span class="k">def</span> <span class="nf">call_pre_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scope_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="n">scope_name</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profiler</span><span class="p">(</span>
+                <span class="n">ext_name</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="n">scope_name</span><span class="p">]</span><span class="o">.</span><span class="n">pre_hook</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">call_post_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">scope_name</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">scope_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;profiler instance for &#39;</span><span class="si">{0}</span><span class="s2">&#39; scope is not found. &quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">scope_name</span><span class="p">))</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="n">scope_name</span><span class="p">]</span><span class="o">.</span><span class="n">post_hook</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TimeProfiler.calc_elapsed_time"><a class="viewcode-back" href="../../../../python/api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.calc_elapsed_time">[docs]</a>    <span class="k">def</span> <span class="nf">calc_elapsed_time</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">names</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Evaluate all elapsed times.</span>
+<span class="sd">        Note that elapsed time is not recorded until calc_elapsed_time is called.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            names (str or list of str): Scope name(s) to evaluate elapsed time.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">names</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+            <span class="n">names</span> <span class="o">=</span> <span class="p">[</span><span class="n">names</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">names</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="c1"># get specified profilers` elapsed time</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">names</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">calc_elapsed_time</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># get all profilers` elapsed time</span>
+            <span class="k">for</span> <span class="n">profiler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+                <span class="n">profiler</span><span class="o">.</span><span class="n">calc_elapsed_time</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">profiler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ret</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiler</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">start_index</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">get_all_results</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">profiler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">profilers</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">profiler</span><span class="o">.</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="n">ret</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">profiler</span><span class="o">.</span><span class="n">results</span>
+
+        <span class="k">return</span> <span class="n">ret</span>
+
+<div class="viewcode-block" id="TimeProfiler.to_csv"><a class="viewcode-back" href="../../../../python/api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.to_csv">[docs]</a>    <span class="k">def</span> <span class="nf">to_csv</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">out_dir</span><span class="o">=</span><span class="s2">&quot;./&quot;</span><span class="p">,</span> <span class="n">ignore_init</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Writes out to csv file. Output directory can be specified by `out_dir`.</span>
+<span class="sd">        As default, the elapsed times of first iteration will be omitted.</span>
+<span class="sd">        If you evaluate the first iteration as well, pass True to `ignore_init`.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">             out_dir (str): Output directory.</span>
+<span class="sd">             ignore_init (bool): Ignore the result of the first iteration or not.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">out_dir</span><span class="p">):</span>
+            <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">out_dir</span><span class="p">)</span>
+
+        <span class="n">res_all</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">start_index</span><span class="o">=</span><span class="mi">1</span> <span class="k">if</span> <span class="n">ignore_init</span> <span class="k">else</span> <span class="mi">0</span><span class="p">)</span>
+
+        <span class="n">summary_out</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">)</span>
+                       <span class="k">for</span> <span class="n">scope</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">res_all</span><span class="p">[</span><span class="s2">&quot;summary&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">items</span><span class="p">()]</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;profile_summary.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span> <span class="s2">&quot;time&quot;</span><span class="p">,</span> <span class="s2">&quot;scale&quot;</span><span class="p">,</span> <span class="s2">&quot;num&quot;</span><span class="p">])</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">summary_out</span><span class="p">)</span>
+
+        <span class="c1"># below is basically for nnabla functions</span>
+        <span class="c1"># key is identically distinguished by its id. (not str expression)</span>
+        <span class="n">keystr_to_count</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># count number based on id</span>
+        <span class="n">key_to_unique</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># id of key to unique str expression</span>
+        <span class="n">out_dict</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">scope</span><span class="p">,</span> <span class="n">scope_res</span> <span class="ow">in</span> <span class="n">res_all</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">scope</span> <span class="o">==</span> <span class="s2">&quot;summary&quot;</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">key_res</span> <span class="ow">in</span> <span class="n">scope_res</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">insert</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">k</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">key_res</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+
+                <span class="c1"># same key has already existed. -&gt; update</span>
+                <span class="k">if</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">key_to_unique</span><span class="p">:</span>
+                    <span class="n">out_dict</span><span class="p">[</span><span class="n">key_to_unique</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">insert</span><span class="p">)</span>
+                    <span class="k">continue</span>
+
+                <span class="c1"># new key -&gt; create</span>
+                <span class="n">count</span> <span class="o">=</span> <span class="n">keystr_to_count</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+                <span class="n">keystr_to_count</span><span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">)]</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
+                <span class="n">key_to_unique</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">key</span><span class="p">),</span> <span class="n">count</span><span class="p">)</span>
+
+                <span class="n">out_dict</span><span class="p">[</span><span class="n">key_to_unique</span><span class="p">[</span><span class="n">key</span><span class="p">]]</span> <span class="o">=</span> <span class="n">insert</span>
+
+        <span class="c1"># preparation for writing to csv</span>
+        <span class="n">detail_out</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">header</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">unique_to_key</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">key_to_unique</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="k">for</span> <span class="n">scope</span><span class="p">,</span> <span class="n">res</span> <span class="ow">in</span> <span class="n">out_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">header</span><span class="o">.</span><span class="n">update</span><span class="p">([</span><span class="o">*</span><span class="n">res</span><span class="o">.</span><span class="n">keys</span><span class="p">()])</span>
+            <span class="n">detail_out</span><span class="o">.</span><span class="n">append</span><span class="p">(</span>
+                <span class="nb">dict</span><span class="p">(</span><span class="n">res</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="n">scope</span><span class="p">,</span> <span class="n">original_key</span><span class="o">=</span><span class="n">unique_to_key</span><span class="p">[</span><span class="n">scope</span><span class="p">]))</span>
+
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">out_dir</span><span class="p">,</span> <span class="s2">&quot;profile_detail.csv&quot;</span><span class="p">),</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+            <span class="n">writer</span> <span class="o">=</span> <span class="n">csv</span><span class="o">.</span><span class="n">DictWriter</span><span class="p">(</span>
+                <span class="n">f</span><span class="p">,</span> <span class="p">[</span><span class="s2">&quot;scope&quot;</span><span class="p">,</span> <span class="s2">&quot;original_key&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="n">header</span><span class="p">))</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writeheader</span><span class="p">()</span>
+            <span class="n">writer</span><span class="o">.</span><span class="n">writerows</span><span class="p">(</span><span class="n">detail_out</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Outputs results on stdout.</span>
+<span class="sd">        The results of the first iteration will be omitted.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">start_index</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">results</span> <span class="ow">in</span> <span class="n">ret</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">continue</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;### </span><span class="si">{}</span><span class="s2"> ###&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+            <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{}</span><span class="s2"> [</span><span class="si">{}</span><span class="s2">]&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">key</span><span class="p">,</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;time&quot;</span><span class="p">],</span> <span class="n">result</span><span class="p">[</span><span class="s2">&quot;scale&quot;</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">()</span></div>
+
+
+<span class="k">class</span> <span class="nc">CpuTimerCallback</span><span class="p">(</span><span class="n">FunctionHookCallbackBase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ext_name</span><span class="p">,</span> <span class="n">device_id</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">CpuTimerCallback</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">results</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">device_id</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ext_module</span> <span class="o">=</span> <span class="n">import_extension_module</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">pre_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">callback</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">post_hook</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">callback</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">()</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">ext_module</span><span class="o">.</span><span class="n">synchronize</span><span class="p">(</span><span class="n">device_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">device_id</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span><span class="p">[</span><span class="n">key</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">timer</span><span class="p">()</span>
+
+        <span class="k">return</span> <span class="n">callback</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">timer</span><span class="p">():</span>
+        <span class="k">return</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">calc_elapsed_time</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="p">(</span><span class="n">start_time</span><span class="p">,</span> <span class="n">end_time</span><span class="p">)</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">key_to_times</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">elapsed</span> <span class="o">=</span> <span class="n">end_time</span> <span class="o">-</span> <span class="n">start_time</span>
+
+            <span class="k">if</span> <span class="n">key</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">[]</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">elapsed</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">average</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_index</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">times</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">results</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">ret</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
+                <span class="s2">&quot;time&quot;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">times</span><span class="p">[</span><span class="n">start_index</span><span class="p">:])</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span><span class="o">**</span><span class="mi">3</span><span class="p">),</span>
+                <span class="s2">&quot;num&quot;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">times</span><span class="p">)</span> <span class="o">-</span> <span class="n">start_index</span><span class="p">,</span>
+                <span class="s2">&quot;scale&quot;</span><span class="p">:</span> <span class="s2">&quot;ms&quot;</span>
+            <span class="p">}</span>
+
+        <span class="k">return</span> <span class="n">ret</span>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017, Sony Corporation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
