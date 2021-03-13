@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nnabla.models.imagenet.googlenet &mdash; Neural Network Libraries 1.17.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../../" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="../../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.17.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nnabla.models.imagenet.googlenet</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nnabla.models.imagenet.googlenet</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2017 Sony Corporation. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.nnp_graph</span> <span class="kn">import</span> <span class="n">NnpNetworkPass</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">ImageNetBase</span>
+
+
+<div class="viewcode-block" id="GoogLeNet"><a class="viewcode-back" href="../../../../python/api/models/imagenet.html#nnabla.models.imagenet.GoogLeNet">[docs]</a><span class="k">class</span> <span class="nc">GoogLeNet</span><span class="p">(</span><span class="n">ImageNetBase</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    GoogLeNet model.</span>
+
+<span class="sd">    The following is a list of string that can be specified to ``use_up_to`` option in ``__call__`` method;</span>
+
+<span class="sd">    * ``&#39;classifier&#39;`` (default): The output of the final affine layer for classification.</span>
+<span class="sd">    * ``&#39;pool&#39;``: The output of the final global average pooling.</span>
+<span class="sd">    * ``&#39;prepool&#39;``: The input of the final global average pooling, i.e. the output of the final inception block.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        * `Christian Szegedy, Wei Liu, Yangqing Jia, Pierre Sermanet, Scott Reed, Dragomir Anguelov, Dumitru Erhan, Vincent Vanhoucke, Andrew Rabinovich: Going Deeper with Convolutions.</span>
+<span class="sd">          &lt;https://arxiv.org/pdf/1409.4842.pdf&gt;`_</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_KEY_VARIABLE</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;classifier&#39;</span><span class="p">:</span> <span class="s1">&#39;Affine_5&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;pool&#39;</span><span class="p">:</span> <span class="s1">&#39;AveragePooling_3&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;prepool&#39;</span><span class="p">:</span> <span class="s1">&#39;Concatenate_9&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_aux_classifier_1&#39;</span><span class="p">:</span> <span class="s1">&#39;Affine_2&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_branching_point_1&#39;</span><span class="p">:</span> <span class="s1">&#39;AveragePooling&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_aux_classifier_2&#39;</span><span class="p">:</span> <span class="s1">&#39;Affine_4&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;_branching_point_2&#39;</span><span class="p">:</span> <span class="s1">&#39;AveragePooling_2&#39;</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># Load nnp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_load_nnp</span><span class="p">(</span><span class="s1">&#39;GoogLeNet.nnp&#39;</span><span class="p">,</span> <span class="s1">&#39;GoogLeNet/GoogLeNet.nnp&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">224</span><span class="p">,</span> <span class="mi">224</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_up_to</span><span class="o">=</span><span class="s1">&#39;classifier&#39;</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">force_global_pooling</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">check_global_pooling</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">returns_net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">with_aux_tower</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">training</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="ow">not</span> <span class="n">with_aux_tower</span><span class="p">,</span> <span class="s2">&quot;Aux Tower should be disabled when inference process.&quot;</span>
+
+        <span class="n">input_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_input_var</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
+
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">NnpNetworkPass</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">remove_and_rewire</span><span class="p">(</span><span class="s1">&#39;ImageAugmentationX&#39;</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span><span class="s1">&#39;InputX&#39;</span><span class="p">,</span> <span class="n">input_var</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">configure_global_average_pooling</span><span class="p">(</span>
+            <span class="n">callback</span><span class="p">,</span> <span class="n">force_global_pooling</span><span class="p">,</span> <span class="n">check_global_pooling</span><span class="p">,</span> <span class="s1">&#39;AveragePooling_3&#39;</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">set_batch_normalization_batch_stat_all</span><span class="p">(</span><span class="n">training</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">with_aux_tower</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="s1">&#39;_aux_classifier_1&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="n">funcs_to_drop1</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Affine_2&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;SoftmaxCrossEntropy&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;MulScalarLoss1&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="s1">&#39;_aux_classifier_2&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="n">funcs_to_drop2</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Affine_4&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;SoftmaxCrossEntropy_2&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;MulScalarLoss2&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="s1">&#39;_branching_point_1&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="n">funcs_to_drop1</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;AveragePooling&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Convolution_22&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;ReLU_22&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Affine&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;ReLU_23&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Dropout&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Affine_2&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;SoftmaxCrossEntropy&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;MulScalarLoss1&quot;</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="s1">&#39;_branching_point_2&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="n">funcs_to_drop2</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;AveragePooling_2&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Convolution_41&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;ReLU_42&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Affine_3&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;ReLU_43&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Dropout_2&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;Affine_4&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;SoftmaxCrossEntropy_2&quot;</span><span class="p">,</span>
+                              <span class="s2">&quot;MulScalarLoss2&quot;</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">drop_function</span><span class="p">(</span><span class="o">*</span><span class="n">funcs_to_drop1</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">drop_function</span><span class="p">(</span><span class="o">*</span><span class="n">funcs_to_drop2</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">training</span><span class="p">:</span>
+            <span class="n">callback</span><span class="o">.</span><span class="n">remove_and_rewire</span><span class="p">(</span><span class="s1">&#39;Dropout_3&#39;</span><span class="p">)</span>
+            <span class="n">callback</span><span class="o">.</span><span class="n">fix_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="n">use_up_to</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nnp</span><span class="o">.</span><span class="n">get_network</span><span class="p">(</span>
+            <span class="s1">&#39;Train&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">returns_net</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">net</span>
+        <span class="k">elif</span> <span class="n">with_aux_tower</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017, Sony Corporation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
