@@ -1,0 +1,18 @@
+<map id="Stochasticity" name="Stochasticity">
+<area shape="rect" id="node1" href="$d3/dce/group__Dropout.html" title="Dropout" alt="" coords="331,5,405,32"/>
+<area shape="rect" id="node2" href="$dd/d7e/group__Functions.html" title="Feed forward function implementations. " alt="" coords="5,360,88,387"/>
+<area shape="rect" id="node3" href="$d1/d78/group__RandomShift.html" title="RandomShift" alt="" coords="315,56,421,83"/>
+<area shape="rect" id="node4" href="$d9/d92/group__RandomErase.html" title="RandomErase" alt="" coords="312,107,424,133"/>
+<area shape="rect" id="node5" href="$d1/d99/group__Rand.html" title="Rand" alt="" coords="341,157,395,184"/>
+<area shape="rect" id="node6" href="$df/d18/group__Randn.html" title="Randn" alt="" coords="337,208,399,235"/>
+<area shape="rect" id="node8" href="$d4/d98/group__RandomChoice.html" title="RandomChoice" alt="" coords="308,259,428,285"/>
+<area shape="rect" id="node9" href="$da/d01/group__TopKData.html" title="TopKData" alt="" coords="326,309,410,336"/>
+<area shape="rect" id="node10" href="$d0/dc2/group__RandomFlip.html" title="RandomFlip" alt="" coords="319,360,417,387"/>
+<area shape="rect" id="node11" href="$d9/d49/group__ImageAugmentation.html" title="ImageAugmentation" alt="" coords="291,411,445,437"/>
+<area shape="rect" id="node12" href="$d5/dc7/group__Randint.html" title="Randint" alt="" coords="332,461,404,488"/>
+<area shape="rect" id="node13" href="$dc/db5/group__RandomCrop.html" title="RandomCrop" alt="" coords="315,512,421,539"/>
+<area shape="rect" id="node14" href="$d9/dbf/group__RandGamma.html" title="RandGamma" alt="" coords="315,563,421,589"/>
+<area shape="rect" id="node15" href="$d2/dc2/group__RandBeta.html" title="RandBeta" alt="" coords="325,613,411,640"/>
+<area shape="rect" id="node16" href="$d9/d0f/group__TopKGrad.html" title="TopKGrad" alt="" coords="326,664,410,691"/>
+<area shape="rect" id="node17" href="$d1/d90/group__RandBinomial.html" title="RandBinomial" alt="" coords="311,715,425,741"/>
+</map>

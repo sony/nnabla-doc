@@ -1,0 +1,1654 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Model Support Status &mdash; Neural Network Libraries 1.19.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contributing Guide" href="../../contributing.html" />
+    <link rel="prev" title="Function-Level Support Status" href="Function-Level_Support_Status.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.19.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../support_status.html">Support Status</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Function-Level_Support_Status.html">Function-Level Support Status</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Model Support Status</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#onnx-support-status">ONNX Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#import">Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#export">Export</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow-support-status">Tensorflow Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">Import</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">Export</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#tensorflow-lite-support-status">Tensorflow Lite Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">Export</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#nnabla-c-runtime-support-status">NNabla C Runtime Support Status</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id4">Export</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../support_status.html">Support Status</a> &raquo;</li>
+        
+      <li>Model Support Status</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/python/file_format_converter/Model_Support_Status.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="model-support-status">
+<h1>Model Support Status<a class="headerlink" href="#model-support-status" title="Permalink to this headline">¶</a></h1>
+<div class="contents local topic" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#onnx-support-status" id="id6">ONNX Support Status</a></p>
+<ul>
+<li><p><a class="reference internal" href="#import" id="id7">Import</a></p>
+<ul>
+<li><p><a class="reference internal" href="#onnx-import-sample-test-onnx-nnp" id="id8">ONNX Import Sample Test(onnx –&gt; nnp)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#export" id="id9">Export</a></p>
+<ul>
+<li><p><a class="reference internal" href="#onnx-export-sample-test-nnp-onnx" id="id10">ONNX Export Sample Test(nnp –&gt; onnx)</a></p></li>
+<li><p><a class="reference internal" href="#onnx-export-pretrained-model-test-nnp-onnx" id="id11">ONNX Export Pretrained Model Test(nnp –&gt; onnx)</a></p></li>
+<li><p><a class="reference internal" href="#onnx-export-example-model-test-nnp-onnx" id="id12">ONNX Export Example Model Test(nnp –&gt; onnx)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#tensorflow-support-status" id="id13">Tensorflow Support Status</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id1" id="id14">Import</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tensorflow-import-sample-test-tf-nnp" id="id15">Tensorflow Import Sample Test(tf –&gt; nnp)</a></p></li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#id2" id="id16">Export</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tensorflow-export-sample-test-nnp-tf" id="id17">Tensorflow Export Sample Test(nnp –&gt; tf)</a></p></li>
+<li><p><a class="reference internal" href="#tensorflow-export-pretrained-models-nnp-tf" id="id18">Tensorflow Export Pretrained Models(nnp –&gt; tf)</a></p></li>
+<li><p><a class="reference internal" href="#tensorflow-export-example-models-nnp-tf" id="id19">Tensorflow Export Example Models(nnp –&gt; tf)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#tensorflow-lite-support-status" id="id20">Tensorflow Lite Support Status</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id3" id="id21">Export</a></p>
+<ul>
+<li><p><a class="reference internal" href="#tensorflow-lite-export-sample-test-nnp-tflite" id="id22">Tensorflow Lite Export Sample Test(nnp –&gt; tflite)</a></p></li>
+<li><p><a class="reference internal" href="#tensorflow-lite-export-pretrained-models-nnp-tflite" id="id23">Tensorflow Lite Export Pretrained Models(nnp –&gt; tflite)</a></p></li>
+<li><p><a class="reference internal" href="#tensorflow-lite-export-example-models-nnp-tflite" id="id24">Tensorflow Lite Export Example Models(nnp –&gt; tflite)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a class="reference internal" href="#nnabla-c-runtime-support-status" id="id25">NNabla C Runtime Support Status</a></p>
+<ul>
+<li><p><a class="reference internal" href="#id4" id="id26">Export</a></p>
+<ul>
+<li><p><a class="reference internal" href="#nnc-export-sample-test-nnp-nnb" id="id27">NNC Export Sample Test(nnp –&gt; nnb)</a></p></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="onnx-support-status">
+<h2><a class="toc-backref" href="#id6">ONNX Support Status</a><a class="headerlink" href="#onnx-support-status" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="import">
+<h3><a class="toc-backref" href="#id7">Import</a><a class="headerlink" href="#import" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>✓: Support to convert</p></li>
+<li><p>X: Not support</p></li>
+</ul>
+<p>Total: 11/12</p>
+<div class="section" id="onnx-import-sample-test-onnx-nnp">
+<h4><a class="toc-backref" href="#id8">ONNX Import Sample Test(onnx –&gt; nnp)</a><a class="headerlink" href="#onnx-import-sample-test-onnx-nnp" title="Permalink to this headline">¶</a></h4>
+<p>Count 11/12</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 35%" />
+<col style="width: 7%" />
+<col style="width: 58%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/caffenet/model/caffenet-9.tar.gz">bvlc_reference_caffenet_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/densenet-121/model/densenet-9.tar.gz">densenet121_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/inception_and_googlenet/googlenet/model/googlenet-9.tar.gz">bvlc_googlenet_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/inception_and_googlenet/inception_v2/model/inception-v2-9.tar.gz">inception_v2_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/zfnet-512/model/zfnet512-9.tar.gz">zfnet512_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/alexnet/model/bvlcalexnet-9.tar.gz">bvlc_alexnet_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/vgg/model/vgg19-caffe2-9.tar.gz">vgg19_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/inception_and_googlenet/inception_v1/model/inception-v1-9.tar.gz">inception_v1_model</a></p></td>
+<td><p>X</p></td>
+<td><p>The <code class="xref any docutils literal notranslate"><span class="pre">edge</span></code> mode of the <a class="reference internal" href="../api/function.html#nnabla.functions.pad" title="nnabla.functions.pad"><code class="xref any py py-func docutils literal notranslate"><span class="pre">pad</span></code></a> in nnabla is not implemented.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/squeezenet/model/squeezenet1.0-9.tar.gz">squeezenet_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/rcnn_ilsvrc13/model/rcnn-ilsvrc13-9.tar.gz">bvlc_reference_rcnn_ilsvrc13_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/resnet/model/resnet50-caffe2-v1-9.tar.gz">resnet50_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://media.githubusercontent.com/media/onnx/models/master/vision/classification/shufflenet/model/shufflenet-9.tar.gz">shufflenet_model</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="export">
+<h3><a class="toc-backref" href="#id9">Export</a><a class="headerlink" href="#export" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>✓: Support to convert</p></li>
+<li><p>X: Not support</p></li>
+</ul>
+<p>Total: 58/65</p>
+<div class="section" id="onnx-export-sample-test-nnp-onnx">
+<h4><a class="toc-backref" href="#id10">ONNX Export Sample Test(nnp –&gt; onnx)</a><a class="headerlink" href="#onnx-export-sample-test-nnp-onnx" title="Permalink to this headline">¶</a></h4>
+<p>Count 34/37</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 7%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_33</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_36</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_28</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_9</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_10</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_LeNet.sdcproj">binary_connect_mnist_LeNet_5</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_32</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_22</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_vae.sdcproj">mnist_vae_3</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_31</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_27</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_14</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_2</a></p></td>
+<td><p>X</p></td>
+<td><p>NNabla converter error, will be fixed in the future.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_34</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_MLP.sdcproj">binary_connect_mnist_MLP_8</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_21</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_1</a></p></td>
+<td><p>X</p></td>
+<td><p>NNabla converter error, will be fixed in the future.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_23</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_weight_mnist_MLP.sdcproj">binary_weight_mnist_MLP_6</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_17</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_26</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_18</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_20</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_19</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_25</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_29</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_LeNet.sdcproj">binary_net_mnist_LeNet_7</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_15</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/semi_supervised_learning_VAT.sdcproj">semi_supervised_learning_VAT_37</a></p></td>
+<td><p>X</p></td>
+<td><p>NNP with only a single executor is currently supported.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_12</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_30</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_35</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_MLP.sdcproj">binary_net_mnist_MLP_4</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_24</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="onnx-export-pretrained-model-test-nnp-onnx">
+<h4><a class="toc-backref" href="#id11">ONNX Export Pretrained Model Test(nnp –&gt; onnx)</a><a class="headerlink" href="#onnx-export-pretrained-model-test-nnp-onnx" title="Permalink to this headline">¶</a></h4>
+<p>Count 17/18</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 21%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-101/Resnet-101.nnp">Resnet-101_4_348</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-13/VGG-13.nnp">VGG-13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/ShuffleNet-2.0x/ShuffleNet-2.0x.nnp">ShuffleNet_2_202</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/SqueezeNet-1.1/SqueezeNet-1.1.nnp">SqueezeNet-1.1_2_70</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-18/Resnet-18.nnp">Resnet-18_3_71</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-16/VGG-16.nnp">VGG-16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://notfound">AlexNet</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/ShuffleNet-0.5x/ShuffleNet-0.5x.nnp">ShuffleNet-0.5x_2_202</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-34/Resnet-34.nnp">Resnet-34_4_128</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/MobileNet/MobileNet.nnp">MobileNet_1_86</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Xception/Xception.nnp">Xception</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/DenseNet-161/DenseNet-161.nnp">DenseNet-161_2_570</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/NIN/NIN.nnp">NIN</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/GoogLeNet/GoogLeNet.nnp">GoogLeNet_4_142</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-11/VGG-11.nnp">VGG-11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-50/Resnet-50.nnp">Resnet-50_4_178</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-152/Resnet-152.nnp">Resnet-152_4_518</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/SqueezeNet-1.0/SqueezeNet-1.0.nnp">SqueezeNet-1.0_2_70</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="onnx-export-example-model-test-nnp-onnx">
+<h4><a class="toc-backref" href="#id12">ONNX Export Example Model Test(nnp –&gt; onnx)</a><a class="headerlink" href="#onnx-export-example-model-test-nnp-onnx" title="Permalink to this headline">¶</a></h4>
+<p>Count 7/10</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 23%" />
+<col style="width: 9%" />
+<col style="width: 68%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">word_embedding</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">yolov2</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">deeplabv3plus</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">pix2pix</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">siamese_embedding</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">wavenet</a></p></td>
+<td><p>X</p></td>
+<td><p>The <code class="xref any docutils literal notranslate"><span class="pre">onehot</span></code> dimension != 2 is not supported.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">classification</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">meta_learning</a></p></td>
+<td><p>X</p></td>
+<td><p>Failed to compare inferring result.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">cycle_gan</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">capsules</a></p></td>
+<td><p>X</p></td>
+<td><p>NNabla converter error, will be fixed in the future.</p></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="tensorflow-support-status">
+<h2><a class="toc-backref" href="#id13">Tensorflow Support Status</a><a class="headerlink" href="#tensorflow-support-status" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3><a class="toc-backref" href="#id14">Import</a><a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>✓: Support to convert</p></li>
+<li><p>X: Not support</p></li>
+</ul>
+<p>Total: 15/16</p>
+<div class="section" id="tensorflow-import-sample-test-tf-nnp">
+<h4><a class="toc-backref" href="#id15">Tensorflow Import Sample Test(tf –&gt; nnp)</a><a class="headerlink" href="#tensorflow-import-sample-test-tf-nnp" title="Permalink to this headline">¶</a></h4>
+<p>Count 15/16</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 36%" />
+<col style="width: 7%" />
+<col style="width: 57%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://notfound">GoogLeNet</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://notfound">ZFNet</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://notfound">AlexNet</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://notfound">ResNet50</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://notfound">LeNet_5</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://notfound">VGG16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_0.75_192_frozen.tgz">mobilenet_v1_0.75_192</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/onnx/tensorflow-onnx/blob/master/tests/models/ae0/frozen.pb">ae0_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/onnx/tensorflow-onnx/blob/master/tests/models/conv-layers/frozen.pb">conv-layers_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/onnx/tensorflow-onnx/blob/master/tests/models/lstm/frozen.pb">lstm_frozen</a></p></td>
+<td><p>X</p></td>
+<td><p>The <code class="xref any docutils literal notranslate"><span class="pre">Shape</span></code> is currently not supported to convert by nnabla.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://storage.googleapis.com/download.tensorflow.org/models/inception_v3_2016_08_28_frozen.pb.tar.gz">inception_v3_2016_08_28_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://storage.googleapis.com/download.tensorflow.org/models/inception_v4_2016_09_09_frozen.pb.tar.gz">inception_v4_2016_09_09_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://storage.googleapis.com/download.tensorflow.org/models/inception_v1_2016_08_28_frozen.pb.tar.gz">inception_v1_2016_08_28_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/onnx/tensorflow-onnx/blob/master/tests/models/fc-layers/frozen.pb">fc-layers_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://storage.googleapis.com/download.tensorflow.org/models/mobilenet_v1_1.0_224_frozen.tgz">mobilenet_v1_1.0_224</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://storage.googleapis.com/download.tensorflow.org/models/inception_resnet_v2_2016_08_30_frozen.pb.tar.gz">inception_resnet_v2_2016_08_30_frozen</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id16">Export</a><a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>✓: Support to convert</p></li>
+<li><p>X: Not support</p></li>
+</ul>
+<p>Total: 58/65</p>
+<div class="section" id="tensorflow-export-sample-test-nnp-tf">
+<h4><a class="toc-backref" href="#id17">Tensorflow Export Sample Test(nnp –&gt; tf)</a><a class="headerlink" href="#tensorflow-export-sample-test-nnp-tf" title="Permalink to this headline">¶</a></h4>
+<p>Count 34/37</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 34%" />
+<col style="width: 7%" />
+<col style="width: 59%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_33</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_36</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_28</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_9</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_10</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_LeNet.sdcproj">binary_connect_mnist_LeNet_5</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_32</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_22</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_vae.sdcproj">mnist_vae_3</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_31</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_27</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_14</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_2</a></p></td>
+<td><p>X</p></td>
+<td><p>NNabla converter error, will be fixed in the future.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_34</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_MLP.sdcproj">binary_connect_mnist_MLP_8</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_21</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_1</a></p></td>
+<td><p>X</p></td>
+<td><p>NNabla converter error, will be fixed in the future.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_23</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_weight_mnist_MLP.sdcproj">binary_weight_mnist_MLP_6</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_17</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_26</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_18</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_20</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_19</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_25</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_29</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_LeNet.sdcproj">binary_net_mnist_LeNet_7</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_15</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/semi_supervised_learning_VAT.sdcproj">semi_supervised_learning_VAT_37</a></p></td>
+<td><p>X</p></td>
+<td><p>NNP with only a single executor is currently supported.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_12</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_30</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_35</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_MLP.sdcproj">binary_net_mnist_MLP_4</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_24</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="tensorflow-export-pretrained-models-nnp-tf">
+<h4><a class="toc-backref" href="#id18">Tensorflow Export Pretrained Models(nnp –&gt; tf)</a><a class="headerlink" href="#tensorflow-export-pretrained-models-nnp-tf" title="Permalink to this headline">¶</a></h4>
+<p>Count 17/18</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 21%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-101/Resnet-101.nnp">Resnet-101_4_348</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-13/VGG-13.nnp">VGG-13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/ShuffleNet-2.0x/ShuffleNet-2.0x.nnp">ShuffleNet_2_202</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/SqueezeNet-1.1/SqueezeNet-1.1.nnp">SqueezeNet-1.1_2_70</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-18/Resnet-18.nnp">Resnet-18_3_71</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-16/VGG-16.nnp">VGG-16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://notfound">AlexNet</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/ShuffleNet-0.5x/ShuffleNet-0.5x.nnp">ShuffleNet-0.5x_2_202</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-34/Resnet-34.nnp">Resnet-34_4_128</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/MobileNet/MobileNet.nnp">MobileNet_1_86</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Xception/Xception.nnp">Xception</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/DenseNet-161/DenseNet-161.nnp">DenseNet-161_2_570</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/NIN/NIN.nnp">NIN</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/GoogLeNet/GoogLeNet.nnp">GoogLeNet_4_142</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-11/VGG-11.nnp">VGG-11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-50/Resnet-50.nnp">Resnet-50_4_178</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-152/Resnet-152.nnp">Resnet-152_4_518</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/SqueezeNet-1.0/SqueezeNet-1.0.nnp">SqueezeNet-1.0_2_70</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="tensorflow-export-example-models-nnp-tf">
+<h4><a class="toc-backref" href="#id19">Tensorflow Export Example Models(nnp –&gt; tf)</a><a class="headerlink" href="#tensorflow-export-example-models-nnp-tf" title="Permalink to this headline">¶</a></h4>
+<p>Count 7/10</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 26%" />
+<col style="width: 10%" />
+<col style="width: 64%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">word_embedding</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">yolov2</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">deeplabv3plus</a></p></td>
+<td><p>✓</p></td>
+<td><p>The <code class="xref any docutils literal notranslate"><span class="pre">Interpolate</span></code> is currently not supported.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">pix2pix</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">siamese_embedding</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">wavenet</a></p></td>
+<td><p>X</p></td>
+<td><p>The <code class="xref any docutils literal notranslate"><span class="pre">onehot</span></code> dimension != 2 is not supported.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">classification</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">meta_learning</a></p></td>
+<td><p>X</p></td>
+<td><p>Failed to compare inferring result.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">cycle_gan</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">capsules</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="tensorflow-lite-support-status">
+<h2><a class="toc-backref" href="#id20">Tensorflow Lite Support Status</a><a class="headerlink" href="#tensorflow-lite-support-status" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id21">Export</a><a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>✓: Support to convert</p></li>
+<li><p>X: Not support</p></li>
+</ul>
+<p>Total: 44/65</p>
+<div class="section" id="tensorflow-lite-export-sample-test-nnp-tflite">
+<h4><a class="toc-backref" href="#id22">Tensorflow Lite Export Sample Test(nnp –&gt; tflite)</a><a class="headerlink" href="#tensorflow-lite-export-sample-test-nnp-tflite" title="Permalink to this headline">¶</a></h4>
+<p>Count 32/37</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 74%" />
+<col style="width: 16%" />
+<col style="width: 9%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_33</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_36</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_28</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_9</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_10</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_LeNet.sdcproj">binary_connect_mnist_LeNet_5</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_32</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_22</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_vae.sdcproj">mnist_vae_3</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_31</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_27</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_14</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_2</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_34</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_MLP.sdcproj">binary_connect_mnist_MLP_8</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_21</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_1</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_23</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_weight_mnist_MLP.sdcproj">binary_weight_mnist_MLP_6</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_17</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_26</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_18</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_20</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_19</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_25</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_29</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_LeNet.sdcproj">binary_net_mnist_LeNet_7</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_15</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/semi_supervised_learning_VAT.sdcproj">semi_supervised_learning_VAT_37</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_12</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_30</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_35</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_MLP.sdcproj">binary_net_mnist_MLP_4</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_24</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="tensorflow-lite-export-pretrained-models-nnp-tflite">
+<h4><a class="toc-backref" href="#id23">Tensorflow Lite Export Pretrained Models(nnp –&gt; tflite)</a><a class="headerlink" href="#tensorflow-lite-export-pretrained-models-nnp-tflite" title="Permalink to this headline">¶</a></h4>
+<p>Count 6/18</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 67%" />
+<col style="width: 21%" />
+<col style="width: 12%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-101/Resnet-101.nnp">Resnet-101_4_348</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-13/VGG-13.nnp">VGG-13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/ShuffleNet-2.0x/ShuffleNet-2.0x.nnp">ShuffleNet_2_202</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/SqueezeNet-1.1/SqueezeNet-1.1.nnp">SqueezeNet-1.1_2_70</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-18/Resnet-18.nnp">Resnet-18_3_71</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-16/VGG-16.nnp">VGG-16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://notfound">AlexNet</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/ShuffleNet-0.5x/ShuffleNet-0.5x.nnp">ShuffleNet-0.5x_2_202</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-34/Resnet-34.nnp">Resnet-34_4_128</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/MobileNet/MobileNet.nnp">MobileNet_1_86</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Xception/Xception.nnp">Xception</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/DenseNet-161/DenseNet-161.nnp">DenseNet-161_2_570</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/NIN/NIN.nnp">NIN</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/GoogLeNet/GoogLeNet.nnp">GoogLeNet_4_142</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/VGG-11/VGG-11.nnp">VGG-11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-50/Resnet-50.nnp">Resnet-50_4_178</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/Resnet-152/Resnet-152.nnp">Resnet-152_4_518</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://nnabla.org/pretrained-models/nnp_models/imagenet/SqueezeNet-1.0/SqueezeNet-1.0.nnp">SqueezeNet-1.0_2_70</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+<div class="section" id="tensorflow-lite-export-example-models-nnp-tflite">
+<h4><a class="toc-backref" href="#id24">Tensorflow Lite Export Example Models(nnp –&gt; tflite)</a><a class="headerlink" href="#tensorflow-lite-export-example-models-nnp-tflite" title="Permalink to this headline">¶</a></h4>
+<p>Count 6/10</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 62%" />
+<col style="width: 24%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">word_embedding</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">yolov2</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">deeplabv3plus</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">pix2pix</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">siamese_embedding</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">wavenet</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">classification</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">meta_learning</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">cycle_gan</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://github.com/sony/nnabla-examples">capsules</a></p></td>
+<td><p>X</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+<div class="section" id="nnabla-c-runtime-support-status">
+<h2><a class="toc-backref" href="#id25">NNabla C Runtime Support Status</a><a class="headerlink" href="#nnabla-c-runtime-support-status" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id26">Export</a><a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><p>✓: Support to convert</p></li>
+<li><p>X: Not support</p></li>
+</ul>
+<p>Total: 34/37</p>
+<div class="section" id="nnc-export-sample-test-nnp-nnb">
+<h4><a class="toc-backref" href="#id27">NNC Export Sample Test(nnp –&gt; nnb)</a><a class="headerlink" href="#nnc-export-sample-test-nnp-nnb" title="Permalink to this headline">¶</a></h4>
+<p>Count 34/37</p>
+<blockquote>
+<div><table class="docutils align-default">
+<colgroup>
+<col style="width: 43%" />
+<col style="width: 9%" />
+<col style="width: 47%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Name</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Memo</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_33</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_36</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_28</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_9</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_13</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/01_logistic_regression.sdcproj">01_logistic_regression_10</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_LeNet.sdcproj">binary_connect_mnist_LeNet_5</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_16</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_32</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_22</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_vae.sdcproj">mnist_vae_3</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/gated_recurrent_unit(GRU).sdcproj">gated_recurrent_unitGRU_31</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/stacked_GRU.sdcproj">stacked_GRU_27</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/10_deep_mlp.sdcproj">10_deep_mlp_14</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_2</a></p></td>
+<td><p>X</p></td>
+<td><p>Failed to compare inferring result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net_with_attention.sdcproj">elman_net_with_attention_34</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_connect_mnist_MLP.sdcproj">binary_connect_mnist_MLP_8</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/elman_net.sdcproj">elman_net_21</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_generation/mnist_dcgan_with_label.sdcproj">mnist_dcgan_with_label_1</a></p></td>
+<td><p>X</p></td>
+<td><p>Failed to infer by nnabla.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_23</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_weight_mnist_MLP.sdcproj">binary_weight_mnist_MLP_6</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_17</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_26</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/06_auto_encoder.sdcproj">06_auto_encoder_18</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_20</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/12_residual_learning.sdcproj">12_residual_learning_19</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/bidirectional_elman_net.sdcproj">bidirectional_elman_net_25</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_29</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_LeNet.sdcproj">binary_net_mnist_LeNet_7</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/02_binary_cnn.sdcproj">02_binary_cnn_15</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/semi_supervised_learning_VAT.sdcproj">semi_supervised_learning_VAT_37</a></p></td>
+<td><p>X</p></td>
+<td><p>Failed to compare inferring result.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_12</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/long_short_term_memory(LSTM).sdcproj">long_short_term_memoryLSTM_30</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/image_recognition/MNIST/LeNet.sdcproj">LeNet_35</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/binary_networks/binary_net_mnist_MLP.sdcproj">binary_net_mnist_MLP_4</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/basics/11_deconvolution.sdcproj">11_deconvolution_11</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference external" href="https://dl.sony.com/assets/sdcproj/tutorial/recurrent_neural_networks/LSTM_auto_encoder.sdcproj">LSTM_auto_encoder_24</a></p></td>
+<td><p>✓</p></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+</div></blockquote>
+</div>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../contributing.html" class="btn btn-neutral float-right" title="Contributing Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Function-Level_Support_Status.html" class="btn btn-neutral float-left" title="Function-Level Support Status" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017, Sony Corporation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
