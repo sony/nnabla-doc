@@ -1,0 +1,702 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>nnabla.core.module &mdash; Neural Network Libraries 1.20.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.20.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+        
+      <li>nnabla.core.module</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for nnabla.core.module</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2020-2021 Sony Group Corporation. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">wraps</span>
+<span class="kn">from</span> <span class="nn">nnabla.core.graph_def</span> <span class="kn">import</span> <span class="n">ProtoVariable</span><span class="p">,</span> <span class="n">module_scope</span><span class="p">,</span> <span class="n">current_graph_builder</span>
+
+<span class="c1"># TODO:</span>
+<span class="c1">#   - The following submodule has not supported yet, for example:</span>
+<span class="c1">#         class ResUnit(Module):</span>
+<span class="c1">#             def __init__(self, channels, stride=1, skip_by_conv=True):</span>
+<span class="c1">#                 self.conv = [ConvBn(c, 1, 1,act=lambda x: F.relu(x, inplace=True)) for c in [4, 16, 32]]</span>
+<span class="c1">#                 ...</span>
+<span class="c1">#     same as dict type.</span>
+
+
+<span class="k">def</span> <span class="nf">insert_parent_name</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+    <span class="n">ret</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="n">ret</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">k</span><span class="p">))]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">ret</span>
+
+
+<span class="k">class</span> <span class="nc">ParamMemo</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_memo</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">filter_and_update</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">):</span>
+        <span class="n">memo</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_memo</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">memo</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">ret</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+            <span class="n">memo</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">ret</span>
+
+
+<span class="n">__module_built_in_functions__</span> <span class="o">=</span> <span class="p">{}</span>
+
+
+<span class="k">class</span> <span class="nc">MetaClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">method_wrapper</span><span class="p">(</span><span class="n">method</span><span class="p">):</span>
+        <span class="nd">@wraps</span><span class="p">(</span><span class="n">method</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">wrapped</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">module_scope</span><span class="p">(</span><span class="n">current_graph_builder</span><span class="p">(),</span> <span class="bp">self</span><span class="p">):</span>
+                <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">):</span>
+                    <span class="k">return</span> <span class="n">method</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">wrapped</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">classname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">class_dict</span><span class="p">):</span>
+        <span class="k">global</span> <span class="n">__module_built_in_functions__</span>
+        <span class="n">new_class_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="k">for</span> <span class="n">attributeName</span><span class="p">,</span> <span class="n">attribute</span> <span class="ow">in</span> <span class="n">class_dict</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">classname</span> <span class="o">==</span> <span class="s1">&#39;Module&#39;</span><span class="p">:</span>
+                <span class="n">__module_built_in_functions__</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">class_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                <span class="n">__module_built_in_functions__</span> <span class="o">-=</span> <span class="p">{</span><span class="s1">&#39;__call__&#39;</span><span class="p">,</span> <span class="s1">&#39;call&#39;</span><span class="p">}</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span> <span class="ow">and</span> <span class="n">attributeName</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">__module_built_in_functions__</span><span class="p">:</span>
+                    <span class="n">attribute</span> <span class="o">=</span> <span class="n">MetaClass</span><span class="o">.</span><span class="n">method_wrapper</span><span class="p">(</span><span class="n">attribute</span><span class="p">)</span>
+            <span class="n">new_class_dict</span><span class="p">[</span><span class="n">attributeName</span><span class="p">]</span> <span class="o">=</span> <span class="n">attribute</span>
+        <span class="k">return</span> <span class="nb">type</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="n">meta</span><span class="p">,</span> <span class="n">classname</span><span class="p">,</span> <span class="n">bases</span><span class="p">,</span> <span class="n">new_class_dict</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Module"><a class="viewcode-back" href="../../../python/api/module.html#nnabla.core.module.Module">[docs]</a><span class="k">class</span> <span class="nc">Module</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">MetaClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Module is a construction block of a computation model. Modules normally</span>
+<span class="sd">    are constructed by lower level operators or other Modules, thus, nesting</span>
+<span class="sd">    them in a tree-like structure may construct a more complex computation</span>
+<span class="sd">    model.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        User may construct his model by derived from this class. Like:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            import nnabla as nn</span>
+<span class="sd">            import nnabla.parametric_functions as PF</span>
+<span class="sd">            import nnabla.functions as F</span>
+
+<span class="sd">            class ConvBn(nn.Module):</span>
+<span class="sd">                def __init__(self, outmaps, kernel=1, stride=1, act=None):</span>
+<span class="sd">                    self.outmaps = outmaps</span>
+<span class="sd">                    self.kernel = kernel</span>
+<span class="sd">                    self.stride = stride</span>
+<span class="sd">                    self.act = act</span>
+
+<span class="sd">                def call(self, x, training=True):</span>
+<span class="sd">                    kernel = (self.kernel, self.kernel)</span>
+<span class="sd">                    pad = (self.kernel // 2, self.kernel // 2)</span>
+<span class="sd">                    stride = (self.stride, self.stride)</span>
+<span class="sd">                    h = PF.convolution(x, self.outmaps, kernel,</span>
+<span class="sd">                                       pad, stride, with_bias=False)</span>
+<span class="sd">                    h = PF.batch_normalization(h, batch_stat=training)</span>
+<span class="sd">                    if self.act is None:</span>
+<span class="sd">                        return h</span>
+<span class="sd">                    return self.act(h)</span>
+
+
+<span class="sd">            class ResUnit(nn.Module):</span>
+<span class="sd">                def __init__(self, channels, stride=1, skip_by_conv=True):</span>
+<span class="sd">                    self.conv1 = ConvBn(channels // 4, 1, 1,</span>
+<span class="sd">                                        act=lambda x: F.relu(x, inplace=True))</span>
+<span class="sd">                    self.conv2 = ConvBn(channels // 4, 3, stride,</span>
+<span class="sd">                                        act=lambda x: F.relu(x, inplace=True))</span>
+<span class="sd">                    self.conv3 = ConvBn(channels, 1)</span>
+<span class="sd">                    self.skip_by_conv = skip_by_conv</span>
+<span class="sd">                    self.skip = ConvBn(channels, 1, stride)</span>
+
+<span class="sd">                def call(self, x, training=True):</span>
+<span class="sd">                    h = self.conv1(x)</span>
+<span class="sd">                    h = self.conv2(h)</span>
+<span class="sd">                    h = self.conv3(h)</span>
+
+<span class="sd">                    s = x</span>
+<span class="sd">                    if self.skip_by_conv:</span>
+<span class="sd">                        s = self.skip(s)</span>
+<span class="sd">                    h = F.relu(F.add2(h, s, inplace=True), inplace=True)</span>
+<span class="sd">                    return h</span>
+
+
+<span class="sd">        To use this model, user may do like the following code:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            res_unit = ResUnit(1024)</span>
+<span class="sd">            x = nn.Variable((64, 3, 32, 32))</span>
+<span class="sd">            x.d = np.random.random(x.shape)</span>
+<span class="sd">            y = res_unit(x)</span>
+<span class="sd">            y.forward(clear_buffer=True)</span>
+
+
+<span class="sd">        For working with dynamic network, user may do like the following:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            res_unit = ResUnit(1024)</span>
+<span class="sd">            with nn.auto_forward():</span>
+<span class="sd">                x = nn.Variable.from_numpy_array(np.random.random((1, 3, 32, 32)))</span>
+<span class="sd">                y = res_unit(x)</span>
+<span class="sd">                print(y.d)</span>
+
+
+<span class="sd">        For training, please set the parameters in module scope to optimizer. For example,</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           import nnabla.solvers as S</span>
+
+<span class="sd">           resnet = ResNet(18)</span>
+<span class="sd">           loss = resnet(x, y_)</span>
+
+<span class="sd">           solver = S.Sgd(lr=1e-3)</span>
+<span class="sd">           solver.set_parameters(resnet.get_parameters())</span>
+
+<span class="sd">           for _ in range(max_iter):</span>
+<span class="sd">               x.d, y_.d = data.next()</span>
+<span class="sd">               loss.forward()</span>
+<span class="sd">               solver.zero_grad()</span>
+<span class="sd">               loss.backward()</span>
+<span class="sd">               solver.weight_decay(1e-5)</span>
+<span class="sd">               solver.update()</span>
+
+<span class="sd">        In this example, we supposed ResNet is a derived class of Module, x, y_ is :class:`~nn.Variable`,</span>
+<span class="sd">        ``data`` is an instance of :class:`~DataIterator`, supposed it has already been attached to a DataSet.</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">            From this example, we knew that model parameters are owned by model. Here it is variable `resnet`. These</span>
+<span class="sd">            parameters will be referred when network is forward or backward or solve.update(). Hence, it is necessary</span>
+<span class="sd">            to keep this module instance from being unexpectedly released, to ensure forward() or backward() can refer</span>
+<span class="sd">            to these variables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">training</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Return a bool value which indicates whether current Module is in</span>
+<span class="sd">        training state or not. A module may be set to training state or not,</span>
+<span class="sd">        so that the computation graph created from this module can be changed</span>
+<span class="sd">        according to this state. For example,</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            class ConvBN(Module):</span>
+<span class="sd">                ...</span>
+<span class="sd">                def call(self, x):</span>
+<span class="sd">                    h = self.conv1(x)</span>
+<span class="sd">                    if self.training:</span>
+<span class="sd">                        h = self.drop_out(h)</span>
+<span class="sd">                    h = F.relu(h, inplace=True)</span>
+<span class="sd">                    return h</span>
+
+<span class="sd">            conv_bn = ConvBN()</span>
+<span class="sd">            conv_bn.training = True</span>
+<span class="sd">            train_y = conv_bn(x)</span>
+
+<span class="sd">            conv_bn.training = False</span>
+<span class="sd">            eval_y = conv_bn(x)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool:</span>
+<span class="sd">               which indicates whether current Module is in training state.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;training&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;training&#39;</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;training&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">training</span>
+
+    <span class="nd">@training</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">training</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">b</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Set current Module whether is in training state or not.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            class ConvBN(Module):</span>
+<span class="sd">                ...</span>
+<span class="sd">                def call(self, x):</span>
+<span class="sd">                    h = self.conv1(x)</span>
+<span class="sd">                    if self.training:</span>
+<span class="sd">                        h = self.drop_out(h)</span>
+<span class="sd">                    h = F.relu(h, inplace=True)</span>
+<span class="sd">                    return h</span>
+
+<span class="sd">            conv_bn = ConvBN()</span>
+<span class="sd">            conv_bn.training = True</span>
+<span class="sd">            train_y = conv_bn(x)</span>
+
+<span class="sd">            conv_bn.training = False</span>
+<span class="sd">            eval_y = conv_bn(x)</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            bool:</span>
+<span class="sd">               which indicates whether current Module is in training state.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;training&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">module</span><span class="o">.</span><span class="n">training</span> <span class="o">=</span> <span class="n">b</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parameter_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot; A module has its owned parameter_scope, which can avoid to pollute global parameter name space.</span>
+<span class="sd">        User may obtain the parameter_scope of a module by this property.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            OrderedDict:</span>
+<span class="sd">                The parameter scope of current Module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="s1">&#39;_parameter_scope&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_scope</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_parameter_scope&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parameter_scope</span>
+
+    <span class="k">def</span> <span class="nf">get_scope_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">scope_name</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">scope_name</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">((</span><span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span><span class="o">.</span><span class="n">get_scope_name</span><span class="p">()))</span>
+            <span class="k">break</span>
+        <span class="k">return</span> <span class="n">scope_name</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">submodules</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;_submodules&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submodules</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_submodules&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_submodules</span>
+
+<div class="viewcode-block" id="Module.get_parameters"><a class="viewcode-back" href="../../../python/api/module.html#nnabla.core.module.Module.get_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">get_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">recursive</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">grad_only</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Obtain an OrderedDict object of all parameters in current Module.</span>
+
+<span class="sd">        For example,</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            x = nn.Variable.from_numpy_array((np.random.random((8, 32, 256, 256))))</span>
+<span class="sd">            conv_bn = ConvBn(2)</span>
+<span class="sd">            y = conv_bn(x)</span>
+
+<span class="sd">            params = conv_bn.get_parameters()</span>
+<span class="sd">            for parameter_name, parameter_value in params.items():</span>
+<span class="sd">                print(&quot;{}:{}&quot;.format(parameter_name, parameter_value.shape))</span>
+
+<span class="sd">        The output looks like:</span>
+
+<span class="sd">        .. code-block:: none</span>
+
+<span class="sd">            conv/W:(2, 32, 1, 1)</span>
+<span class="sd">            bn/beta:(1, 2, 1, 1)</span>
+<span class="sd">            bn/gamma:(1, 2, 1, 1)</span>
+<span class="sd">            bn/mean:(1, 2, 1, 1)</span>
+<span class="sd">            bn/var:(1, 2, 1, 1)</span>
+
+<span class="sd">        Notice that the parameter name looks like a filepath, with splash separated</span>
+<span class="sd">        nested scope name. In addition, module name default is used with a prefix ``@``.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            recursive (bool, optional, default=True):</span>
+<span class="sd">                Whether obtain the parameters of current module&#39;s submodules. Default is True.</span>
+<span class="sd">            grad_only (bool, optional, default=False):</span>
+<span class="sd">                Whether only obtain the grad. Default is False.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            OrderedDict:</span>
+<span class="sd">                Flattened parameter&#39;s name-value pairs of current Module.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">memo</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">memo</span> <span class="o">=</span> <span class="n">ParamMemo</span><span class="p">()</span>
+        <span class="k">if</span> <span class="n">recursive</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">module</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+                    <span class="n">insert_parent_name</span><span class="p">(</span>
+                        <span class="n">name</span><span class="p">,</span>
+                        <span class="n">module</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">(</span><span class="n">recursive</span><span class="o">=</span><span class="n">recursive</span><span class="p">,</span> <span class="n">grad_only</span><span class="o">=</span><span class="n">grad_only</span><span class="p">,</span> <span class="n">memo</span><span class="o">=</span><span class="n">memo</span><span class="p">)))</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">):</span>
+            <span class="n">found_params</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">(</span><span class="n">grad_only</span><span class="o">=</span><span class="n">grad_only</span><span class="p">)</span>
+            <span class="n">filtered_params</span> <span class="o">=</span> <span class="n">memo</span><span class="o">.</span><span class="n">filter_and_update</span><span class="p">(</span><span class="n">found_params</span><span class="p">)</span>
+            <span class="n">params</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">filtered_params</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">params</span></div>
+
+<div class="viewcode-block" id="Module.load_parameters"><a class="viewcode-back" href="../../../python/api/module.html#nnabla.core.module.Module.load_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">load_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.h5&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Load parameters from a file into this module.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path: str or file-like object</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">scope</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">scope</span><span class="p">):</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">load_parameters</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extension</span><span class="p">)</span>
+            <span class="n">params</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">params</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="Module.save_parameters"><a class="viewcode-back" href="../../../python/api/module.html#nnabla.core.module.Module.save_parameters">[docs]</a>    <span class="k">def</span> <span class="nf">save_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.h5&quot;</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Save parameters of this module to a file.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            path: str or file-like object</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>
+        <span class="n">nn</span><span class="o">.</span><span class="n">save_parameters</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="n">extension</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">set_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">raise_if_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;@&#39;</span><span class="p">):</span>
+            <span class="c1"># Recursively set parameters</span>
+            <span class="n">pos</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pos</span> <span class="o">&lt;</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">pos</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">&#39;Invalid parameter key </span><span class="si">{}</span><span class="s1">.&#39;</span>
+                    <span class="s1">&#39; A module parameter scope represented&#39;</span>
+                    <span class="s1">&#39; as `@name` must be followed by `/`.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+            <span class="n">module_name</span><span class="p">,</span> <span class="n">subkey</span> <span class="o">=</span> <span class="n">key</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="n">pos</span><span class="p">],</span> <span class="n">key</span><span class="p">[</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:]</span>
+            <span class="k">if</span> <span class="n">module_name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">[</span><span class="n">module_name</span><span class="p">]</span><span class="o">.</span><span class="n">set_parameter</span><span class="p">(</span><span class="n">subkey</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">raise_if_missing</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s1">&#39;A child module </span><span class="si">{}</span><span class="s1"> cannot be found in </span><span class="si">{}</span><span class="s1">. &#39;</span>
+                    <span class="s1">&#39;This error is raised because `raise_if_missing` is specified &#39;</span>
+                    <span class="s1">&#39;as True. Please turn off if you allow it.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">module_name</span><span class="p">[</span><span class="mi">1</span><span class="p">:],</span> <span class="bp">self</span><span class="p">))</span>
+            <span class="k">return</span>
+
+        <span class="c1"># Set parameters</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">):</span>
+            <span class="n">nn</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">set_parameter</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">set_parameters</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">params</span><span class="p">,</span> <span class="n">raise_if_missing</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">param</span> <span class="ow">in</span> <span class="n">params</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">set_parameter</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">param</span><span class="p">,</span> <span class="n">raise_if_missing</span><span class="o">=</span><span class="n">raise_if_missing</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">update_parameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">params</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__setattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="n">Module</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+            <span class="n">value</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">name</span>
+            <span class="n">value</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_parent&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+            <span class="k">return</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+
+    <span class="k">def</span> <span class="fm">__getattr__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">submodules</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="n">attr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">attr</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="s1">&#39;_name&#39;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="s1">&#39;_name&#39;</span><span class="p">]</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="n">name</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="sa">r</span><span class="s1">&#39;(?&lt;!^)(?=[A-Z])&#39;</span><span class="p">,</span> <span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span>
+        <span class="k">return</span> <span class="n">name</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">parent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_parent&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">is_root</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="nf">get_path_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_root</span><span class="p">():</span>
+            <span class="k">return</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">parent_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">get_path_name</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">parent_name</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">parent_name</span><span class="p">,</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="s1">&#39;@&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">name</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="Module.call"><a class="viewcode-back" href="../../../python/api/module.html#nnabla.core.module.Module.call">[docs]</a>    <span class="k">def</span> <span class="nf">call</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;User needs implement this function to construct their neural network.</span>
+<span class="sd">        In the implementation, user may instantiate existing predefined Modules</span>
+<span class="sd">        as its members, then use it. For example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            class AModule(nn.Module):</span>
+<span class="sd">               def __init__(...):</span>
+<span class="sd">                  ...</span>
+<span class="sd">                  self.cnb = ConvBN(128) # A submodule is instantiated here.</span>
+
+<span class="sd">               def call(...):</span>
+<span class="sd">                  h = self.cnb(x) # Using beforehand instantiated submodule.</span>
+
+<span class="sd">        or directly use parametric functions or functions:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            class AModule(nn.Module):</span>
+<span class="sd">                ...</span>
+<span class="sd">                def call(...):</span>
+<span class="sd">                    ...</span>
+<span class="sd">                    h = PF.convolution(x, self.outmaps, ...)</span>
+<span class="sd">                    return h</span>
+
+<span class="sd">        Note:</span>
+<span class="sd">              The following usage is currently not supported, it might be supported in future version:</span>
+
+<span class="sd">              .. code-block:: python</span>
+
+<span class="sd">                    class AModule(nn.Module):</span>
+<span class="sd">                       def __init__(...):</span>
+<span class="sd">                          ...</span>
+<span class="sd">                          self.cnb = [ConvBN(k) for k in [8, 16, 32]] # using an array to hold module instances.</span>
+<span class="sd">                          self.cnb = {f&#39;name_{k}&#39;: ConvBN(k) for k in [8, 16, 32]} # using a dict to hold module instances.</span>
+
+
+<span class="sd">        Note:</span>
+<span class="sd">             The following method to temporarily instantiate a module is also not allowed:</span>
+
+<span class="sd">             .. code-block:: python</span>
+
+<span class="sd">                    class AModule(nn.Module):</span>
+<span class="sd">                       def call(...):</span>
+<span class="sd">                          ...</span>
+<span class="sd">                          cnb = ConvBN(k) # Instantiate a temporary instance of Module is not allowed</span>
+<span class="sd">                          y = cnb(x)</span>
+<span class="sd">                          return y</span>
+
+<span class="sd">             Because when leave this scope, the parameters registered to `cnb` module will be released, which cause</span>
+<span class="sd">             unexpected result.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="s1">&#39;call(*av, **kw) must be implemented.&#39;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017, Sony Corporation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

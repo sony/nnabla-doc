@@ -1,0 +1,1172 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>Solvers &mdash; Neural Network Libraries 1.20.1 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Communicator" href="communicator.html" />
+    <link rel="prev" title="Grad" href="grad.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.20.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grad.html">Grad</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Solvers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#solver">Solver</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#list-of-solvers">List of solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+        
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+        
+      <li>Solvers</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/python/api/solver.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="solvers">
+<h1>Solvers<a class="headerlink" href="#solvers" title="Permalink to this headline">¶</a></h1>
+<p>The <a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solvers.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.solvers.Solver</span></code></a> class represents a stochastic gradient descent based optimizer for optimizing the parameters in the computation graph. NNabla provides various solvers listed below.</p>
+<span class="target" id="module-nnabla.solvers"></span><div class="section" id="solver">
+<h2>Solver<a class="headerlink" href="#solver" title="Permalink to this headline">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver">
+<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Solver</span></span><a class="headerlink" href="#nnabla.solvers.Solver" title="Permalink to this definition">¶</a></dt>
+<dd><p>Solver interface class.</p>
+<p>The same API provided in this class can be used to implement various types of solvers.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Network building comes above</span>
+<span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="k">as</span> <span class="nn">S</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Sgd</span><span class="p">(</span><span class="n">lr</span><span class="o">=</span><span class="mf">1e-3</span><span class="p">)</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">itr</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_itr</span><span class="p">):</span>
+    <span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># set data</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># set label</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>  <span class="c1"># All gradient buffer being 0</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">weight_decay</span><span class="p">(</span><span class="n">decay_rate</span><span class="p">)</span>  <span class="c1"># Apply weight decay</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">clip_grad_by_norm</span><span class="p">(</span><span class="n">clip_norm</span><span class="p">)</span>  <span class="c1"># Apply clip grad by norm</span>
+    <span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>  <span class="c1"># updating parameters</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>All solvers provided by NNabla belong to an inherited class of <code class="docutils literal notranslate"><span class="pre">Solver</span></code> . A solver is never instantiated by this class itself.</p>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.check_inf_grad">
+<span class="sig-name descname"><span class="pre">check_inf_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.check_inf_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if there is any inf on the gradients which were setup.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.check_inf_or_nan_grad">
+<span class="sig-name descname"><span class="pre">check_inf_or_nan_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.check_inf_or_nan_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if there is any inf or nan on the gradients which were setup.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.check_nan_grad">
+<span class="sig-name descname"><span class="pre">check_nan_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.check_nan_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check if there is any nan on the gradients which were setup.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.clear_parameters">
+<span class="sig-name descname"><span class="pre">clear_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.clear_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clear all registered parameters and states.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.clip_grad_by_norm">
+<span class="sig-name descname"><span class="pre">clip_grad_by_norm</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">float</span> <span class="pre">clip_norm</span></em>, <em class="sig-param"><span class="pre">pre_hook=None</span></em>, <em class="sig-param"><span class="pre">post_hook=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.clip_grad_by_norm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Clip gradients by norm.
+When called, the gradient will be clipped by the given norm.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>clip_norm</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – The value of clipping norm.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.get_parameters">
+<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.get_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all registered parameters</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.get_states">
+<span class="sig-name descname"><span class="pre">get_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.get_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all states</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.info">
+<span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#nnabla.solvers.Solver.info" title="Permalink to this definition">¶</a></dt>
+<dd><p>object</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.learning_rate">
+<span class="sig-name descname"><span class="pre">learning_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the learning rate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.load_states">
+<span class="sig-name descname"><span class="pre">load_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.load_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Load solver states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – path to the state file to be loaded.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.name">
+<span class="sig-name descname"><span class="pre">name</span></span><a class="headerlink" href="#nnabla.solvers.Solver.name" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the name of the solver.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.remove_parameters">
+<span class="sig-name descname"><span class="pre">remove_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">vector[string]</span> <span class="pre">keys</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.remove_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Remove previously registered parameters, specified by a <code class="docutils literal notranslate"><span class="pre">vector</span></code> of its keys.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.save_states">
+<span class="sig-name descname"><span class="pre">save_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.save_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save solver states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> – path or file object</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.scale_grad">
+<span class="sig-name descname"><span class="pre">scale_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">scale</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pre_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">post_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.scale_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Rescale gradient</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.set_learning_rate">
+<span class="sig-name descname"><span class="pre">set_learning_rate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">learning_rate</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.set_learning_rate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set the learning rate.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.set_parameters">
+<span class="sig-name descname"><span class="pre">set_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">param_dict</span></em>, <em class="sig-param"><span class="pre">bool</span> <span class="pre">reset=True</span></em>, <em class="sig-param"><span class="pre">bool</span> <span class="pre">retain_state=False</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.set_parameters" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set parameters by dictionary of keys and parameter Variables.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>param_dict</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – key:string, value: Variable.</p></li>
+<li><p><strong>reset</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If true, clear all parameters before setting parameters. If false,
+parameters are overwritten or added (if it’s new).</p></li>
+<li><p><strong>retain_state</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – The value is only considered if reset is false. If true and
+a key already exists (overwriting), a state (such as momentum)
+associated with the key will be kept if the shape of the parameter
+and that of the new param match.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.set_states">
+<span class="sig-name descname"><span class="pre">set_states</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">states</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.set_states" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set states. Call <a class="reference internal" href="#nnabla.solvers.Solver.set_parameters" title="nnabla.solvers.Solver.set_parameters"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">set_parameters</span></code></a> to initialize states of a solver first, otherwise this method raise an value error.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.set_states_from_protobuf">
+<span class="sig-name descname"><span class="pre">set_states_from_protobuf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer_proto</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.set_states_from_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set states to the solver from the protobuf file.</p>
+<p>Internally used helper method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.set_states_to_protobuf">
+<span class="sig-name descname"><span class="pre">set_states_to_protobuf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.set_states_to_protobuf" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set states to the protobuf file from the solver.</p>
+<p>Internally used helper method.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.setup">
+<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">params</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.setup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deprecated. Call <code class="docutils literal notranslate"><span class="pre">set_parameters</span></code> with <code class="docutils literal notranslate"><span class="pre">param_dict</span></code> .</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.update">
+<span class="sig-name descname"><span class="pre">update</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_pre_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">update_post_hook</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.update" title="Permalink to this definition">¶</a></dt>
+<dd><p>When this function is called, parameter values are updated using the gradients accumulated in backpropagation,
+stored in the <code class="docutils literal notranslate"><span class="pre">grad</span></code> field of the parameter <code class="docutils literal notranslate"><span class="pre">Variable</span></code> s.
+Update rules are implemented in the C++ core,
+in derived classes of Solver. The updated parameter values will be stored into the data field of
+the parameter <code class="docutils literal notranslate"><span class="pre">Variable</span></code> s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>update_pre_hook</strong> (<em>callable</em>) – This callable object is called immediately before each update of parameters.
+The default is None.</p></li>
+<li><p><strong>update_post_hook</strong> (<em>callable</em>) – This callable object is called immediately after each update of parameters.
+The default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.weight_decay">
+<span class="sig-name descname"><span class="pre">weight_decay</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="pre">self</span></em>, <em class="sig-param"><span class="pre">float</span> <span class="pre">decay_rate</span></em>, <em class="sig-param"><span class="pre">pre_hook=None</span></em>, <em class="sig-param"><span class="pre">post_hook=None</span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.weight_decay" title="Permalink to this definition">¶</a></dt>
+<dd><p>Apply weight decay to gradients.
+When called, the gradient weight will be decayed by a rate of the
+current parameter value.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>decay_rate</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – The coefficient of weight decay.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.solvers.Solver.zero_grad">
+<span class="sig-name descname"><span class="pre">zero_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Solver.zero_grad" title="Permalink to this definition">¶</a></dt>
+<dd><p>Initialize gradients of all registered parameter by zero.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="list-of-solvers">
+<h2>List of solvers<a class="headerlink" href="#list-of-solvers" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Sgd">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Sgd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Sgd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stochastic gradient descent (SGD) optimizer.</p>
+<div class="math notranslate nohighlight">
+\[w_{t+1} \leftarrow w_t - \eta \Delta w_t\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Momentum">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Momentum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Momentum" title="Permalink to this definition">¶</a></dt>
+<dd><p>SGD with Momentum.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}v_t &amp;\leftarrow \gamma v_{t-1} + \eta \Delta w_t\\
+w_{t+1} &amp;\leftarrow w_t - v_t\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of momentum.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.columbia.edu/~nq6/publications/momentum.pdf">Ning Qian : On the Momentum Term in Gradient Descent Learning Algorithms.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Lars">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Lars</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">coefficient</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Lars" title="Permalink to this definition">¶</a></dt>
+<dd><p>LARS with Momentum.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}\lambda &amp;\leftarrow \eta
+  \frac{\| w_t \|}{\| \Delta w_t + \beta w_t \|} \\
+v_{t+1} &amp;\leftarrow m v_t + \gamma \lambda
+  (\Delta w_t + \beta w_t) \\
+w_{t+1} &amp;\leftarrow w_t - v_{t+1}\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of momentum.</p></li>
+<li><p><strong>coefficient</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Trust coefficient</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero devision(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1708.03888">Yang You, Igor Gitman, Boris Ginsburg
+Large Batch Training of Convolutional Networks</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Nesterov">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Nesterov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Nesterov" title="Permalink to this definition">¶</a></dt>
+<dd><p>Nesterov Accelerated Gradient optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}v_t &amp;\leftarrow \gamma v_{t-1} - \eta \Delta w_t\\
+w_{t+1} &amp;\leftarrow w_t - \gamma v_{t-1} + \left(1 + \gamma \right) v_t\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of momentum.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p>Yurii Nesterov. A method for unconstrained convex minimization problem with
+the rate of convergence <span class="math notranslate nohighlight">\(o(1/k2)\)</span>.</p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Adadelta">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Adadelta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-06</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Adadelta" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaDelta optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g_t &amp;\leftarrow \Delta w_t\\
+v_t &amp;\leftarrow - \frac{RMS \left[ v_t \right]_{t-1}}
+    {RMS \left[ g \right]_t}g_t\\
+w_{t+1} &amp;\leftarrow w_t + \eta v_t\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>decay</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate (<span class="math notranslate nohighlight">\(\gamma\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1212.5701">Matthew D. Zeiler.
+ADADELTA: An Adaptive Learning Rate Method.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Adagrad">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Adagrad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.01</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Adagrad" title="Permalink to this definition">¶</a></dt>
+<dd><p>ADAGrad optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g_t &amp;\leftarrow \Delta w_t\\
+G_t &amp;\leftarrow G_{t-1} + g_t^2\\
+w_{t+1} &amp;\leftarrow w_t - \frac{\eta}{\sqrt{G_t} + \epsilon} g_t\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.jmlr.org/papers/volume12/duchi11a/duchi11a.pdf">John Duchi, Elad Hazan and Yoram Singer (2011).
+Adaptive Subgradient Methods for Online Learning and Stochastic Optimization.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.AdaBelief">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">AdaBelief</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">amsgrad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weight_decouple</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fixed_decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rectify</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.AdaBelief" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBelief optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_t &amp;\leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t\\
+s_t &amp;\leftarrow \beta_2 s_{t-1} + (1 - \beta_2) (g_t - m_t)^2\\
+w_{t+1} &amp;\leftarrow w_t - \alpha
+    \frac{\sqrt{1 - \beta_2^t}}{1 - \beta_1^t}
+    \frac{m_t}{\sqrt{s_t + \epsilon} + \epsilon}\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of second-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+<li><p><strong>wd</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Weight decay rate. This option only takes effect when weight_decouple option is enabled.</p></li>
+<li><p><strong>amsgrad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Perform AMSGrad variant of AdaBelief.</p></li>
+<li><p><strong>weight_decouple</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Perform decoupled weight decay as in AdamW.</p></li>
+<li><p><strong>fixed_decay</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, the weight decay ratio will be kept fixed. Note that this option only takes effect when weight_decouple option is enabled.</p></li>
+<li><p><strong>rectify</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Perform RAdam variant of AdaBelief.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/pdf/2010.07468.pdf">Juntang Zhuang, et al. (2020).
+AdaBelief Optimizer: Adapting Stepsizes by the Belief in Observed Gradients.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.RMSprop">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">RMSprop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.RMSprop" title="Permalink to this definition">¶</a></dt>
+<dd><p>RMSprop optimizer (Geoffery Hinton).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}g_t &amp;\leftarrow \Delta w_t\\
+v_t &amp;\leftarrow \gamma v_{t-1} + \left(1 - \gamma \right) g_t^2\\
+w_{t+1} &amp;\leftarrow w_t - \eta \frac{g_t}{\sqrt{v_t} + \epsilon}\end{split}\]</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>decay</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate (<span class="math notranslate nohighlight">\(\gamma\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://www.cs.toronto.edu/~tijmen/csc321/slides/lecture_slides_lec6.pdf">Geoff Hinton.
+Lecture 6a : Overview of mini-batch gradient descent.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.RMSpropGraves">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">RMSpropGraves</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">decay</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.95</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.RMSpropGraves" title="Permalink to this definition">¶</a></dt>
+<dd><p>RMSpropGraves optimizer (Alex Graves).</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}n_t &amp;\leftarrow \rho n_{t-1} + \left(1 - \rho \right) {e_t}^2\\
+g_t &amp;\leftarrow \rho g_{t-1} + \left(1 - \rho \right) e_t\\
+d_t &amp;\leftarrow \beta d_{t-1} - \eta \frac{e_t}{\sqrt{n_t - {g_t}^2 + \epsilon}}\\
+w_{t+1} &amp;\leftarrow w_t + d_t\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(e_t\)</span> denotes the gradient.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>decay</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate (<span class="math notranslate nohighlight">\(\rho\)</span>).</p></li>
+<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Momentum (<span class="math notranslate nohighlight">\(\beta\)</span>)</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="http://arxiv.org/pdf/1308.0850v5.pdf">Alex Graves.
+Generating Sequences With Recurrent Neural Networks.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Adam">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Adam</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Adam" title="Permalink to this definition">¶</a></dt>
+<dd><p>ADAM optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_t &amp;\leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t\\
+v_t &amp;\leftarrow \beta_2 v_{t-1} + (1 - \beta_2) g_t^2\\
+w_{t+1} &amp;\leftarrow w_t - \alpha
+    \frac{\sqrt{1 - \beta_2^t}}{1 - \beta_1^t}
+    \frac{m_t}{\sqrt{v_t} + \epsilon}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(g_t\)</span> denotes a gradient, and let <span class="math notranslate nohighlight">\(m_0 \leftarrow 0\)</span>
+and <span class="math notranslate nohighlight">\(v_0 \leftarrow 0\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of second-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1412.6980">Kingma and Ba, Adam: A Method for Stochastic Optimization.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.AdaBound">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">AdaBound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.AdaBound" title="Permalink to this definition">¶</a></dt>
+<dd><p>AdaBound optimizer applies dynamic bounds on learning rates to Adam.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w_{t+1} &amp;\leftarrow w_t - \eta_t*m_t\\
+\eta_t = clip( \alpha\frac{\sqrt{1 - \beta_2^t}}{(1 - \beta_1^t)(\sqrt{v_t} + \epsilon)}, \eta_l(t), \eta_u(t))\\
+\eta_l(t) = (1 - (1/((1-\gamma)t+1)))\alpha^*\\
+\eta_u(t) = (1 + (1/((1-\gamma)t)))\alpha^*\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha^*\)</span> (<code class="docutils literal notranslate"><span class="pre">final_lr</span></code>) is scaled by a factor defined as the current value of <span class="math notranslate nohighlight">\(\alpha\)</span> (set by <code class="docutils literal notranslate"><span class="pre">set_learning_rate(lr)</span></code>) over initial value of <span class="math notranslate nohighlight">\(\alpha\)</span>, so that learnign rate scheduling is properly applied to both <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\alpha^*\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of second-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+<li><p><strong>final_lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Final (SGD) learning rate.</p></li>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Convergence speed of the bound functions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1902.09843">L. Luo, Y. Xiong, Y. Liu and X. Sun. Adaptive Gradient Methods with Dynamic Bound of Learning Rate.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.Adamax">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">Adamax</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.002</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.Adamax" title="Permalink to this definition">¶</a></dt>
+<dd><p>ADAMAX Optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_t &amp;\leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t\\
+v_t &amp;\leftarrow \max\left(\beta_2 v_{t-1}, |g_t|\right)\\
+w_{t+1} &amp;\leftarrow w_t - \alpha
+    \frac{\sqrt{1 - \beta_2^t}}{1 - \beta_1^t}
+    \frac{m_t}{v_t + \epsilon}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(g_t\)</span> denotes a gradient, and let <span class="math notranslate nohighlight">\(m_0 \leftarrow 0\)</span>
+and <span class="math notranslate nohighlight">\(v_0 \leftarrow 0\)</span>, <span class="math notranslate nohighlight">\(v_t\)</span> is an
+exponentially weighted infinity norm of a sequence of
+gradients <span class="math notranslate nohighlight">\(t=0,...,t\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of inf-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1412.6980">Kingma and Ba, Adam: A Method for Stochastic Optimization.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.AMSGRAD">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">AMSGRAD</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias_correction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.AMSGRAD" title="Permalink to this definition">¶</a></dt>
+<dd><p>AMSGRAD optimizer.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_t &amp;\leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t\\
+v_t &amp;\leftarrow \beta_2 v_{t-1} + (1 - \beta_2) g_t^2\\
+\hat{v_t} = \max(\hat{v_{t-1}}, v_t)\\
+w_{t+1} &amp;\leftarrow w_t - \alpha
+    \frac{m_t}{\sqrt{\hat{v_t}} + \epsilon}\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(g_t\)</span> denotes a gradient, and let <span class="math notranslate nohighlight">\(m_0 \leftarrow 0\)</span>
+and <span class="math notranslate nohighlight">\(v_0 \leftarrow 0\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of second-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>). Note this does not appear in the paper.</p></li>
+<li><p><strong>bias_correction</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Apply bias correction to moving averages defined in ADAM. Note this does not appear in the paper.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://openreview.net/pdf?id=ryQu7f-RZ">Reddi et al. On the convergence of ADAM and beyond.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.AMSBound">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">AMSBound</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">final_lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">gamma</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bias_correction</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.AMSBound" title="Permalink to this definition">¶</a></dt>
+<dd><p>AMSBound optimizer applies dynamic bounds on learning rates to AMSGrad.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}w_{t+1} &amp;\leftarrow w_t - \eta_t*m_t\\
+\eta_t = clip( \alpha\frac{\sqrt{1 - \beta_2^t}}{(1 - \beta_1^t)(\sqrt{\hat{v_t}} + \epsilon)}, \eta_l(t), \eta_u(t))\\
+\hat{v_t} = \max(\hat{v_{t-1}}, v_t)\\
+\eta_l(t) = (1 - (1/((1-\gamma)t+1)))\alpha^*\\
+\eta_u(t) = (1 + (1/((1-\gamma)t)))\alpha^*\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\alpha^*\)</span> (<code class="docutils literal notranslate"><span class="pre">final_lr</span></code>) is scaled by a factor defined as the current value of <span class="math notranslate nohighlight">\(\alpha\)</span> (set by <code class="docutils literal notranslate"><span class="pre">set_learning_rate(lr)</span></code>) over initial value of <span class="math notranslate nohighlight">\(\alpha\)</span>, so that learnign rate scheduling is properly applied to both <span class="math notranslate nohighlight">\(\alpha\)</span> and <span class="math notranslate nohighlight">\(\alpha^*\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of second-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>). Note this does not appear in the paper.</p></li>
+<li><p><strong>final_lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Final (SGD) learning rtae</p></li>
+<li><p><strong>gamma</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Convergence speed of the bound functions</p></li>
+<li><p><strong>bias_correction</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Apply bias correction to moving averages defined in ADAM. Note this does not appear in the paper.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1902.09843">L. Luo, Y. Xiong, Y. Liu and X. Sun. Adaptive Gradient Methods with Dynamic Bound of Learning Rate.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.AdamW">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">AdamW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">alpha</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta1</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">beta2</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.999</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">eps</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1e-08</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.AdamW" title="Permalink to this definition">¶</a></dt>
+<dd><p>ADAM optimizer with decoupled weight decay.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}m_t &amp;\leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t\\
+v_t &amp;\leftarrow \beta_2 v_{t-1} + (1 - \beta_2) g_t^2\\
+w_{t+1} &amp;\leftarrow w_t - \alpha
+    \frac{\sqrt{1 - \beta_2^t}}{1 - \beta_1^t}
+    \frac{m_t}{\sqrt{v_t} + \epsilon} - \eta_t\lambda w_t\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(g_t\)</span> denotes a gradient, <span class="math notranslate nohighlight">\(\lambda\)</span> is the decoupled weight decay rate,
+and <span class="math notranslate nohighlight">\(m_0 \leftarrow 0\)</span> and <span class="math notranslate nohighlight">\(v_0 \leftarrow 0\)</span>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>alpha</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Step size (<span class="math notranslate nohighlight">\(\alpha\)</span>).</p></li>
+<li><p><strong>beta1</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of first-order momentum (<span class="math notranslate nohighlight">\(\beta_1\)</span>).</p></li>
+<li><p><strong>beta2</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of second-order momentum (<span class="math notranslate nohighlight">\(\beta_2\)</span>).</p></li>
+<li><p><strong>eps</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Small value for avoiding zero division(<span class="math notranslate nohighlight">\(\epsilon\)</span>).</p></li>
+<li><p><strong>wd</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Weight decay rate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1711.05101">Loshchilov and Hutter, Decoupled Weight Decay Regularization.</a></p></li>
+</ul>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.solvers.SgdW">
+<span class="sig-prename descclassname"><span class="pre">nnabla.solvers.</span></span><span class="sig-name descname"><span class="pre">SgdW</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">lr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.001</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">momentum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.9</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">wd</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.0001</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.solvers.SgdW" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stochastic gradient descent (SGD) optimizer with decoupled weight decay.</p>
+<div class="math notranslate nohighlight">
+\[\begin{split}v_t \leftarrow \gamma v_{t-1} + \eta g_t - (\eta / \eta_0)\lambda v_{t-1}\\
+w_{t+1} \leftarrow w_t - v_t\end{split}\]</div>
+<p>where <span class="math notranslate nohighlight">\(\lambda\)</span> is the decoupled weight decay rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>lr</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Learning rate (<span class="math notranslate nohighlight">\(\eta\)</span>).</p></li>
+<li><p><strong>momentum</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Decay rate of momentum.</p></li>
+<li><p><strong>wd</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Weight decay rate.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><dl class="simple">
+<dt>An instance of Solver class.</dt><dd><p>See Solver API guide for details.</p>
+</dd>
+</dl>
+</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.solvers.Solver" title="nnabla.solver.Solver">Solver</a></p>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You can instantiate a preferred target implementation (ex. CUDA) of
+a Solver given a <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a>. A <a class="reference internal" href="common.html#context"><span class="std std-ref">Context</span></a> can be set by
+<code class="docutils literal notranslate"><span class="pre">nnabla.set_default_context(ctx)</span></code>
+or <code class="docutils literal notranslate"><span class="pre">nnabla.context_scope(ctx)</span></code>. See API docs.</p>
+</div>
+<p class="rubric">References</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/1711.05101">Loshchilov and Hutter, Decoupled Weight Decay Regularization.</a></p></li>
+</ul>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="communicator.html" class="btn btn-neutral float-right" title="Communicator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="grad.html" class="btn btn-neutral float-left" title="Grad" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017, Sony Corporation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
