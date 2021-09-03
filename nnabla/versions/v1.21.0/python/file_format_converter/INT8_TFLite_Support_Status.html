@@ -1,0 +1,277 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  
+  <title>INT8 Quantized TFLite Support Status &mdash; Neural Network Libraries 1.21.0 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+
+  
+  
+
+  
+  
+
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Contributing Guide" href="../../contributing.html" />
+    <link rel="prev" title="Model Support Status" href="Model_Support_Status.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.21.0
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../support_status.html">Support Status</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="Function-Level_Support_Status.html">Function-Level Support Status</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Model_Support_Status.html">Model Support Status</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">INT8 Quantized TFLite Support Status</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../../support_status.html">Support Status</a> &raquo;</li>
+        
+      <li>INT8 Quantized TFLite Support Status</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+          
+            <a href="../../_sources/python/file_format_converter/INT8_TFLite_Support_Status.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="int8-quantized-tflite-support-status">
+<h1>INT8 Quantized TFLite Support Status<a class="headerlink" href="#int8-quantized-tflite-support-status" title="Permalink to this headline">¶</a></h1>
+<p>Only a subset of tflite ops supports INT8 data type.
+If your model includes an unsupported op, the quantized converter will raise an error.</p>
+<p>You can check all INT8 ops below:</p>
+<ul class="simple">
+<li><p>ADD</p></li>
+<li><p>AVERAGE_POOL_2D</p></li>
+<li><p>CONCATENATION</p></li>
+<li><p>CONV_2D</p></li>
+<li><p>DEPTHWISE_CONV_2D</p></li>
+<li><p>FULLY_CONNECTED</p></li>
+<li><p>L2_NORMALIZATION</p></li>
+<li><p>LOGISTIC</p></li>
+<li><p>MAX_POOL_2D</p></li>
+<li><p>MUL</p></li>
+<li><p>RESHAPE</p></li>
+<li><p>RESIZE_BILINEAR</p></li>
+<li><p>SOFTMAX</p></li>
+<li><p>SPACE_TO_DEPTH</p></li>
+<li><p>TANH</p></li>
+<li><p>PAD</p></li>
+<li><p>GATHER</p></li>
+<li><p>BATCH_TO_SPACE_ND</p></li>
+<li><p>SPACE_TO_BATCH_ND</p></li>
+<li><p>TRANSPOSE</p></li>
+<li><p>MEAN</p></li>
+<li><p>SUB</p></li>
+<li><p>SUM</p></li>
+<li><p>SQUEEZE</p></li>
+<li><p>LOG_SOFTMAX</p></li>
+<li><p>MAXIMUM</p></li>
+<li><p>ARG_MAX</p></li>
+<li><p>MINIMUM</p></li>
+<li><p>LESS</p></li>
+<li><p>PADV2</p></li>
+<li><p>GREATER</p></li>
+<li><p>GREATER_EQUAL</p></li>
+<li><p>LESS_EQUAL</p></li>
+<li><p>SLICE</p></li>
+<li><p>EQUAL</p></li>
+<li><p>NOT_EQUAL</p></li>
+<li><p>SHAPE</p></li>
+<li><p>QUANTIZE</p></li>
+<li><p>RELU</p></li>
+<li><p>LEAKY_RELU</p></li>
+</ul>
+<p>Note that <code class="xref any docutils literal notranslate"><span class="pre">CONCATENATION</span></code> is in the supported op list, but we recommend that you avoid using it.
+<code class="xref any docutils literal notranslate"><span class="pre">CONCATENATION</span></code> will bring additional quantization error and may lead to significant degradation of accuracy.</p>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+        <a href="../../contributing.html" class="btn btn-neutral float-right" title="Contributing Guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="Model_Support_Status.html" class="btn btn-neutral float-left" title="Model Support Status" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &#169; Copyright 2017, Sony Corporation.
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
