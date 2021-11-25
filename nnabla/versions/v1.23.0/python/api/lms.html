@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Out-of-core execution &mdash; Neural Network Libraries 1.23.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Modules" href="module.html" />
+    <link rel="prev" title="Semantic Segmentation Models" href="models/semantic_segmentation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.23.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Out-of-core execution</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#swapinoutscheduler">SwapInOutScheduler</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+      <li>Out-of-core execution</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/api/lms.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="out-of-core-execution">
+<h1>Out-of-core execution<a class="headerlink" href="#out-of-core-execution" title="Permalink to this headline"></a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">nnabla.lms</span></code> package provides APIs that allow users to execute large-scale networks than allotted GPU memory by utilizing out-of-core algorithm.
+<a class="reference external" href="https://en.wikipedia.org/wiki/External_memory_algorithm">Out-of-core algorithm</a>, or external memory algorithm, is an algorithm that enables processing data that are too large to fit into a main memory at once.</p>
+<section id="swapinoutscheduler">
+<h2>SwapInOutScheduler<a class="headerlink" href="#swapinoutscheduler" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.lms.</span></span><span class="sig-name descname"><span class="pre">SwapInOutScheduler</span></span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler" title="Permalink to this definition"></a></dt>
+<dd><p>Interface class for out-of-core execution / training.</p>
+<p>This API enables training neural networks whose size is larger than alloted GPU memory.
+See <a class="reference external" href="https://arxiv.org/abs/2010.14109">https://arxiv.org/abs/2010.14109</a> for more detail of shcheduling strategy.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code class="xref any docutils literal notranslate"><span class="pre">cuda_init.prefer_cuda_virtual_array()</span></code> used in following example can be used under cuda &gt;= 10.2 and cudnn &gt;= 8.
+We utilize <a class="reference external" href="https://developer.nvidia.com/blog/introducing-low-level-gpu-virtual-memory-management/#:~:text=CUDA%2010.2%20introduces%20a%20new,GPU%20memory%20usage%20in%20applications.&amp;text=There%20are%20plenty%20of%20applications,your%20initial%20allocation%20should%20be.">virtual memory management</a> supported from cuda 10.2.
+Additionally, when we tested virtual memory management with cuda &gt;= 10.2 and cudnn &lt; 8, we found the computation results of some cuddn functions are inaccurate.
+So, when your environment has cuda &lt; 10.2 or cudnn &lt; 8, the virtual memory allocator in nnabla will not be built and you can’t use it.
+If you would like to use <a class="reference internal" href="#swapinoutscheduler"><span class="std std-ref">SwapInOutScheduler</span></a> to the fullest extent, please install cuda &gt;= 10.2 and cudnn &gt;= 8 and reinstall the corresponding nnabla-ext-cuda package.</p>
+</div>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.lms</span> <span class="kn">import</span> <span class="n">SwapInOutScheduler</span>
+
+<span class="c1"># Change memory allocator which is preferable for SwapInOutScheduler.</span>
+<span class="kn">from</span> <span class="nn">nnabla_ext.cuda.init</span> <span class="k">as</span> <span class="n">cuda_init</span>
+<span class="n">cuda_init</span><span class="o">.</span><span class="n">prefer_cpu_pinned_array</span><span class="p">()</span>  <span class="c1"># To accelerate memory transfer, using pinned memory for cpu memory will be preferable.</span>
+
+<span class="c1"># Only for cuda &gt;= 10.2 and cudnn &gt;= 8. This setting is the best for SwapInOutScheduler.</span>
+<span class="n">cuda_init</span><span class="o">.</span><span class="n">prefer_cuda_virtual_array</span><span class="p">()</span>  <span class="c1"># To reduce memory fragmentation due to cpu-gpu memory transfers, using virtual allocator for gpu memory will be preferable.</span>
+
+<span class="c1"># create context for both host and device</span>
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="kn">import</span> <span class="n">get_extension_context</span>
+<span class="n">host_ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">type_config</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">)</span> <span class="c1"># device_id is dummy</span>
+<span class="n">device_ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="s2">&quot;cudnn&quot;</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="n">type_config</span><span class="o">=</span><span class="s2">&quot;float&quot;</span><span class="p">)</span>
+
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">SwapInOutScheduler</span><span class="p">(</span><span class="n">host_ctx</span><span class="p">,</span> <span class="n">device_ctx</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">max_gpu_memory_size</span><span class="p">)</span>
+
+<span class="c1"># Make sure to call `nn.set_default_context` after calling prefer_xxx_array() to activate a change of memory preference.</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">device_ctx</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">build_network</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Sgd</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">iteration</span><span class="p">):</span>
+    <span class="c1"># scheduling memory transfers for all tensors appearing under the context of scheduler.</span>
+    <span class="k">with</span> <span class="n">scheduler</span><span class="p">:</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">next_data</span><span class="p">()</span>
+
+        <span class="n">loss</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">clear_no_need_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">solver</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">clear_buffer</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">solver</span><span class="o">.</span><span class="n">update</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>When you get Out-of-Memory (OOM) error under the SwapInOutScheduler, possibly there are 2 options to avoid this OOM.</p>
+<ol class="arabic simple">
+<li><p>Set small budget of GPU memory for scheduling.</p></li>
+<li><p>Set small size for a physical memory chunk allocated by virtual memory allocator.</p></li>
+</ol>
+<p>These are examplified as follows:</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Set small budget of GPU memory for scheduling</span>
+<span class="c1"># You can reduce the below ratio until you can execute your network.</span>
+<span class="n">memsize_for_scheduler</span> <span class="o">=</span> <span class="n">max_gpu_memory_size</span> <span class="o">*</span> <span class="mf">0.8</span>
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">SwapInOutScheduler</span><span class="p">(</span><span class="o">...</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="n">memsize_for_scheduler</span><span class="p">)</span>
+
+<span class="c1"># 2. Set small size for a physical memory chunk allocated by virtual memory allocator</span>
+<span class="c1"># In default, the chunk size is set as 20MB (20 &lt;&lt; 20).</span>
+<span class="kn">from</span> <span class="nn">nnabla_ext.cuda.init</span> <span class="kn">import</span> <span class="n">set_cuda_virtual_memory_chunk_size</span>
+<span class="n">set_cuda_virtual_memory_chunk_size</span><span class="p">(</span><span class="mi">2</span> <span class="o">&lt;&lt;</span> <span class="mi">20</span><span class="p">)</span>  <span class="c1"># Set 2MB, for example.</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler.end_scheduling">
+<span class="sig-name descname"><span class="pre">end_scheduling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler.end_scheduling" title="Permalink to this definition"></a></dt>
+<dd><p>An interface to specify the end point for scheduling.
+A range between <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.start_scheduling" title="nnabla.lms.SwapInOutScheduler.start_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">start_scheduling()</span></code></a> and <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.end_scheduling" title="nnabla.lms.SwapInOutScheduler.end_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">end_scheduling()</span></code></a> is a target for a single scheduling.</p>
+<p>Note that, using with statement of SwapInOutScheduler, <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.end_scheduling" title="nnabla.lms.SwapInOutScheduler.end_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">end_scheduling()</span></code></a> will be automatically called when exiting with statement.
+In general, avoid to use <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.start_scheduling" title="nnabla.lms.SwapInOutScheduler.start_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">start_scheduling()</span></code></a> and <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.end_scheduling" title="nnabla.lms.SwapInOutScheduler.end_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">end_scheduling()</span></code></a> and use with statement insted (<code class="xref any docutils literal notranslate"><span class="pre">with</span> <span class="pre">scheduler:</span></code>, see an example above).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler.function_post_hook">
+<span class="sig-name descname"><span class="pre">function_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler.function_post_hook" title="Permalink to this definition"></a></dt>
+<dd><p>A callback executed as <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.function_post_hook" title="nnabla.lms.SwapInOutScheduler.function_post_hook"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">function_post_hook</span></code></a> in forward and backward.</p>
+<p>For all forward and backward wrapped by with statement of SwapInOutScheduler, this callback is automatically set.
+In general, avoid to set this manually and use with statement of SwapInOutScheduler.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler.function_pre_hook">
+<span class="sig-name descname"><span class="pre">function_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">func</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler.function_pre_hook" title="Permalink to this definition"></a></dt>
+<dd><p>A callback executed as <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.function_pre_hook" title="nnabla.lms.SwapInOutScheduler.function_pre_hook"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">function_pre_hook</span></code></a> in forward and backward.</p>
+<p>For all forward and backward wrapped by with statement of SwapInOutScheduler, this callback is automatically set.
+In general, avoid to set this manually and use with statement of SwapInOutScheduler.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler.start_scheduling">
+<span class="sig-name descname"><span class="pre">start_scheduling</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler.start_scheduling" title="Permalink to this definition"></a></dt>
+<dd><p>An interface to specify the starting point for scheduling.
+A range between <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.start_scheduling" title="nnabla.lms.SwapInOutScheduler.start_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">start_scheduling()</span></code></a> and <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.end_scheduling" title="nnabla.lms.SwapInOutScheduler.end_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">end_scheduling()</span></code></a> is a target for a single scheduling.</p>
+<p>Note that, using with statement of SwapInOutScheduler, <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.start_scheduling" title="nnabla.lms.SwapInOutScheduler.start_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">start_scheduling()</span></code></a> will be automatically called when entering with statement.
+In general, avoid to use <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.start_scheduling" title="nnabla.lms.SwapInOutScheduler.start_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">start_scheduling()</span></code></a> and <a class="reference internal" href="#nnabla.lms.SwapInOutScheduler.end_scheduling" title="nnabla.lms.SwapInOutScheduler.end_scheduling"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">end_scheduling()</span></code></a> and use with statement insted (<code class="xref any docutils literal notranslate"><span class="pre">with</span> <span class="pre">scheduler:</span></code>, see an example above).</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler.update_post_hook">
+<span class="sig-name descname"><span class="pre">update_post_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler.update_post_hook" title="Permalink to this definition"></a></dt>
+<dd><p>A callback executed as <a class="reference internal" href="utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.post_hook" title="nnabla.utils.inspection.profile.TimeProfiler.post_hook"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">post_hook</span></code></a> in all solver functions, e.g. solver.update, solver.weight_decay, solver.clip_grad_by_norm, and so on.</p>
+<p>For all solver functions wrapped by with statement of SwapInOutScheduler, this callback is automatically set.
+In general, avoid to set this manually and use with statement of SwapInOutScheduler.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.lms.SwapInOutScheduler.update_pre_hook">
+<span class="sig-name descname"><span class="pre">update_pre_hook</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.lms.SwapInOutScheduler.update_pre_hook" title="Permalink to this definition"></a></dt>
+<dd><p>A callback executed as <a class="reference internal" href="utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.pre_hook" title="nnabla.utils.inspection.profile.TimeProfiler.pre_hook"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">pre_hook</span></code></a> in all solver functions, e.g. solver.update, solver.weight_decay, solver.clip_grad_by_norm, and so on.</p>
+<p>For all solver functions wrapped by with statement of SwapInOutScheduler, this callback is automatically set.
+In general, avoid to set this manually and use with statement of SwapInOutScheduler.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="models/semantic_segmentation.html" class="btn btn-neutral float-left" title="Semantic Segmentation Models" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="module.html" class="btn btn-neutral float-right" title="Modules" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

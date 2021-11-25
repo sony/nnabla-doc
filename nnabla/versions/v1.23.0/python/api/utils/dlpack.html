@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DLPack &mdash; Neural Network Libraries 1.23.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="RNN Utils" href="rnn.html" />
+    <link rel="prev" title="Debug Utils" href="debug_utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.23.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="save_load.html">NNP save and load utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_utils.html">Image Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="data_iterator.html">Data Iterators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debug_utils.html">Debug Utils</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">DLPack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rnn.html">RNN Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="misc.html">Misc</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../../api.html">Python API Reference</a> &raquo;</li>
+          <li><a href="../utils.html">Utils</a> &raquo;</li>
+      <li>DLPack</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/python/api/utils/dlpack.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="dlpack">
+<h1>DLPack<a class="headerlink" href="#dlpack" title="Permalink to this headline"></a></h1>
+<p>Via a <a class="reference external" href="https://github.com/dmlc/dlpack">DLPack</a> capsule, you can borrow a tensor from external software as a <a class="reference internal" href="../nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> and can share a <code class="docutils literal notranslate"><span class="pre">NdArray</span></code> to external software.</p>
+<span class="target" id="module-nnabla.utils.dlpack"></span><dl class="py function">
+<dt class="sig sig-object py" id="nnabla.utils.dlpack.from_dlpack">
+<span class="sig-prename descclassname"><span class="pre">nnabla.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">from_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">dlp</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.utils.dlpack.from_dlpack" title="Permalink to this definition"></a></dt>
+<dd><p>Decode a DLPack to <a class="reference internal" href="../nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NdArray</span></code></a>.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a tensor of an external tool, and encode as an DLPack.</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.dlpack</span> <span class="kn">import</span> <span class="n">to_dlpack</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span>
+               <span class="n">device</span><span class="o">=</span><span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span><span class="s1">&#39;cuda&#39;</span><span class="p">))</span>
+<span class="n">dlp</span> <span class="o">=</span> <span class="n">to_dlpack</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+
+<span class="c1"># Borrow the DLPack tensor as nnabla.NdArray</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.dlpack</span> <span class="kn">import</span> <span class="n">from_dlpack</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">from_dlpack</span><span class="p">(</span><span class="n">dlp</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you want to move an ownership of DLPack to an exiting <code class="docutils literal notranslate"><span class="pre">NdArray</span></code>;</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla</span> <span class="kn">import</span> <span class="n">NdArray</span>
+<span class="n">arr</span> <span class="o">=</span> <span class="n">NdArray</span><span class="p">()</span>
+<span class="n">from_dlpack</span><span class="p">(</span><span class="n">dlp</span><span class="p">,</span> <span class="n">arr</span><span class="o">=</span><span class="n">arr</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dlp</strong> (<em>PyCapsule</em>) – A PyCapsule object of a <code class="docutils literal notranslate"><span class="pre">DLManagedTensor</span></code> (as <code class="docutils literal notranslate"><span class="pre">&quot;dltensor&quot;</span></code>) which
+internal memory is borrowed by a tensor of an external package.
+The ownership of the <code class="docutils literal notranslate"><span class="pre">DLManagedTensor</span></code>
+is moved to an <code class="docutils literal notranslate"><span class="pre">NdArray</span></code> object, and the PyCapsule object is marked
+as <code class="docutils literal notranslate"><span class="pre">&quot;used_dltensor&quot;</span></code> to inform that the ownership has been moved.</p></li>
+<li><p><strong>arr</strong> (<a class="reference internal" href="../nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><em>NdArray</em></a>) – If specified, a given DLPack is decoded to it. Otherwise, it
+creates a new <code class="docutils literal notranslate"><span class="pre">NdArray</span></code> object and decodes the DLPack to it.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>an <code class="docutils literal notranslate"><span class="pre">NdArray</span></code> object borrowing the DLPack tensor.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="../nd_array.html#nnabla.NdArray" title="nnabla.NdArray">NdArray</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.utils.dlpack.to_dlpack">
+<span class="sig-prename descclassname"><span class="pre">nnabla.utils.dlpack.</span></span><span class="sig-name descname"><span class="pre">to_dlpack</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">a</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.utils.dlpack.to_dlpack" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a DLPack which owns an internal array object borrowed by a
+specified <a class="reference internal" href="../nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">NdArray</span></code></a>.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a nnabla.NdArray in CUDA.</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="kn">import</span> <span class="n">get_extension_context</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="s1">&#39;cudnn&#39;</span><span class="p">)</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">5</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">))</span>
+<span class="n">a</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">,</span> <span class="n">ctx</span><span class="p">)</span>
+
+<span class="c1"># Expose as a DLPack.</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.dlpack</span> <span class="kn">import</span> <span class="n">to_dlpack</span>
+<span class="n">dlp</span> <span class="o">=</span> <span class="n">to_dlpack</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+
+<span class="c1"># Use the DLPack in PyTorch.</span>
+<span class="kn">import</span> <span class="nn">torch</span>
+<span class="kn">from</span> <span class="nn">torch.utils.dlpack</span> <span class="kn">import</span> <span class="n">from_dlpack</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">from_dlpack</span><span class="p">(</span><span class="n">dlp</span><span class="p">)</span>
+
+<span class="c1"># Changing the values in Torch will also be affected in nnabla</span>
+<span class="c1"># because they share memory.</span>
+<span class="n">t</span><span class="o">.</span><span class="n">add_</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>  <span class="c1"># All values become 2.</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>a</strong> (<a class="reference internal" href="../nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><em>NdArray</em></a>) – An <code class="docutils literal notranslate"><span class="pre">NdArray</span></code> object. An internal array which is recently modified
+or created will be encoded into a DLPack.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.21)"><em>numpy.dtype</em></a>) – If specified, in-place cast operation may be performed before
+encoding it to a DLPack.</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="../common.html#nnabla.Context" title="nnabla.Context"><em>Context</em></a>) – If specified, in-place device transfer operation may be performed
+before encoding it into a DLPack.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A PyCapsule object of a <code class="docutils literal notranslate"><span class="pre">DLManagedTensor</span></code> (as <code class="docutils literal notranslate"><span class="pre">&quot;dltensor&quot;</span></code>) which
+internal memory is borrowed by the specified <code class="docutils literal notranslate"><span class="pre">NdArray</span></code>.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>PyCapsule</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="debug_utils.html" class="btn btn-neutral float-left" title="Debug Utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="rnn.html" class="btn btn-neutral float-right" title="RNN Utils" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

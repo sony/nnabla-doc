@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.experimental.graph_converters.graph_converter &mdash; Neural Network Libraries 1.23.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.23.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nnabla.experimental.graph_converters.graph_converter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.experimental.graph_converters.graph_converter</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2020,2021 Sony Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+
+
+<div class="viewcode-block" id="FunctionModifier"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier">[docs]</a><span class="k">class</span> <span class="nc">FunctionModifier</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Base class of modifiers.</span>
+
+<span class="sd">    The `modify` method is called for a function with inputs in a graph topological order</span>
+<span class="sd">    when you call the GraphConverter(&lt;modifiers&gt;).convert(&lt;root variable&gt;) method.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">FunctionModifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>  <span class="c1"># func: [inputs]</span>
+
+    <span class="k">def</span> <span class="nf">init_map_func_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="n">inputs</span>
+
+<div class="viewcode-block" id="FunctionModifier.get_parameter_scope"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier.get_parameter_scope">[docs]</a>    <span class="k">def</span> <span class="nf">get_parameter_scope</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">v</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Get the parameter name corresponding to v</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          v (:obj:`nnabla.Variable`): NNabla Variable Object.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          str: Scope name</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">())</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+                             <span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">scope</span></div>
+
+    <span class="k">def</span> <span class="nf">_force_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">o</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_copy_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Shallow Copy the inputs.</span>
+<span class="sd">        The Variable copied is different from the original once, but the actual data and grad</span>
+<span class="sd">        are different.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">inps_cp</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">:</span>
+            <span class="n">i</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">need_grad</span><span class="o">=</span><span class="n">inp</span><span class="o">.</span><span class="n">need_grad</span><span class="p">)</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">data</span>
+            <span class="n">i</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">grad</span>
+            <span class="n">inps_cp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">inps_cp</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="c1"># Init condition</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span> <span class="ow">and</span> <span class="n">f</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span><span class="p">[</span><span class="n">f</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_copy_inputs</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span>
+
+        <span class="c1"># Lookup</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span><span class="p">[</span><span class="n">f</span><span class="p">]</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">inputs</span> <span class="o">+</span> \
+            <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">):]</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span> <span class="k">else</span> <span class="n">inputs</span>
+
+        <span class="c1"># Modify</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s1">&#39;Return None or nn.Variable&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Modify as same</span>
+        <span class="k">if</span> <span class="n">o</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modify_as_same</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_list</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">outputs</span> <span class="o">=</span> <span class="n">outputs</span>
+
+        <span class="c1"># Add next func and outputs (next funcs&#39; inputs) to table</span>
+        <span class="k">for</span> <span class="n">o0</span><span class="p">,</span> <span class="n">o1</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+            <span class="n">funcs</span> <span class="o">=</span> <span class="n">o0</span><span class="o">.</span><span class="n">function_references</span>
+            <span class="k">if</span> <span class="n">funcs</span> <span class="o">==</span> <span class="p">[]:</span>
+                <span class="k">return</span>
+            <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">funcs</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span><span class="p">[</span><span class="n">func</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">o1</span><span class="p">)</span>
+
+<div class="viewcode-block" id="FunctionModifier.modify"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier.modify">[docs]</a>    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Modify the function.</span>
+
+<span class="sd">        Implement this method in a sub class to modify a function.</span>
+
+<span class="sd">        Examples:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">           class ReLUToLeakyReLUModifier(FunctionModifier):</span>
+
+<span class="sd">             def __init__(self):</span>
+<span class="sd">               super(ReLUToLeakyReLUModifier, self).__init__()</span>
+
+<span class="sd">             def modify(self, f, inputs):</span>
+<span class="sd">               if f.info.type_name == &#39;ReLU&#39;:</span>
+<span class="sd">                 x = inputs[0]</span>
+<span class="sd">                 return F.leaky_relu(x)</span>
+
+<span class="sd">        This examples is a simple case since the network topological order does not change.</span>
+<span class="sd">        In GraphConverter, we expect the modify method is called along</span>
+<span class="sd">        the original network tolopogical order not the modified order.</span>
+<span class="sd">        In such a complex case, see themodify method of :obj:`BatchNormalizationFoldingModifierInner`</span>
+<span class="sd">        as a reference.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          f (:obj:`nnabla.function.Function`): NNabla function object.</span>
+<span class="sd">          inputs (list of :obj:`Variable`): New inputs to `f`. This may be modified one or the same as f.inputs.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          :obj:`Variable` or list of :obj:`Variable`.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span></div>
+
+    <span class="k">def</span> <span class="nf">_modify_as_same</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_call_function</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">o</span>
+
+    <span class="k">def</span> <span class="nf">_call_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type_name</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">args</span><span class="p">):</span>
+        <span class="kn">import</span> <span class="nn">nnabla.function_bases</span> <span class="k">as</span> <span class="nn">FB</span>
+        <span class="n">function_expr</span> <span class="o">=</span> <span class="s1">&#39;FB.F.</span><span class="si">{type_name}</span><span class="s1">(nn.</span><span class="si">{ctx}</span><span class="s1">, **</span><span class="si">{args}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">type_name</span><span class="o">=</span><span class="n">type_name</span><span class="p">,</span>
+            <span class="n">ctx</span><span class="o">=</span><span class="n">nn</span><span class="o">.</span><span class="n">get_current_context</span><span class="p">(),</span>
+            <span class="n">args</span><span class="o">=</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">function</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">function_expr</span><span class="p">)</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">function</span><span class="p">(</span><span class="o">*</span><span class="n">inputs</span><span class="p">,</span> <span class="n">auto_forward</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">o</span>
+
+    <span class="k">def</span> <span class="nf">__finish__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finish the very time function modification.</span>
+
+<span class="sd">        Implement this method in a sub class if necessary.</span>
+<span class="sd">        Clean up the sub class specified states, resources etc.</span>
+<span class="sd">        It will be called by GraphConverter class instance when one time of conversion finished.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">pass</span>
+
+<div class="viewcode-block" id="FunctionModifier.finish_up"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier.finish_up">[docs]</a>    <span class="k">def</span> <span class="nf">finish_up</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;Finish the very time function modification.</span>
+
+<span class="sd">        Clean up the internal modifier states.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">          None</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">          None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_map_func_inputs</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>  <span class="c1"># func: [inputs]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__finish__</span><span class="p">()</span></div></div>
+
+
+<div class="viewcode-block" id="GraphConverter"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.GraphConverter">[docs]</a><span class="k">class</span> <span class="nc">GraphConverter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;GraphConverter</span>
+
+<span class="sd">    Convert a graph with the modifiers by traversing from output variables.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_prepare_modifiers</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_prepare_modifiers</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">modifiers</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="n">mfs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">modifier</span> <span class="ow">in</span> <span class="n">modifiers</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">modifier</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">)):</span>
+                <span class="k">for</span> <span class="n">sub_modifier</span> <span class="ow">in</span> <span class="n">modifier</span><span class="p">:</span>
+                    <span class="n">mfs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">sub_modifier</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">mfs</span> <span class="o">+=</span> <span class="p">[</span><span class="n">modifier</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">mfs</span>
+
+    <span class="k">def</span> <span class="nf">_force_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">(</span><span class="nb">list</span><span class="p">)):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">o</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">o</span>
+
+<div class="viewcode-block" id="GraphConverter.convert"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.GraphConverter.convert">[docs]</a>    <span class="k">def</span> <span class="nf">convert</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">            o (list of :obj:`nnabla.Variable`): Output variables.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">oo</span> <span class="o">=</span> <span class="n">o</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_list</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+        <span class="c1"># TODO: multiple inputs</span>
+        <span class="k">for</span> <span class="n">modifier</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifiers</span><span class="p">:</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sink</span><span class="p">(</span><span class="o">*</span><span class="n">outputs</span><span class="p">)</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">modifier</span><span class="p">)</span>
+            <span class="n">outputs</span> <span class="o">=</span> <span class="n">modifier</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span>
+            <span class="n">modifier</span><span class="o">.</span><span class="n">finish_up</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">oo</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">outputs</span>
+        <span class="k">return</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

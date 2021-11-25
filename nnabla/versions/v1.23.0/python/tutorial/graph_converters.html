@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Converters &mdash; Neural Network Libraries 1.23.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Mixed Precision Training" href="mixed_precision_training.html" />
+    <link rel="prev" title="Static vs Dynamic Neural Networks in NNabla" href="dynamic_and_static_nn.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.23.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="by_examples.html">NNabla by Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">NNabla Python API Demonstration Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model_finetuning.html">NNabla Models Finetuning Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model_finetuning.html#finetuning-more">Finetuning more</a></li>
+<li class="toctree-l3"><a class="reference internal" href="debugging.html">Debugging</a></li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_and_static_nn.html">Static vs Dynamic Neural Networks in NNabla</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Graph Converters</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#batch-normalization-folding">Batch Normalization Folding</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#channel-last-conversion">Channel Last Conversion</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="mixed_precision_training.html">Mixed Precision Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multi_device_training.html">Data Parallel Distributed Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function_list_and_converter.html">Function list and converter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html">Python API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../tutorial.html">Python API Tutorial</a> &raquo;</li>
+      <li>Graph Converters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/tutorial/graph_converters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="graph-converters">
+<h1>Graph Converters<a class="headerlink" href="#graph-converters" title="Permalink to this headline"></a></h1>
+<p>As neural networks becomes complex and one of components in a system, we
+sometimes want to convert a network as we want. Typical usecase is for
+inference. We want to merge or change some layers in a network as a
+high-level optimization for the inference speed. Also, there are other
+usecases: adding new layers to keep track some stats, adding
+quantize/dequantize layers for a quantized inference, decomposing a
+layer as combination of a low-rank ones, changing a network architecture
+for the neural architecture search based on an original network
+architecture, changing the tensor format from the channel first to
+channel last and opposite, and so on.</p>
+<p>Let’s look at the simple cases 1. batch normalization folding 2. channel
+last conversion</p>
+<p>As a reference network, use the follows.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># ResNet-50 for inference</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.inspection</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">nnabla.models.imagenet</span> <span class="kn">import</span> <span class="n">ResNet50</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">ResNet50</span><span class="p">()</span>
+
+<span class="n">batch_size</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="n">batch_size</span><span class="p">,)</span> <span class="o">+</span> <span class="n">model</span><span class="o">.</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</pre></div>
+</div>
+<section id="batch-normalization-folding">
+<h2>Batch Normalization Folding<a class="headerlink" href="#batch-normalization-folding" title="Permalink to this headline"></a></h2>
+<p>See the resnet architecture.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, we can see the batch normalization. For the inference, we do not
+need to compute the batch normalization explicitly by folding the batch
+normalization parameters if there is e.g., a convolution before the
+batch normalization.</p>
+<p>To fold the batch normalization, use BatchNormalizationFoldingModifier
+as the following.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">BatchNormalizationFoldingModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Again, see the resnet architecture converted.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can see that the converterd network does not contain the batch
+normalization any more!</p>
+<p>In some cases, we can not fold the batch normalization, but the batch
+normalization can also be self-folded, i.e., the four parameters: scale,
+bias, running mean, running variance can be two other scale and bias.
+For doing this, use BatchNormalizationSelfFoldingModifier.</p>
+</section>
+<section id="channel-last-conversion">
+<h2>Channel Last Conversion<a class="headerlink" href="#channel-last-conversion" title="Permalink to this headline"></a></h2>
+<p>In NVIDIA latest GPU architectures since Volta, it supports TensorCore
+to accelerate the computatoinal performance. To boost the performance as
+maximum as possible, we need the channel-last tensor format aka NHWC. In
+NNabla, the default tensor format is the channel first aka NCHW, so as
+to utilize TensorCore, we need to change the tensor format to NHWC
+format.</p>
+<p>ChannelLastModifier convert a network with NCHW tesnor format to another
+network with NHWC tensor format.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">ChannelLastModifier</span><span class="p">([</span><span class="n">x</span><span class="p">])]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">yy</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Let’s see the resnet architecture converted.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pprint</span><span class="p">(</span><span class="n">yy</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can find the channel dimension changed at the last!</p>
+<p>If we want to access to the inputs of which tensor format converted,</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">x_cl</span> <span class="o">=</span> <span class="n">modifiers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">inputs_cl</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">x_cl</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Note that ChannelLastModifier supports a set of layers: Convolution,
+Deconvolution, BatchNormalization, MaxPooling, AveragePooling,
+SumPooling, Unpooling, Concatenate and also supposes NCHW format.</p>
+<p>There also exists ChannelFirstModifier in the opposite change.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="dynamic_and_static_nn.html" class="btn btn-neutral float-left" title="Static vs Dynamic Neural Networks in NNabla" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="mixed_precision_training.html" class="btn btn-neutral float-right" title="Mixed Precision Training" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

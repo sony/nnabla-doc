@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.models.object_detection.yolov2 &mdash; Neural Network Libraries 1.23.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/underscore.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.23.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../index.html">Module code</a> &raquo;</li>
+      <li>nnabla.models.object_detection.yolov2</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.models.object_detection.yolov2</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2019,2020,2021 Sony Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.nnp_graph</span> <span class="kn">import</span> <span class="n">NnpNetworkPass</span>
+
+<span class="kn">from</span> <span class="nn">.base</span> <span class="kn">import</span> <span class="n">ObjectDetection</span>
+
+
+<div class="viewcode-block" id="YoloV2"><a class="viewcode-back" href="../../../../python/api/models/object_detection.html#nnabla.models.object_detection.YoloV2">[docs]</a><span class="k">class</span> <span class="nc">YoloV2</span><span class="p">(</span><span class="n">ObjectDetection</span><span class="p">):</span>
+
+    <span class="sd">&#39;&#39;&#39;</span>
+
+<span class="sd">    The following is a list of string that can be specified to ``use_up_to`` option in ``__call__`` method;</span>
+
+<span class="sd">    * ``&#39;detection&#39;`` (default): The output from the last convolution (detection layer) after post-processing.</span>
+<span class="sd">    * ``&#39;convdetect&#39;``: The output of last convolution without post-processing.</span>
+<span class="sd">    * ``&#39;lastconv&#39;``: Network till the convolution layer+relu which comes before detection convolution layer.</span>
+
+<span class="sd">    References:</span>
+<span class="sd">        * `Joseph Redmon et al., YOLO9000: Better, Faster, Stronger.</span>
+<span class="sd">          &lt;https://arxiv.org/abs/1612.08242&gt;`_</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="n">_KEY_VARIABLE</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;detection&#39;</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;convdetect&#39;</span><span class="p">:</span> <span class="s1">&#39;Reshape_3_Output&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;lastconv&#39;</span><span class="p">:</span> <span class="s1">&#39;Reshape_3_Output&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Arange&#39;</span><span class="p">:</span> <span class="s1">&#39;Arange_Output&#39;</span><span class="p">,</span>
+        <span class="s1">&#39;Arange2&#39;</span><span class="p">:</span> <span class="s1">&#39;Arange_2_Output&#39;</span><span class="p">,</span>
+        <span class="p">}</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">dataset</span><span class="o">=</span><span class="s1">&#39;voc&#39;</span><span class="p">):</span>
+
+        <span class="c1"># Check validity of num_layers</span>
+        <span class="k">assert</span> <span class="n">dataset</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;voc&#39;</span><span class="p">,</span> <span class="s1">&#39;coco&#39;</span><span class="p">],</span>\
+            <span class="s1">&#39;dataset must be chosen from [&quot;voc&quot;, &quot;coco&quot;].&#39;</span>
+        <span class="c1"># Load nnp</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_name</span> <span class="o">=</span> <span class="n">dataset</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_name</span> <span class="o">==</span> <span class="s1">&#39;voc&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_nnp</span><span class="p">(</span><span class="s1">&#39;yolov2-voc.nnp&#39;</span><span class="p">,</span> <span class="s1">&#39;yolov2-voc.nnp&#39;</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataset_name</span> <span class="o">==</span> <span class="s2">&quot;coco&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_load_nnp</span><span class="p">(</span><span class="s1">&#39;yolov2-coco.nnp&#39;</span><span class="p">,</span> <span class="s1">&#39;yolov2-coco.nnp&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">_input_shape</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">416</span><span class="p">,</span> <span class="mi">416</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_var</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_from</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">use_up_to</span><span class="o">=</span><span class="s1">&#39;detection&#39;</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">returns_net</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+
+        <span class="k">assert</span> <span class="n">use_from</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;This should not be set because it is for forward compatibility.&#39;</span>
+        <span class="n">input_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_input_var</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
+        <span class="n">nnp_input_size</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_nnp_input_size</span><span class="p">()</span>
+        <span class="n">callback</span> <span class="o">=</span> <span class="n">NnpNetworkPass</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">set_variable</span><span class="p">(</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">input_var</span><span class="p">)</span>
+        <span class="n">callback</span><span class="o">.</span><span class="n">set_batch_normalization_batch_stat_all</span><span class="p">(</span><span class="n">training</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="n">use_up_to</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">use_up_to</span> <span class="o">!=</span> <span class="s1">&#39;detection&#39;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="s1">&#39;Arange&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">use_up_to</span><span class="p">(</span><span class="s1">&#39;Arange2&#39;</span><span class="p">,</span> <span class="n">callback</span><span class="p">)</span>
+            <span class="n">funcs_to_drop</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;Reshape_3&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;Arange&#39;</span><span class="p">,</span>
+                             <span class="s1">&#39;Arange_2&#39;</span><span class="p">)</span>
+            <span class="n">callback</span><span class="o">.</span><span class="n">drop_function</span><span class="p">(</span><span class="o">*</span><span class="n">funcs_to_drop</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">use_up_to</span> <span class="o">==</span> <span class="s1">&#39;lastconv&#39;</span><span class="p">:</span>
+                <span class="n">callback</span><span class="o">.</span><span class="n">drop_function</span><span class="p">(</span><span class="s1">&#39;Convolution_23&#39;</span><span class="p">)</span>
+
+        <span class="c1"># Output dimension of reshape, arange, slice etc functions are taken from .nnp file.</span>
+        <span class="c1"># These dimensions depend on the input image size with which the nnp file was created.</span>
+        <span class="c1"># When different input image size is given to the model, these dimensions will change and therefore</span>
+        <span class="c1"># shape of output from these functions need to be generalized whenevr they are generated.</span>
+        <span class="c1"># The same has been done in below callbacks.</span>
+
+        <span class="c1"># Reshape operation for simulating darknet reorg bug</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_for_darknet_reorg_bug</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">stride</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span>
+                <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">stride</span><span class="o">/</span><span class="n">stride</span><span class="p">),</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">stride</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">stride</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape operation for simulating darknet reorg bug</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_2&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_for_darknet_reorg_bug</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+                              <span class="o">*</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="o">//</span><span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="o">//</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape operation for output variable of yolov2 function in yolov2_activate.</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_3&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_yolov2_activate</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">anchors</span> <span class="o">=</span> <span class="mi">5</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">num_class</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="mi">5</span>
+            <span class="n">s_add</span> <span class="o">=</span> <span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">anchors</span><span class="p">,</span> <span class="n">num_class</span><span class="o">+</span><span class="mi">5</span><span class="p">)</span><span class="o">+</span><span class="p">(</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="n">s_add</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Slicing the variable y in yolov2_activate to get t_xy</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Slice&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">slicing_t_xy</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">slice_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">stop</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Arange operation in range of zero to width of input variable</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Arange&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">arange__yolov2_image_coordinate_xs</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">arange_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">//</span><span class="mi">32</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Arange operation in range of zero to height of input variable</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Arange_2&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">arange_yolov2_image_coordinate_ys</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">arange_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">stop</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">//</span><span class="mi">32</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Slicing the variable y in yolov2_activate to get t_wh</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Slice_2&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">slicing_t_wh</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">4</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">slice_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">stop</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Slicing the variable y in yolov2_activate to get t_o</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Slice_3&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">slicing_t_o</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">5</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">slice_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">stop</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Slicing the variable y in yolov2_activate to get t_p</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Slice_4&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">slicing_t_p</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">slice_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">stop</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape the output of Arange to get xs</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_4&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_yolov2_image_coordinate_xs</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape operation to get t_x</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_5&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape__yolov2_image_coordinate_t_x</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape the output of Arange_2 to get ys</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_6&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_yolov2_image_coordinate_ys</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape the output of Arange to get t_y</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_7&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_yolov2_image_coordinate_t_y</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape the final variable y</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Reshape_8&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_output_variable_y</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">variable</span><span class="o">.</span><span class="n">shape</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">reshape_param</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">],</span> <span class="n">s</span><span class="p">[</span><span class="mi">4</span><span class="p">]]</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Scaler division by width in function Reshape_4 in yolov2_image_coordinate</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;MulScalar_2&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">mul__yolov2_image_coordinate_t_x</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">input_arr_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">mul_scalar_param</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">mul_scalar_param</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="n">nnp_input_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">/</span><span class="n">input_arr_shape</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Scaler division by height in function Reshape_6 in yolov2_image_coordinate</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;MulScalar_3&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">mul_yolov2_image_coordinate_t_y</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">input_arr_shape</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+            <span class="n">r</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">mul_scalar_param</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">mul_scalar_param</span><span class="o">.</span><span class="n">val</span>
+            <span class="n">r</span><span class="o">.</span><span class="n">val</span> <span class="o">=</span> <span class="n">s</span><span class="o">*</span><span class="p">(</span><span class="n">nnp_input_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">input_arr_shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">f</span>
+
+        <span class="c1"># Reshape biases and multiply with t_wh to rescale it.</span>
+        <span class="nd">@callback</span><span class="o">.</span><span class="n">on_function_pass_by_name</span><span class="p">(</span><span class="s1">&#39;Mul2&#39;</span><span class="p">)</span>
+        <span class="k">def</span> <span class="nf">reshape_biases</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">variables</span><span class="p">,</span> <span class="n">param_scope</span><span class="p">):</span>
+            <span class="n">bias_param_name</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">name</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">param_scope</span><span class="p">):</span>
+                <span class="n">biases</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="n">bias_param_name</span><span class="p">)</span>
+                <span class="n">s</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">input_var</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+                <span class="n">k</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">nnp_input_size</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">//</span><span class="mi">32</span><span class="p">,</span>
+                               <span class="n">nnp_input_size</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">//</span><span class="mi">32</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">m</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">s</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="o">//</span><span class="mi">32</span><span class="p">,</span> <span class="n">s</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">//</span><span class="mi">32</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+                <span class="n">biases</span> <span class="o">=</span> <span class="p">(</span><span class="n">biases</span><span class="o">.</span><span class="n">d</span><span class="p">)</span><span class="o">*</span><span class="n">k</span>
+                <span class="n">biases</span> <span class="o">=</span> <span class="p">(</span><span class="n">biases</span><span class="p">)</span><span class="o">/</span><span class="n">m</span>
+                <span class="n">biases</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">biases</span><span class="p">)</span>
+                <span class="n">nn</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">set_parameter</span><span class="p">(</span><span class="s1">&#39;biases&#39;</span><span class="p">,</span> <span class="n">biases</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">training</span><span class="p">:</span>
+            <span class="n">callback</span><span class="o">.</span><span class="n">fix_parameters</span><span class="p">()</span>
+        <span class="n">batch_size</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">net</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">nnp</span><span class="o">.</span><span class="n">get_network</span><span class="p">(</span>
+            <span class="s1">&#39;runtime&#39;</span><span class="p">,</span> <span class="n">batch_size</span><span class="o">=</span><span class="n">batch_size</span><span class="p">,</span> <span class="n">callback</span><span class="o">=</span><span class="n">callback</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">returns_net</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">net</span>
+        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="n">net</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">values</span><span class="p">())[</span><span class="mi">0</span><span class="p">]</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

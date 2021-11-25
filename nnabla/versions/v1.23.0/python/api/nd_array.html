@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NdArray &mdash; Neural Network Libraries 1.23.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Variable" href="variable.html" />
+    <link rel="prev" title="Common" href="common.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.23.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+      <li>NdArray</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/api/nd_array.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ndarray">
+<span id="nd-array"></span><h1>NdArray<a class="headerlink" href="#ndarray" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.NdArray">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.</span></span><span class="sig-name descname"><span class="pre">NdArray</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray" title="Permalink to this definition"></a></dt>
+<dd><p><a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> is a device-agnostic data container for multi-dimensional arrays (tensors).
+<a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> can also implicitly handle data transfers across different devices (e.g. CPU to CUDA GPU, CUDA GPU to CPU).
+See <a class="reference external" href="http://nnabla.readthedocs.io/en/latest/python/tutorial/python_api.html">Python API Tutorial</a> for more details.</p>
+<p><a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> overrides some arithmetic operators
+(<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">**</span></code>). Operands can be either a scalar number,
+<a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> or <a class="reference internal" href="variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.
+An arithmetic operation containing <a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> returns
+<a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> which stores the output of the computation
+immediately invoked.
+Also, inplace arithmetic operations
+(<code class="docutils literal notranslate"><span class="pre">+=</span></code>, <code class="docutils literal notranslate"><span class="pre">-=</span></code>, <code class="docutils literal notranslate"><span class="pre">*=</span></code>, <code class="docutils literal notranslate"><span class="pre">/=</span></code>, <code class="docutils literal notranslate"><span class="pre">**=</span></code>) are implemented. Note that <code class="docutils literal notranslate"><span class="pre">=</span></code>
+doesn’t perform inplace substitution but just replaces the object
+reference. Instead, you can use <a class="reference internal" href="#nnabla.NdArray.copy_from" title="nnabla.NdArray.copy_from"><code class="xref py py-func docutils literal notranslate"><span class="pre">copy_from()</span></code></a> for
+inplace substitution.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#tuple" title="(in Python v3.6)"><em>tuple</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – Shape of tuple.</p>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.bool_fill">
+<span class="sig-name descname"><span class="pre">bool_fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.bool_fill" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new but inplaced <a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> filled with value where mask is non-zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> (<a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a>) – Mask with which to fill. Non-zero/zero elements are supposed to be a binary mask as 1/0. No gradients are computed with respect to mask.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – The value to fill.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.cast">
+<span class="sig-name descname"><span class="pre">cast</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.cast" title="Permalink to this definition"></a></dt>
+<dd><p>In-place cast of data type of the NdArray. It returns the reference
+values as a numpy.ndarray only if optional parameter ctx is not given,
+None otherwise.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a>) – Numpy Data type.</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="common.html#nnabla.Context" title="nnabla.Context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Context</span></code></a>, optional) – Context descriptor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.array.html#numpy.array" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.array</span></code></a> if <code class="docutils literal notranslate"><span class="pre">ctx</span></code> is None, otherwise nothing.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.clear">
+<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.clear" title="Permalink to this definition"></a></dt>
+<dd><p>Clear memories which this NdArray has and return them to allocator.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.clear_called">
+<span class="sig-name descname"><span class="pre">clear_called</span></span><a class="headerlink" href="#nnabla.NdArray.clear_called" title="Permalink to this definition"></a></dt>
+<dd><p>Checking if the array is not modified after cleared. This returns False until clear is called at the first time.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.copy_from">
+<span class="sig-name descname"><span class="pre">copy_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">NdArray</span> <span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">use_current_context=True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.copy_from" title="Permalink to this definition"></a></dt>
+<dd><p>Copy values from another NdArray object.</p>
+<p>It returns the caller object itself.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arr</strong> (<a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><em>NdArray</em></a>) – Values will be copied to the caller object.
+The shape of <code class="docutils literal notranslate"><span class="pre">arr`</span></code> must be same as the caller object.</p></li>
+<li><p><strong>use_current_context</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, a copy is happening in a device and dtype specified
+in the current context (equivalent to call
+<code class="xref any docutils literal notranslate"><span class="pre">F.identity(src,</span> <span class="pre">output=[self])</span></code>). Otherwise, a device and
+dtype in the source array is used. The default is True.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#nnabla.NdArray.data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the values held by this array as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+Note that only the references are returned, and the values are not copied. Therefore,
+modifying the returned <a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> will affect the data contained inside the
+NNabla array.
+This method can also be called as a setter where an array is created as the same type as rhs.
+There is an exception where <a class="reference internal" href="#nnabla.NdArray.zero" title="nnabla.NdArray.zero"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">zero()</span></code></a> or <code class="xref any docutils literal notranslate"><span class="pre">fill(rhs)</span></code> is invoked if a scalar with a float or an
+integer &lt;= 2^53 (as filling value is maintained as float64) is given.</p>
+<p>Note that this may implicitly invoke a data transfer from device arrays to the CPU.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.data_ptr">
+<span class="sig-name descname"><span class="pre">data_ptr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ctx</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.data_ptr" title="Permalink to this definition"></a></dt>
+<dd><p>Get array’s pointer.</p>
+<p>The behavior is similar to <a class="reference internal" href="#nnabla.NdArray.cast" title="nnabla.NdArray.cast"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">cast</span></code></a> method but returns the data pointer based on the <a class="reference internal" href="function.html#nnabla.function.PythonFunction.ctx" title="nnabla.function.PythonFunction.ctx"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">ctx</span></code></a>.
+If the <a class="reference internal" href="function.html#nnabla.function.PythonFunction.ctx" title="nnabla.function.PythonFunction.ctx"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">ctx</span></code></a> is not specified, the default context obtained by <code class="xref any docutils literal notranslate"><span class="pre">nn.get_current_context</span></code> is used.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a>) – Numpy Data type.</p></li>
+<li><p><strong>ctx</strong> (<a class="reference internal" href="common.html#nnabla.Context" title="nnabla.Context"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Context</span></code></a>, optional) – Context descriptor.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The data pointer.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)">int</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#nnabla.NdArray.dtype" title="Permalink to this definition"></a></dt>
+<dd><p>Get dtype.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.fill">
+<span class="sig-name descname"><span class="pre">fill</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.fill" title="Permalink to this definition"></a></dt>
+<dd><p>Fill all of the elements with the provided scalar value.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This doesn’t not fill values in an internal array with 0 immediately.
+An array is created as a requested data type when this array is used
+(in forward or backward computation for exampe), and is filled with
+the value.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – The value filled with.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.from_numpy_array">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_numpy_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">nparr</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.from_numpy_array" title="Permalink to this definition"></a></dt>
+<dd><p>Create a NdArray object from Numpy array data.</p>
+<p>The data is initialized with the given Numpy array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>nparr</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><em>ndarray</em></a>) – Numpy multi-dimensional array.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>nnabla.NdArray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.get_data">
+<span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">str</span> <span class="pre">mode='rw'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">dtype=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.get_data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the values held by this array as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.21)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>
+with a specified mode.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mode</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Computation becomes more efficient if right one is chosen.
+* ‘r’: Read-only access.
+* ‘w’: Write-only access.
+* ‘rw’: You can both read and write.</p></li>
+<li><p><strong>dtype</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.dtype.html#numpy.dtype" title="(in NumPy v1.21)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.dtype</span></code></a>, optional) – Force dtype of a returned array.</p></li>
+</ul>
+</dd>
+</dl>
+<p>See <a href="#id1"><span class="problematic" id="id2">:function:`nnabla.NdArray.data`</span></a> for more details.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.masked_fill">
+<span class="sig-name descname"><span class="pre">masked_fill</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.masked_fill" title="Permalink to this definition"></a></dt>
+<dd><p>NdArray.bool_fill(self, mask, value)
+Return a new but inplaced <a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> filled with value where mask is non-zero.</p>
+<blockquote>
+<div><dl class="simple">
+<dt>Args:</dt><dd><p>mask (<a class="reference internal" href="#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a>): Mask with which to fill. Non-zero/zero elements are supposed to be a binary mask as 1/0. No gradients are computed with respect to mask.
+value (float): The value to fill.</p>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.modification_count">
+<span class="sig-name descname"><span class="pre">modification_count</span></span><a class="headerlink" href="#nnabla.NdArray.modification_count" title="Permalink to this definition"></a></dt>
+<dd><p>Returns how many times modified after memory allocation or clearing buffer.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.ndim">
+<span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#nnabla.NdArray.ndim" title="Permalink to this definition"></a></dt>
+<dd><p>Number of dimensions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#nnabla.NdArray.shape" title="Permalink to this definition"></a></dt>
+<dd><p>Shape of the N-d array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>tuple of int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#nnabla.NdArray.size" title="Permalink to this definition"></a></dt>
+<dd><p>Total size of the N-d array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.size_from_axis">
+<span class="sig-name descname"><span class="pre">size_from_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.size_from_axis" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size followed by the provided axis.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">nnabla</span><span class="o">.</span><span class="n">NdArray</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">()</span>
+<span class="c1"># ==&gt; 90</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># ==&gt; 90</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># ==&gt; 9</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># ==&gt; 1</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – -1 as default</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.strides">
+<span class="sig-name descname"><span class="pre">strides</span></span><a class="headerlink" href="#nnabla.NdArray.strides" title="Permalink to this definition"></a></dt>
+<dd><p>Strides.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>tuple of int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.NdArray.zero">
+<span class="sig-name descname"><span class="pre">zero</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.NdArray.zero" title="Permalink to this definition"></a></dt>
+<dd><p>Fill all of the elements with 0.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This doesn’t not fill values in an internal array with 0 immediately.
+An array is created as a requested data type when this array is used
+(in forward or backward computation for exampe), and is filled with 0.</p>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.NdArray.zeroing">
+<span class="sig-name descname"><span class="pre">zeroing</span></span><a class="headerlink" href="#nnabla.NdArray.zeroing" title="Permalink to this definition"></a></dt>
+<dd><p>Checking if the array is not modified after calling <a class="reference internal" href="#nnabla.NdArray.zero" title="nnabla.NdArray.zero"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">zero()</span></code></a>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="common.html" class="btn btn-neutral float-left" title="Common" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="variable.html" class="btn btn-neutral float-right" title="Variable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
