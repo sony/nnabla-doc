@@ -1,0 +1,6 @@
+class nbla::Lars
+========================================
+
+.. doxygenclass:: nbla::Lars
+	:project: Cpp
+	:members: 

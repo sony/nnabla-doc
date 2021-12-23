@@ -1,0 +1,6 @@
+class nbla::PatchCorrelation
+========================================
+
+.. doxygenclass:: nbla::PatchCorrelation
+	:project: Cpp
+	:members: 

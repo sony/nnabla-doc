@@ -1,0 +1,6 @@
+struct nbla::CommunicatorBackwardCallback
+========================================
+
+.. doxygenstruct:: nbla::CommunicatorBackwardCallback
+	:project: Cpp
+	:members: 

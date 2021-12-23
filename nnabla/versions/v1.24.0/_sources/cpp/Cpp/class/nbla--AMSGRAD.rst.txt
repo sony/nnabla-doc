@@ -1,0 +1,6 @@
+class nbla::AMSGRAD
+========================================
+
+.. doxygenclass:: nbla::AMSGRAD
+	:project: Cpp
+	:members: 

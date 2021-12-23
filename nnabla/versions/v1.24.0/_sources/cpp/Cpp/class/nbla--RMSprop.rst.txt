@@ -1,0 +1,6 @@
+class nbla::RMSprop
+========================================
+
+.. doxygenclass:: nbla::RMSprop
+	:project: Cpp
+	:members: 

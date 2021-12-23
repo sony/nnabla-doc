@@ -1,0 +1,6 @@
+class LogicalAndScalar
+========================================
+
+.. doxygenclass:: LogicalAndScalar
+	:project: Cpp
+	:members: 

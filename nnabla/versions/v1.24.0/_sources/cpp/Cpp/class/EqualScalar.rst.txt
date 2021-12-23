@@ -1,0 +1,6 @@
+class EqualScalar
+========================================
+
+.. doxygenclass:: EqualScalar
+	:project: Cpp
+	:members: 

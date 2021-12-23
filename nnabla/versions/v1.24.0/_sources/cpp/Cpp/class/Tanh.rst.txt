@@ -1,0 +1,6 @@
+class Tanh
+========================================
+
+.. doxygenclass:: Tanh
+	:project: Cpp
+	:members: 

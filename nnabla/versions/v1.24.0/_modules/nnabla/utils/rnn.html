@@ -1,0 +1,699 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.utils.rnn &mdash; Neural Network Libraries 1.24.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.24.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../index.html">Module code</a> &raquo;</li>
+      <li>nnabla.utils.rnn</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.utils.rnn</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2020,2021 Sony Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="PackedSequence"><a class="viewcode-back" href="../../../python/api/utils/rnn.html#nnabla.utils.rnn.PackedSequence">[docs]</a><span class="k">class</span> <span class="nc">PackedSequence</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Args:</span>
+<span class="sd">      data (:obj:`nnabla.Variable`): Packed sequence.</span>
+<span class="sd">      batch_sizes (:obj:`nnabla.Variable`): Batch size for each time step and always resides in CPU.</span>
+<span class="sd">      sorted_indices (:obj:`nnabla.Variable`): Sorted indices to reconstruct the original sequences.</span>
+<span class="sd">      unsorted_indices (:obj:`nnabla.Variable`): Unsorted indices to reconstruct the original sequences.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_sizes</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sorted_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">unsorted_indices</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s2">&quot;data=</span><span class="si">{}</span><span class="s2">, batch_sizes=</span><span class="si">{}</span><span class="s2">, &quot;</span>\
+          <span class="s2">&quot;sorted_indices=</span><span class="si">{}</span><span class="s2">, unsorted_indices=</span><span class="si">{self.unsorted_indices}</span><span class="s2">&quot;</span>\
+          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_sizes</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">sorted_indices</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">unsorted_indices</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="pad_sequence"><a class="viewcode-back" href="../../../python/api/utils/rnn.html#nnabla.utils.rnn.pad_sequence">[docs]</a><span class="k">def</span> <span class="nf">pad_sequence</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">padding_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pad a list of variable-length Variables.</span>
+
+<span class="sd">    This method stacks a list of variable-length :obj:`nnabla.Variable` s with the padding_value.</span>
+
+<span class="sd">    :math:`T_i` is the length of the :math:`i`-th Variable in the sequences.</span>
+<span class="sd">    :math:`B` is the batch size equal to the length of the sequences. </span>
+<span class="sd">    :math:`T` is the max of :math:`T_i` for all :math:`i`. </span>
+<span class="sd">    :math:`*` is the remaining dimensions including none.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">      This function **must** be used the dynamic computation mode.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">      import numpy as np</span>
+<span class="sd">      import nnabla as nn</span>
+<span class="sd">      import nnabla.functions as F</span>
+<span class="sd">      import nnabla.utils.rnn as rnn_utils</span>
+
+<span class="sd">      nn.set_auto_forward(True)</span>
+
+<span class="sd">      l2v = lambda ldata: nn.Variable.from_numpy_array(np.asarray(ldata))</span>
+<span class="sd">      a = l2v([1, 1, 1, 1])</span>
+<span class="sd">      b = l2v([2, 2, 2])</span>
+<span class="sd">      c = l2v([2, 2, 2])</span>
+<span class="sd">      d = l2v([3, 3])</span>
+<span class="sd">      e = l2v([3, 3])</span>
+<span class="sd">      sequences = [a, b, c, d, e]</span>
+
+<span class="sd">      padded_sequence = rnn_utils.pad_sequence(sequences)</span>
+<span class="sd">      print(padded_sequence.d)</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      sequences (list of :obj:`nnabla.Variable`): Sequence of the variable of (:math:`T_i`, :math:`*`) shape. </span>
+<span class="sd">      batch_first (bool): If False, output is of (:math:`T`, :math:`B`, :math:`*`) shape, </span>
+<span class="sd">                          otherwise (:math:`B`, :math:`T`, :math:`*`).</span>
+<span class="sd">      padding_value (float): Padding value.</span>
+
+<span class="sd">    Returns: </span>
+<span class="sd">      :obj:`nnabla.Variable` of (:math:`T`, :math:`B`, :math:`*`) or (:math:`B`, :math:`T`, :math:`*`) shape</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">B</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">sequences</span><span class="p">)</span>
+    <span class="n">T</span> <span class="o">=</span> <span class="nb">max</span><span class="p">([</span><span class="n">e</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">sequences</span><span class="p">])</span>
+    <span class="n">shape0</span> <span class="o">=</span> <span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">T</span><span class="p">)</span> <span class="k">if</span> <span class="n">batch_first</span> <span class="k">else</span> <span class="p">(</span><span class="n">T</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
+    <span class="n">shape1</span> <span class="o">=</span> <span class="n">sequences</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+    <span class="n">padded_sequence</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="n">padding_value</span><span class="p">,</span> <span class="n">shape0</span> <span class="o">+</span> <span class="n">shape1</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">b</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">sequences</span><span class="p">):</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="n">batch_first</span><span class="p">:</span>
+            <span class="n">padded_sequence</span><span class="p">[</span><span class="n">b</span><span class="p">,</span> <span class="p">:</span><span class="n">l</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">padded_sequence</span><span class="p">[:</span><span class="n">l</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">s</span>
+    <span class="k">return</span> <span class="n">padded_sequence</span></div>
+
+
+<div class="viewcode-block" id="pack_padded_sequence"><a class="viewcode-back" href="../../../python/api/utils/rnn.html#nnabla.utils.rnn.pack_padded_sequence">[docs]</a><span class="k">def</span> <span class="nf">pack_padded_sequence</span><span class="p">(</span><span class="n">padded_sequence</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sa">r</span><span class="sd">&quot;&quot;&quot;Pack a padded variable-length sequences.</span>
+
+<span class="sd">    This method packs a padded variable-length sequences.</span>
+
+<span class="sd">    :math:`T` is the max length over the lengths of sequences.</span>
+<span class="sd">    :math:`B` is the batch size equal to the length of the sequences.     </span>
+<span class="sd">    :math:`*` is the remaining dimensions including none.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">      This function **must** be used the dynamic computation mode.</span>
+
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">      import numpy as np</span>
+<span class="sd">      import nnabla as nn</span>
+<span class="sd">      import nnabla.functions as F</span>
+<span class="sd">      import nnabla.utils.rnn as rnn_utils</span>
+
+<span class="sd">      nn.set_auto_forward(True)</span>
+
+<span class="sd">      l2v = lambda ldata: nn.Variable.from_numpy_array(np.asarray(ldata))</span>
+<span class="sd">      a = l2v([1, 1, 1, 1])</span>
+<span class="sd">      b = l2v([2, 2, 2])</span>
+<span class="sd">      c = l2v([2, 2, 2])</span>
+<span class="sd">      d = l2v([3, 3])</span>
+<span class="sd">      e = l2v([3, 3])</span>
+<span class="sd">      sequences = [a, b, c, d, e]</span>
+<span class="sd">      lengths = l2v([seq.shape[0] for seq in sequences])</span>
+
+<span class="sd">      padded_sequence = rnn_utils.pad_sequence(sequences)</span>
+<span class="sd">      print(padded_sequence.d)</span>
+
+<span class="sd">      packed_sequence = rnn_utils.pack_padded_sequence(padded_sequence, lengths)</span>
+<span class="sd">      print(packed_sequence.data.d)</span>
+<span class="sd">      print(packed_sequence.batch_sizes.d)</span>
+
+<span class="sd">    Args: </span>
+<span class="sd">      padded_sequence (:obj:`nnabla.Variable`): Padded sequence of (:math:`T \times B \times *`)</span>
+<span class="sd">                                                or (:math:`B \times T \times *`) shape.</span>
+<span class="sd">      lengths (:obj:`nnabla.Variable`): Sequence length for each batch and always resides in CPU.</span>
+<span class="sd">      batch_first (bool): `padded_sequence` is of (:math:`T`, :math:`B`, :math:`*`) shape if False,</span>
+<span class="sd">                          otherwise (:math:`B`, :math:`T`, :math:`*`).</span>
+<span class="sd">      enforce_sorted (bool): Sequences are sorted by the length in a decreasing order if True. Default is True.</span>
+
+<span class="sd">    Returns: </span>
+<span class="sd">        :obj:`PackedSequence`</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">enforce_sorted</span><span class="p">:</span>
+        <span class="n">sorted_indices</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">unsorted_indices</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="c1"># TODO: replace cuda context when the bug fix of the sort</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">context_scope</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Context</span><span class="p">()):</span>
+            <span class="n">lengths</span><span class="p">,</span> <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span>
+                <span class="n">lengths</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">with_index</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="n">B</span> <span class="o">=</span> <span class="n">sorted_indices</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">unsorted_indices</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">scatter_nd</span><span class="p">(</span>
+            <span class="n">F</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">B</span><span class="p">),</span> <span class="n">sorted_indices</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">B</span><span class="p">)),</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="p">))</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">batch_first</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">padded_sequence</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">padded_sequence</span><span class="p">,</span> <span class="n">sorted_indices</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+
+    <span class="n">packed_sequence</span><span class="p">,</span> <span class="n">batch_sizes</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pack_padded_sequence</span><span class="p">(</span>
+        <span class="n">padded_sequence</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">batch_first</span><span class="p">)</span>
+    <span class="n">packed_sequence0</span> <span class="o">=</span> <span class="n">PackedSequence</span><span class="p">()</span>
+    <span class="n">packed_sequence0</span><span class="o">.</span><span class="n">data</span> <span class="o">=</span> <span class="n">packed_sequence</span>
+    <span class="n">packed_sequence0</span><span class="o">.</span><span class="n">batch_sizes</span> <span class="o">=</span> <span class="n">batch_sizes</span>
+    <span class="n">packed_sequence0</span><span class="o">.</span><span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">sorted_indices</span>
+    <span class="n">packed_sequence0</span><span class="o">.</span><span class="n">unsorted_indices</span> <span class="o">=</span> <span class="n">unsorted_indices</span>
+
+    <span class="k">return</span> <span class="n">packed_sequence0</span></div>
+
+
+<div class="viewcode-block" id="pack_sequence"><a class="viewcode-back" href="../../../python/api/utils/rnn.html#nnabla.utils.rnn.pack_sequence">[docs]</a><span class="k">def</span> <span class="nf">pack_sequence</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">enforce_sorted</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pack a list of variable-length Variables.</span>
+
+<span class="sd">    This method packs a list of variable-length Variables.</span>
+
+<span class="sd">    :math:`T_i` is the length of the :math:`i`-th Variable in the sequences. </span>
+<span class="sd">    :math:`T` is the max of :math:`T_i` for all :math:`i`.</span>
+<span class="sd">    :math:`B` is the batch size equal to the length of the sequences.     </span>
+<span class="sd">    :math:`*` is the remaining dimensions including none.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">      This function **must** be used the dynamic computation mode.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">      import numpy as np</span>
+<span class="sd">      import nnabla as nn</span>
+<span class="sd">      import nnabla.functions as F</span>
+<span class="sd">      import nnabla.utils.rnn as rnn_utils</span>
+
+<span class="sd">      nn.set_auto_forward(True)</span>
+
+<span class="sd">      l2v = lambda ldata: nn.Variable.from_numpy_array(np.asarray(ldata))</span>
+<span class="sd">      a = l2v([3, 3])</span>
+<span class="sd">      b = l2v([2, 2, 2])</span>
+<span class="sd">      c = l2v([2, 2, 2])</span>
+<span class="sd">      d = l2v([1, 1, 1, 1])</span>
+<span class="sd">      e = l2v([3, 3])</span>
+<span class="sd">      sequences = [a, b, c, d, e]</span>
+
+<span class="sd">      packed_sequence = rnn_utils.pack_sequence(sequences, enforce_sorted=False)</span>
+<span class="sd">      print(packed_sequence.data.d)</span>
+<span class="sd">      print(packed_sequence.batch_sizes.d)</span>
+
+<span class="sd">    Args: </span>
+<span class="sd">      sequences (list of :obj:`nnabla.Variable`): List of :obj:`nnabla.Variable` of (:math:`T_i`, :math:`*`) shape. </span>
+<span class="sd">      enforce_sorted (bool): Sequences are sorted by the length in a decreasing order if True. Default is True.</span>
+
+<span class="sd">    Returns: </span>
+<span class="sd">        :obj:`PackedSequence`: packed_sequence</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pad_sequences</span> <span class="o">=</span> <span class="n">pad_sequence</span><span class="p">(</span><span class="n">sequences</span><span class="p">)</span>
+    <span class="n">lengths</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">sequence</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">sequence</span> <span class="ow">in</span> <span class="n">sequences</span><span class="p">])</span>
+    <span class="n">lengths</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">lengths</span><span class="p">)</span>
+    <span class="n">packed_sequence</span> <span class="o">=</span> <span class="n">pack_padded_sequence</span><span class="p">(</span>
+        <span class="n">pad_sequences</span><span class="p">,</span> <span class="n">lengths</span><span class="p">,</span> <span class="n">enforce_sorted</span><span class="o">=</span><span class="n">enforce_sorted</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">packed_sequence</span></div>
+
+
+<div class="viewcode-block" id="pad_packed_sequence"><a class="viewcode-back" href="../../../python/api/utils/rnn.html#nnabla.utils.rnn.pad_packed_sequence">[docs]</a><span class="k">def</span> <span class="nf">pad_packed_sequence</span><span class="p">(</span><span class="n">sequence</span><span class="p">,</span> <span class="n">batch_first</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">padding_value</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">total_length</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Pad packed sequence.</span>
+
+<span class="sd">    This method unpacks the packed sequqnce and pad it, the inverse operation of :func:`pack_padded_sequence`.</span>
+
+<span class="sd">    :math:`T_i` is the length of the :math:`i`-th Variable in the sequences.</span>
+<span class="sd">    :math:`B` is the batch size equal to the length of the sequences. </span>
+<span class="sd">    :math:`T` is the max of :math:`T_i` for all :math:`i`. </span>
+<span class="sd">    :math:`*` is the remaining dimensions including none.</span>
+
+<span class="sd">    .. note::</span>
+<span class="sd">      This function **must** be used the dynamic computation mode.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">      import numpy as np</span>
+<span class="sd">      import nnabla as nn</span>
+<span class="sd">      import nnabla.functions as F</span>
+<span class="sd">      import nnabla.utils.rnn as rnn_utils</span>
+
+<span class="sd">      nn.set_auto_forward(True)</span>
+
+<span class="sd">      l2v = lambda ldata: nn.Variable.from_numpy_array(np.asarray(ldata))</span>
+<span class="sd">      a = l2v([3, 3])</span>
+<span class="sd">      b = l2v([2, 2, 2])</span>
+<span class="sd">      c = l2v([2, 2, 2])</span>
+<span class="sd">      d = l2v([1, 1, 1, 1])</span>
+<span class="sd">      e = l2v([3, 3])</span>
+<span class="sd">      sequences = [a, b, c, d, e]</span>
+
+<span class="sd">      packed_sequence = rnn_utils.pack_sequence(sequences, enforce_sorted=False)</span>
+<span class="sd">      print(packed_sequence.data.d)</span>
+<span class="sd">      print(packed_sequence.batch_sizes.d)</span>
+
+<span class="sd">      padded_sequence, lengths = rnn_utils.pad_packed_sequence(packed_sequence)</span>
+<span class="sd">      print(padded_sequence.d)</span>
+<span class="sd">      print(lengths.d)</span>
+
+<span class="sd">    Args: </span>
+<span class="sd">      sequence (:obj:`PackedSequence`): PackedSequence.</span>
+<span class="sd">      batch_first (bool): If False, output is of (:math:`T`, :math:`B`, :math:`*`) shape,</span>
+<span class="sd">                          otherwise (:math:`B`, :math:`T`, :math:`*`).</span>
+<span class="sd">      padding_value (float): Padding value.</span>
+<span class="sd">      total_length (int): If not None, the outputs are padded up to the `total_length`.</span>
+<span class="sd">                          If the `total_length` is less than the max length in the `sequences`,</span>
+<span class="sd">                          the error is thrown.</span>
+<span class="sd">                          This is normally used in the distributed training to align with </span>
+<span class="sd">                          the longest sequence in a distributed system.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">      :obj:`nnabla.Variable` of (:math:`T`, :math:`B`, :math:`*`) or (:math:`B`, :math:`T`, :math:`*`) shape</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">packed_sequence</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">data</span>
+    <span class="n">batch_sizes</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">batch_sizes</span>
+    <span class="n">sorted_indices</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">sorted_indices</span>
+    <span class="n">unsorted_indices</span> <span class="o">=</span> <span class="n">sequence</span><span class="o">.</span><span class="n">unsorted_indices</span>
+
+    <span class="n">T</span> <span class="o">=</span> <span class="n">batch_sizes</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">total_length</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">total_length</span> <span class="o">&lt;</span> <span class="n">T</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;`total length (</span><span class="si">{}</span><span class="s2">)` must be greater than or equal to the maximum length (</span><span class="si">{}</span><span class="s2">).&quot;</span>
+                             <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">total_length</span><span class="p">,</span> <span class="n">T</span><span class="p">))</span>
+
+    <span class="n">padded_sequence</span><span class="p">,</span> <span class="n">lengths</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">pad_packed_sequence</span><span class="p">(</span><span class="n">packed_sequence</span><span class="p">,</span> <span class="n">batch_sizes</span><span class="p">,</span>
+                                                     <span class="n">batch_first</span><span class="p">,</span> <span class="n">padding_value</span><span class="p">,</span>
+                                                     <span class="n">total_length</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">unsorted_indices</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span> <span class="k">if</span> <span class="n">batch_first</span> <span class="k">else</span> <span class="mi">1</span>
+        <span class="n">padded_sequence</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="n">padded_sequence</span><span class="p">,</span> <span class="n">unsorted_indices</span><span class="p">,</span> <span class="n">axis</span><span class="p">)</span>
+        <span class="n">lengths</span> <span class="o">=</span> <span class="n">lengths</span><span class="p">[</span><span class="n">unsorted_indices</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">padded_sequence</span><span class="p">,</span> <span class="n">lengths</span></div>
+
+
+<span class="k">def</span> <span class="nf">_rnn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;RNN cell.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x (:obj:`~nnabla.Variable`): Input data.</span>
+<span class="sd">        h (:obj:`~nnabla.Variable`): Hidden state.</span>
+<span class="sd">        w (:obj:`~nnabla.Variable`): Weight.</span>
+<span class="sd">        b (:obj:`~nnabla.Variable`): Bias.</span>
+<span class="sd">        nonlinearity (str): &quot;tanh&quot; or &quot;relu&quot;.</span>
+<span class="sd">        with_bias (bool): Include the bias or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xh</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">b_</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+        <span class="n">b_</span> <span class="o">=</span> <span class="n">b</span>
+    <span class="n">h_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b_</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">nonlinearity</span> <span class="o">==</span> <span class="s1">&#39;tanh&#39;</span><span class="p">:</span>
+        <span class="n">h_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">h_t</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="n">nonlinearity</span> <span class="o">==</span> <span class="s1">&#39;relu&#39;</span><span class="p">:</span>
+        <span class="n">h_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">h_t</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">h_t</span>
+
+
+<span class="k">def</span> <span class="nf">_create_fixed_length_rnn</span><span class="p">(</span><span class="n">xs0</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">w0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;NStepRNNCells over time and over layers.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        xs0 (:obj:`~nnabla.Variable`): Input data with [T, B, I]  shape.</span>
+<span class="sd">        h0 (:obj:`~nnabla.Variable`): Hidden states with [L, D, B, H] shape.</span>
+<span class="sd">        w0 (:obj:`~nnabla.Variable`): Weights at the first layer with [D, H, I+H] shape.</span>
+<span class="sd">        w (:obj:`~nnabla.Variable`): Weights with [L-1, D, H, D * H + H]  shape at layers other than the first layer.</span>
+<span class="sd">        b (:obj:`~nnabla.Variable`): Biases with [L, D, H] shape.</span>
+<span class="sd">        num_layers (int): Number of layers.</span>
+<span class="sd">        nonlinearity (str): &quot;tanh&quot; or &quot;relu&quot;.</span>
+<span class="sd">        num_directions (int): &quot;tanh&quot; or &quot;relu&quot;.</span>
+<span class="sd">        with_bias (bool): Include the bias or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># xs : [T, B, I]</span>
+    <span class="c1"># h0 : [L, D, B, H]</span>
+    <span class="c1"># w0 : [D, H, I+H]</span>
+    <span class="c1"># w : [L-1, D, H, D * H + H]</span>
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">xs0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">xs0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">xs0</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">xs0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">hn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+        <span class="n">wi</span> <span class="o">=</span> <span class="n">w0</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wi</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># wi : [D, H, ?]</span>
+        <span class="c1"># Forward direction</span>
+        <span class="n">hif</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">wif</span> <span class="o">=</span> <span class="n">wi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bif</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+            <span class="n">bif</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+            <span class="c1"># x : [B, I]</span>
+            <span class="n">hif</span> <span class="o">=</span> <span class="n">_rnn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hif</span><span class="p">,</span> <span class="n">wif</span><span class="p">,</span> <span class="n">bif</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">)</span>
+            <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hif</span><span class="p">)</span>
+        <span class="n">hn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hif</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">num_directions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">xs</span> <span class="o">=</span> <span class="n">hs</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Backward direction</span>
+        <span class="n">hib</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">wib</span> <span class="o">=</span> <span class="n">wi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">bib</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+            <span class="n">bib</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">xs</span><span class="p">)):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span>
+            <span class="c1"># x : [B, I]</span>
+            <span class="n">hib</span> <span class="o">=</span> <span class="n">_rnn</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hib</span><span class="p">,</span> <span class="n">wib</span><span class="p">,</span> <span class="n">bib</span><span class="p">,</span> <span class="n">nonlinearity</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">)</span>
+            <span class="n">hs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">hs</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">hib</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">hn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hib</span><span class="p">)</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">hs</span>
+
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span>  <span class="c1"># list of [B, HD]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">ys</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># [T, B, HD]</span>
+    <span class="n">hn</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">hn</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">num_layers</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span>
+                                          <span class="n">batch_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>  <span class="c1"># LD list of [B, H] --&gt; [L, D, B, H]</span>
+    <span class="k">return</span> <span class="n">ys</span><span class="p">,</span> <span class="n">hn</span>
+
+
+<span class="k">def</span> <span class="nf">_gru</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;GRU cell.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x (:obj:`~nnabla.Variable`): Input data.</span>
+<span class="sd">        h (:obj:`~nnabla.Variable`): Hidden state.</span>
+<span class="sd">        w (:obj:`~nnabla.Variable`): Weight.</span>
+<span class="sd">        b (:obj:`~nnabla.Variable`): Bias.</span>
+<span class="sd">        with_bias (bool): Include the bias or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xh</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">w0</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">b0</span> <span class="o">=</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b3</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+        <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">r_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b0</span><span class="p">))</span>
+    <span class="n">z_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b1</span><span class="p">))</span>
+
+    <span class="n">w2_0</span> <span class="o">=</span> <span class="n">w2</span><span class="p">[:,</span> <span class="p">:</span><span class="n">w2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">hidden_size</span><span class="p">]</span>
+    <span class="n">w2_1</span> <span class="o">=</span> <span class="n">w2</span><span class="p">[:,</span> <span class="n">w2</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="n">hidden_size</span><span class="p">:]</span>
+    <span class="n">n_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w2_0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b2</span><span class="p">)</span> <span class="o">+</span>
+                 <span class="n">r_t</span><span class="o">*</span><span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w2_1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b3</span><span class="p">))</span>
+    <span class="n">h_t</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">z_t</span><span class="p">)</span><span class="o">*</span><span class="n">n_t</span> <span class="o">+</span> <span class="n">z_t</span><span class="o">*</span><span class="n">h</span>
+
+    <span class="k">return</span> <span class="n">h_t</span>
+
+
+<span class="k">def</span> <span class="nf">_create_fixed_length_gru</span><span class="p">(</span><span class="n">xs0</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">w0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;NStepGRUCells over time and over layers.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        xs0 (:obj:`~nnabla.Variable`): Input data with [T, B, I]  shape.</span>
+<span class="sd">        h0 (:obj:`~nnabla.Variable`): Hidden states with [L, D, B, H] shape.</span>
+<span class="sd">        w0 (:obj:`~nnabla.Variable`): Weights at the first layer with [D, 3, H, I+H] shape.</span>
+<span class="sd">        w (:obj:`~nnabla.Variable`): Weights with [L-1, D, 3, H, D * H + H] shape at layers other than the first layer.</span>
+<span class="sd">        b (:obj:`~nnabla.Variable`): Biases with [L, D, 3, H] shape.</span>
+<span class="sd">        num_layers (int): Number of layers.</span>
+<span class="sd">        num_directions (int): &quot;tanh&quot; or &quot;relu&quot;.</span>
+<span class="sd">        with_bias (bool): Include the bias or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># xs : [T, B, I]</span>
+    <span class="c1"># h0 : [L, D, B, H]</span>
+    <span class="c1"># w0 : [D, 3, H, I+H]</span>
+    <span class="c1"># w : [L-1, D, 3, H, D * H + H]</span>
+    <span class="c1"># b : [L, D, 3, H]</span>
+
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">xs0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">xs0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">xs0</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">xs0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">hn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+        <span class="n">wi</span> <span class="o">=</span> <span class="n">w0</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wi</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># wi : [D, 3, H, ?]</span>
+        <span class="c1"># Forward direction</span>
+        <span class="n">hif</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">wif</span> <span class="o">=</span> <span class="n">wi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bif</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+            <span class="n">bif</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+            <span class="c1"># x : [B, I]</span>
+            <span class="n">hif</span> <span class="o">=</span> <span class="n">_gru</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hif</span><span class="p">,</span> <span class="n">wif</span><span class="p">,</span> <span class="n">bif</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">)</span>
+            <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hif</span><span class="p">)</span>
+        <span class="n">hn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hif</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">num_directions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">xs</span> <span class="o">=</span> <span class="n">hs</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Backward direction</span>
+        <span class="n">hib</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">wib</span> <span class="o">=</span> <span class="n">wi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">bib</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+            <span class="n">bib</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">xs</span><span class="p">)):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span>
+            <span class="c1"># x : [B, I]</span>
+            <span class="n">hib</span> <span class="o">=</span> <span class="n">_gru</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hib</span><span class="p">,</span> <span class="n">wib</span><span class="p">,</span> <span class="n">bib</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">)</span>
+            <span class="n">hs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">hs</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">hib</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">hn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hib</span><span class="p">)</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">hs</span>
+
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span>  <span class="c1"># list of [B, HD]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">ys</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># [T, B, HD]</span>
+    <span class="n">hn</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">hn</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">num_layers</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span>
+                                          <span class="n">batch_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>  <span class="c1"># LD list of [B, H] --&gt; [L, D, B, H]</span>
+    <span class="k">return</span> <span class="n">ys</span><span class="p">,</span> <span class="n">hn</span>
+
+
+<span class="k">def</span> <span class="nf">_lstm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;LSTM cell.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        x (:obj:`~nnabla.Variable`): Input data.</span>
+<span class="sd">        h (:obj:`~nnabla.Variable`): Short-term state.</span>
+<span class="sd">        c (:obj:`~nnabla.Variable`): Long-term state.</span>
+<span class="sd">        w (:obj:`~nnabla.Variable`): Weight.</span>
+<span class="sd">        b (:obj:`~nnabla.Variable`): Bias.</span>
+<span class="sd">        with_bias (bool): Include the bias or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">xh</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="o">*</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">h</span><span class="p">),</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">w0</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">,</span> <span class="n">w3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">b0</span> <span class="o">=</span> <span class="n">b1</span> <span class="o">=</span> <span class="n">b2</span> <span class="o">=</span> <span class="n">b3</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+        <span class="n">b0</span><span class="p">,</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">i_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w0</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b0</span><span class="p">)</span>
+    <span class="n">f_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w1</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b1</span><span class="p">)</span>
+    <span class="n">g_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w2</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b2</span><span class="p">)</span>
+    <span class="n">o_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xh</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">w3</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)),</span> <span class="n">b3</span><span class="p">)</span>
+    <span class="n">c_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">f_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">c</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">i_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">g_t</span><span class="p">)</span>
+    <span class="n">h_t</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sigmoid</span><span class="p">(</span><span class="n">o_t</span><span class="p">)</span> <span class="o">*</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">c_t</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">h_t</span><span class="p">,</span> <span class="n">c_t</span>
+
+
+<span class="k">def</span> <span class="nf">_create_fixed_length_lstm</span><span class="p">(</span><span class="n">xs0</span><span class="p">,</span> <span class="n">h0</span><span class="p">,</span> <span class="n">c0</span><span class="p">,</span> <span class="n">w0</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">num_layers</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;NStepGRUCells over time and over layers.</span>
+<span class="sd">    Args:</span>
+<span class="sd">        xs0 (:obj:`~nnabla.Variable`): Input data with [T, B, I]  shape.</span>
+<span class="sd">        h0 (:obj:`~nnabla.Variable`): Short-term states with [L, D, B, H] shape.</span>
+<span class="sd">        c0 (:obj:`~nnabla.Variable`): Long-term states with [L, D, B, H] shape.</span>
+<span class="sd">        w0 (:obj:`~nnabla.Variable`): Weights at the first layer with [D, 4, H, I+H] shape.</span>
+<span class="sd">        w (:obj:`~nnabla.Variable`): Weights with [L-1, D, 4, H, D * H + H] shape at layers other than the first layer.</span>
+<span class="sd">        b (:obj:`~nnabla.Variable`): Biases with [L, D, 4*H] shape.</span>
+<span class="sd">        num_layers (int): Number of layers.</span>
+<span class="sd">        num_directions (int): &quot;tanh&quot; or &quot;relu&quot;.</span>
+<span class="sd">        with_bias (bool): Include the bias or not.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># xs : [T, B, I]</span>
+    <span class="c1"># h0 : [L, D, B, H]</span>
+    <span class="c1"># c0 : [L, D, B, H]</span>
+    <span class="c1"># w0 : [D, 4, H, I+H]</span>
+    <span class="c1"># w : [L-1, D, 4, H, D * H + H]</span>
+    <span class="c1"># b : [L, D, 4*H]</span>
+
+    <span class="n">batch_size</span> <span class="o">=</span> <span class="n">xs0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">hidden_size</span> <span class="o">=</span> <span class="n">h0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">xs0</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="p">[</span><span class="n">xs0</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">xs0</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">hn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">cn</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_layers</span><span class="p">):</span>
+        <span class="n">wi</span> <span class="o">=</span> <span class="n">w0</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">wi</span> <span class="o">=</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="c1"># wi : [D, 4, H, ?]</span>
+        <span class="c1"># Forward direction</span>
+        <span class="n">hif</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">cif</span> <span class="o">=</span> <span class="n">c0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">wif</span> <span class="o">=</span> <span class="n">wi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">bif</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+            <span class="n">bif</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+        <span class="n">hs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">xs</span><span class="p">):</span>
+            <span class="c1"># x : [B, I]</span>
+            <span class="n">hif</span><span class="p">,</span> <span class="n">cif</span> <span class="o">=</span> <span class="n">_lstm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hif</span><span class="p">,</span> <span class="n">cif</span><span class="p">,</span> <span class="n">wif</span><span class="p">,</span> <span class="n">bif</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">)</span>
+            <span class="n">hs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hif</span><span class="p">)</span>
+        <span class="n">hn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hif</span><span class="p">)</span>
+        <span class="n">cn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cif</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">num_directions</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">xs</span> <span class="o">=</span> <span class="n">hs</span>
+            <span class="k">continue</span>
+
+        <span class="c1"># Backward direction</span>
+        <span class="n">hib</span> <span class="o">=</span> <span class="n">h0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">cib</span> <span class="o">=</span> <span class="n">c0</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>  <span class="c1"># [B, H]</span>
+        <span class="n">wib</span> <span class="o">=</span> <span class="n">wi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">bib</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="k">if</span> <span class="n">with_bias</span><span class="p">:</span>
+            <span class="n">bib</span> <span class="o">=</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="nb">reversed</span><span class="p">(</span><span class="n">xs</span><span class="p">)):</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">xs</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">k</span>
+            <span class="c1"># x : [B, I]</span>
+            <span class="n">hib</span><span class="p">,</span> <span class="n">cib</span> <span class="o">=</span> <span class="n">_lstm</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">hib</span><span class="p">,</span> <span class="n">cib</span><span class="p">,</span> <span class="n">wib</span><span class="p">,</span> <span class="n">bib</span><span class="p">,</span> <span class="n">with_bias</span><span class="p">)</span>
+            <span class="n">hs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">hs</span><span class="p">[</span><span class="n">j</span><span class="p">],</span> <span class="n">hib</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="n">hn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">hib</span><span class="p">)</span>
+        <span class="n">cn</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">cib</span><span class="p">)</span>
+        <span class="n">xs</span> <span class="o">=</span> <span class="n">hs</span>
+
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">xs</span>  <span class="c1"># list of [B, HD]</span>
+    <span class="n">ys</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">ys</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># [T, B, HD]</span>
+    <span class="n">hn</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">hn</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">num_layers</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span>
+                                          <span class="n">batch_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>  <span class="c1"># LD list of [B, H] --&gt; [L, D, B, H]</span>
+    <span class="n">cn</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">stack</span><span class="p">(</span><span class="o">*</span><span class="n">cn</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">num_layers</span><span class="p">,</span> <span class="n">num_directions</span><span class="p">,</span>
+                                          <span class="n">batch_size</span><span class="p">,</span> <span class="n">hidden_size</span><span class="p">))</span>  <span class="c1"># LD list of [B, H] --&gt; [L, D, B, H]</span>
+    <span class="k">return</span> <span class="n">ys</span><span class="p">,</span> <span class="n">hn</span><span class="p">,</span> <span class="n">cn</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

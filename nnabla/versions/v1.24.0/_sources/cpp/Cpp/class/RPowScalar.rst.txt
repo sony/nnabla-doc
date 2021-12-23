@@ -1,0 +1,6 @@
+class RPowScalar
+========================================
+
+.. doxygenclass:: RPowScalar
+	:project: Cpp
+	:members: 

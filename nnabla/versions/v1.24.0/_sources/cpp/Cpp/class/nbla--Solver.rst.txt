@@ -1,0 +1,6 @@
+class nbla::Solver
+========================================
+
+.. doxygenclass:: nbla::Solver
+	:project: Cpp
+	:members: 

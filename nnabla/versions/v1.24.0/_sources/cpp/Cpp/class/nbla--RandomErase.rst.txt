@@ -1,0 +1,6 @@
+class nbla::RandomErase
+========================================
+
+.. doxygenclass:: nbla::RandomErase
+	:project: Cpp
+	:members: 

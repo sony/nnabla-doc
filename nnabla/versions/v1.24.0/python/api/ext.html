@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Extensions &mdash; Neural Network Libraries 1.24.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Pretrained Models" href="models.html" />
+    <link rel="prev" title="Misc" href="utils/misc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.24.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Extensions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-nnabla.ext_utils">Utilities for extension</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#apis-of-extension-modules">APIs of extension modules</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+      <li>Extensions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/api/ext.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="extensions">
+<h1>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline"></a></h1>
+<p>NNabla offers easy extensibility for developers to add new device extensions.
+The NNabla Python package officially supports the <code class="docutils literal notranslate"><span class="pre">cpu</span></code>, <code class="docutils literal notranslate"><span class="pre">cuda</span></code> and <code class="docutils literal notranslate"><span class="pre">cudnn</span></code> extension,
+<code class="docutils literal notranslate"><span class="pre">cuda</span></code> and <code class="docutils literal notranslate"><span class="pre">cudnn</span></code> extension can dramatically accelerate computation by leveraging NVIDIA
+CUDA GPUs with cuDNN computation primitives.</p>
+<p>You can manually import extensions by:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span>import nnabla_ext.cudnn
+
+See :ref:`python-package-installation` to install the CUDA extension.
+</pre></div>
+</div>
+<section id="module-nnabla.ext_utils">
+<span id="utilities-for-extension"></span><h2>Utilities for extension<a class="headerlink" href="#module-nnabla.ext_utils" title="Permalink to this headline"></a></h2>
+<p>Utilities for NNabla extensions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.ext_utils.list_extensions">
+<span class="sig-prename descclassname"><span class="pre">nnabla.ext_utils.</span></span><span class="sig-name descname"><span class="pre">list_extensions</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/ext_utils.html#list_extensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.ext_utils.list_extensions" title="Permalink to this definition"></a></dt>
+<dd><p>List up available extensions.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>It may not work on some platforms/environments since it depends
+on the directory structure of the namespace packages.</p>
+</div>
+<dl class="simple">
+<dt>Returns: list of str</dt><dd><p>Names of available extensions.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.ext_utils.import_extension_module">
+<span class="sig-prename descclassname"><span class="pre">nnabla.ext_utils.</span></span><span class="sig-name descname"><span class="pre">import_extension_module</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/ext_utils.html#import_extension_module"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.ext_utils.import_extension_module" title="Permalink to this definition"></a></dt>
+<dd><p>Import an extension module by name.</p>
+<p>The extension modules are installed under the <code class="xref any docutils literal notranslate"><span class="pre">nnabla_ext</span></code> package as
+namespace packages. All extension modules provide a unified set of APIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ext_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Extension name. e.g. ‘cpu’, ‘cuda’, ‘cudnn’ etc.</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Returns: module</dt><dd><p>An Python module of a particular NNabla extension.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ext</span> <span class="o">=</span> <span class="n">import_extension_module</span><span class="p">(</span><span class="s1">&#39;cudnn&#39;</span><span class="p">)</span>
+<span class="n">available_devices</span> <span class="o">=</span> <span class="n">ext</span><span class="o">.</span><span class="n">get_devices</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">available_devices</span><span class="p">)</span>
+<span class="n">ext</span><span class="o">.</span><span class="n">device_synchronize</span><span class="p">(</span><span class="n">available_devices</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">ext</span><span class="o">.</span><span class="n">clear_memory_cache</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.ext_utils.get_extension_context">
+<span class="sig-prename descclassname"><span class="pre">nnabla.ext_utils.</span></span><span class="sig-name descname"><span class="pre">get_extension_context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_name</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/nnabla/ext_utils.html#get_extension_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.ext_utils.get_extension_context" title="Permalink to this definition"></a></dt>
+<dd><p>Get the context of the specified extension.</p>
+<p>All extension’s module must provide <code class="xref any docutils literal notranslate"><span class="pre">context(**kw)</span></code> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ext_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Module path relative to <code class="xref any docutils literal notranslate"><span class="pre">nnabla_ext</span></code>.</p></li>
+<li><p><strong>kw</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a>) – Additional keyword arguments for context function in a extension module.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The current extension context.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="common.html#nnabla.Context" title="nnabla.Context"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.Context</span></code></a></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="s1">&#39;cudnn&#39;</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="s1">&#39;0&#39;</span><span class="p">,</span> <span class="n">type_config</span><span class="o">=</span><span class="s1">&#39;half&#39;</span><span class="p">)</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="apis-of-extension-modules">
+<h2>APIs of extension modules<a class="headerlink" href="#apis-of-extension-modules" title="Permalink to this headline"></a></h2>
+<p>All extension modules must have the following functions.</p>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.ext_utils.context">
+<span class="sig-prename descclassname"><span class="pre">nnabla.ext_utils.</span></span><span class="sig-name descname"><span class="pre">context</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.ext_utils.context" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a default context descriptor of the extension module.
+This method takes optional arguments depending on the extension.
+For example, in the <code class="docutils literal notranslate"><span class="pre">cudnn</span></code> extension, it takes the <code class="docutils literal notranslate"><span class="pre">device_id</span></code> as an <code class="docutils literal notranslate"><span class="pre">int</span></code>
+to specify the GPU where computation runs on.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.ext_utils.device_synchronize">
+<span class="sig-prename descclassname"><span class="pre">nnabla.ext_utils.</span></span><span class="sig-name descname"><span class="pre">device_synchronize</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">kw</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.ext_utils.device_synchronize" title="Permalink to this definition"></a></dt>
+<dd><p>This method is used to synchronize the device execution stream with respect to the host thread.
+For example, in CUDA, the kernel execution is enqueued into a stream, and is
+executed asynchronously w.r.t. the host thread. This function is only valid in devices that use
+such features. In the CPU implementation, this method is implemented as dummy function,
+and therefore calls to this function are ignored.
+The function in the <code class="docutils literal notranslate"><span class="pre">cudnn</span></code> extension takes the <code class="docutils literal notranslate"><span class="pre">device_id</span></code> as an optional argument,
+which specifies the device you want to synchronize with.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="utils/misc.html" class="btn btn-neutral float-left" title="Misc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="models.html" class="btn btn-neutral float-right" title="Pretrained Models" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
