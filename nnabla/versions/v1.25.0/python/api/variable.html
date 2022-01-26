@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Variable &mdash; Neural Network Libraries 1.25.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Computation Graph" href="computation_graph.html" />
+    <link rel="prev" title="NdArray" href="nd_array.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.25.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+      <li>Variable</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/api/variable.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="variable">
+<span id="id1"></span><h1>Variable<a class="headerlink" href="#variable" title="Permalink to this headline"></a></h1>
+<span class="target" id="module-nnabla.variable"></span><dl class="py class">
+<dt class="sig sig-object py" id="nnabla.Variable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.</span></span><span class="sig-name descname"><span class="pre">Variable</span></span><a class="headerlink" href="#nnabla.Variable" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p><a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> is used to construct computation graphs (neural networks) together
+with functions in <a class="reference internal" href="function.html#functions"><span class="std std-ref">Functions</span></a>
+and <a class="reference internal" href="parametric_function.html#id1"><span class="std std-ref">List of Parametric Functions</span></a> .
+It also provides a method to execute forward and backward
+propagation of the network.
+The <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> class holds:</p>
+<ul class="simple">
+<li><p>Reference to the parent function in a
+computation graph. This provides traceability of all connections in the computation graph.</p></li>
+<li><p>Both data and error
+signal (gradient) containers as <a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a> s.</p></li>
+<li><p>Some additional information of the computation graph.</p></li>
+</ul>
+<p><a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> overrides some arithmetic operators
+(<code class="docutils literal notranslate"><span class="pre">+</span></code>, <code class="docutils literal notranslate"><span class="pre">-</span></code>, <code class="docutils literal notranslate"><span class="pre">*</span></code>, <code class="docutils literal notranslate"><span class="pre">/</span></code>, <code class="docutils literal notranslate"><span class="pre">**</span></code>). Operands can be either a scalar number,
+<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> or <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>.
+If <a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> is given as either of left or right operand,
+the arithmetic operation returns an <a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a> which stores the
+output of the computation immediately invoked. Otherwise, it returns
+<a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> holds the graph connection. The computation
+is invoked immediately when <a class="reference internal" href="common.html#nnabla.auto_forward" title="nnabla.auto_forward"><code class="xref any py py-func docutils literal notranslate"><span class="pre">nnabla.auto_forward</span></code></a>
+or <code class="xref any docutils literal notranslate"><span class="pre">nnabla.set_auto_forward(True)</span></code> is used.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Relational operators  <code class="code docutils literal notranslate"><span class="pre">==</span></code> and <code class="code docutils literal notranslate"><span class="pre">!=</span></code> of two  <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code></a> s are
+defined as an address comparison of underlying C++ instances
+(<code class="code docutils literal notranslate"><span class="pre">nbla::Variable</span></code>). Also, <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#hash" title="(in Python v3.6)"><code class="xref py py-func docutils literal notranslate"><span class="pre">hash()</span></code></a> function, which is often used
+in a key for <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#set" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">set</span></code></a> and <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>, is based on the address.</p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference external" href="http://nnabla.readthedocs.io/en/latest/python/tutorial/python_api.html">Python API Tutorial</a>.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>Iterable of int</em>) – Shape of variable.</p></li>
+<li><p><strong>need_grad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Flag for backprop or not.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.apply">
+<span class="sig-name descname"><span class="pre">apply</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.apply" title="Permalink to this definition"></a></dt>
+<dd><p>Helper for setting property, then return self.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.backward">
+<span class="sig-name descname"><span class="pre">backward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad=1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">clear_buffer=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">communicator_callbacks=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_pre_hook=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_post_hook=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.backward" title="Permalink to this definition"></a></dt>
+<dd><p>Performs a backward propagation starting from this variable until
+the root variable(s) is/are reached in the function graph.
+The propagation will stop at a variable with need_grad=False.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grad</strong> (scalar, <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>, <a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a>, or None) – The gradient signal value(s) of this variable.
+The default value 1 is used in an usual neural network training.
+This option is useful if you have a gradient computation module outside NNabla,
+and want to use that result as a gradient signal.
+Note that this doesn’t modifies the grad values of this variable,
+instead assign received values to its gradient temporarily.
+Also, if the <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> you want to execute
+<code class="xref any docutils literal notranslate"><span class="pre">nnabla._variable.Variable.backward</span></code> is an unlinked variable from another,
+and the corresponding <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a> holds the pre-computed gradient values,
+<strong>You need to set grad=None</strong>, otherwise, for that backward pass (propagated from the unlinked <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a>),
+pre-computed gradient values are <strong>ignored</strong>.</p></li>
+<li><p><strong>clear_buffer</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Clears the no longer referenced variables
+during backpropagation to save memory. Note that all unnecessary intermediate variables will be cleared unless set explicitly as <code class="xref any docutils literal notranslate"><span class="pre">persistent=True</span></code>.</p></li>
+<li><p><strong>communicator_callbacks</strong> (<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.CommunicatorBackwardCallback</span></code> or list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.CommunicatorBackwardCallback</span></code>) – The callback functions invoked when 1) backward computation
+of each function is finished and 2) all backward
+computation is finished.</p></li>
+<li><p><strong>function_pre_hook</strong> (<em>callable</em>) – This callable object is called immediately before each function is executed.
+It must take <a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Function</span></code></a> as an input.
+The default is None.</p></li>
+<li><p><strong>function_post_hook</strong> (<em>callable</em>) – This callable object is called immediately after each function is executed.
+It must take <a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Function</span></code></a> as an input.
+The default is None.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>We first explain simple backward usage.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nnabla.initializer</span> <span class="k">as</span> <span class="nn">I</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">217</span><span class="p">)</span>
+<span class="n">initializer</span> <span class="o">=</span> <span class="n">I</span><span class="o">.</span><span class="n">UniformInitializer</span><span class="p">((</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># random input, just for example.</span>
+
+<span class="n">y0</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">outmaps</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">w_init</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;conv1&quot;</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y0</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">outmaps</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">w_init</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;conv2&quot;</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">(</span><span class="n">y3</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">y3</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">y5</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">y4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w_init</span><span class="o">=</span><span class="n">initializer</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y5</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">))</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>  <span class="c1"># Execute forward</span>
+
+<span class="c1"># We can check the current gradient of parameter.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()[</span><span class="s2">&quot;conv1/conv/W&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>[[[[0. 0. 0.]
+   [0. 0. 0.]
+   [0. 0. 0.]]
+      ...
+</pre></div>
+</div>
+<p>Initially all the gradient values should be zero.
+Then let’s see what happens after calling backward.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()[</span><span class="s2">&quot;conv1/conv/W&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>[[[[ 0.00539637  0.00770839  0.0090611 ]
+   [ 0.0078223   0.00978992  0.00720569]
+   [ 0.00879023  0.00578172  0.00790895]]
+                     ...
+</pre></div>
+</div>
+<p>Now we know the gradient values are computed and registered by calling <a class="reference internal" href="#nnabla.Variable.backward" title="nnabla.Variable.backward"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">backward</span></code></a>.
+Note that calling <a class="reference internal" href="#nnabla.Variable.backward" title="nnabla.Variable.backward"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">backward</span></code></a> successively <strong>accumulates</strong> the result.
+It means if we execute <a class="reference internal" href="#nnabla.Variable.backward" title="nnabla.Variable.backward"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">backward</span></code></a> again, we get the doubled result.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>  <span class="c1"># execute again.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()[</span><span class="s2">&quot;conv1/conv/W&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can see it’s accumulated.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>[[[[ 0.01079273  0.01541678  0.0181222 ]
+   [ 0.01564459  0.01957984  0.01441139]
+   [ 0.01758046  0.01156345  0.0158179 ]]
+                     ...
+</pre></div>
+</div>
+<p>Next is an advanced usage with an unlinked variable (please refer to <a class="reference internal" href="#nnabla.Variable.get_unlinked_variable" title="nnabla.Variable.get_unlinked_variable"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">get_unlinked_variable</span></code></a>).
+We use the same network, but it is separated by the unlinked variable.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nnabla.initializer</span> <span class="k">as</span> <span class="nn">I</span>
+
+<span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">217</span><span class="p">)</span>  <span class="c1"># use the same random seed.</span>
+<span class="n">initializer</span> <span class="o">=</span> <span class="n">I</span><span class="o">.</span><span class="n">UniformInitializer</span><span class="p">((</span><span class="o">-</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">),</span> <span class="n">rng</span><span class="o">=</span><span class="n">rng</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">8</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># random input, just for example.</span>
+
+<span class="n">y0</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">outmaps</span><span class="o">=</span><span class="mi">64</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">w_init</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;conv1&quot;</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y0</span><span class="p">)</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">y1</span><span class="p">,</span> <span class="n">outmaps</span><span class="o">=</span><span class="mi">128</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">stride</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="n">w_init</span><span class="o">=</span><span class="n">initializer</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;conv2&quot;</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="n">y3</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">y2</span><span class="p">)</span>
+<span class="n">y3_unlinked</span> <span class="o">=</span> <span class="n">y3</span><span class="o">.</span><span class="n">get_unlinked_variable</span><span class="p">()</span>  <span class="c1"># the computation graph is cut apart here.</span>
+<span class="n">y4</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">(</span><span class="n">y3_unlinked</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="n">y3_unlinked</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+<span class="n">y5</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">y4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w_init</span><span class="o">=</span><span class="n">initializer</span><span class="p">)</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">abs</span><span class="p">(</span><span class="n">y5</span> <span class="o">-</span> <span class="mf">1.</span><span class="p">))</span>
+
+<span class="c1"># Execute forward.</span>
+<span class="n">y3</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>  <span class="c1"># you need to execute forward at the unlinked variable first.</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>  <span class="c1"># Then execute forward at the leaf variable.</span>
+
+<span class="c1"># Execute backward.</span>
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>  <span class="c1"># works, but backpropagation stops at y3_unlinked.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()[</span><span class="s2">&quot;conv1/conv/W&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>  <span class="c1"># no gradient registered yet.</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>[[[[0. 0. 0.]
+   [0. 0. 0.]
+   [0. 0. 0.]]
+      ...
+</pre></div>
+</div>
+<p>We can confirm that backpropagation stops at <code class="xref any docutils literal notranslate"><span class="pre">y3_unlinked</span></code>.
+Then let’s see how to execute backpropagation to the root variable (<code class="xref any docutils literal notranslate"><span class="pre">x</span></code>).
+Since it’s a little bit complicated, let us give you an example of common pitfall first.
+<strong>Note that this is an incorrect way and intended just to show the backward’s behavior.</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y3</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>  <span class="c1"># this works, but computed gradient values are not correct.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()[</span><span class="s2">&quot;conv1/conv/W&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>[[[[ 17.795254    23.960905    25.51168   ]
+   [ 20.661646    28.484127    19.406212  ]
+   [ 26.91042     22.239697    23.395714  ]]
+                     ...
+</pre></div>
+</div>
+<p><strong>Note that this is a wrong result.</strong> The gradient held by <code class="xref any docutils literal notranslate"><span class="pre">y3_unlinked</span></code> has been totally ignored.
+As described above, just calling <a class="reference internal" href="#nnabla.Variable.backward" title="nnabla.Variable.backward"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">backward</span></code></a>, the gradient (of the leaf variable where you call <a class="reference internal" href="#nnabla.Variable.backward" title="nnabla.Variable.backward"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">backward</span></code></a>) is considered to be 1.</p>
+<p>To execute backpropagation over 2 separate graphs <strong>correctly</strong>,  We need to specify <code class="xref any docutils literal notranslate"><span class="pre">grad=None</span></code> as shown below, then present gradient held by that variable is used for computation.
+(<code class="xref any docutils literal notranslate"><span class="pre">y3.backward(grad=y3_unlinked.g)</span></code> does the same thing.)</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">#reset all the gradient values.</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">g</span> <span class="o">=</span> <span class="mf">0.</span>
+<span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="p">[</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">y2</span><span class="p">,</span> <span class="n">y3</span><span class="p">,</span> <span class="n">y4</span><span class="p">,</span> <span class="n">y5</span><span class="p">]:</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">g</span> <span class="o">=</span> <span class="mf">0.</span>  <span class="c1"># need to reset all the gradient values.</span>
+
+<span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>  <span class="c1"># backpropagation starts from the leaf variable again.</span>
+<span class="n">y3</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">grad</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>  <span class="c1"># By this, it can take over the gradient held by y3_unlinked.</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">()[</span><span class="s2">&quot;conv1/conv/W&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">g</span><span class="p">)</span>  <span class="c1"># correct result.</span>
+</pre></div>
+</div>
+<p>This time you should have the same result.</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>[[[[ 0.00539637  0.00770839  0.0090611 ]
+   [ 0.0078223   0.00978992  0.00720569]
+   [ 0.00879023  0.00578172  0.00790895]]
+                     ...
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.bool_fill_">
+<span class="sig-name descname"><span class="pre">bool_fill_</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">mask</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.bool_fill_" title="Permalink to this definition"></a></dt>
+<dd><p>Return a new but inplaced <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> filled with value where mask is non-zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> (<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a>) – Mask with which to fill. Non-zero/zero elements are supposed to be a binary mask as 1/0. No gradients are computed with respect to mask.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – The value to fill.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.clear_all_graph_links">
+<span class="sig-name descname"><span class="pre">clear_all_graph_links</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.clear_all_graph_links" title="Permalink to this definition"></a></dt>
+<dd><p>Clear all intermediate functions and variables.</p>
+<p>This method clear all intermediate functions and variables up to this variable
+in forward pass and is useful for the truncated backpropagation through time
+(truncated BPTT) in dynamic graph.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.d">
+<span class="sig-name descname"><span class="pre">d</span></span><a class="headerlink" href="#nnabla.Variable.d" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the values held by this variable, as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+Note that the values are referenced (not copied). Therefore, the
+modification of the returned ndarray will affect the data of the
+NNabla array.
+This method can be called as a setter to set the value held by this variable.
+Refer to the documentation of the setter <a class="reference internal" href="nd_array.html#nnabla.NdArray.data" title="nnabla.NdArray.data"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">nnabla.NdArray.data</span></code></a>
+for detailed behaviors of the setter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) (optional) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.data">
+<span class="sig-name descname"><span class="pre">data</span></span><a class="headerlink" href="#nnabla.Variable.data" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the data held by this variable, as a
+<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a>. This can also be used as a setter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ndarray</strong> (<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><em>NdArray</em></a>) – NdArray object. Size must
+be the same as this Variable.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.forward">
+<span class="sig-name descname"><span class="pre">forward</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">clear_buffer=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bool</span> <span class="pre">clear_no_need_grad=False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_pre_hook=None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">function_post_hook=None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.forward" title="Permalink to this definition"></a></dt>
+<dd><p>Performs a forward propagation from the root node to this variable.
+The forward propagation is performed on a subset of variables
+determined by the dependency of this variable.
+The subset is recursively constructed by tracking variables that the
+variables in the subset depend on, starting from this variable,
+until it reaches the root variable(s) in the function graph.
+See also <code class="xref py py-obj docutils literal notranslate"><span class="pre">forward_all</span></code>, which performs forward computations for all variables within the input graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clear_buffer</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Clear the no longer referenced variables
+during forward propagation to save memory.
+This is usually set as True in an inference
+or a validation phase. Default is False.
+Note that all unnecessary intermediate variables will be cleared unless set explicitly as <code class="xref any docutils literal notranslate"><span class="pre">persistent=True</span></code>.</p></li>
+<li><p><strong>clear_no_need_grad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Clear the unreferenced variables with
+need_grad=False during forward propagation.
+True is usually used when calling this during training.
+This is ignored when clear_buffer=True.</p></li>
+<li><p><strong>function_pre_hook</strong> (<em>callable</em>) – This callable object is called immediately before each function is executed.
+It must take <a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Function</span></code></a> as an input.
+The default is None.</p></li>
+<li><p><strong>function_post_hook</strong> (<em>callable</em>) – This callable object is called immediately after each function is executed.
+It must take <a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Function</span></code></a> as an input.
+The default is None.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.from_numpy_array">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_numpy_array</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.from_numpy_array" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Variable object from Numpy array(s).</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">data</span></code> is initialized with the given Numpy array, as well as
+<code class="docutils literal notranslate"><span class="pre">grad</span></code> if given.</p>
+<p>The shape is also determined by the given array.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a>) – Values copied to the <code class="docutils literal notranslate"><span class="pre">data</span></code> of the created
+Variable.</p></li>
+<li><p><strong>grad</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><em>ndarray</em></a>) – Values copied to the <code class="docutils literal notranslate"><span class="pre">grad</span></code> of the created
+Variable.</p></li>
+<li><p><strong>need_grad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Flag for backprop or not.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Variable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.function_references">
+<span class="sig-name descname"><span class="pre">function_references</span></span><a class="headerlink" href="#nnabla.Variable.function_references" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a list of functions which take this variable as an input.
+This method can be called only as a getter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>list of <a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.function.Function</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.g">
+<span class="sig-name descname"><span class="pre">g</span></span><a class="headerlink" href="#nnabla.Variable.g" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the gradient values held by this variable, as a <a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>.
+Note that the values are referenced (not copied). Therefore, the
+modification of the returned ndarray will affect the data of the
+NNabla array.
+This method can be called as a setter to set the gradient held by this variable.
+Refer to the documentation of the setter <a class="reference internal" href="nd_array.html#nnabla.NdArray.data" title="nnabla.NdArray.data"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">nnabla.NdArray.data</span></code></a>
+for detailed behaviors of the setter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> (<a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://numpy.org/doc/stable/reference/generated/numpy.ndarray.html#numpy.ndarray" title="(in NumPy v1.22)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">numpy.ndarray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.get_unlinked_variable">
+<span class="sig-name descname"><span class="pre">get_unlinked_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.get_unlinked_variable" title="Permalink to this definition"></a></dt>
+<dd><p>Gets an unlinked (forgetting parent) variable that shares a Variable buffer
+instance.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>need_grad</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – By default, the unlinked variable will have the same need_grad
+flag with this variable instance. By specifying a boolean value,
+the new need_grad flags will be set to the unlinked variable.
+It is recommended to explicitly specify this option to avoid an
+unintended behavior.</p>
+</dd>
+</dl>
+<p>Returns: <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The unlinked Variable behaves equivalent to the original variable
+in a comparison operator and hash function regardless whether or
+not the <a class="reference internal" href="#nnabla.Variable.need_grad" title="nnabla.Variable.need_grad"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">need_grad</span></code></a> attribute is changed.
+See a note in the <a class="reference internal" href="../tutorial/python_api.html#variable"><span class="std std-ref">Variable</span></a> class documentation. Also, for backward execution with unlinked variable(s), please refer to <a class="reference internal" href="#nnabla.Variable.backward" title="nnabla.Variable.backward"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">backward</span></code></a> and its example.</p>
+</div>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+
+<span class="c1"># Create a new variable of which graph connection is unlinked.</span>
+<span class="c1"># Recommend to specify need_grad option explicitly .</span>
+<span class="n">z</span> <span class="o">=</span> <span class="n">y</span><span class="o">.</span><span class="n">get_unlinked_variable</span><span class="p">(</span><span class="n">need_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+<span class="c1"># Affine</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">z</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>  <span class="c1"># z is unlinked from the parent x but shares the buffers of y.</span>
+<span class="c1"># None</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.grad">
+<span class="sig-name descname"><span class="pre">grad</span></span><a class="headerlink" href="#nnabla.Variable.grad" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the gradient held by this variable, as a
+<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a>. This can also be used as a setter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ndarray</strong> (<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><em>NdArray</em></a>) – NdArray object. Size must
+be the same as this Variable.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-class docutils literal notranslate"><span class="pre">NdArray</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.info">
+<span class="sig-name descname"><span class="pre">info</span></span><a class="headerlink" href="#nnabla.Variable.info" title="Permalink to this definition"></a></dt>
+<dd><p>object</p>
+<p>Information of the variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type</dt>
+<dd class="field-odd"><p>info</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.masked_fill_">
+<span class="sig-name descname"><span class="pre">masked_fill_</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.masked_fill_" title="Permalink to this definition"></a></dt>
+<dd><p>Variable.bool_fill_(self, mask, value)</p>
+<p>Return a new but inplaced <a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> filled with value where mask is non-zero.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>mask</strong> (<a class="reference internal" href="nd_array.html#nnabla.NdArray" title="nnabla.NdArray"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.NdArray</span></code></a>) – Mask with which to fill. Non-zero/zero elements are supposed to be a binary mask as 1/0. No gradients are computed with respect to mask.</p></li>
+<li><p><strong>value</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – The value to fill.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.ndim">
+<span class="sig-name descname"><span class="pre">ndim</span></span><a class="headerlink" href="#nnabla.Variable.ndim" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the number of dimensions of this variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>int</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.need_grad">
+<span class="sig-name descname"><span class="pre">need_grad</span></span><a class="headerlink" href="#nnabla.Variable.need_grad" title="Permalink to this definition"></a></dt>
+<dd><p>Gets or sets a boolean indicating whether backpropagation is performed at this variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Whether backpropagation is performed at this variable.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether this variable requires gradient or not.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.no_grad">
+<span class="sig-name descname"><span class="pre">no_grad</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.no_grad" title="Permalink to this definition"></a></dt>
+<dd><p>No gradients for the whole network.</p>
+<p>This method is like <a class="reference internal" href="computation_graph.html#nnabla.no_grad" title="nnabla.no_grad"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.no_grad</span></code></a> but can be used for the static network only, and useful for
+the case where the network is loaded from NNP format.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">([</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="n">y</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">Network</span><span class="o">&gt;</span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="o">.</span><span class="n">no_grad</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.parent">
+<span class="sig-name descname"><span class="pre">parent</span></span><a class="headerlink" href="#nnabla.Variable.parent" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the parent function of this variable.
+This method can also be called as a setter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> (<a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.function.Function</span></code></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.function.Function</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.persistent">
+<span class="sig-name descname"><span class="pre">persistent</span></span><a class="headerlink" href="#nnabla.Variable.persistent" title="Permalink to this definition"></a></dt>
+<dd><p>Returns the persistent flag of this variable. If True, the variable
+is not cleared even if clear options in
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">nnabla._variable.Variable.forward()</span></code> and
+<code class="xref py py-meth docutils literal notranslate"><span class="pre">nnabla._variable.Variable.backward()</span></code> are enabled.
+This is useful when you debug the variable values, or log them.
+This method can also be called as a setter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.recompute">
+<span class="sig-name descname"><span class="pre">recompute</span></span><a class="headerlink" href="#nnabla.Variable.recompute" title="Permalink to this definition"></a></dt>
+<dd><p>Gets or sets a boolean indicating whether its data is cleared during forward propagation and recomputation is performed during backward propagation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>b</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Whether recomputation is performed during backward propagation.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Whether this variable is recomputed during backward propagation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)">bool</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.reset_shape">
+<span class="sig-name descname"><span class="pre">reset_shape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.reset_shape" title="Permalink to this definition"></a></dt>
+<dd><p>Resizes the shape of the variable to a specified shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>Iterable of int</em>) – Target shape.</p></li>
+<li><p><strong>force</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Flag to force reshape.</p></li>
+</ul>
+</dd>
+</dl>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This method destructively changes the shape of the target variable. For safety, <a class="reference internal" href="function.html#nnabla.functions.reshape" title="nnabla.functions.reshape"><code class="xref py py-func docutils literal notranslate"><span class="pre">reshape()</span></code></a> should be used instead.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.reshape">
+<span class="sig-name descname"><span class="pre">reshape</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">unlink</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.reshape" title="Permalink to this definition"></a></dt>
+<dd><p>Returns a new variable, where this variable is reshaped to a specified shape.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> (<em>Iterable of int</em>) – Target shape.</p></li>
+<li><p><strong>unlink</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Unlink graph connection. Or, keep graph connection, i.e.
+the gradient will be backprop-ed to the original variable.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Variable</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.rewire_on">
+<span class="sig-name descname"><span class="pre">rewire_on</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.rewire_on" title="Permalink to this definition"></a></dt>
+<dd><p>Rewire a successor graph of this variable on top of <code class="docutils literal notranslate"><span class="pre">var</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>var</strong> (<a class="reference internal" href="#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – The array elements and the parent function of <code class="docutils literal notranslate"><span class="pre">var</span></code> is
+copied to <code class="docutils literal notranslate"><span class="pre">self</span></code> as references.
+Note that the parent function of <code class="docutils literal notranslate"><span class="pre">var</span></code> is removed.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># A. Create a graph A.</span>
+<span class="n">xa</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">8</span><span class="p">),</span> <span class="n">need_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">ya</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xa</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;a&#39;</span><span class="p">))</span>
+
+<span class="c1"># B. Create a graph B.</span>
+<span class="n">xb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">),</span> <span class="n">need_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">yb</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span>
+    <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">xb</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b1&#39;</span><span class="p">)),</span>
+    <span class="mi">8</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;b2&#39;</span><span class="p">))</span>
+
+<span class="c1"># C. Rewire the graph A on top of B such that</span>
+<span class="c1">#    `xb-&gt;B-&gt;(yb-&gt;)xa-&gt;A-&gt;ya`. Note `yb` is gone.</span>
+<span class="n">xa</span><span class="o">.</span><span class="n">rewire_on</span><span class="p">(</span><span class="n">yb</span><span class="p">)</span>
+
+<span class="c1"># D. Execute the rewired graph.</span>
+<span class="n">xb</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">ya</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+<span class="n">ya</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.shape">
+<span class="sig-name descname"><span class="pre">shape</span></span><a class="headerlink" href="#nnabla.Variable.shape" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the shape of the variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>tuple of <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.Variable.size">
+<span class="sig-name descname"><span class="pre">size</span></span><a class="headerlink" href="#nnabla.Variable.size" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size of the variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.size_from_axis">
+<span class="sig-name descname"><span class="pre">size_from_axis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">axis</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">-</span> <span class="pre">1</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.size_from_axis" title="Permalink to this definition"></a></dt>
+<dd><p>Gets the size followed by the provided axis.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">nnabla</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">])</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">()</span>
+<span class="c1"># ==&gt; 90</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="c1"># ==&gt; 90</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="c1"># ==&gt; 9</span>
+<span class="n">a</span><span class="o">.</span><span class="n">size_from_axis</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="c1"># ==&gt; 1</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a>, optional) – -1 as default</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">int</span></code></a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.unlinked">
+<span class="sig-name descname"><span class="pre">unlinked</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.unlinked" title="Permalink to this definition"></a></dt>
+<dd><p>This function is <code class="xref any docutils literal notranslate"><span class="pre">deprecated</span></code>, use get_unlinked_variable instead.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.visit">
+<span class="sig-name descname"><span class="pre">visit</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.visit" title="Permalink to this definition"></a></dt>
+<dd><p>Visit functions recursively in forward order.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>function</em>) – Function object which takes
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla._function.Function</span></code> object as an argument.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="c1"># Define a simple network-graph</span>
+<span class="k">def</span> <span class="nf">network_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">maps</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">maps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;first-conv&quot;</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pred&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pred</span>
+
+<span class="c1"># You can modify this PrintFunc to get the other information like inputs(nnabla_func.inputs), outputs and arguments(nnabla_func.info.args) of nnabla functions.</span>
+<span class="k">class</span> <span class="nc">PrintFunc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nnabla_func</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">nnabla_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span><span class="p">)</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">])</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">network_graph</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">output</span><span class="o">.</span><span class="n">visit</span><span class="p">(</span><span class="n">PrintFunc</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>Convolution
+AveragePooling
+Affine
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.Variable.visit_check">
+<span class="sig-name descname"><span class="pre">visit_check</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.Variable.visit_check" title="Permalink to this definition"></a></dt>
+<dd><p>Visit functions recursively in forward order.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If any of evaluation of the function object returns True,
+the visit propagation will stop immediately,
+and will return True.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>function</em>) – Function object which takes
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla._function.Function</span></code> object as an argument.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>bool
+Returns True if any of the function object call returns True.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>Define a simple network-graph where AveragePooling function can be added explicitly as below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">network_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">add_avg_pool</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">maps</span><span class="o">=</span><span class="mi">16</span><span class="p">,</span> <span class="n">test</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">x</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">maps</span><span class="p">,</span> <span class="n">kernel</span><span class="o">=</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;first-conv&quot;</span><span class="p">,</span> <span class="n">with_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">add_avg_pool</span> <span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">average_pooling</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">2</span><span class="p">:])</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">h</span><span class="p">)</span>
+    <span class="n">pred</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;pred&quot;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">pred</span>
+
+<span class="c1"># Define &#39;PrintFunc()&#39; to check whether &quot;AveragePooling&quot; function exists in the network-graph</span>
+<span class="k">class</span> <span class="nc">PrintFunc</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nnabla_func</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">nnabla_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span><span class="s2">&quot;AveragePooling&quot;</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> exists in the graph&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">nnabla_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span><span class="p">))</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">else</span> <span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+</pre></div>
+</div>
+<p>Create a network-graph which has AveragePooling function and call visit_check() method :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">16</span><span class="p">,</span> <span class="mi">16</span><span class="p">])</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">network_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">add_avg_pool</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1">#Adding AveragePooling function to the graph</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The return value of visit_check() method is : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">visit_check</span><span class="p">(</span><span class="n">PrintFunc</span><span class="p">())))</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>AveragePooling exists in the graph
+The return value of visit_check() method is : True
+</pre></div>
+</div>
+<p>Create a network-graph which doesn’t have AveragePooling function and call visit_check() method :</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nn</span><span class="o">.</span><span class="n">clear_parameters</span><span class="p">()</span>                         <span class="c1"># call this in case you want to run the following code again</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">network_graph</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">add_avg_pool</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Exclusion of AveragePooling function in the graph</span>
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The return value of visit_check() method is : </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">visit_check</span><span class="p">(</span><span class="n">PrintFunc</span><span class="p">())))</span>
+</pre></div>
+</div>
+<p>Output :</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>The return value of visit_check() method is : False
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nd_array.html" class="btn btn-neutral float-left" title="NdArray" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="computation_graph.html" class="btn btn-neutral float-right" title="Computation Graph" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

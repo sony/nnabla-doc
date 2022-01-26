@@ -1,0 +1,6 @@
+struct nbla::float_bits
+========================================
+
+.. doxygenstruct:: nbla::float_bits
+	:project: Cpp
+	:members: 

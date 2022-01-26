@@ -1,0 +1,6 @@
+class nbla::ClipGradByValue
+========================================
+
+.. doxygenclass:: nbla::ClipGradByValue
+	:project: Cpp
+	:members: 

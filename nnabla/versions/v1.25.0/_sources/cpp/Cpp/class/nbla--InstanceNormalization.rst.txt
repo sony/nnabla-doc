@@ -1,0 +1,6 @@
+class nbla::InstanceNormalization
+========================================
+
+.. doxygenclass:: nbla::InstanceNormalization
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::BoolScatter
+========================================
+
+.. doxygenclass:: nbla::BoolScatter
+	:project: Cpp
+	:members: 

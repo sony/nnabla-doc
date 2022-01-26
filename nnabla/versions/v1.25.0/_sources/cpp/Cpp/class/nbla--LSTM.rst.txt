@@ -1,0 +1,6 @@
+class nbla::LSTM
+========================================
+
+.. doxygenclass:: nbla::LSTM
+	:project: Cpp
+	:members: 

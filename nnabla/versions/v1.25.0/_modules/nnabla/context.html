@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.context &mdash; Neural Network Libraries 1.25.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.25.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>nnabla.context</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.context</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2017,2018,2019,2020,2021 Sony Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">NNabla Context manager</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">absolute_import</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">.variable</span> <span class="kn">import</span> <span class="n">Context</span>
+
+
+<span class="n">current_ctx</span> <span class="o">=</span> <span class="n">Context</span><span class="p">()</span>
+<span class="n">context_level</span> <span class="o">=</span> <span class="mi">0</span>
+
+
+<div class="viewcode-block" id="context_scope"><a class="viewcode-back" href="../../python/api/common.html#nnabla.context_scope">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">context_scope</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Context as Python context.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.functions as F</span>
+<span class="sd">        x = nn.Variable([2, 3 ,4])</span>
+<span class="sd">        ctx = nnabla_ext.cuda.context(&#39;0&#39;)</span>
+<span class="sd">        with context_scope(ctx):</span>
+<span class="sd">            # Inside with scope, the specified context is used.</span>
+<span class="sd">            with parameter_scope(&#39;w1&#39;):</span>
+<span class="sd">                l1 = F.relu(F.affine(x, 64))</span>
+<span class="sd">            with parameter_scope(&#39;w2&#39;):</span>
+<span class="sd">                l2 = F.relu(F.affine(x, 64))</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">current_ctx</span>
+    <span class="k">global</span> <span class="n">context_level</span>
+    <span class="n">context_level</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">prev_context</span> <span class="o">=</span> <span class="n">current_ctx</span>
+    <span class="n">current_ctx</span> <span class="o">=</span> <span class="n">ctx</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">context_level</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="n">current_ctx</span> <span class="o">=</span> <span class="n">prev_context</span></div>
+
+
+<div class="viewcode-block" id="set_default_context"><a class="viewcode-back" href="../../python/api/common.html#nnabla.set_default_context">[docs]</a><span class="k">def</span> <span class="nf">set_default_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Set the default context.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        It cannot be called inside any `context_scope`.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ctx (Context): A Context.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">context_level</span>
+    <span class="k">global</span> <span class="n">current_ctx</span>
+    <span class="k">assert</span> <span class="n">context_level</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="s2">&quot;It cannot be called inside any context_scope.&quot;</span>
+    <span class="n">current_ctx</span> <span class="o">=</span> <span class="n">ctx</span></div>
+
+
+<div class="viewcode-block" id="get_current_context"><a class="viewcode-back" href="../../python/api/common.html#nnabla.get_current_context">[docs]</a><span class="k">def</span> <span class="nf">get_current_context</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Get the current context.</span>
+
+<span class="sd">    It can be set using :meth:`nnabla.context_scope` or :meth:`nnabla.set_default_context` .</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Context: a current context.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">current_ctx</span>
+    <span class="k">return</span> <span class="n">current_ctx</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
