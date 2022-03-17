@@ -1,0 +1,6 @@
+class nbla::Transpose
+========================================
+
+.. doxygenclass:: nbla::Transpose
+	:project: Cpp
+	:members: 

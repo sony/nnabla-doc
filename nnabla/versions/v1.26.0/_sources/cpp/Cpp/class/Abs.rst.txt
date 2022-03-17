@@ -1,0 +1,6 @@
+class Abs
+========================================
+
+.. doxygenclass:: Abs
+	:project: Cpp
+	:members: 

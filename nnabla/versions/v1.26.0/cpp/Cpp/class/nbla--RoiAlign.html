@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::RoiAlign &mdash; Neural Network Libraries 1.26.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class Round" href="Round.html" />
+    <link rel="prev" title="class nbla::RNN" href="nbla--RNN.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.26.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::RoiAlign</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--RoiAlign.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-roialign">
+<h1>class nbla::RoiAlign<a class="headerlink" href="#class-nbla-roialign" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla8RoiAlignE">
+<span id="_CPPv3I0EN4nbla8RoiAlignE"></span><span id="_CPPv2I0EN4nbla8RoiAlignE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1RoiAlign"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RoiAlign</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--BaseFunction.html#_CPPv4IDpEN4nbla12BaseFunctionE" title="nbla::BaseFunction"><span class="n"><span class="pre">BaseFunction</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN4nbla8RoiAlignE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Map Regions of Interest (RoI) defined by bounding `boxes` to features of `output_size` height and width using bilinear interpolation with `sampling_ratio` points in the interpolation grid. </p>
+<p>Inputs:<ul class="simple">
+<li><p>Input array with shape <span class="math notranslate nohighlight">\((N, H, W, C)\)</span> or <span class="math notranslate nohighlight">\((N, C, H, W)\)</span>.</p></li>
+<li><p>Boxes array with shape <span class="math notranslate nohighlight">\((K, 5)\)</span> containing box coordinates in (b, x1, y1, x2, y2) format where b is the batch index.</p></li>
+</ul>
+</p>
+<p>Outputs:<ul class="simple">
+<li><p>N-D array with shape <span class="math notranslate nohighlight">\((K, C, output\_size[0], output\_size[1])\)</span> or <span class="math notranslate nohighlight">\((K, output\_size[0], output\_size[1], C)\)</span>.</p></li>
+</ul>
+</p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Reference:<ul class="simple">
+<li><p>He et al., Mask R-CNN. <a class="reference external" href="https://arxiv.org/abs/1703.06870v3">https://arxiv.org/abs/1703.06870v3</a> </p></li>
+</ul>
+</p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>T</strong> – Data type for computation. </p>
+</dd>
+<dt class="field-even">Param output_size</dt>
+<dd class="field-even"><p>The height and width of the output feature maps. </p>
+</dd>
+<dt class="field-odd">Param spatial_scale</dt>
+<dd class="field-odd"><p>Scaling factor from box to input coordinates, as (x, y). </p>
+</dd>
+<dt class="field-even">Param sampling_ratio</dt>
+<dd class="field-even"><p>The number of sampling points used for interpolation. </p>
+</dd>
+<dt class="field-odd">Param channel_last</dt>
+<dd class="field-odd"><p>Whethe last dimension is considered as channel dimension.</p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8RoiAlign4copyEv">
+<span id="_CPPv3NK4nbla8RoiAlign4copyEv"></span><span id="_CPPv2NK4nbla8RoiAlign4copyEv"></span><span id="nbla::RoiAlign::copyC"></span><span class="target" id="classnbla_1_1RoiAlign_1a9fdf08c3513482f0c4b9ae5e5c779191"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Function.html#_CPPv4N4nbla8FunctionE" title="nbla::Function"><span class="n"><span class="pre">Function</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8RoiAlign4copyEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy another instance of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> with the same context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8RoiAlign10min_inputsEv">
+<span id="_CPPv3N4nbla8RoiAlign10min_inputsEv"></span><span id="_CPPv2N4nbla8RoiAlign10min_inputsEv"></span><span id="nbla::RoiAlign::min_inputs"></span><span class="target" id="classnbla_1_1RoiAlign_1a28ced23184dad726e49bdc6e652832b5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_inputs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8RoiAlign10min_inputsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get minimum number of inputs. </p>
+<p>This is meant to be used in setup function with in_types which is used to get maximum number of inputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8RoiAlign11min_outputsEv">
+<span id="_CPPv3N4nbla8RoiAlign11min_outputsEv"></span><span id="_CPPv2N4nbla8RoiAlign11min_outputsEv"></span><span id="nbla::RoiAlign::min_outputs"></span><span class="target" id="classnbla_1_1RoiAlign_1a5aeb38c2f2a30404d7519e4195949bb4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_outputs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8RoiAlign11min_outputsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get minimum number of outputs. </p>
+<p>This is meant to be used in setup function with out_types which is used to get max number of outputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8RoiAlign8in_typesEv">
+<span id="_CPPv3N4nbla8RoiAlign8in_typesEv"></span><span id="_CPPv2N4nbla8RoiAlign8in_typesEv"></span><span id="nbla::RoiAlign::in_types"></span><span class="target" id="classnbla_1_1RoiAlign_1a962d0455f41c6a44cf9dbc0111fbf742"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">in_types</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8RoiAlign8in_typesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get input dtypes. </p>
+<p>Last in_type will be used repeatedly if size of in_types is smaller than size of inputs </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8RoiAlign9out_typesEv">
+<span id="_CPPv3N4nbla8RoiAlign9out_typesEv"></span><span id="_CPPv2N4nbla8RoiAlign9out_typesEv"></span><span id="nbla::RoiAlign::out_types"></span><span class="target" id="classnbla_1_1RoiAlign_1a78d56e69a6adf7f1c834798faa2a6125"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">out_types</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8RoiAlign9out_typesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get output dtypes. </p>
+<p>Last out_type will be used repeatedly if size of out_types is smaller than size of outputs </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8RoiAlign21allowed_array_classesEv">
+<span id="_CPPv3N4nbla8RoiAlign21allowed_array_classesEv"></span><span id="_CPPv2N4nbla8RoiAlign21allowed_array_classesEv"></span><span id="nbla::RoiAlign::allowed_array_classes"></span><span class="target" id="classnbla_1_1RoiAlign_1acfdd02fe036e14dc5a71e445513cbd7b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowed_array_classes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8RoiAlign21allowed_array_classesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array classes that are allowed to be specified by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8RoiAlign4nameEv">
+<span id="_CPPv3N4nbla8RoiAlign4nameEv"></span><span id="_CPPv2N4nbla8RoiAlign4nameEv"></span><span id="nbla::RoiAlign::name"></span><span class="target" id="classnbla_1_1RoiAlign_1a1452697fbad3b62399bba3d0860bab62"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8RoiAlign4nameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get function name in string. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--RNN.html" class="btn btn-neutral float-left" title="class nbla::RNN" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Round.html" class="btn btn-neutral float-right" title="class Round" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

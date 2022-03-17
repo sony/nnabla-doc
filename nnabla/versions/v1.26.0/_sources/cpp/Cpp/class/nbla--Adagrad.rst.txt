@@ -1,0 +1,6 @@
+class nbla::Adagrad
+========================================
+
+.. doxygenclass:: nbla::Adagrad
+	:project: Cpp
+	:members: 

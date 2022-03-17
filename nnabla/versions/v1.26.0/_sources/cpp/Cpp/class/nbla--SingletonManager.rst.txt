@@ -1,0 +1,6 @@
+class nbla::SingletonManager
+========================================
+
+.. doxygenclass:: nbla::SingletonManager
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::SearchSorted
+========================================
+
+.. doxygenclass:: nbla::SearchSorted
+	:project: Cpp
+	:members: 

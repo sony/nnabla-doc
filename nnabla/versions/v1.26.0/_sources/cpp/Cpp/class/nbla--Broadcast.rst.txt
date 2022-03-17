@@ -1,0 +1,6 @@
+class nbla::Broadcast
+========================================
+
+.. doxygenclass:: nbla::Broadcast
+	:project: Cpp
+	:members: 

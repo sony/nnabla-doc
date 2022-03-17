@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.ext_utils &mdash; Neural Network Libraries 1.26.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.26.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>nnabla.ext_utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.ext_utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2018,2019,2020,2021 Sony Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">Utilities for NNabla extensions.</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+
+<div class="viewcode-block" id="import_extension_module"><a class="viewcode-back" href="../../python/api/ext.html#nnabla.ext_utils.import_extension_module">[docs]</a><span class="k">def</span> <span class="nf">import_extension_module</span><span class="p">(</span><span class="n">ext_name</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Import an extension module by name.</span>
+
+<span class="sd">    The extension modules are installed under the `nnabla_ext` package as</span>
+<span class="sd">    namespace packages. All extension modules provide a unified set of APIs.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ext_name(str): Extension name. e.g. &#39;cpu&#39;, &#39;cuda&#39;, &#39;cudnn&#39; etc.</span>
+
+<span class="sd">    Returns: module</span>
+<span class="sd">        An Python module of a particular NNabla extension.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            ext = import_extension_module(&#39;cudnn&#39;)</span>
+<span class="sd">            available_devices = ext.get_devices()</span>
+<span class="sd">            print(available_devices)</span>
+<span class="sd">            ext.device_synchronize(available_devices[0])</span>
+<span class="sd">            ext.clear_memory_cache()</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">importlib</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="s1">&#39;.&#39;</span> <span class="o">+</span> <span class="n">ext_name</span><span class="p">,</span> <span class="s1">&#39;nnabla_ext&#39;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">nnabla</span> <span class="kn">import</span> <span class="n">logger</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s1">&#39;Extension `</span><span class="si">{}</span><span class="s1">` does not exist.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ext_name</span><span class="p">))</span>
+        <span class="k">raise</span> <span class="n">e</span></div>
+
+
+<div class="viewcode-block" id="list_extensions"><a class="viewcode-back" href="../../python/api/ext.html#nnabla.ext_utils.list_extensions">[docs]</a><span class="k">def</span> <span class="nf">list_extensions</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    List up available extensions.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        It may not work on some platforms/environments since it depends</span>
+<span class="sd">        on the directory structure of the namespace packages.</span>
+
+<span class="sd">    Returns: list of str</span>
+<span class="sd">        Names of available extensions.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="kn">import</span> <span class="nn">nnabla_ext.cpu</span>
+    <span class="kn">from</span> <span class="nn">os.path</span> <span class="kn">import</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">join</span><span class="p">,</span> <span class="n">realpath</span>
+    <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">listdir</span>
+    <span class="n">ext_dir</span> <span class="o">=</span> <span class="n">realpath</span><span class="p">((</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">(</span><span class="n">nnabla_ext</span><span class="o">.</span><span class="n">cpu</span><span class="o">.</span><span class="vm">__file__</span><span class="p">),</span> <span class="s1">&#39;..&#39;</span><span class="p">)))</span>
+    <span class="k">return</span> <span class="n">listdir</span><span class="p">(</span><span class="n">ext_dir</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_extension_context"><a class="viewcode-back" href="../../python/api/ext.html#nnabla.ext_utils.get_extension_context">[docs]</a><span class="k">def</span> <span class="nf">get_extension_context</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Get the context of the specified extension.</span>
+
+<span class="sd">    All extension&#39;s module must provide `context(**kw)` function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        ext_name (str) : Module path relative to `nnabla_ext`.</span>
+<span class="sd">        kw (dict) : Additional keyword arguments for context function in a extension module.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        :class:`nnabla.Context`: The current extension context.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            ctx = get_extension_context(&#39;cudnn&#39;, device_id=&#39;0&#39;, type_config=&#39;half&#39;)</span>
+<span class="sd">            nn.set_default_context(ctx)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">ext_name</span> <span class="o">==</span> <span class="s1">&#39;cuda.cudnn&#39;</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">nnabla</span> <span class="kn">import</span> <span class="n">logger</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span>
+            <span class="s1">&#39;Deprecated extension name &quot;cuda.cudnn&quot; passed. Use &quot;cudnn&quot; instead.&#39;</span><span class="p">)</span>
+        <span class="n">ext_name</span> <span class="o">=</span> <span class="s1">&#39;cudnn&#39;</span>
+    <span class="n">mod</span> <span class="o">=</span> <span class="n">import_extension_module</span><span class="p">(</span><span class="n">ext_name</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">mod</span><span class="o">.</span><span class="n">context</span><span class="p">(</span><span class="o">**</span><span class="n">kw</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

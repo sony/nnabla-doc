@@ -1,0 +1,6 @@
+class nbla::Unpooling
+========================================
+
+.. doxygenclass:: nbla::Unpooling
+	:project: Cpp
+	:members: 

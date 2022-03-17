@@ -1,0 +1,6 @@
+class nbla::utils::nnp::Network
+========================================
+
+.. doxygenclass:: nbla::utils::nnp::Network
+	:project: Cpp
+	:members: 

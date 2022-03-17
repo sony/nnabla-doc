@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Definition &mdash; Neural Network Libraries 1.26.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Sequential" href="sequential.html" />
+    <link rel="prev" title="Modules" href="module.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.26.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="module.html">Modules</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Graph Definition</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#protograph">ProtoGraph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#protonetwork">ProtoNetwork</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#protovariable">ProtoVariable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#protofunction">ProtoFunction</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#load">load</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#save">save</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-protobuf-representation-from-computation-graph">Create Protobuf Representation from Computation Graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#create-graph-from-variable">create_graph_from_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-default-graph">get_default_graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#get-default-graph-by-variable">get_default_graph_by_variable</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#graph">graph</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#reset-default-graph">reset_default_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../python.html">Python Package</a> &raquo;</li>
+          <li><a href="../api.html">Python API Reference</a> &raquo;</li>
+      <li>Graph Definition</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/api/graph_def.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nnabla.graph_def">
+<span id="graph-definition"></span><h1>Graph Definition<a class="headerlink" href="#module-nnabla.graph_def" title="Permalink to this headline"></a></h1>
+<p>In NNabla, <a class="reference internal" href="#"><span class="doc">Graph Definition</span></a> represents a kind of representation of a computation graph which is special designed for
+storage optimization and format converter.</p>
+<p>A computation graph can be defined by the call of NNabla functions. Such computation graph has instantiated the input
+and output variables of the functions, inherent topology has been established for forward or backward computation.
+But for persistence of such graph, another abstract representation, so-called protobuf graph(or network), as abbreviation
+- proto graph is used normally. In this graph, only the information being necessary for persistence are kept, the
+information only used for computation will be dropped.</p>
+<p><a class="reference internal" href="#"><span class="doc">Graph Definition</span></a> provides a group of functions and classes, tends to facilitate user creates protobuf network from their
+computation graph, and saving and restoring their neural network from a persistent protobuf network representation.</p>
+<section id="protograph">
+<h2>ProtoGraph<a class="headerlink" href="#protograph" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">ProtoGraph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">networks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph" title="Permalink to this definition"></a></dt>
+<dd><p>This class represents a group of proto networks. It normally corresponds to a <code class="xref any docutils literal notranslate"><span class="pre">.nnp</span></code> file.
+In a <code class="xref any docutils literal notranslate"><span class="pre">.nnp</span></code> file, there might be one or multiple networks, for example, there might be a network for
+doing directly inferring, another network with similar network structure, sharing same parameters, using
+for training. This class works as a container of proto networks, providing a group of functions
+for accessing proto network by its name. Especially, when there is only one network in it, also some
+short-cut functions are provided for directly operating with this network. For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;my_model.nnp&quot;</span><span class="p">)</span> <span class="c1"># Suppose there is only one network in this file.</span>
+<span class="n">x1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">x1</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># load data here.</span>
+<span class="n">y1</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">networks</span><span class="p">[</span><span class="s1">&#39;executor_net&#39;</span><span class="p">](</span><span class="n">x1</span><span class="p">)</span>  <span class="c1">#&lt;== (1)</span>
+<span class="n">y1</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y1</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+
+<span class="n">x2</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">x2</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># load data here.</span>
+<span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">x2</span><span class="p">)</span> <span class="c1">#&lt;== (2)</span>
+<span class="c1"># y2 = g.default_graph()(x2) #&lt;== (3)</span>
+<span class="n">y2</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y2</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The computation graph <code class="xref any docutils literal notranslate"><span class="pre">y1</span></code> and <code class="xref any docutils literal notranslate"><span class="pre">y2</span></code> are exactly same. (2) and (3) are equal.
+If there are multiple networks in a graph, the first network being loaded acted as its <code class="xref any docutils literal notranslate"><span class="pre">default</span></code> network.
+Please not use <a class="reference internal" href="#nnabla.graph_def.ProtoGraph.default_graph" title="nnabla.graph_def.ProtoGraph.default_graph"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">default_graph()</span></code></a> when there are multiple networks in graph, since the <code class="xref any docutils literal notranslate"><span class="pre">default</span></code> heavily depends on
+concrete implementation.</p>
+<p>If you know the name of each network, you may access proto network in this graph by its member name. For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;my_model.nnp&quot;</span><span class="p">)</span> <span class="c1"># Suppose there is only one network in this file.</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># load data here.</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">executor_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># here, we knew there is a network named &quot;executor_net&quot; existed.</span>
+<span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y</span><span class="o">.</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph.as_proto">
+<span class="sig-name descname"><span class="pre">as_proto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">include_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">only_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">networks</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph.as_proto" title="Permalink to this definition"></a></dt>
+<dd><p>This function exports a protobuf data structure, which can be manipulated by google protobuf APIs.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>include_parameter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Whether exports the parameters to protobuf data structure.</p></li>
+<li><p><strong>only_parameter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Whether only exports the parameters to protobuf data structure.</p></li>
+<li><p><strong>networks</strong> (<em>array of proto networks</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – User may provides their networks to export a protobuf data structure.</p></li>
+<li><p><strong>variable_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – Replace batch size of current network with an abstract placeholder, so that
+batch size can be replaced with other value in use time.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph.current_context">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">current_context</span></span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph.current_context" title="Permalink to this definition"></a></dt>
+<dd><p>Current backend context of this proto network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph.default_graph">
+<span class="sig-name descname"><span class="pre">default_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph.default_graph" title="Permalink to this definition"></a></dt>
+<dd><p>This function returns default proto network in this graph.
+Which network is <code class="xref any docutils literal notranslate"><span class="pre">default</span></code> graph depends on its loading sequence. Hence,
+it is safe to be used when there is only one network.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph.expand_loop_control">
+<span class="sig-name descname"><span class="pre">expand_loop_control</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph.expand_loop_control" title="Permalink to this definition"></a></dt>
+<dd><p>This function expands loop control statements for all networks in
+this graph.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph.from_proto">
+<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">from_proto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proto</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">param_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph.from_proto" title="Permalink to this definition"></a></dt>
+<dd><p>This function create a proto graph object from a protobuf data structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>proto</strong> (<em>protobuf object</em>) – A protobuf data structure.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – The batch size will be applied to this graph. If it is None, it is pending
+to apply a the batch size value.</p></li>
+<li><p><strong>param_scope</strong> (<em>OrderedDict</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – User may provide an owned parameter scope.</p></li>
+<li><p><strong>rng</strong> (<em>np.random.RandomState</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – A random seed, which is used in parameter initialization.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoGraph.get_parameters">
+<span class="sig-name descname"><span class="pre">get_parameters</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">grad_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoGraph.get_parameters" title="Permalink to this definition"></a></dt>
+<dd><p>Get parameters in current module name scope.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="protonetwork">
+<h2>ProtoNetwork<a class="headerlink" href="#protonetwork" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">ProtoNetwork</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">owner</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork" title="Permalink to this definition"></a></dt>
+<dd><p>This class represents a protobuf network, which comes from a corresponding computation graph or restored from
+a saved protobuf network(e.g. <code class="xref any docutils literal notranslate"><span class="pre">.nnp</span></code> file).</p>
+<p>This class describes a neural network by the following members:</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>functions: An OrderedDict of name-value pairs, the value is ProtoFunction object.</p></li>
+<li><p>variables: An OrderedDict of name-value pairs, the value is ProtoVariable object.</p></li>
+<li><p>parameters: An OrderedDict of name-value pairs, the value is ProtoVariable object.</p></li>
+<li><p>inputs:    A string list, which contains the name of input variables of this network.</p></li>
+<li><p>outputs:   A string list, which contains the name of output variables of this network.</p></li>
+</ul>
+<p><code class="docutils literal notranslate"><span class="pre">variables</span></code> represents activations in networks, <code class="docutils literal notranslate"><span class="pre">parameters</span></code> mainly includes weights and all learnable
+parameters. <code class="docutils literal notranslate"><span class="pre">functions</span></code> represents functions in networks, the sequence of functions might not equal forward
+sequence. Please use <a class="reference internal" href="#nnabla.graph_def.ProtoNetwork.forward_sequence" title="nnabla.graph_def.ProtoNetwork.forward_sequence"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">forward_sequence</span></code></a> to obtain exactly forward function sequence.</p>
+</div></blockquote>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.__call__" title="Permalink to this definition"></a></dt>
+<dd><p>Generate a computation graph of this protonetwork.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> (<em>tuple of nn.Variables</em><em> or </em><em>None</em>) – <p>The inputs of network, which can be different from the inputs of original computation graph as long as the network allows.</p>
+<blockquote>
+<div><p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">resnet</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;resnet.nnp&quot;</span><span class="p">)</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">resnet</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The variable y corresponding to a computation graph, user may perform forward like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>If user does not provide inputs for this function, because proto network has the memory
+of network inputs, this function will create corresponding nn.Variable objects as the
+inputs of this network. This input variables actually are placeholder of input, hence,
+users need to find these input variables and fill actual value to these placeholders,
+so that this computation graph is ready for forward or backward.</p>
+<p>For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;resnet.nnp&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="p">()</span> <span class="c1"># Not provide input variables</span>
+</pre></div>
+</div>
+<p>To feed training or evaluation data to this network, user needs to locate input variable,
+for example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="nb">input</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">networks</span><span class="p">[</span><span class="n">network_name</span><span class="p">]</span><span class="o">.</span><span class="n">variables</span><span class="p">[</span><span class="n">input_name</span><span class="p">]</span><span class="o">.</span><span class="n">variable_instance</span>
+<span class="nb">input</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<dl>
+<dt>batch_size (int, optional, default=None):</dt><dd><blockquote>
+<div><p>If provided, batch_size will be applied for newly created computation graph. For example,</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;my_model.nnp&quot;</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+<p>In this sample, <a class="reference internal" href="utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.batch_size" title="nnabla.utils.data_iterator.DataIterator.batch_size"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code></a> will be used to create a computation graph with specified batch size.
+Supposed <code class="xref any docutils literal notranslate"><span class="pre">x</span></code> is the input of network, its original shape is (1, 3, 32, 32), then the actual computation
+graph will be (32, 3, 32, 32).</p>
+</dd>
+</dl>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.as_proto">
+<span class="sig-name descname"><span class="pre">as_proto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.as_proto" title="Permalink to this definition"></a></dt>
+<dd><p>This function returns a protobuf data structure, which can be directly
+accessed by the functions in <code class="xref any docutils literal notranslate"><span class="pre">nnabla.utils.nnabla_pb2</span></code>. Thus,
+it allows user further manipulates this protobuf representation, for example,
+performing format converting, or network structure optimization.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>variable_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em>) – If true, the batch size of the network will be replaced with
+an abstract representation, so that it can be replaced with
+other value in restoring computation graph.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A protobuf object.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>protobuf</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.execute_on_proto">
+<span class="sig-name descname"><span class="pre">execute_on_proto</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">execute</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.execute_on_proto" title="Permalink to this definition"></a></dt>
+<dd><p>This function performs a virtual forward, following the sequence from inputs to output. This function does
+not use recursive call to perform graph-travel, instead, a non-recursive algorithm is used to graph-travel.
+For each function, <code class="xref any docutils literal notranslate"><span class="pre">execute</span></code> is called when meet a function, a ProtoFunction object is passed in for further
+operation with this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>execute</strong> (<em>callable</em>) – <p>A callback function (or callable object), which is called when each ProtoFunction is met in travelling
+graph.</p>
+<p><code class="docutils literal notranslate"><span class="pre">execute</span></code> should look like:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="n">pf</span><span class="p">:</span> <span class="n">ProtoFunction</span><span class="p">):</span>
+    <span class="c1"># Do what you want to do with pf</span>
+    <span class="k">pass</span>
+</pre></div>
+</div>
+<p>Or:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MyCallback</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="n">pf</span><span class="p">:</span> <span class="n">ProtoFunction</span><span class="p">):</span>
+        <span class="c1"># Do what you want to do with pf</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.expand_loop_control">
+<span class="sig-name descname"><span class="pre">expand_loop_control</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.expand_loop_control" title="Permalink to this definition"></a></dt>
+<dd><p>This function expand <code class="docutils literal notranslate"><span class="pre">loop</span> <span class="pre">control</span></code> statement and generate a new
+proto network object without <code class="docutils literal notranslate"><span class="pre">loop</span> <span class="pre">control</span></code> statement. <code class="docutils literal notranslate"><span class="pre">loop</span> <span class="pre">control</span></code>
+statement cannot be created by python code, it can be only created by interactive
+neural network design tool. The following briefly introduce its specification:</p>
+<ul>
+<li><dl>
+<dt>As for variable,</dt><dd><p>In nntxt, if the variable includes a field repeat_id, it means that
+this variable is in surround with a loop control structure.
+A renaming rule is applied if expanding this network.
+The variable name will be added a postfix, like:</p>
+<ul class="simple">
+<li><p>For old style, e.g.:</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BatchNormalization_6/bn/mean --&gt; BatchNormalization_6/bn/mean_RepeatStart[0]
+                                                                 ^        ^  repeat_time
+                                                              repeat_id[index]
+
+original_name --&gt; original_name + &lt;&lt; _%repeat_id%[%repeat_time%],  for each in repeat_id &gt;&gt;
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>For new style, e.g.:</p></li>
+</ul>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>BatchNormalization_6{RepeatStart}/bn/mean --&gt; BatchNormalization_6[0]/bn/mean_RepeatStart
+                                                                   ^
+                                                              repeat_time
+original_name --&gt; original_name + &lt;&lt; [%repeat_time%],  for each in repeat_id &gt;&gt;
+</pre></div>
+</div>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>As for RepeatStart, RepeatEnd</dt><dd><p>The functions or variables nodes between these 2 layers will be repeated.
+Expanding will create times of functions and variables, and connected them each other.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>As for RecurrentInput,</dt><dd><p>Axis of RecurrentParam points out which axis will be split-ed. And each branch will duplicated
+the functions and variables with this repeat_id. This layer works like a split function.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>As for RecurrentOutput,</dt><dd><p>RecurrentOutput merge multiple branches into one output, looks like a stack function.</p>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt>As for Delay</dt><dd><p>First time, the output is its input[1], after that, the output is its input[0]</p>
+</dd>
+</dl>
+</li>
+</ul>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.forward_sequence">
+<span class="sig-name descname"><span class="pre">forward_sequence</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.forward_sequence" title="Permalink to this definition"></a></dt>
+<dd><p>This function creates an iteratable for iterating functions in
+network with the sequence of actually forward.</p>
+<p>For example,</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">pf</span> <span class="ow">in</span> <span class="n">proto_network</span><span class="o">.</span><span class="n">forward_sequence</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pf</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+</div></blockquote>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.promote">
+<span class="sig-name descname"><span class="pre">promote</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">callback</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.promote" title="Permalink to this definition"></a></dt>
+<dd><p>User may manipulate a proto network by a callback, like NnpNetworkPass.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>callback</strong> (<em>NnpNetworkPass</em><em>,</em>) – Currently, only NnpNetworkPass object is supported as a network promotion
+callback.</p>
+</dd>
+</dl>
+<p>Developers may manipulate a proto network by a modifier, acts as a callback.
+nnabla.utils.nnp_graph.NnpNetworkPass is a kind of modifier. The following gives
+a simple example to illustrate this usage:</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="n">nn</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils</span> <span class="kn">import</span> <span class="n">nnp_graph</span>
+
+<span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">callback</span> <span class="o">=</span> <span class="n">nnp_graph</span><span class="o">.</span><span class="n">NnpNetworkPass</span><span class="p">(</span><span class="n">verbose</span><span class="p">)</span>
+
+<span class="nd">@callback</span><span class="o">.</span><span class="n">on_generate_function_by_name</span><span class="p">(</span><span class="s1">&#39;Convolution&#39;</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">change_convolution_param</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">convolution_param</span><span class="o">.</span><span class="n">pad</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]))</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">proto</span><span class="o">.</span><span class="n">convolution_param</span><span class="o">.</span><span class="n">pad</span><span class="o">.</span><span class="n">dim</span><span class="p">[:]</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">f</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;my_model.nnp&quot;</span><span class="p">)</span>
+<span class="n">n</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">default_graph</span><span class="p">()</span><span class="o">.</span><span class="n">promote</span><span class="p">(</span><span class="n">callback</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">input_shape</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">n</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>In this example, a callback is defined to change pad of a Convolution function,
+locating this target function by the name of function, here, only the function with the name <code class="xref any docutils literal notranslate"><span class="pre">'Convolution'</span></code>
+is located and operated.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoNetwork.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoNetwork.save" title="Permalink to this definition"></a></dt>
+<dd><p>This function saves current proto network to a file, which is specified by
+filename, normally, e.g. a .nnp file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – string filename, its extension name is used to determine the file format.
+The extension name normally is .nnp.</p></li>
+<li><p><strong>include_parameter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default=False</em>) – Whether saving parameters to protobuf tree.</p></li>
+<li><p><strong>variable_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a><em>, </em><em>optional</em><em>, </em><em>default=True</em>) – Whether replace current network’s batch size dimension with an abstract
+representation. If it is true, it is possible to use another batch size
+when this network is reused.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="protovariable">
+<h2>ProtoVariable<a class="headerlink" href="#protovariable" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoVariable">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">ProtoVariable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">shape</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_grad</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">var_type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'Buffer'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoVariable" title="Permalink to this definition"></a></dt>
+<dd><p>This class represents a variable, so-called proto variable.
+Passing this variable to network definition, a proto network will
+be generated in a proto graph scope. If this procedure is done
+under a with statement as <a class="reference internal" href="variable.html#nnabla.Variable.g" title="nnabla.Variable.g"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">g</span></code></a>, a proto network will be generated in <a class="reference internal" href="variable.html#nnabla.Variable.g" title="nnabla.Variable.g"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">g</span></code></a>.
+Otherwise, a global graph scope is used, a proto network will be
+generated in global graph scope.</p>
+</dd></dl>
+
+</section>
+<section id="protofunction">
+<h2>ProtoFunction<a class="headerlink" href="#protofunction" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoFunction">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">ProtoFunction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">func</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">f_type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">owner</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoFunction" title="Permalink to this definition"></a></dt>
+<dd><p>This class represent a function that is used to define a proto network.</p>
+<dl class="simple">
+<dt>There are the following properties to describe a proto function:</dt><dd><ul class="simple">
+<li><p>name: The name of this function.</p></li>
+<li><p>type: The type of this function, e.g. ReLU.</p></li>
+<li><p>inputs: An array of string name, which represents the proto variables of inputs.</p></li>
+<li><p>outputs: An array of string name, which represents the proto variables of outputs.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.graph_def.ProtoFunction.graph_call">
+<span class="sig-name descname"><span class="pre">graph_call</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.ProtoFunction.graph_call" title="Permalink to this definition"></a></dt>
+<dd><p>This function create function instance for generating
+computation graph.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="load">
+<h2>load<a class="headerlink" href="#load" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.load">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">load</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">exclude_parameter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_only</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.nntxt'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">rng</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.load" title="Permalink to this definition"></a></dt>
+<dd><p>Load network from files</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a><em> or </em><em>file-like object</em>) – Filename string ,list of filenames or file-like object.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – The batch size expected to be set.</p></li>
+<li><p><strong>exclude_parameter</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, only load model, not load parameters of this model. Default is False.</p></li>
+<li><p><strong>parameter_only</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, only load model parameters. Default is False.</p></li>
+<li><p><strong>extension</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – This parameter is needed when filename is a file-like object. Default is <code class="xref any docutils literal notranslate"><span class="pre">.nntxt</span></code>.</p></li>
+<li><p><strong>parameter_scope</strong> (<em>OrderedDict</em>) – User may provide a user owned parameter scope. If this parameter is not provided,
+loaded parameters will be created in created proto_graph’s parameter_scope. This
+parameter_scope is default initialized with empty dictionary.</p></li>
+<li><p><strong>rng</strong> (<em>random state</em>) – User may specify random state, which cause parameters are initialized by determined random seed.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A ProtoGraph object, in which, there are one or multiple ProtoNetwork objects.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference internal" href="#nnabla.graph_def.ProtoGraph" title="nnabla.graph_def.ProtoGraph">ProtoGraph</a></p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>The following example loads a model and generate the output variable
+through this model:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="k">def</span> <span class="nf">fusion_net</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">unit</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">prefix</span><span class="p">):</span>
+        <span class="n">c1</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;-c1&#39;</span><span class="p">)</span>
+        <span class="n">c2</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">c1</span><span class="p">),</span> <span class="mi">4</span><span class="p">,</span>
+                            <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">name</span><span class="o">=</span><span class="n">prefix</span> <span class="o">+</span> <span class="s1">&#39;-c2&#39;</span><span class="p">)</span>
+        <span class="n">c</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">add2</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="n">c1</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">c</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="n">unit</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s1">&#39;c1&#39;</span><span class="p">)</span>
+    <span class="n">c2</span> <span class="o">=</span> <span class="n">unit</span><span class="p">(</span><span class="n">c</span><span class="p">,</span> <span class="s1">&#39;c2&#39;</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">c2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;fc&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ProtoVariable</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">fusion_net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">get_default_graph</span><span class="p">()</span>  <span class="c1"># Get generated graph_def</span>
+<span class="n">g</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;fusion_net.nnp&quot;</span><span class="p">)</span>
+<span class="o">...</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;fusion_net.nnp&quot;</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">x</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="o">...</span> <span class="c1"># user provided input data for this graph</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># create computation graph by passing in nn.Variable()</span>
+<span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span> <span class="c1"># calculate output by this graph</span>
+<span class="o">...</span>
+
+<span class="c1"># You may use your special context(e.g. cuda context)</span>
+<span class="k">with</span> <span class="n">context_scope</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+   <span class="n">y</span> <span class="o">=</span> <span class="n">g</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># create computation graph representation with specified backend context.</span>
+   <span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span> <span class="c1"># forward using specified backend</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="save">
+<h2>save<a class="headerlink" href="#save" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.save">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">content</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">include_parameters</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variable_batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">extension</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'.nnp'</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save network</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><em>file object</em>) – <p>Filename to store information. The file
+extension is used to determine the saving file format.
+<code class="docutils literal notranslate"><span class="pre">.nnp</span></code>: (Recommended) Creating a zip archive with nntxt (network
+definition etc.) and h5 (parameters).
+<code class="docutils literal notranslate"><span class="pre">.nntxt</span></code>: Protobuf in text format.
+<code class="docutils literal notranslate"><span class="pre">.protobuf</span></code>: Protobuf in binary format (unsafe in terms of</p>
+<blockquote>
+<div><p>backward compatibility).</p>
+</div></blockquote>
+</p></li>
+<li><p><strong>content</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Currently only ProtoGraph or PhotoNetwork objects are
+supported.</p></li>
+<li><p><strong>include_parameters</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Includes parameter into single file. This is
+ignored when the extension of filename is nnp.</p></li>
+<li><p><strong>variable_batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Whether or not convert batch size of computation graph to a special
+value, so that user may use any other batch_size value when using it.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<p>The following example creates a two inputs and two
+outputs MLP, and save the network structure and the initialized
+parameters.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="k">def</span> <span class="nf">mlp_module</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">):</span>
+    <span class="n">h1_0</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;affine1_0&#39;</span><span class="p">)</span>
+    <span class="n">h1_1</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;affine1_0&#39;</span><span class="p">)</span>
+    <span class="n">h1</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">h1_0</span> <span class="o">+</span> <span class="n">h1_1</span><span class="p">)</span>
+    <span class="n">h2</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h1</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;affine2&#39;</span><span class="p">))</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;affiney_0&#39;</span><span class="p">)</span>
+    <span class="n">y1</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h2</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;affiney_1&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span>
+
+<span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ProtoVariable</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="n">x1</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ProtoVariable</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">100</span><span class="p">))</span>
+    <span class="n">y0</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">mlp_module</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">)</span>
+
+<span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;mlp_net.nnp&quot;</span><span class="p">,</span> <span class="p">[</span><span class="n">g</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="create-protobuf-representation-from-computation-graph">
+<h2>Create Protobuf Representation from Computation Graph<a class="headerlink" href="#create-protobuf-representation-from-computation-graph" title="Permalink to this headline"></a></h2>
+</section>
+<section id="create-graph-from-variable">
+<h2>create_graph_from_variable<a class="headerlink" href="#create-graph-from-variable" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.create_graph_from_variable">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">create_graph_from_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parameter_scope</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.create_graph_from_variable" title="Permalink to this definition"></a></dt>
+<dd><p>Create a Proto Graph from one or multiple outputs.</p>
+<p>If developers have a computation graph, it means that they have a nn.Variable() object,
+it might be loss of a network or an output variable of an executor network, this variable
+inherently corresponds to a computation network. From these variables, we can create
+corresponding proto network by this function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – The name of generated proto_network.</p></li>
+<li><p><strong>variables</strong> (<em>nn.Variables</em>) – One or multiple variables, if multiple variables, this function adds a sink function
+to reduce these multiple outputs to one.</p></li>
+<li><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><em>dict</em></a><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – A name to nn.Variable mapping table. This function default names all activation variables
+and parameters with internal naming rule. But sometimes, developers expects specially name some of
+variables so that these variable can be accessed conveniently. In generating proto network,
+when the variable occurs in this mapping table, the corresponding name of that variable will be used to name
+the variable in proto network.</p></li>
+<li><p><strong>parameter_scope</strong> (<em>OrderedDict</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – Developers may provide a parameter scope, thus, when create proto networks, the name will be replaced
+if corresponding variable is found in specified parameter_scope, which make the name of weights or some
+parameters meaningful.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">my_model</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<span class="n">g</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">create_graph_from_variable</span><span class="p">(</span><span class="s2">&quot;proto_network_name&quot;</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model.nnp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+<section id="get-default-graph">
+<h2>get_default_graph<a class="headerlink" href="#get-default-graph" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.get_default_graph">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">get_default_graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.get_default_graph" title="Permalink to this definition"></a></dt>
+<dd><p>This function obtain current default graph_def.</p>
+<p>If user does not create their proto network in a with statement
+scope, proto network will default be created in a global scope.
+User may retrieve this proto graph by this function.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">nnabla.core.modules</span> <span class="kn">import</span> <span class="n">ResUnit</span>
+
+<span class="n">resunit</span> <span class="o">=</span> <span class="n">ResUnit</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">ProtoVariable</span><span class="p">((</span><span class="mi">64</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="mi">32</span><span class="p">))</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">resunit</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>
+<span class="n">graph_def</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">get_graph_graph</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If user does not ensure whether there is any previous existing
+proto graph remained in global graph scope. It is better to call
+reset_default_graph(). If user uses with statement like <code class="xref any docutils literal notranslate"><span class="pre">with</span> <span class="pre">nn.graph_def.graph()</span> <span class="pre">as</span> <span class="pre">g</span></code>,
+this point is no need to care about.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>A proto graph is returned</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p><a class="reference internal" href="#nnabla.graph_def.ProtoGraph" title="nnabla.graph_def.ProtoGraph">ProtoGraph</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+<section id="get-default-graph-by-variable">
+<h2>get_default_graph_by_variable<a class="headerlink" href="#get-default-graph-by-variable" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.get_default_graph_by_variable">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">get_default_graph_by_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">proto_variable</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.get_default_graph_by_variable" title="Permalink to this definition"></a></dt>
+<dd><p>This function obtain a specify network by its outputs.</p>
+<p>User may retrieve one of the networks in default proto graph scope, if this network has the specified
+outputs. Let us image that there is a global proto graph, when user passed a ProtoVariable to
+model, during the procedure that create output variables, proto network is generated in this global
+proto graph. By this function, user may retrieve this generated proto network, saving it or do
+any other operations.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This proto network will become invalid after reset_default_graph().
+For example,</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">proto_variable_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">ProtoVariable</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">]</span>
+<span class="n">outputs</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="o">*</span><span class="n">proto_variable_inputs</span><span class="p">)</span>
+<span class="n">net</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">get_default_graph_by_variable</span><span class="p">(</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="o">...</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">reset_default_graph</span><span class="p">()</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">net</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># Cannot access net anymore, become invalid at this point</span>
+</pre></div>
+</div>
+</div></blockquote>
+</div>
+</dd></dl>
+
+</section>
+<section id="graph">
+<h2>graph<a class="headerlink" href="#graph" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.graph">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">graph</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.graph" title="Permalink to this definition"></a></dt>
+<dd><p>This function is only used in with statement.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – User may specify a name for the generated proto network.
+This name is useful for saving to .nnp.</p></li>
+<li><p><strong>parameter_scope</strong> (<em>OrderedDict</em><em>, </em><em>optional</em><em>, </em><em>default=None</em>) – User may specify a parameter scope, thus, the parameters
+are created during creating model will be placed into this
+parameter scope.</p></li>
+</ul>
+</dd>
+</dl>
+<p>For example,</p>
+<blockquote>
+<div><div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+
+<span class="n">proto_variable_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">ProtoVariable</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">d</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">]</span>
+<span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">graph_def</span><span class="o">.</span><span class="n">graph</span><span class="p">()</span> <span class="k">as</span> <span class="n">g</span><span class="p">:</span>
+    <span class="n">outputs</span> <span class="o">=</span> <span class="n">module</span><span class="p">(</span><span class="o">*</span><span class="n">proto_variable_inputs</span><span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s2">&quot;my_model.nnp&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Here, <a class="reference internal" href="utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork.inputs" title="nnabla.utils.nnp_graph.NnpNetwork.inputs"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">inputs</span></code></a> is an array of input nn.Variables. <a class="reference internal" href="module.html"><span class="doc">Modules</span></a> is a module object
+instantiated from a Module definition.</p>
+</div></blockquote>
+</dd></dl>
+
+</section>
+<section id="reset-default-graph">
+<h2>reset_default_graph<a class="headerlink" href="#reset-default-graph" title="Permalink to this headline"></a></h2>
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.graph_def.reset_default_graph">
+<span class="sig-prename descclassname"><span class="pre">nnabla.graph_def.</span></span><span class="sig-name descname"><span class="pre">reset_default_graph</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#nnabla.graph_def.reset_default_graph" title="Permalink to this definition"></a></dt>
+<dd><p>This function clear all information in global graph scope.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="module.html" class="btn btn-neutral float-left" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="sequential.html" class="btn btn-neutral float-right" title="Sequential" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

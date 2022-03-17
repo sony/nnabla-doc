@@ -1,0 +1,6 @@
+class nbla::LayerNormalization
+========================================
+
+.. doxygenclass:: nbla::LayerNormalization
+	:project: Cpp
+	:members: 

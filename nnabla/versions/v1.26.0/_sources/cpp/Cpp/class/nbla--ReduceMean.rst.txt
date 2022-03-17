@@ -1,0 +1,6 @@
+class nbla::ReduceMean
+========================================
+
+.. doxygenclass:: nbla::ReduceMean
+	:project: Cpp
+	:members: 

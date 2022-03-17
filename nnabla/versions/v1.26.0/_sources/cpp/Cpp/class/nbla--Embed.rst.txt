@@ -1,0 +1,6 @@
+class nbla::Embed
+========================================
+
+.. doxygenclass:: nbla::Embed
+	:project: Cpp
+	:members: 

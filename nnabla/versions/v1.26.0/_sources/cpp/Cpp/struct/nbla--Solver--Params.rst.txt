@@ -1,0 +1,6 @@
+struct nbla::Solver::Params
+========================================
+
+.. doxygenstruct:: nbla::Solver::Params
+	:project: Cpp
+	:members: 

@@ -1,0 +1,7 @@
+C++ API Document
+================
+
+.. toctree:: 
+	maxdepth: 2
+
+	cpp_api.rst

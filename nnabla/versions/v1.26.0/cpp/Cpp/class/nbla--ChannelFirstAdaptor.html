@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::ChannelFirstAdaptor &mdash; Neural Network Libraries 1.26.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::ClearCalledFlagRecorder" href="nbla--ClearCalledFlagRecorder.html" />
+    <link rel="prev" title="class nbla::CgVariable" href="nbla--CgVariable.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.26.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::ChannelFirstAdaptor</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--ChannelFirstAdaptor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-channelfirstadaptor">
+<h1>class nbla::ChannelFirstAdaptor<a class="headerlink" href="#class-nbla-channelfirstadaptor" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla19ChannelFirstAdaptorE">
+<span id="_CPPv3N4nbla19ChannelFirstAdaptorE"></span><span id="_CPPv2N4nbla19ChannelFirstAdaptorE"></span><span id="nbla::ChannelFirstAdaptor"></span><span class="target" id="classnbla_1_1ChannelFirstAdaptor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">ChannelFirstAdaptor</span></span></span><a class="headerlink" href="#_CPPv4N4nbla19ChannelFirstAdaptorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This class can be used to transform a variable memory format to channel-first. </p>
+<p>Typical use case is a transformation from channel-last to channel-first memory format in convolutional neural network.</p>
+<p>For example, let an input variable shape (32, 128, 128, 3), batch_axis == [0] and channel_axis == 3 (channel-last). Then this adaptor converts the shape and memory format to (32, 3, 128, 128) by applying transpose function.</p>
+<p>Possible use case is a force use of channel-first implementation (layer functions) in a channel-last network by sandwiching channel-first implementation with this adaptor. The conceptual work flow (forward prop) is following. chennal-last layer -&gt; forward_pre -&gt; channel-first layer -&gt; forward_post -&gt; channel-last layer (Variebles are omitted and the same for backward prop) </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1ChannelFirstAdaptor_1af58e800a95b7bcd72e4c81b5463b06f0"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">setup</span> <span class="pre">(Variable</span> <span class="pre">*input_pre,</span> <span class="pre">Variable</span> <span class="pre">*output_pre,</span> <span class="pre">Variable</span> <span class="pre">*input_post,</span> <span class="pre">Variable</span> <span class="pre">*output_post,</span> <span class="pre">const</span> <span class="pre">Shape_t</span> <span class="pre">&amp;shape,</span> <span class="pre">const</span> <span class="pre">vector&lt;</span> <span class="pre">int</span> <span class="pre">&gt;</span> <span class="pre">&amp;batch_axis,</span> <span class="pre">const</span> <span class="pre">int</span> <span class="pre">channel_axis,</span> <span class="pre">const</span> <span class="pre">Context</span> <span class="pre">&amp;ctx)</span></span></dt>
+<dd><p>Setup the adaptor. </p>
+<p>This method must be called before the use of `forward_(pre|post)` or `backward_(pre|post)` methods. Setting up of transpose functions (`(pre|post)_transpose_`) are performed internally.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_pre</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> pointer for `pre_transpose_` input. </p></li>
+<li><p><strong>output_pre</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> pointer for `pre_transpose_` output. </p></li>
+<li><p><strong>input_post</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> pointer for `post_transpose_` input. </p></li>
+<li><p><strong>output_post</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> pointer for `post_transpose_` output. </p></li>
+<li><p><strong>shape</strong> – Shape of original input. This should be the same as the shape of `input_pre`. </p></li>
+<li><p><strong>batch_axis</strong> – List of integer corresponding to batch or outer axis. Each axis must be in range of [0, ndim). </p></li>
+<li><p><strong>channel_axis</strong> – An integer corresponding to channel axis. This axis must be in range of [0, ndim). </p></li>
+<li><p><strong>ctx</strong> – A compute backend descriptor. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1ChannelFirstAdaptor_1a2a840ff59aff0ed1703047848310941f"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">convert_to_channel_first</span> <span class="pre">(Variable</span> <span class="pre">*input,</span> <span class="pre">Variable</span> <span class="pre">*output)</span></span></dt>
+<dd><p>Transform variable memory format to channel-first. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – `pre_tranpose_` input. </p></li>
+<li><p><strong>output</strong> – `pre_tranpose_` output. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1ChannelFirstAdaptor_1a1b79513422e4717597db749fb75277ff"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">convert_from_channel_first</span> <span class="pre">(Variable</span> <span class="pre">*input,</span> <span class="pre">Variable</span> <span class="pre">*output)</span></span></dt>
+<dd><p>Transform variable memory format from channel-first to original one. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – `post_tranpose_` input. </p></li>
+<li><p><strong>output</strong> – `post_tranpose_` output. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1ChannelFirstAdaptor_1acfb11a2c9d1285db1e4557c4cf80f7aa"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">convert_to_channel_first_backward</span> <span class="pre">(Variable</span> <span class="pre">*input,</span> <span class="pre">Variable</span> <span class="pre">*output,</span> <span class="pre">const</span> <span class="pre">bool</span> <span class="pre">propagate_down,</span> <span class="pre">const</span> <span class="pre">bool</span> <span class="pre">accum)</span></span></dt>
+<dd><p>Backward execution for `forward_pre`. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – `pre_tranpose_` input. </p></li>
+<li><p><strong>output</strong> – `pre_tranpose_` output. </p></li>
+<li><p><strong>propagate_down</strong> – Flag whether or not to perform backward propagation. </p></li>
+<li><p><strong>accum</strong> – Flag whether or not to accumulate grad. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1ChannelFirstAdaptor_1abed0e2b1f915ebfb2de03c9b660ede29"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">convert_from_channel_first_backward</span> <span class="pre">(Variable</span> <span class="pre">*input,</span> <span class="pre">Variable</span> <span class="pre">*output,</span> <span class="pre">const</span> <span class="pre">bool</span> <span class="pre">propagate_down,</span> <span class="pre">const</span> <span class="pre">bool</span> <span class="pre">accum)</span></span></dt>
+<dd><p>Backward execution for `forward_post`. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input</strong> – `post_tranpose_` input. </p></li>
+<li><p><strong>output</strong> – `post_tranpose_` output. </p></li>
+<li><p><strong>propagate_down</strong> – Flag whether or not to perform backward propagation. </p></li>
+<li><p><strong>accum</strong> – Flag whether or not to accumulate grad. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1ChannelFirstAdaptor_1a70cd8a5d51eaf14b699802c4f364a84f"></span><span class="sig-name descname"><span class="pre">static</span> <span class="pre">NBLA_API</span> <span class="pre">bool</span> <span class="pre">need_adaptor</span> <span class="pre">(const</span> <span class="pre">Shape_t</span> <span class="pre">&amp;shape,</span> <span class="pre">const</span> <span class="pre">vector&lt;</span> <span class="pre">int</span> <span class="pre">&gt;</span> <span class="pre">&amp;batch_axis,</span> <span class="pre">const</span> <span class="pre">int</span> <span class="pre">channel_axis)</span></span></dt>
+<dd><p>Check wheather this adaptor is needed for the input. </p>
+<p>Returns `false` when the input is already channel-first format, otherwise `true`. The definition of channel-first memory format is when all of the following conditions are met. * `batch_axis` must be contiguous to the beginning of the shape. * `channel_axis` must be right after the last axis of `batch_axis`.</p>
+<p>Examples of channel-first * ndim: 4, batch_axis: [0], channel_axis: 1 * ndim: 2, batch_axis: [0], channel_axis: 1 * ndim: 2, batch_axis: [], channel_axis: 0 * ndim: 1, batch_axis: [], channel_axis: 0 * ndim: 6, batch_axis: [0, 1, 2], channel_axis: 3 * ndim: 6, batch_axis: [1, 0, 2], channel_axis: 3</p>
+<p>Examples of non channel-first * ndim: 4, batch_axis: [0], channel_axis: 3 * ndim: 4, batch_axis: [0], channel_axis: 2 * ndim: 4, batch_axis: [1], channel_axis: 0 * ndim: 2, batch_axis: [], channel_axis: 1 * ndim: 6, batch_axis: [0, 1, 3], channel_axis: 2</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – Shape of original input. </p></li>
+<li><p><strong>batch_axis</strong> – List of integer corresponding to batch or outer axis. Each axis must be unique and in range of [0, ndim). </p></li>
+<li><p><strong>channel_axis</strong> – An integer corresponding to channel axis. This axis must be in range of [0, ndim). </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>true </p>
+</dd>
+<dt class="field-odd">Returns</dt>
+<dd class="field-odd"><p>false </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--CgVariable.html" class="btn btn-neutral float-left" title="class nbla::CgVariable" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--ClearCalledFlagRecorder.html" class="btn btn-neutral float-right" title="class nbla::ClearCalledFlagRecorder" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
