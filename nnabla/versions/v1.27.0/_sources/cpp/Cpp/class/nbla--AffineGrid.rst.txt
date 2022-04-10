@@ -1,0 +1,6 @@
+class nbla::AffineGrid
+========================================
+
+.. doxygenclass:: nbla::AffineGrid
+	:project: Cpp
+	:members: 

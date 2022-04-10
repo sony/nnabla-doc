@@ -1,0 +1,6 @@
+class TanhShrink
+========================================
+
+.. doxygenclass:: TanhShrink
+	:project: Cpp
+	:members: 

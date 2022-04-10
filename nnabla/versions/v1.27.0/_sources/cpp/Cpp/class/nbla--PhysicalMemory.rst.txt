@@ -1,0 +1,6 @@
+class nbla::PhysicalMemory
+========================================
+
+.. doxygenclass:: nbla::PhysicalMemory
+	:project: Cpp
+	:members: 

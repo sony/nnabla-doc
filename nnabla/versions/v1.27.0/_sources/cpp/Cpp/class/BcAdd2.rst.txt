@@ -1,0 +1,6 @@
+class BcAdd2
+========================================
+
+.. doxygenclass:: BcAdd2
+	:project: Cpp
+	:members: 

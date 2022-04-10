@@ -1,0 +1,6 @@
+struct nbla::FunctionDbItem
+========================================
+
+.. doxygenstruct:: nbla::FunctionDbItem
+	:project: Cpp
+	:members: 

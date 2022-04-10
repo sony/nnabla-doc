@@ -1,0 +1,6 @@
+class nbla::STFT
+========================================
+
+.. doxygenclass:: nbla::STFT
+	:project: Cpp
+	:members: 

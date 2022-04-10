@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::RandGamma &mdash; Neural Network Libraries 1.27.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::Randint" href="nbla--Randint.html" />
+    <link rel="prev" title="class nbla::RandBinomial" href="nbla--RandBinomial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.27.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::RandGamma</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--RandGamma.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-randgamma">
+<h1>class nbla::RandGamma<a class="headerlink" href="#class-nbla-randgamma" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla9RandGammaE">
+<span id="_CPPv3I0EN4nbla9RandGammaE"></span><span id="_CPPv2I0EN4nbla9RandGammaE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1RandGamma"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">RandGamma</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--BaseFunction.html#_CPPv4IDpEN4nbla12BaseFunctionE" title="nbla::BaseFunction"><span class="n"><span class="pre">BaseFunction</span></span></a><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&amp;</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN4nbla9RandGammaE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>Write doc.</p>
+</dd></dl>
+
+</p>
+<p>Inputs:</p>
+<p>Outputs: </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla9RandGamma4copyEv">
+<span id="_CPPv3NK4nbla9RandGamma4copyEv"></span><span id="_CPPv2NK4nbla9RandGamma4copyEv"></span><span id="nbla::RandGamma::copyC"></span><span class="target" id="classnbla_1_1RandGamma_1a97fb730ddbe47a7cb3dfaba2987f51bb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Function.html#_CPPv4N4nbla8FunctionE" title="nbla::Function"><span class="n"><span class="pre">Function</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla9RandGamma4copyEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy another instance of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> with the same context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9RandGamma10min_inputsEv">
+<span id="_CPPv3N4nbla9RandGamma10min_inputsEv"></span><span id="_CPPv2N4nbla9RandGamma10min_inputsEv"></span><span id="nbla::RandGamma::min_inputs"></span><span class="target" id="classnbla_1_1RandGamma_1abb60d42b810a805fc6923eaef9c40bb8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_inputs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9RandGamma10min_inputsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get minimum number of inputs. </p>
+<p>This is meant to be used in setup function with in_types which is used to get maximum number of inputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9RandGamma11min_outputsEv">
+<span id="_CPPv3N4nbla9RandGamma11min_outputsEv"></span><span id="_CPPv2N4nbla9RandGamma11min_outputsEv"></span><span id="nbla::RandGamma::min_outputs"></span><span class="target" id="classnbla_1_1RandGamma_1a58a41adc2a61b064acb32f9431e53ff7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_outputs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9RandGamma11min_outputsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get minimum number of outputs. </p>
+<p>This is meant to be used in setup function with out_types which is used to get max number of outputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9RandGamma8in_typesEv">
+<span id="_CPPv3N4nbla9RandGamma8in_typesEv"></span><span id="_CPPv2N4nbla9RandGamma8in_typesEv"></span><span id="nbla::RandGamma::in_types"></span><span class="target" id="classnbla_1_1RandGamma_1a1fee4ec78c65b55f2b9c00e5ec59a10d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">in_types</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9RandGamma8in_typesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get input dtypes. </p>
+<p>Last in_type will be used repeatedly if size of in_types is smaller than size of inputs </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9RandGamma9out_typesEv">
+<span id="_CPPv3N4nbla9RandGamma9out_typesEv"></span><span id="_CPPv2N4nbla9RandGamma9out_typesEv"></span><span id="nbla::RandGamma::out_types"></span><span class="target" id="classnbla_1_1RandGamma_1a5aba5b452137a9d33475106605f72c2d"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">out_types</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9RandGamma9out_typesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get output dtypes. </p>
+<p>Last out_type will be used repeatedly if size of out_types is smaller than size of outputs </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9RandGamma21allowed_array_classesEv">
+<span id="_CPPv3N4nbla9RandGamma21allowed_array_classesEv"></span><span id="_CPPv2N4nbla9RandGamma21allowed_array_classesEv"></span><span id="nbla::RandGamma::allowed_array_classes"></span><span class="target" id="classnbla_1_1RandGamma_1a7cc49dad6dae3c09793145680f633701"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowed_array_classes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9RandGamma21allowed_array_classesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array classes that are allowed to be specified by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9RandGamma4nameEv">
+<span id="_CPPv3N4nbla9RandGamma4nameEv"></span><span id="_CPPv2N4nbla9RandGamma4nameEv"></span><span id="nbla::RandGamma::name"></span><span class="target" id="classnbla_1_1RandGamma_1ad4b36e4435b45c64f4c7fba3d86fc6a2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9RandGamma4nameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get function name in string. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla9RandGamma20need_setup_recomputeEi">
+<span id="_CPPv3NK4nbla9RandGamma20need_setup_recomputeEi"></span><span id="_CPPv2NK4nbla9RandGamma20need_setup_recomputeEi"></span><span id="nbla::RandGamma::need_setup_recompute__iC"></span><span class="target" id="classnbla_1_1RandGamma_1aa323143b68dea4e66502a946e03551c9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_setup_recompute</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla9RandGamma20need_setup_recomputeEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A flag for checking if <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a> is needed. </p>
+<p>Checking if o-th output’ data requires <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a> will skipped during forward execution if none of outputs requires <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a>. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>o</strong> – <strong>[in]</strong> Output variable index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla9RandGamma24grad_depends_output_dataEii">
+<span id="_CPPv3NK4nbla9RandGamma24grad_depends_output_dataEii"></span><span id="_CPPv2NK4nbla9RandGamma24grad_depends_output_dataEii"></span><span id="nbla::RandGamma::grad_depends_output_data__i.iC"></span><span class="target" id="classnbla_1_1RandGamma_1ab84dffee2af486d80b0b72fce25f53e6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad_depends_output_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla9RandGamma24grad_depends_output_dataEii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag for checking if in-grad depends on out-data. </p>
+<p>Checking if i-th input’ gradient computation requires o-th output’s data or not.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If any of inputs requires an output variable data when computing its gradient, this function must be overridden to return appropriate boolean value. Otherwise, backward computation will be incorrect. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p></li>
+<li><p><strong>o</strong> – <strong>[in]</strong> Output variable index.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--RandBinomial.html" class="btn btn-neutral float-left" title="class nbla::RandBinomial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--Randint.html" class="btn btn-neutral float-right" title="class nbla::Randint" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

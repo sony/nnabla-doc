@@ -1,0 +1,6 @@
+class nbla::CategoricalCrossEntropy
+========================================
+
+.. doxygenclass:: nbla::CategoricalCrossEntropy
+	:project: Cpp
+	:members: 

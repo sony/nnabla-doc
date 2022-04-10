@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::Allocator &mdash; Neural Network Libraries 1.27.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::AllocatorMemory" href="nbla--AllocatorMemory.html" />
+    <link rel="prev" title="class nbla::AffineGrid" href="nbla--AffineGrid.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.27.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::Allocator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--Allocator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-allocator">
+<h1>class nbla::Allocator<a class="headerlink" href="#class-nbla-allocator" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9AllocatorE">
+<span id="_CPPv3N4nbla9AllocatorE"></span><span id="_CPPv2N4nbla9AllocatorE"></span><span id="nbla::Allocator"></span><span class="target" id="classnbla_1_1Allocator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Allocator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_shared_from_this</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4nbla9AllocatorE" title="nbla::Allocator"><span class="n"><span class="pre">Allocator</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N4nbla9AllocatorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Allocator"><span class="std std-ref">Allocator</span></a> interface class. </p>
+<p>A derived class implements logics that manage cached device memory blocks.</p>
+<p>A derived class <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NaiveAllocator"><span class="std std-ref">NaiveAllocator</span></a> which takes a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> class as a template argument implements an memory allocator without caching.</p>
+<p><dl>
+<dt class="sig sig-object cpp">
+<em><span class="pre">Todo:</span></em></dt>
+<dd><p>Support streams or events. </p>
+</dd></dl>
+
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>A <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Allocator"><span class="std std-ref">Allocator</span></a> instance must be instantiated as a shared_ptr. </p>
+</div>
+<p>Subclassed by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CachingAllocatorWithBucketsBase"><span class="std std-ref">nbla::CachingAllocatorWithBucketsBase</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NaiveAllocator"><span class="std std-ref">nbla::NaiveAllocator&lt; MemoryType &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1VirtualCachingAllocatorBase"><span class="std std-ref">nbla::VirtualCachingAllocatorBase</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator9AllocatorEv">
+<span id="_CPPv3N4nbla9Allocator9AllocatorEv"></span><span id="_CPPv2N4nbla9Allocator9AllocatorEv"></span><span id="nbla::Allocator::Allocator"></span><span class="target" id="classnbla_1_1Allocator_1a9179285037529cda608c7fb01572cd6a"></span><span class="sig-name descname"><span class="n"><span class="pre">Allocator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator9AllocatorEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor does nothing. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator5allocE6size_tRK6string">
+<span id="_CPPv3N4nbla9Allocator5allocE6size_tRK6string"></span><span id="_CPPv2N4nbla9Allocator5allocE6size_tRK6string"></span><span id="nbla::Allocator::alloc__s.stringCR"></span><span class="target" id="classnbla_1_1Allocator_1ab21ad7e6fcaacd7e92efaf92d03669f1"></span><a class="reference internal" href="nbla--AllocatorMemory.html#_CPPv4N4nbla15AllocatorMemoryE" title="nbla::AllocatorMemory"><span class="n"><span class="pre">AllocatorMemory</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alloc</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">bytes</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator5allocE6size_tRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Request a memory block wrapped by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a>. </p>
+<p>A derived class must implement alloc_impl where a memory is newly created or obtained from memory pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>bytes</strong> – <strong>[in]</strong> Number of bytes of memory block requested. </p></li>
+<li><p><strong>device_id</strong> – <strong>[in]</strong> Device specifier string. A format of allow specifier is determined depending on <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> class implementation. </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A memory block wrapped by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a>. It’s assumed that compiler RVO is enabled to prevent copying a return value. The returned <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a> must be moved to <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> instance using std::move. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator4freeE10shared_ptrI6MemoryE">
+<span id="_CPPv3N4nbla9Allocator4freeE10shared_ptrI6MemoryE"></span><span id="_CPPv2N4nbla9Allocator4freeE10shared_ptrI6MemoryE"></span><span id="nbla::Allocator::free__shared_ptr:Memory:"></span><span class="target" id="classnbla_1_1Allocator_1ad272b08dee00dc00665a3cab046146a6"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">free</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Memory.html#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">memory</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator4freeE10shared_ptrI6MemoryE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>User should call this. </p>
+<p>This is called from destructor of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a>.</p>
+<p>A given memory block is returned to this allocator instance. A derived class must implement Allocator::free_impl where a memory is returned to pool or simply freed if it’s non-caching allocator. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator18free_unused_cachesEv">
+<span id="_CPPv3N4nbla9Allocator18free_unused_cachesEv"></span><span id="_CPPv2N4nbla9Allocator18free_unused_cachesEv"></span><span id="nbla::Allocator::free_unused_caches"></span><span class="target" id="classnbla_1_1Allocator_1a5471636d498591181fffa58653ae97d8"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">free_unused_caches</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator18free_unused_cachesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Free all unused memory blocks from all devices. </p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Allocator_1a26a9aab12a91b6a8a84b1cca91d86f37"><span class="std std-ref">Allocator::free_unused_device_caches</span></a> is called for all device IDs previously passed to <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Allocator_1ab21ad7e6fcaacd7e92efaf92d03669f1"><span class="std std-ref">Allocator::alloc</span></a> function. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator25free_unused_device_cachesERK6string">
+<span id="_CPPv3N4nbla9Allocator25free_unused_device_cachesERK6string"></span><span id="_CPPv2N4nbla9Allocator25free_unused_device_cachesERK6string"></span><span id="nbla::Allocator::free_unused_device_caches__stringCR"></span><span class="target" id="classnbla_1_1Allocator_1a26a9aab12a91b6a8a84b1cca91d86f37"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">free_unused_device_caches</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator25free_unused_device_cachesERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Free all unused memory blocks in a specified device. </p>
+<p>A derived class must implement Allocator::free_unused_device_caches_impl where all unused memory blocks that are origianally created, i.e. not divided, are discarded from pool.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_id</strong> – <strong>[in]</strong> Specifies device by a string. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Size of freed memory in bytes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator27device_memory_used_in_bytesERK6string">
+<span id="_CPPv3N4nbla9Allocator27device_memory_used_in_bytesERK6string"></span><span id="_CPPv2N4nbla9Allocator27device_memory_used_in_bytesERK6string"></span><span id="nbla::Allocator::device_memory_used_in_bytes__stringCR"></span><span class="target" id="classnbla_1_1Allocator_1a8788a4960e19c98d7bfb97338958c6b0"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">device_memory_used_in_bytes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator27device_memory_used_in_bytesERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get currently allocated memory size in a specifie device. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>device_id</strong> – <strong>[in]</strong> Specifies device by a string. </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Total size of memory currently allocated by this allocator in bytes. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9AllocatorD0Ev">
+<span id="_CPPv3N4nbla9AllocatorD0Ev"></span><span id="_CPPv2N4nbla9AllocatorD0Ev"></span><span id="nbla::Allocator::~Allocator"></span><span class="target" id="classnbla_1_1Allocator_1ae715c13c9f1f0d24167b134a0b07c319"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Allocator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9AllocatorD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Destructor does nothing. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla9Allocator22print_memory_cache_mapEv">
+<span id="_CPPv3N4nbla9Allocator22print_memory_cache_mapEv"></span><span id="_CPPv2N4nbla9Allocator22print_memory_cache_mapEv"></span><span id="nbla::Allocator::print_memory_cache_map"></span><span class="target" id="classnbla_1_1Allocator_1a711a7eeccf46344c0d4a460f562d82a2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">print_memory_cache_map</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla9Allocator22print_memory_cache_mapEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>APIs for memory cache analysis. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--AffineGrid.html" class="btn btn-neutral float-left" title="class nbla::AffineGrid" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--AllocatorMemory.html" class="btn btn-neutral float-right" title="class nbla::AllocatorMemory" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

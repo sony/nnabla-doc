@@ -1,0 +1,6 @@
+class SoftSign
+========================================
+
+.. doxygenclass:: SoftSign
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class AddScalar
+========================================
+
+.. doxygenclass:: AddScalar
+	:project: Cpp
+	:members: 

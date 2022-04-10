@@ -1,0 +1,6 @@
+class nbla::utils::nnp::Executor
+========================================
+
+.. doxygenclass:: nbla::utils::nnp::Executor
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Stack
+========================================
+
+.. doxygenclass:: nbla::Stack
+	:project: Cpp
+	:members: 

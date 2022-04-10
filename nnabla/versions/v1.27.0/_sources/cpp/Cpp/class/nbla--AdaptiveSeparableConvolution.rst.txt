@@ -1,0 +1,6 @@
+class nbla::AdaptiveSeparableConvolution
+========================================
+
+.. doxygenclass:: nbla::AdaptiveSeparableConvolution
+	:project: Cpp
+	:members: 

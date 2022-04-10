@@ -1,0 +1,6 @@
+class nbla::DeformableConvolution
+========================================
+
+.. doxygenclass:: nbla::DeformableConvolution
+	:project: Cpp
+	:members: 

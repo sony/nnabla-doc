@@ -1,0 +1,6 @@
+class nbla::NormNormalization
+========================================
+
+.. doxygenclass:: nbla::NormNormalization
+	:project: Cpp
+	:members: 

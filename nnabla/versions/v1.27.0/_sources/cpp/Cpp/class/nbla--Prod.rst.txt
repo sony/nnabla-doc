@@ -1,0 +1,6 @@
+class nbla::Prod
+========================================
+
+.. doxygenclass:: nbla::Prod
+	:project: Cpp
+	:members: 

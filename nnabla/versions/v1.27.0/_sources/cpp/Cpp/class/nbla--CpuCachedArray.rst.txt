@@ -1,0 +1,6 @@
+class nbla::CpuCachedArray
+========================================
+
+.. doxygenclass:: nbla::CpuCachedArray
+	:project: Cpp
+	:members: 
