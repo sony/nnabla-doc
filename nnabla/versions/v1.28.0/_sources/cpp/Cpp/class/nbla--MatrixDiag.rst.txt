@@ -1,0 +1,6 @@
+class nbla::MatrixDiag
+========================================
+
+.. doxygenclass:: nbla::MatrixDiag
+	:project: Cpp
+	:members: 

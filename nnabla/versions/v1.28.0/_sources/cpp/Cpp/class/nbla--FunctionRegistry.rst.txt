@@ -1,0 +1,6 @@
+class nbla::FunctionRegistry
+========================================
+
+.. doxygenclass:: nbla::FunctionRegistry
+	:project: Cpp
+	:members: 

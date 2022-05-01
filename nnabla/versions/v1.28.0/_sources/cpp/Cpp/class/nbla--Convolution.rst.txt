@@ -1,0 +1,6 @@
+class nbla::Convolution
+========================================
+
+.. doxygenclass:: nbla::Convolution
+	:project: Cpp
+	:members: 

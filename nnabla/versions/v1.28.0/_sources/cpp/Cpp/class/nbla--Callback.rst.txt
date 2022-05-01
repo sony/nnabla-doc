@@ -1,0 +1,6 @@
+class nbla::Callback
+========================================
+
+.. doxygenclass:: nbla::Callback
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class ATan
+========================================
+
+.. doxygenclass:: ATan
+	:project: Cpp
+	:members: 

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.numpy_compat_functions &mdash; Neural Network Libraries 1.28.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.28.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+      <li>nnabla.numpy_compat_functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.numpy_compat_functions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2021 Sony Group Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="dot"><a class="viewcode-back" href="../../python/api/function.html#nnabla.functions.dot">[docs]</a><span class="k">def</span> <span class="nf">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    A compatible operation with ``numpy.dot``.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Any operation between nnabla&#39;s Variable/NdArray and numpy array is not supported.</span>
+
+<span class="sd">        If both arguments are 1-D, it is inner product of vectors.</span>
+<span class="sd">        If both arguments are 2-D, it is matrix multiplication.</span>
+<span class="sd">        If either a or b is 0-D(scalar), it is equivalent to multiply.</span>
+<span class="sd">        If b is a 1-D array, it is a sum product over the last axis of a and b.</span>
+<span class="sd">        If b is an M-D array (M&gt;=2), it is a sum product over the last axis of a and the second-to-last axis of b.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        a (Variable, NdArray or scalar): Left input array.</span>
+<span class="sd">        b (Variable, NdArray or scalar): Right input array.</span>
+<span class="sd">        out: Output argument. This must have the same shape, dtype, and type as the result that would be returned for F.dot(a,b).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        ~nnabla.Variable or ~nnabla.NdArray</span>
+
+<span class="sd">    Examples:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.functions as F</span>
+
+<span class="sd">        # 2-D matrix * 2-D matrix</span>
+<span class="sd">        arr1 = np.arange(5*6).reshape(5, 6)</span>
+<span class="sd">        arr2 = np.arange(6*8).reshape(6, 8)</span>
+<span class="sd">        nd1 = nn.NdArray.from_numpy_array(arr1)</span>
+<span class="sd">        nd2 = nn.NdArray.from_numpy_array(arr2)</span>
+<span class="sd">        ans1 = F.dot(nd1, nd2)</span>
+<span class="sd">        print(ans1.shape)</span>
+<span class="sd">        #(5, 8)</span>
+
+<span class="sd">        var1 = nn.Variable.from_numpy_array(arr1)</span>
+<span class="sd">        var2 = nn.Variable.from_numpy_array(arr2)</span>
+<span class="sd">        ans2 = F.dot(var1, var2)</span>
+<span class="sd">        ans2.forward()</span>
+<span class="sd">        print(ans2.shape)</span>
+<span class="sd">        #(5, 8)</span>
+
+<span class="sd">        out1 = nn.NdArray((5, 8))</span>
+<span class="sd">        out1.cast(np.float32)</span>
+<span class="sd">        F.dot(nd1, nd2, out1)</span>
+<span class="sd">        print(out1.shape)</span>
+<span class="sd">        #(5, 8)</span>
+
+<span class="sd">        out2 = nn.Variable((5, 8))</span>
+<span class="sd">        out2.data.cast(np.float32)</span>
+<span class="sd">        F.dot(var1, var2, out2)</span>
+<span class="sd">        out2.forward()</span>
+<span class="sd">        print(out2.shape)</span>
+<span class="sd">        #(5, 8)</span>
+
+<span class="sd">        # N-D matrix * M-D matrix (M&gt;=2)</span>
+<span class="sd">        arr1 = np.arange(5*6*7*8).reshape(5, 6, 7, 8)</span>
+<span class="sd">        arr2 = np.arange(2*3*8*6).reshape(2, 3, 8, 6)</span>
+<span class="sd">        nd1 = nn.NdArray.from_numpy_array(arr1)</span>
+<span class="sd">        nd2 = nn.NdArray.from_numpy_array(arr2)</span>
+<span class="sd">        ans1 = F.dot(nd1, nd2)</span>
+<span class="sd">        print(ans1.shape)</span>
+<span class="sd">        #(5, 6, 7, 2, 3, 6)</span>
+
+<span class="sd">        var1 = nn.Variable.from_numpy_array(arr1)</span>
+<span class="sd">        var2 = nn.Variable.from_numpy_array(arr2)</span>
+<span class="sd">        ans2 = F.dot(var1, var2)</span>
+<span class="sd">        ans2.forward()</span>
+<span class="sd">        print(ans2.shape)</span>
+<span class="sd">        #(5, 6, 7, 2, 3, 6)</span>
+
+<span class="sd">        out1 = nn.NdArray((5, 6, 7, 2, 3, 6))</span>
+<span class="sd">        out1.cast(np.float32)</span>
+<span class="sd">        F.dot(nd1, nd2, out1)</span>
+<span class="sd">        print(out1.shape)</span>
+<span class="sd">        #(5, 6, 7, 2, 3, 6)</span>
+
+<span class="sd">        out2 = nn.Variable((5, 6, 7, 2, 3, 6))</span>
+<span class="sd">        out2.data.cast(np.float32)</span>
+<span class="sd">        F.dot(var1, var2, out2)</span>
+<span class="sd">        out2.forward()</span>
+<span class="sd">        print(out2.shape)</span>
+<span class="sd">        #(5, 6, 7, 2, 3, 6)</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+    <span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+
+    <span class="k">def</span> <span class="nf">_chk</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">mark</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span><span class="o">.</span><span class="n">d</span><span class="p">,</span> <span class="mi">1</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">x</span><span class="p">,</span> <span class="n">mark</span>
+
+    <span class="n">m</span><span class="p">,</span> <span class="n">mark1</span> <span class="o">=</span> <span class="n">_chk</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">n</span><span class="p">,</span> <span class="n">mark2</span> <span class="o">=</span> <span class="n">_chk</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mark1</span> <span class="ow">and</span> <span class="n">mark2</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="n">b</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mul_scalar</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">m</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">):</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">result</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mul_scalar</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">):</span>
+                    <span class="n">result</span><span class="o">.</span><span class="n">forward</span><span class="p">()</span>
+                    <span class="n">result</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span>
+        <span class="k">elif</span> <span class="n">b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)),</span> <span class="n">base_axis</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">h</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+        <span class="k">elif</span> <span class="n">b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">&gt;=</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">index</span> <span class="o">=</span> <span class="p">[</span><span class="o">*</span><span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">ndim</span><span class="p">)]</span>
+            <span class="n">index</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">index</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">2</span><span class="p">))</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">transpose</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">base_axis</span><span class="o">=</span><span class="n">a</span><span class="o">.</span><span class="n">ndim</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="n">h</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">result</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">out</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">out_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_chk</span><span class="p">(</span><span class="n">out</span><span class="p">)</span>
+        <span class="n">result_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">_chk</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">out</span><span class="p">)</span> <span class="o">==</span> <span class="nb">type</span><span class="p">(</span><span class="n">result</span><span class="p">)</span> <span class="ow">and</span> <span class="n">out_</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">result_</span><span class="o">.</span><span class="n">shape</span> <span class="ow">and</span> <span class="n">out_</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">result_</span><span class="o">.</span><span class="n">dtype</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">):</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">cast</span><span class="p">(</span><span class="n">result</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">dtype</span><span class="p">)[</span><span class="o">...</span><span class="p">]</span> <span class="o">=</span> <span class="n">result</span><span class="o">.</span><span class="n">data</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">out</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">):</span>
+                <span class="n">out</span><span class="o">.</span><span class="n">rewire_on</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">out</span> <span class="o">=</span> <span class="n">result</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Output argument must have the same shape, type and dtype as the result that would be &quot;</span>
+                             <span class="sa">f</span><span class="s2">&quot;returned for F.dot(a,b).&quot;</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">result</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

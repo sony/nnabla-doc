@@ -1,0 +1,6 @@
+class nbla::NmsDetection2d
+========================================
+
+.. doxygenclass:: nbla::NmsDetection2d
+	:project: Cpp
+	:members: 

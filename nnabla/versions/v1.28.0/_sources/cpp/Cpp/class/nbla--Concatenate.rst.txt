@@ -1,0 +1,6 @@
+class nbla::Concatenate
+========================================
+
+.. doxygenclass:: nbla::Concatenate
+	:project: Cpp
+	:members: 

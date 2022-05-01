@@ -1,0 +1,6 @@
+class nbla::MultiProcessDataParallelCommunicator
+========================================
+
+.. doxygenclass:: nbla::MultiProcessDataParallelCommunicator
+	:project: Cpp
+	:members: 

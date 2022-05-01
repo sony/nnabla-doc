@@ -1,0 +1,6 @@
+class nbla::GlobalAveragePooling
+========================================
+
+.. doxygenclass:: nbla::GlobalAveragePooling
+	:project: Cpp
+	:members: 

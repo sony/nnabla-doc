@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::Lamb &mdash; Neural Network Libraries 1.28.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::Lars" href="nbla--Lars.html" />
+    <link rel="prev" title="class nbla::KLMultinomial" href="nbla--KLMultinomial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.28.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::Lamb</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--Lamb.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-lamb">
+<h1>class nbla::Lamb<a class="headerlink" href="#class-nbla-lamb" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla4LambE">
+<span id="_CPPv3I0EN4nbla4LambE"></span><span id="_CPPv2I0EN4nbla4LambE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1Lamb"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Lamb</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--Solver.html#_CPPv4N4nbla6SolverE" title="nbla::Solver"><span class="n"><span class="pre">Solver</span></span></a><a class="headerlink" href="#_CPPv4I0EN4nbla4LambE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>LAMB. </p>
+<p><div class="math notranslate nohighlight">
+\[\begin{split} m_t &amp;\leftarrow \beta_1 m_{t-1} + (1 - \beta_1) g_t\\ v_t &amp;\leftarrow \beta_2 v_{t-1} + (1 - \beta_2) g_t^2\\ \hat{m} &amp;= m_t / (1-\beta_1^t)\\ \hat{v} &amp;= v_t / (1-\beta_2^t)\\ r &amp;= \frac{\hat{m}}{\sqrt{\hat{v}}+\epsilon}\\ w_t &amp;\leftarrow w_{t-1} - \eta_t \frac{\phi (\|w_{t-1}\|)}{\|r + \lambda w_{t-1} \|} \left(r + \lambda w_{t-1} \right) \end{split}\]</div>
+</p>
+<p>where <span class="math notranslate nohighlight">\(g_t\)</span> denotes a gradient, <span class="math notranslate nohighlight">\(m_t\)</span> and <span class="math notranslate nohighlight">\(v_t\)</span> are 1st and 2nd order momentum of the gradient initialized with 0 at <span class="math notranslate nohighlight">\(t=0\)</span>, <span class="math notranslate nohighlight">\(\lambda\)</span> is the decoupled weight decay rate set by weight_decay method (lazy evaluation), <span class="math notranslate nohighlight">\(\phi\)</span> is a scaling function defined as <span class="math notranslate nohighlight">\(\phi(z)=\min\{\max\{z, \gamma_l\}, \gamma_u\}\)</span>, and the rest is described in the arguments.</p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>See the paper linked below for more details. Yang You, Jing Li, Sashank Reddi. Large Batch Optimization for Deep Learning: Training BERT in 76 minutes. <a class="reference external" href="https://arxiv.org/abs/1904.00962">https://arxiv.org/abs/1904.00962</a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Param eta</dt>
+<dd class="field-odd"><p>Learning rate ( <span class="math notranslate nohighlight">\(\eta_t\)</span>). </p>
+</dd>
+<dt class="field-even">Param beta1</dt>
+<dd class="field-even"><p>Decay rate of first-order momentum ( <span class="math notranslate nohighlight">\(\beta_1\)</span>). </p>
+</dd>
+<dt class="field-odd">Param beta2</dt>
+<dd class="field-odd"><p>Decay rate of second-order momentum ( <span class="math notranslate nohighlight">\(\beta_2\)</span>). </p>
+</dd>
+<dt class="field-even">Param gamma_l</dt>
+<dd class="field-even"><p>Lower bound of the clamp scaling function <span class="math notranslate nohighlight">\(\phi\)</span> ( <span class="math notranslate nohighlight">\(\gamma_l\)</span>). </p>
+</dd>
+<dt class="field-odd">Param gamma_u</dt>
+<dd class="field-odd"><p>Upper bound of the clamp scaling function <span class="math notranslate nohighlight">\(\phi\)</span> ( <span class="math notranslate nohighlight">\(\gamma_u\)</span>). </p>
+</dd>
+<dt class="field-even">Param eps</dt>
+<dd class="field-even"><p>Small value for avoiding zero division ( <span class="math notranslate nohighlight">\(\epsilon\)</span>). </p>
+</dd>
+<dt class="field-odd">Param bias_correction</dt>
+<dd class="field-odd"><p>Whether to apply bias correction in momentum computation <span class="math notranslate nohighlight">\(\hat{m}\)</span> and <span class="math notranslate nohighlight">\(\hat{v}\)</span>.</p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla4Lamb13learning_rateEv">
+<span id="_CPPv3N4nbla4Lamb13learning_rateEv"></span><span id="_CPPv2N4nbla4Lamb13learning_rateEv"></span><span id="nbla::Lamb::learning_rate"></span><span class="target" id="classnbla_1_1Lamb_1a0c8de0cdbb740e770e6d55e1461797b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">learning_rate</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla4Lamb13learning_rateEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set learning rate. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--KLMultinomial.html" class="btn btn-neutral float-left" title="class nbla::KLMultinomial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--Lars.html" class="btn btn-neutral float-right" title="class nbla::Lars" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

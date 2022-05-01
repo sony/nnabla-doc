@@ -1,0 +1,6 @@
+class nbla::GlobalFunctionCallback
+========================================
+
+.. doxygenclass:: nbla::GlobalFunctionCallback
+	:project: Cpp
+	:members: 

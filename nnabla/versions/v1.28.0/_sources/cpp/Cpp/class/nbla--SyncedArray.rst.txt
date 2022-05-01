@@ -1,0 +1,6 @@
+class nbla::SyncedArray
+========================================
+
+.. doxygenclass:: nbla::SyncedArray
+	:project: Cpp
+	:members: 

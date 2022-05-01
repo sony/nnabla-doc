@@ -1,0 +1,6 @@
+class nbla::Nesterov
+========================================
+
+.. doxygenclass:: nbla::Nesterov
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class PowScalar
+========================================
+
+.. doxygenclass:: PowScalar
+	:project: Cpp
+	:members: 

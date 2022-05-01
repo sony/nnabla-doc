@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::NdArray &mdash; Neural Network Libraries 1.28.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::Nesterov" href="nbla--Nesterov.html" />
+    <link rel="prev" title="class nbla::NaiveAllocator" href="nbla--NaiveAllocator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.28.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::NdArray</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--NdArray.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-ndarray">
+<h1>class nbla::NdArray<a class="headerlink" href="#class-nbla-ndarray" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla7NdArrayE">
+<span id="_CPPv3N4nbla7NdArrayE"></span><span id="_CPPv2N4nbla7NdArrayE"></span><span id="nbla::NdArray"></span><span class="target" id="classnbla_1_1NdArray"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">NdArray</span></span></span><a class="headerlink" href="#_CPPv4N4nbla7NdArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dtype and backend agnostic multi-dimensional array.Shared pointer of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NdArray"><span class="std std-ref">NdArray</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla7NdArray7NdArrayERK7Shape_t">
+<span id="_CPPv3N4nbla7NdArray7NdArrayERK7Shape_t"></span><span id="_CPPv2N4nbla7NdArray7NdArrayERK7Shape_t"></span><span id="nbla::NdArray::NdArray__Shape_tCR"></span><span class="target" id="classnbla_1_1NdArray_1af5a363c4a0720c71036a19098c7a8c40"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NdArray</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla7NdArray7NdArrayERK7Shape_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Ctor given shape. </p>
+<p>Create an <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> instance with corresponding size.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – <strong>[in]</strong> Shape of creating array. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla7NdArray7NdArrayE14SyncedArrayPtrRK7Shape_t">
+<span id="_CPPv3N4nbla7NdArray7NdArrayE14SyncedArrayPtrRK7Shape_t"></span><span id="_CPPv2N4nbla7NdArray7NdArrayE14SyncedArrayPtrRK7Shape_t"></span><span id="nbla::NdArray::NdArray__SyncedArrayPtr.Shape_tCR"></span><span class="target" id="classnbla_1_1NdArray_1a0a8d53e054a3fa05eb59426b6d4e3071"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">NdArray</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla14SyncedArrayPtrE" title="nbla::SyncedArrayPtr"><span class="n"><span class="pre">SyncedArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">array</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla7NdArray7NdArrayE14SyncedArrayPtrRK7Shape_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Ctor given previously created <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> and shape. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>array</strong> – <strong>[in]</strong> Previously created <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a>. </p></li>
+<li><p><strong>shape</strong> – <strong>[in]</strong> Shape of N-d array. Total size must be the same as <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a>. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a0a0ef527aafe33bd31a5f22c9e70817b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">reshape</span> <span class="pre">(const</span> <span class="pre">Shape_t</span> <span class="pre">&amp;shape,</span> <span class="pre">bool</span> <span class="pre">force=false)</span></span></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Reshape"><span class="std std-ref">Reshape</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – <strong>[in]</strong> N-d array will be reshaped to this shape. </p></li>
+<li><p><strong>force</strong> – <strong>[in]</strong> If total size doesn’t match and true is given, array will reset to total size, which means the content of array will become totally different one. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1abbc3b5d2c1f5cf1cc319ab929efa6475"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Ptr</span> <span class="pre">view</span> <span class="pre">(const</span> <span class="pre">Shape_t</span> <span class="pre">&amp;shape)</span></span></dt>
+<dd><p>Create an another instance with different shape but sharing array content. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – <strong>[in]</strong> N-d array reshaped to. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a161abb02f7574b141c2c9e24f7f76171"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Shape_t</span> <span class="pre">shape</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get shape. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1ac0c3ef5687913e5997b3cee51788ad43"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Shape_t</span> <span class="pre">strides</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get strides. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1ae522d541614c2fe01da2a936ec375666"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Size_t</span> <span class="pre">size</span> <span class="pre">(Size_t</span> <span class="pre">axis=-1)</span> <span class="pre">const</span></span></dt>
+<dd><p>Get total size (product of shape array). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>axis</strong> – Size followed by given axis is computed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1ae30aacdfd7760c4f2d7e1550a1bf33ab"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Size_t</span> <span class="pre">ndim</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get number of dimensions. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a2b356422b0ceba5596921c11f405b24f"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">SyncedArrayPtr</span> <span class="pre">array</span> <span class="pre">()</span></span></dt>
+<dd><p>Get <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> instance held by this instance. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is not copying data. Modifying content affects this. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a00ac964208688c7c6f9e00f4b7cbaa22"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">set_array</span> <span class="pre">(SyncedArrayPtr</span> <span class="pre">array)</span></span></dt>
+<dd><p>Replace <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> instance with previously created another one. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a1a4b10a2122e8442b0ac2a1f82d493b4"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">zero</span> <span class="pre">()</span></span></dt>
+<dd><p>Set all value to zero. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will be lazily evaluated when data is used. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1aeb867d8a2f58e4d4faa312b1e6c12946"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">fill</span> <span class="pre">(double</span> <span class="pre">v)</span></span></dt>
+<dd><p>Set all value to given value. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This will be lazily evaluated when data is used. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>value</strong> – <strong>[in]</strong> Value array filled with.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a20d5111ad1cfd87a71a08f20bc7dca25"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">Array</span> <span class="pre">*</span> <span class="pre">get</span> <span class="pre">(dtypes</span> <span class="pre">dtype,</span> <span class="pre">const</span> <span class="pre">Context</span> <span class="pre">&amp;ctx)</span></span></dt>
+<dd><p>Get const array with specified dtype and backend description. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> – <strong>[in]</strong> Enum of data type. </p></li>
+<li><p><strong>ctx</strong> – <strong>[in]</strong> Descriptor of array backend. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a36a27c04a2976008e5b869ac0cec0f12"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">const</span> <span class="pre">Array</span> <span class="pre">&gt;</span> <span class="pre">get_sp</span> <span class="pre">(dtypes</span> <span class="pre">dtype,</span> <span class="pre">const</span> <span class="pre">Context</span> <span class="pre">&amp;ctx)</span></span></dt>
+<dd><p>Get const array as a shared_ptr. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NdArray_1a20d5111ad1cfd87a71a08f20bc7dca25"><span class="std std-ref">get</span></a> </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1afb2848e37169519106865ae868ca96e3"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">unsigned</span> <span class="pre">long</span> <span class="pre">data_ptr</span> <span class="pre">(dtypes</span> <span class="pre">dtype,</span> <span class="pre">const</span> <span class="pre">Context</span> <span class="pre">&amp;ctx,</span> <span class="pre">bool</span> <span class="pre">write_only=false)</span></span></dt>
+<dd><p>Get array’s ptr. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> – <strong>[in]</strong> Enum of data type. </p></li>
+<li><p><strong>ctx</strong> – <strong>[in]</strong> Descriptor of array backend. </p></li>
+<li><p><strong>write_only</strong> – <strong>[in]</strong> No synchronization happens. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1a82dcd3e35f2e4c4ae81abac443587ad6"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Array</span> <span class="pre">*</span> <span class="pre">cast</span> <span class="pre">(dtypes</span> <span class="pre">dtype,</span> <span class="pre">const</span> <span class="pre">Context</span> <span class="pre">&amp;ctx,</span> <span class="pre">bool</span> <span class="pre">write_only=false)</span></span></dt>
+<dd><p>Get mutable array with specified dtype and backend description. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> – <strong>[in]</strong> Enum of data type. </p></li>
+<li><p><strong>ctx</strong> – <strong>[in]</strong> Descriptor of array backend. </p></li>
+<li><p><strong>write_only</strong> – <strong>[in]</strong> No synchronization happens. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1NdArray_1ac71355f74fb93941857c26f5127ac835"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Array</span> <span class="pre">&gt;</span> <span class="pre">cast_sp</span> <span class="pre">(dtypes</span> <span class="pre">dtype,</span> <span class="pre">const</span> <span class="pre">Context</span> <span class="pre">&amp;ctx,</span> <span class="pre">bool</span> <span class="pre">write_only=false)</span></span></dt>
+<dd><p>Get a mutable array as a shared_ptr. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NdArray_1a82dcd3e35f2e4c4ae81abac443587ad6"><span class="std std-ref">cast</span></a> </p>
+</div>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN4nbla7NdArray6createE3PtrDp4Args">
+<span id="_CPPv3IDpEN4nbla7NdArray6createEDp4Args"></span><span id="_CPPv2IDpEN4nbla7NdArray6createEDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1NdArray_1ab90e40851c022d309f6b2a6ccd2dc7a3"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">Ptr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN4nbla7NdArray6createE3PtrDp4Args" title="nbla::NdArray::create::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN4nbla7NdArray6createE3PtrDp4Args" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a shared_ptr instance of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NdArray"><span class="std std-ref">NdArray</span></a>. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--NaiveAllocator.html" class="btn btn-neutral float-left" title="class nbla::NaiveAllocator" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--Nesterov.html" class="btn btn-neutral float-right" title="class nbla::Nesterov" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

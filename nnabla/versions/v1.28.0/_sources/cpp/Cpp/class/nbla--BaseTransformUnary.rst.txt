@@ -1,0 +1,6 @@
+class nbla::BaseTransformUnary
+========================================
+
+.. doxygenclass:: nbla::BaseTransformUnary
+	:project: Cpp
+	:members: 
