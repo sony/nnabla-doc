@@ -1,0 +1,6 @@
+class nbla::Reshape
+========================================
+
+.. doxygenclass:: nbla::Reshape
+	:project: Cpp
+	:members: 

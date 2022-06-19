@@ -1,0 +1,6 @@
+class nbla::GlobalClearBufferState
+========================================
+
+.. doxygenclass:: nbla::GlobalClearBufferState
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Mean
+========================================
+
+.. doxygenclass:: nbla::Mean
+	:project: Cpp
+	:members: 

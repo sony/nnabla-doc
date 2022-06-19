@@ -1,0 +1,6 @@
+class Div2
+========================================
+
+.. doxygenclass:: Div2
+	:project: Cpp
+	:members: 

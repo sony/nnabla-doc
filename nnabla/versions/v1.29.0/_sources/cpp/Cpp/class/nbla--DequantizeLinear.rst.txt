@@ -1,0 +1,6 @@
+class nbla::DequantizeLinear
+========================================
+
+.. doxygenclass:: nbla::DequantizeLinear
+	:project: Cpp
+	:members: 

@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::utils::nnp::Network &mdash; Neural Network Libraries 1.29.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::NmsDetection2d" href="nbla--NmsDetection2d.html" />
+    <link rel="prev" title="class nbla::Nesterov" href="nbla--Nesterov.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.29.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::utils::nnp::Network</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--utils--nnp--Network.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-utils-nnp-network">
+<h1>class nbla::utils::nnp::Network<a class="headerlink" href="#class-nbla-utils-nnp-network" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp7NetworkE">
+<span id="_CPPv3N4nbla5utils3nnp7NetworkE"></span><span id="_CPPv2N4nbla5utils3nnp7NetworkE"></span><span id="nbla::utils::nnp::Network"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla5utilsE" title="nbla::utils"><span class="n"><span class="pre">utils</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla5utils3nnpE" title="nbla::utils::nnp"><span class="n"><span class="pre">nnp</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">Network</span></span></span><a class="headerlink" href="#_CPPv4N4nbla5utils3nnp7NetworkE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object associated with <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object. </p>
+<p>The following code will get <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> instance from <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object nnp, and set batch size. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Network</span><span class="o">&gt;</span> <span class="n">network</span> <span class="o">=</span> <span class="n">nnp</span><span class="o">.</span><span class="n">get_network</span><span class="p">(</span><span class="s2">&quot;net1&quot;</span><span class="p">);</span>
+<span class="n">network</span><span class="o">.</span><span class="n">set_batch_size</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>The next block will get the references to the variable object in the computation graph by name. The computation graph is built when get_variable(name) is called first time, or first time since the batch size or network topology is changed. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbla</span><span class="p">::</span><span class="n">CgVariablePtr</span> <span class="n">x</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">);</span>
+<span class="n">nbla</span><span class="p">::</span><span class="n">CgVariablePtr</span> <span class="n">y</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>You can set data to a variable by accessing array data by using <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> C++ interface. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">cast_data_and_get_pointer</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">dl</span><span class="o">.</span><span class="n">Context</span><span class="p">()</span><span class="o">.</span><span class="n">set_array_class</span><span class="p">(</span><span class="s2">&quot;CpuCachedArray&quot;</span><span class="p">));</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>  <span class="o">//</span> <span class="n">Set</span> <span class="n">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p>The forward propagation of the network can be executed at any variable by calling forward method. The function execution will be propagated from root (input) variables to to the variable. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">-&gt;</span><span class="n">forward</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Getting and displaying output are as follows. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="nb">float</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_data_pointer</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">dl</span><span class="o">.</span><span class="n">Context</span><span class="p">()</span><span class="o">.</span><span class="n">set_array_class</span><span class="p">(</span><span class="s2">&quot;CpuCachedArray&quot;</span><span class="p">));</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;,&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> instance is created by a class member function <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Nnp_1ab4af3d8c9b5a5bec36a1b8858d7e3101"><span class="std std-ref">Nnp::get_network()</span></a>. The constructor is hidden, and not called directly by users. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a9db0c8819d89c25c88c81814399420e7"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1adf71a016b3692be88ac63f7a570b2a1a"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">set_batch_size</span> <span class="pre">(int</span> <span class="pre">batch_size)</span></span></dt>
+<dd><p>Set batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch_size</strong> – <strong>[in]</strong> Overwrite the default batch size in nnp file. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a413e39c5cfaa9b6fbd92787328c29919"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">int</span> <span class="pre">batch_size</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>Batch</strong> – size. The if set_batch_size is not previously called, batch size written in nnp file will be returned. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a318a3e2e66d4de495cf2f8c39fd8eed5"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">replace_variable</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name,</span> <span class="pre">CgVariablePtr</span> <span class="pre">variable)</span></span></dt>
+<dd><p>Replace an arbitrary variable in the network with a given variable. </p>
+<p>The predecessors of the variable in the networks are discarded, and replaced with the predecessors of the given variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – <strong>[in]</strong> Name of variable in the network you are replacing. </p></li>
+<li><p><strong>variable</strong> – <strong>[in]</strong> Replaced with this. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a81f25b0400e3a66e596efde764968258"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">CgVariablePtr</span> <span class="pre">get_variable</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name)</span></span></dt>
+<dd><p>Get a variable by name. </p>
+<p>This is usually used to set or get data inside the variable. The construction of a computation graph is invoked by calling this if the graph is not latest or not created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> Name of variable in the network. </p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>Variable</strong> – in a computation graph. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--Nesterov.html" class="btn btn-neutral float-left" title="class nbla::Nesterov" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--NmsDetection2d.html" class="btn btn-neutral float-right" title="class nbla::NmsDetection2d" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

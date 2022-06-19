@@ -1,0 +1,6 @@
+class RDivScalar
+========================================
+
+.. doxygenclass:: RDivScalar
+	:project: Cpp
+	:members: 

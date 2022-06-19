@@ -1,0 +1,6 @@
+class nbla::Min
+========================================
+
+.. doxygenclass:: nbla::Min
+	:project: Cpp
+	:members: 

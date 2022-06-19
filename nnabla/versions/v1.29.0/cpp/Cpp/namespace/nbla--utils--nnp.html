@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>namespace nbla::utils::nnp &mdash; Neural Network Libraries 1.29.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Data exchange file format" href="../../../data_exchange_file_format.html" />
+    <link rel="prev" title="namespace nbla::utils" href="nbla--utils.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.29.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4 current"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../namespace.html">NNABLA Namespace</a> &raquo;</li>
+      <li>namespace nbla::utils::nnp</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/namespace/nbla--utils--nnp.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="namespace-nbla-utils-nnp">
+<h1>namespace nbla::utils::nnp<a class="headerlink" href="#namespace-nbla-utils-nnp" title="Permalink to this headline"></a></h1>
+<dl class="cpp type">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnpE">
+<span id="_CPPv3N4nbla5utils3nnpE"></span><span id="_CPPv2N4nbla5utils3nnpE"></span><span id="nbla::utils::nnp"></span><span class="target" id="namespacenbla_1_1utils_1_1nnp"></span><span class="k"><span class="pre">namespace</span></span><span class="w"> </span><span class="sig-prename descclassname"><a class="reference internal" href="nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla.html#_CPPv4N4nbla5utilsE" title="nbla::utils"><span class="n"><span class="pre">utils</span></span></a><span class="p"><span class="pre">::</span></span></span><span class="sig-name descname"><span class="n"><span class="pre">nnp</span></span></span><br /></dt>
+<dd><p><a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format file utilities. </p>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp8ExecutorE">
+<span id="_CPPv3N4nbla5utils3nnp8ExecutorE"></span><span id="_CPPv2N4nbla5utils3nnp8ExecutorE"></span><span id="nbla::utils::nnp::Executor"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Executor</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> associated with <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object. </p>
+<p>The <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> object internally stores a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1aa40cb8835c7fc9057fe08d7100ba5d28"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a639300bf295208ff53913c5eb8372e87"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">network_name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a3bbd23a47da52c2b061cbe05f117be59"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">set_batch_size</span> <span class="pre">(int</span> <span class="pre">batch_size)</span></span></dt>
+<dd><p>Set batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch_size</strong> – <strong>[in]</strong> Overwrite the default batch size in <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1aca02c4733ad2d0af0e74f84e4a4bd07b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">int</span> <span class="pre">batch_size</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>Batch</strong> – size. The if set_batch_size is not previously called, batch size written in the <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> of <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format file will be returned. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a19eb4fa2ad18465aaa7718deaaea790c"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">DataVariable</span> <span class="pre">&gt;</span> <span class="pre">get_data_variables</span> <span class="pre">()</span></span></dt>
+<dd><p>Get data variables. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>Data</strong> – variables where each item holds name info and <a class="reference internal" href="nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> instance in the <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a>. The data inside the <a class="reference internal" href="nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> should be gotten via Nnabla C++ interface. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a6be8c7d19fe5d04089193648a8317eb7"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">OutputVariable</span> <span class="pre">&gt;</span> <span class="pre">get_output_variables</span> <span class="pre">()</span></span></dt>
+<dd><p>Get output variables. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>Output</strong> – variables where each item holds name info and <a class="reference internal" href="nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> instance in the <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a>. The data inside the <a class="reference internal" href="nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> should be gotten via Nnabla C++ interface. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1ac8dc9005b76bffe0298d8f28651bac4b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Network</span> <span class="pre">&gt;</span> <span class="pre">get_network</span> <span class="pre">()</span></span></dt>
+<dd><p>Get the reference (shared_ptr) of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object held in this. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a29f15d374a3cc0d41335acbf14f1ba0c"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">execute</span> <span class="pre">()</span></span></dt>
+<dd><p>Execute the network from inputs to outputs. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp8Executor12DataVariableE">
+<span id="_CPPv3N4nbla5utils3nnp8Executor12DataVariableE"></span><span id="_CPPv2N4nbla5utils3nnp8Executor12DataVariableE"></span><span id="nbla::utils::nnp::Executor::DataVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Executor_1_1DataVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Data variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Executor--DataVariable.html#structnbla_1_1utils_1_1nnp_1_1Executor_1_1DataVariable"><span class="std std-ref">DataVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp8Executor14OutputVariableE">
+<span id="_CPPv3N4nbla5utils3nnp8Executor14OutputVariableE"></span><span id="_CPPv2N4nbla5utils3nnp8Executor14OutputVariableE"></span><span id="nbla::utils::nnp::Executor::OutputVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Executor_1_1OutputVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OutputVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Output variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Executor--OutputVariable.html#structnbla_1_1utils_1_1nnp_1_1Executor_1_1OutputVariable"><span class="std std-ref">OutputVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp7MonitorE">
+<span id="_CPPv3N4nbla5utils3nnp7MonitorE"></span><span id="_CPPv2N4nbla5utils3nnp7MonitorE"></span><span id="nbla::utils::nnp::Monitor"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Monitor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Monitor</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Monitor_1adf512a2b05fecec6dc237bd272652238"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Monitor_1a91ee01b9af6578e50d860a79d4dccc59"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">network_name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp7Monitor11get_networkEv">
+<span id="_CPPv3N4nbla5utils3nnp7Monitor11get_networkEv"></span><span id="_CPPv2N4nbla5utils3nnp7Monitor11get_networkEv"></span><span id="nbla::utils::nnp::Monitor::get_network"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Monitor_1a65d2f9d85fcc57b5bc1fa17ca9396245"></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../class/nbla--utils--nnp--Network.html#_CPPv4N4nbla5utils3nnp7NetworkE" title="nbla::utils::nnp::Network"><span class="n"><span class="pre">Network</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_network</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Get the reference (shared_ptr) of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object held in this. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Monitor_1af62c200a0f477ce6f2a27604099a30c0"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">float</span> <span class="pre">monitor_epoch</span> <span class="pre">()</span></span></dt>
+<dd><p>Execute monitor operations including forward process. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>monitored</strong> – value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp7Monitor12DataVariableE">
+<span id="_CPPv3N4nbla5utils3nnp7Monitor12DataVariableE"></span><span id="_CPPv2N4nbla5utils3nnp7Monitor12DataVariableE"></span><span id="nbla::utils::nnp::Monitor::DataVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Monitor_1_1DataVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Data variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Monitor--DataVariable.html#structnbla_1_1utils_1_1nnp_1_1Monitor_1_1DataVariable"><span class="std std-ref">DataVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp7Monitor15MonitorVariableE">
+<span id="_CPPv3N4nbla5utils3nnp7Monitor15MonitorVariableE"></span><span id="_CPPv2N4nbla5utils3nnp7Monitor15MonitorVariableE"></span><span id="nbla::utils::nnp::Monitor::MonitorVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Monitor_1_1MonitorVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MonitorVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> variable container. </p>
+<p>The string fields corresponds to OutputVariable in proto definition. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp7NetworkE">
+<span id="_CPPv3N4nbla5utils3nnp7NetworkE"></span><span id="_CPPv2N4nbla5utils3nnp7NetworkE"></span><span id="nbla::utils::nnp::Network"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Network</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object associated with <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object. </p>
+<p>The following code will get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> instance from <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object nnp, and set batch size. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Network</span><span class="o">&gt;</span> <span class="n">network</span> <span class="o">=</span> <span class="n">nnp</span><span class="o">.</span><span class="n">get_network</span><span class="p">(</span><span class="s2">&quot;net1&quot;</span><span class="p">);</span>
+<span class="n">network</span><span class="o">.</span><span class="n">set_batch_size</span><span class="p">(</span><span class="mi">64</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>The next block will get the references to the variable object in the computation graph by name. The computation graph is built when get_variable(name) is called first time, or first time since the batch size or network topology is changed. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nbla</span><span class="p">::</span><span class="n">CgVariablePtr</span> <span class="n">x</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s2">&quot;input&quot;</span><span class="p">);</span>
+<span class="n">nbla</span><span class="p">::</span><span class="n">CgVariablePtr</span> <span class="n">y</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">get_variable</span><span class="p">(</span><span class="s2">&quot;output&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>You can set data to a variable by accessing array data by using <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> C++ interface. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">float</span> <span class="o">*</span><span class="n">data</span> <span class="o">=</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">cast_data_and_get_pointer</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">dl</span><span class="o">.</span><span class="n">Context</span><span class="p">()</span><span class="o">.</span><span class="n">set_array_class</span><span class="p">(</span><span class="s2">&quot;CpuCachedArray&quot;</span><span class="p">));</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="o">...</span><span class="p">;</span>  <span class="o">//</span> <span class="n">Set</span> <span class="n">data</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</p>
+<p>The forward propagation of the network can be executed at any variable by calling forward method. The function execution will be propagated from root (input) variables to to the variable. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">y</span><span class="o">-&gt;</span><span class="n">forward</span><span class="p">(</span><span class="n">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Getting and displaying output are as follows. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">const</span> <span class="nb">float</span> <span class="o">*</span><span class="n">out</span> <span class="o">=</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">get_data_pointer</span><span class="o">&lt;</span><span class="nb">float</span><span class="o">&gt;</span><span class="p">(</span>
+    <span class="n">dl</span><span class="o">.</span><span class="n">Context</span><span class="p">()</span><span class="o">.</span><span class="n">set_array_class</span><span class="p">(</span><span class="s2">&quot;CpuCachedArray&quot;</span><span class="p">));</span>
+<span class="k">for</span> <span class="p">(</span><span class="nb">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">y</span><span class="o">-&gt;</span><span class="n">variable</span><span class="p">()</span><span class="o">-&gt;</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">out</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="s2">&quot;,&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="n">std</span><span class="p">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="p">::</span><span class="n">endl</span><span class="p">;</span>
+</pre></div>
+</div>
+</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> instance is created by a class member function <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp_1ab4af3d8c9b5a5bec36a1b8858d7e3101"><span class="std std-ref">Nnp::get_network()</span></a>. The constructor is hidden, and not called directly by users. </p>
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a9db0c8819d89c25c88c81814399420e7"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1adf71a016b3692be88ac63f7a570b2a1a"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">set_batch_size</span> <span class="pre">(int</span> <span class="pre">batch_size)</span></span></dt>
+<dd><p>Set batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>batch_size</strong> – <strong>[in]</strong> Overwrite the default batch size in nnp file. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a413e39c5cfaa9b6fbd92787328c29919"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">int</span> <span class="pre">batch_size</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>Batch</strong> – size. The if set_batch_size is not previously called, batch size written in nnp file will be returned. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a318a3e2e66d4de495cf2f8c39fd8eed5"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">replace_variable</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name,</span> <span class="pre">CgVariablePtr</span> <span class="pre">variable)</span></span></dt>
+<dd><p>Replace an arbitrary variable in the network with a given variable. </p>
+<p>The predecessors of the variable in the networks are discarded, and replaced with the predecessors of the given variable.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – <strong>[in]</strong> Name of variable in the network you are replacing. </p></li>
+<li><p><strong>variable</strong> – <strong>[in]</strong> Replaced with this. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Network_1a81f25b0400e3a66e596efde764968258"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">CgVariablePtr</span> <span class="pre">get_variable</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name)</span></span></dt>
+<dd><p>Get a variable by name. </p>
+<p>This is usually used to set or get data inside the variable. The construction of a computation graph is invoked by calling this if the graph is not latest or not created.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> Name of variable in the network. </p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>Variable</strong> – in a computation graph. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp3NnpE">
+<span id="_CPPv3N4nbla5utils3nnp3NnpE"></span><span id="_CPPv2N4nbla5utils3nnp3NnpE"></span><span id="nbla::utils::nnp::Nnp"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Nnp</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Handle of <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format files. </p>
+<p>You can create an <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object by passing default context as below.</p>
+<p><div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">using</span> <span class="n">namespace</span> <span class="n">nbla</span><span class="p">::</span><span class="n">utils</span><span class="p">::</span><span class="n">nnp</span><span class="p">;</span>
+<span class="n">nbla</span><span class="p">::</span><span class="n">Context</span> <span class="n">ctx</span><span class="p">{</span><span class="s2">&quot;cpu&quot;</span><span class="p">,</span> <span class="s2">&quot;CpuCachedArray&quot;</span><span class="p">,</span> <span class="s2">&quot;0&quot;</span><span class="p">,</span> <span class="s2">&quot;default&quot;</span><span class="p">};</span>
+<span class="n">Nnp</span> <span class="n">nnp</span><span class="p">(</span><span class="n">ctx</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Suppose we have network.nnp which is previously created. You can add a previously dumped <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format file to <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object. <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> will parse the file format and internally store the information such as network architectures, learned parameters and execution settings. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">nnp</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="s2">&quot;network.nnp&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</p>
+<p>Suppose a network “net1” is in network.npp. The following line will create a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object from the nnp file. <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> can create a computation graph defined in <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format files. The created computation graph can be executed in C++ code. See <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> doc for the usage. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Network</span><span class="o">&gt;</span> <span class="n">network</span> <span class="o">=</span> <span class="n">nnp</span><span class="o">.</span><span class="n">get_network</span><span class="p">(</span><span class="s2">&quot;net1&quot;</span><span class="p">);</span>
+
+<span class="o">...</span> <span class="o">//</span> <span class="n">Use</span> <span class="n">network</span> <span class="n">here</span><span class="o">.</span>
+</pre></div>
+</div>
+</p>
+<p>Suppose an executor “exe1” is in network.npp. The following line will create a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> object from <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format files. The <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> can also create a computation graph of a network associated with the <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> field in <a class="reference internal" href="nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format files. The <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> provides easier interface to set input, execute the graph, and get output. <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">shared_ptr</span><span class="o">&lt;</span><span class="n">Executor</span><span class="o">&gt;</span> <span class="n">executor</span> <span class="o">=</span> <span class="n">nnp</span><span class="o">.</span><span class="n">get_executor</span><span class="p">(</span><span class="s2">&quot;exe1&quot;</span><span class="p">);</span>
+
+<span class="o">...</span> <span class="o">//</span> <span class="n">Use</span> <span class="n">executor</span> <span class="n">here</span><span class="o">.</span>
+</pre></div>
+</div>
+ </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp3Nnp3NnpERKN4nbla7ContextE">
+<span id="_CPPv3N4nbla5utils3nnp3Nnp3NnpERKN4nbla7ContextE"></span><span id="_CPPv2N4nbla5utils3nnp3Nnp3NnpERKN4nbla7ContextE"></span><span id="nbla::utils::nnp::Nnp::Nnp__nbla::ContextCR"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a6dedda2702094e21e18c4b6895e82914"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Nnp</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../class/nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><br /></dt>
+<dd><p>Constructor which sets default context. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ctx</strong> – <strong>[in]</strong> Default context which overwrites the config in nnp file. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1af080f76e95df81603764b2a8f92011ff"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">bool</span> <span class="pre">add</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;filename)</span></span></dt>
+<dd><p>Add nnp|nntxt|h5 file. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a440f73a2879acbdc5063a79b8fad3099"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">bool</span> <span class="pre">add</span> <span class="pre">(char</span> <span class="pre">*buffer,</span> <span class="pre">unsigned</span> <span class="pre">int</span> <span class="pre">size)</span></span></dt>
+<dd><p>Add nnp on memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a2a51ddb643954282421913b299964248"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">string</span> <span class="pre">&gt;</span> <span class="pre">get_network_names</span> <span class="pre">()</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name list from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>A</strong> – vector of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> instance names. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1ab4af3d8c9b5a5bec36a1b8858d7e3101"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Network</span> <span class="pre">&gt;</span> <span class="pre">get_network</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name)</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name in loaded files (nnp, nntxt etc.)</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>A</strong> – shared pointer of a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a6123ac075e335d5bfc9e8e431cbe3f2e"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">string</span> <span class="pre">&gt;</span> <span class="pre">get_executor_names</span> <span class="pre">()</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> name list from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>A</strong> – vector of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> instance names. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a2b735bd551771b3ce2824588743e6323"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Executor</span> <span class="pre">&gt;</span> <span class="pre">get_executor</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name)</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> object from added file(s). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> name in loaded files (nnp, nntxt etc.)</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>A</strong> – shared pointer of a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a06284299e85cfba923bb4773712f22c2"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">string</span> <span class="pre">&gt;</span> <span class="pre">get_optimizer_names</span> <span class="pre">()</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Optimizer"><span class="std std-ref">Optimizer</span></a> name list from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>A</strong> – vector of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Optimizer"><span class="std std-ref">Optimizer</span></a> instance names. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1ac873bf6b5b90ca82ab68fc17761de9b3"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Optimizer</span> <span class="pre">&gt;</span> <span class="pre">get_optimizer</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name)</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Optimizer"><span class="std std-ref">Optimizer</span></a> object from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Optimizer"><span class="std std-ref">Optimizer</span></a> name in loaded files (nnp, nntxt etc.)</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>A</strong> – shared pointer of a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Optimizer"><span class="std std-ref">Optimizer</span></a> instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a999037684c9d8099781b4058bb2b4df6"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">string</span> <span class="pre">&gt;</span> <span class="pre">get_monitor_names</span> <span class="pre">()</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> name list from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>A</strong> – vector of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> instance names. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a9f2d1f309b58e7d5b9c2a090fe0efc5b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Monitor</span> <span class="pre">&gt;</span> <span class="pre">get_monitor</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;name)</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> object from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> name in loaded files (nnp, nntxt etc.)</p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>A</strong> – shared pointer of a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Monitor"><span class="std std-ref">Monitor</span></a> instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a1fe680ad5c6528dd280cea1f26e3e43c"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">TrainingConfig</span> <span class="pre">&gt;</span> <span class="pre">get_training_config</span> <span class="pre">()</span></span></dt>
+<dd><p>Get <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1TrainingConfig"><span class="std std-ref">TrainingConfig</span></a> object from added files (nnp, nntxt etc.). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>A</strong> – shared pointer of a <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1TrainingConfig"><span class="std std-ref">TrainingConfig</span></a> instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1a37e27e21553c89322f6f8a28b7ab4513"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">pair&lt;</span> <span class="pre">string,</span> <span class="pre">VariablePtr</span> <span class="pre">&gt;</span> <span class="pre">&gt;</span> <span class="pre">get_parameters</span> <span class="pre">()</span></span></dt>
+<dd><p>Get parameters. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values</dt>
+<dd class="field-odd"><p><strong>A</strong> – vector of string and variable pointer pairs. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Nnp_1ae73ba4cacdedb716dc3d2d6852a18b76"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">bool</span> <span class="pre">save_parameters</span> <span class="pre">(const</span> <span class="pre">string</span> <span class="pre">&amp;filename)</span></span></dt>
+<dd><p>Save parameters. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> – <strong>[in]</strong> output binary filename (.protobuf or .h5) </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp9OptimizerE">
+<span id="_CPPv3N4nbla5utils3nnp9OptimizerE"></span><span id="_CPPv2N4nbla5utils3nnp9OptimizerE"></span><span id="nbla::utils::nnp::Optimizer"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Optimizer"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Optimizer</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Optimizer_1a783036ad5deb1f7ee9ef76f7ffb70146"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Optimizer"><span class="std std-ref">Optimizer</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Optimizer_1a8043502e90e4a17109f30064e23fe9b4"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">network_name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Optimizer_1a376d6bb2ab822c781eddd115c63b1578"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">int</span> <span class="pre">update_interval</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Update interval. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Optimizer_1a5d927702aa204e862e11802b547002c0"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Network</span> <span class="pre">&gt;</span> <span class="pre">get_network</span> <span class="pre">()</span></span></dt>
+<dd><p>Get the reference (shared_ptr) of <a class="reference internal" href="#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object held in this. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Optimizer_1add8ff26ebbbed7faafaf7a4253ea6527"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">float</span> <span class="pre">update</span> <span class="pre">(const</span> <span class="pre">int</span> <span class="pre">iter)</span></span></dt>
+<dd><p>Execute update operations including forward, backward and update. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>iter</strong> – Number of iteration. </p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>loss</strong> – value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp9Optimizer12DataVariableE">
+<span id="_CPPv3N4nbla5utils3nnp9Optimizer12DataVariableE"></span><span id="_CPPv2N4nbla5utils3nnp9Optimizer12DataVariableE"></span><span id="nbla::utils::nnp::Optimizer::DataVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1DataVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Data variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Optimizer--DataVariable.html#structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1DataVariable"><span class="std std-ref">DataVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp9Optimizer17GeneratorVariableE">
+<span id="_CPPv3N4nbla5utils3nnp9Optimizer17GeneratorVariableE"></span><span id="_CPPv2N4nbla5utils3nnp9Optimizer17GeneratorVariableE"></span><span id="nbla::utils::nnp::Optimizer::GeneratorVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1GeneratorVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">GeneratorVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Generator variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Optimizer--GeneratorVariable.html#structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1GeneratorVariable"><span class="std std-ref">GeneratorVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp9Optimizer12LossVariableE">
+<span id="_CPPv3N4nbla5utils3nnp9Optimizer12LossVariableE"></span><span id="_CPPv2N4nbla5utils3nnp9Optimizer12LossVariableE"></span><span id="nbla::utils::nnp::Optimizer::LossVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1LossVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">LossVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Loss variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Optimizer--LossVariable.html#structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1LossVariable"><span class="std std-ref">LossVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp9Optimizer17ParameterVariableE">
+<span id="_CPPv3N4nbla5utils3nnp9Optimizer17ParameterVariableE"></span><span id="_CPPv2N4nbla5utils3nnp9Optimizer17ParameterVariableE"></span><span id="nbla::utils::nnp::Optimizer::ParameterVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1ParameterVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ParameterVariable</span></span></span><br /></dt>
+<dd><div class="docutils container">
+<em>#include &lt;nnp.hpp&gt;</em></div>
+<p>Parameter variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Optimizer--ParameterVariable.html#structnbla_1_1utils_1_1nnp_1_1Optimizer_1_1ParameterVariable"><span class="std std-ref">ParameterVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp14TrainingConfigE">
+<span id="_CPPv3N4nbla5utils3nnp14TrainingConfigE"></span><span id="_CPPv2N4nbla5utils3nnp14TrainingConfigE"></span><span id="nbla::utils::nnp::TrainingConfig"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1TrainingConfig"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">TrainingConfig</span></span></span><br /></dt>
+<dd><div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1TrainingConfig_1a4d9a123c037d74a8827836379b2d261a"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">int</span> <span class="pre">max_epoch</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="nbla.html#classnbla_1_1Max"><span class="std std-ref">Max</span></a> epoch. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1TrainingConfig_1a5fbcbaf9279e5dad86c98565b77de169"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">long</span> <span class="pre">long</span> <span class="pre">int</span> <span class="pre">iter_per_epoch</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Iteration per epoch. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1TrainingConfig_1abbba6e99b354c5f318e2b6083cc2e8b1"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">const</span> <span class="pre">bool</span> <span class="pre">save_best</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Save best. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--utils.html" class="btn btn-neutral float-left" title="namespace nbla::utils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../../../data_exchange_file_format.html" class="btn btn-neutral float-right" title="Data exchange file format" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

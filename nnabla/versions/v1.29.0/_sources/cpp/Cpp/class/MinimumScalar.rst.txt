@@ -1,0 +1,6 @@
+class MinimumScalar
+========================================
+
+.. doxygenclass:: MinimumScalar
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::MulN
+========================================
+
+.. doxygenclass:: nbla::MulN
+	:project: Cpp
+	:members: 

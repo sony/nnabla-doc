@@ -1,0 +1,6 @@
+class Atanh
+========================================
+
+.. doxygenclass:: Atanh
+	:project: Cpp
+	:members: 
