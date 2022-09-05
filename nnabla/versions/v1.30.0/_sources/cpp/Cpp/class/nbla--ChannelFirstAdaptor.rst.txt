@@ -1,0 +1,6 @@
+class nbla::ChannelFirstAdaptor
+========================================
+
+.. doxygenclass:: nbla::ChannelFirstAdaptor
+	:project: Cpp
+	:members: 

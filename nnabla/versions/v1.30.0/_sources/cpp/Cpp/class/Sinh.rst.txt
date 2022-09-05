@@ -1,0 +1,6 @@
+class Sinh
+========================================
+
+.. doxygenclass:: Sinh
+	:project: Cpp
+	:members: 

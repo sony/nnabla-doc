@@ -1,0 +1,6 @@
+class nbla::Rand
+========================================
+
+.. doxygenclass:: nbla::Rand
+	:project: Cpp
+	:members: 

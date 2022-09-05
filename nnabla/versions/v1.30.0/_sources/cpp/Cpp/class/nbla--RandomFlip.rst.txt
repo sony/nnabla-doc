@@ -1,0 +1,6 @@
+class nbla::RandomFlip
+========================================
+
+.. doxygenclass:: nbla::RandomFlip
+	:project: Cpp
+	:members: 

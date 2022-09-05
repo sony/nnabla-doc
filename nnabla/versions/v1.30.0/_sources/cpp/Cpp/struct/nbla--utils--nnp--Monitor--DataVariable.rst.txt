@@ -1,0 +1,6 @@
+struct nbla::utils::nnp::Monitor::DataVariable
+========================================
+
+.. doxygenstruct:: nbla::utils::nnp::Monitor::DataVariable
+	:project: Cpp
+	:members: 

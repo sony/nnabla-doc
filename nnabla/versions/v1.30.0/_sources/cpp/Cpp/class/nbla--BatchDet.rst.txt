@@ -1,0 +1,6 @@
+class nbla::BatchDet
+========================================
+
+.. doxygenclass:: nbla::BatchDet
+	:project: Cpp
+	:members: 

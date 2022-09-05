@@ -1,0 +1,6 @@
+class Sub2
+========================================
+
+.. doxygenclass:: Sub2
+	:project: Cpp
+	:members: 

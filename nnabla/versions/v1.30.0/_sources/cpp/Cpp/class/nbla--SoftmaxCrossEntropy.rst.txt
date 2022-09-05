@@ -1,0 +1,6 @@
+class nbla::SoftmaxCrossEntropy
+========================================
+
+.. doxygenclass:: nbla::SoftmaxCrossEntropy
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Slice
+========================================
+
+.. doxygenclass:: nbla::Slice
+	:project: Cpp
+	:members: 

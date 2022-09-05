@@ -1,0 +1,6 @@
+class nbla::Adadelta
+========================================
+
+.. doxygenclass:: nbla::Adadelta
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Sum
+========================================
+
+.. doxygenclass:: nbla::Sum
+	:project: Cpp
+	:members: 

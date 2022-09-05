@@ -1,0 +1,6 @@
+class Hard
+========================================
+
+.. doxygenclass:: Hard
+	:project: Cpp
+	:members: 

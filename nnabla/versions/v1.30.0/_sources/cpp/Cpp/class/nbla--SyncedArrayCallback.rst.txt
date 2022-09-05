@@ -1,0 +1,6 @@
+class nbla::SyncedArrayCallback
+========================================
+
+.. doxygenclass:: nbla::SyncedArrayCallback
+	:project: Cpp
+	:members: 

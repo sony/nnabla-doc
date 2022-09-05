@@ -1,0 +1,6 @@
+class nbla::RoiAlign
+========================================
+
+.. doxygenclass:: nbla::RoiAlign
+	:project: Cpp
+	:members: 

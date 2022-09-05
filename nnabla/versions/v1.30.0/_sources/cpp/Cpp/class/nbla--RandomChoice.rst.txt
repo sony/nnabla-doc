@@ -1,0 +1,6 @@
+class nbla::RandomChoice
+========================================
+
+.. doxygenclass:: nbla::RandomChoice
+	:project: Cpp
+	:members: 

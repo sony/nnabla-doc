@@ -1,0 +1,6 @@
+class nbla::RandBinomial
+========================================
+
+.. doxygenclass:: nbla::RandBinomial
+	:project: Cpp
+	:members: 

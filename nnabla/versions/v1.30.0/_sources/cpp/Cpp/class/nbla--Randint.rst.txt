@@ -1,0 +1,6 @@
+class nbla::Randint
+========================================
+
+.. doxygenclass:: nbla::Randint
+	:project: Cpp
+	:members: 

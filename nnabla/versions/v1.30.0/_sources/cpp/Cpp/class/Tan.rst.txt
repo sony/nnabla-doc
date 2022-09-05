@@ -1,0 +1,6 @@
+class Tan
+========================================
+
+.. doxygenclass:: Tan
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::WeightStandardization
+========================================
+
+.. doxygenclass:: nbla::WeightStandardization
+	:project: Cpp
+	:members: 

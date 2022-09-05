@@ -1,0 +1,6 @@
+class nbla::ConfusionMatrix
+========================================
+
+.. doxygenclass:: nbla::ConfusionMatrix
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class BinarySigmoid
+========================================
+
+.. doxygenclass:: BinarySigmoid
+	:project: Cpp
+	:members: 

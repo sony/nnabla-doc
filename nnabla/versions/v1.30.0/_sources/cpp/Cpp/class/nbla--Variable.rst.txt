@@ -1,0 +1,6 @@
+class nbla::Variable
+========================================
+
+.. doxygenclass:: nbla::Variable
+	:project: Cpp
+	:members: 
