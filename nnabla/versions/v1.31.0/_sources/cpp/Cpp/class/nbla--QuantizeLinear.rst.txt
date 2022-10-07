@@ -1,0 +1,6 @@
+class nbla::QuantizeLinear
+========================================
+
+.. doxygenclass:: nbla::QuantizeLinear
+	:project: Cpp
+	:members: 

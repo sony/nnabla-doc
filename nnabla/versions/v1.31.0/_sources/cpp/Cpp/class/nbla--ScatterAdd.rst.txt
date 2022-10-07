@@ -1,0 +1,6 @@
+class nbla::ScatterAdd
+========================================
+
+.. doxygenclass:: nbla::ScatterAdd
+	:project: Cpp
+	:members: 

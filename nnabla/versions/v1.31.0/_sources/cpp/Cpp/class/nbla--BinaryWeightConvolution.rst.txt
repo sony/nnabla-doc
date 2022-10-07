@@ -1,0 +1,6 @@
+class nbla::BinaryWeightConvolution
+========================================
+
+.. doxygenclass:: nbla::BinaryWeightConvolution
+	:project: Cpp
+	:members: 

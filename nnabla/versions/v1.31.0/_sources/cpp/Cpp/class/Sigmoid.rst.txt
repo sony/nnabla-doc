@@ -1,0 +1,6 @@
+class Sigmoid
+========================================
+
+.. doxygenclass:: Sigmoid
+	:project: Cpp
+	:members: 

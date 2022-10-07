@@ -1,0 +1,6 @@
+class nbla::LeakyReLU
+========================================
+
+.. doxygenclass:: nbla::LeakyReLU
+	:project: Cpp
+	:members: 

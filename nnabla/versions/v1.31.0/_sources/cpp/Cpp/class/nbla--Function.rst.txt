@@ -1,0 +1,6 @@
+class nbla::Function
+========================================
+
+.. doxygenclass:: nbla::Function
+	:project: Cpp
+	:members: 

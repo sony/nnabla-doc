@@ -1,0 +1,6 @@
+class nbla::Dropout
+========================================
+
+.. doxygenclass:: nbla::Dropout
+	:project: Cpp
+	:members: 

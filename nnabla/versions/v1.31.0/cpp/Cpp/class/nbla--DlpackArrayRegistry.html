@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::DlpackArrayRegistry &mdash; Neural Network Libraries 1.31.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::Dropout" href="nbla--Dropout.html" />
+    <link rel="prev" title="class nbla::DlpackArray" href="nbla--DlpackArray.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.31.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../../cpp.html">C++ API</a> &raquo;</li>
+          <li><a href="../../doc.html">C++ API Document</a> &raquo;</li>
+          <li><a href="../../cpp_api.html">NNABLA C++ API Document</a> &raquo;</li>
+          <li><a href="../class.html">NNABLA Class</a> &raquo;</li>
+      <li>class nbla::DlpackArrayRegistry</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--DlpackArrayRegistry.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-dlpackarrayregistry">
+<h1>class nbla::DlpackArrayRegistry<a class="headerlink" href="#class-nbla-dlpackarrayregistry" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla19DlpackArrayRegistryE">
+<span id="_CPPv3N4nbla19DlpackArrayRegistryE"></span><span id="_CPPv2N4nbla19DlpackArrayRegistryE"></span><span id="nbla::DlpackArrayRegistry"></span><span class="target" id="classnbla_1_1DlpackArrayRegistry"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DlpackArrayRegistry</span></span></span><a class="headerlink" href="#_CPPv4N4nbla19DlpackArrayRegistryE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>DlpackArrayCreator class this is never be instantiated. </p>
+<p>This creator class is used only for <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1DlpackArray"><span class="std std-ref">DlpackArray</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla19DlpackArrayRegistry14create_contextERK8DLTensor">
+<span id="_CPPv3N4nbla19DlpackArrayRegistry14create_contextERK8DLTensor"></span><span id="_CPPv2N4nbla19DlpackArrayRegistry14create_contextERK8DLTensor"></span><span id="nbla::DlpackArrayRegistry::create_context__DLTensorCR"></span><span class="target" id="classnbla_1_1DlpackArrayRegistry_1a261134750e6ef92c742dc39c32692ada"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create_context</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DLTensor</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">dlp</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla19DlpackArrayRegistry14create_contextERK8DLTensor" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Interface to create a context for <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1DlpackArray"><span class="std std-ref">DlpackArray</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla19DlpackArrayRegistry20array_to_device_typeERK6string">
+<span id="_CPPv3N4nbla19DlpackArrayRegistry20array_to_device_typeERK6string"></span><span id="_CPPv2N4nbla19DlpackArrayRegistry20array_to_device_typeERK6string"></span><span id="nbla::DlpackArrayRegistry::array_to_device_type__stringCR"></span><span class="target" id="classnbla_1_1DlpackArrayRegistry_1a7bdbdf72ab44cccb9b8b99d4f817a953"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">DLDeviceType</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">array_to_device_type</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_class</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla19DlpackArrayRegistry20array_to_device_typeERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Interface to convert an array class to DLDeviceType. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla19DlpackArrayRegistry7add_mapEK12DLDeviceTypeRK6stringRK6string">
+<span id="_CPPv3N4nbla19DlpackArrayRegistry7add_mapEK12DLDeviceTypeRK6stringRK6string"></span><span id="_CPPv2N4nbla19DlpackArrayRegistry7add_mapEK12DLDeviceTypeRK6stringRK6string"></span><span id="nbla::DlpackArrayRegistry::add_map__DLDeviceTypeC.stringCR.stringCR"></span><span class="target" id="classnbla_1_1DlpackArrayRegistry_1a448b1827cf8932a8d76dfc341897a0e0"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_map</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DLDeviceType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">device_type</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">backend</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_class</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla19DlpackArrayRegistry7add_mapEK12DLDeviceTypeRK6stringRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Register the map from DLDeviceType to <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> class and backend name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla19DlpackArrayRegistry7add_mapERK6stringK12DLDeviceType">
+<span id="_CPPv3N4nbla19DlpackArrayRegistry7add_mapERK6stringK12DLDeviceType"></span><span id="_CPPv2N4nbla19DlpackArrayRegistry7add_mapERK6stringK12DLDeviceType"></span><span id="nbla::DlpackArrayRegistry::add_map__stringCR.DLDeviceTypeC"></span><span class="target" id="classnbla_1_1DlpackArrayRegistry_1acdfd78e1b65c964a22d6c6abdcc11440"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_map</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">array_class</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">DLDeviceType</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">device_tyep</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla19DlpackArrayRegistry7add_mapERK6stringK12DLDeviceType" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Register the map from <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> class to DLDeviceType. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--DlpackArray.html" class="btn btn-neutral float-left" title="class nbla::DlpackArray" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--Dropout.html" class="btn btn-neutral float-right" title="class nbla::Dropout" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

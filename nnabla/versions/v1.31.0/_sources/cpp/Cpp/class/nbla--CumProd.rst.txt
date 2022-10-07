@@ -1,0 +1,6 @@
+class nbla::CumProd
+========================================
+
+.. doxygenclass:: nbla::CumProd
+	:project: Cpp
+	:members: 

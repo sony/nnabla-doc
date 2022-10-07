@@ -1,0 +1,6 @@
+class nbla::GarbageCollector
+========================================
+
+.. doxygenclass:: nbla::GarbageCollector
+	:project: Cpp
+	:members: 

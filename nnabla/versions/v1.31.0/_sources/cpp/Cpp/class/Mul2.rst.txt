@@ -1,0 +1,6 @@
+class Mul2
+========================================
+
+.. doxygenclass:: Mul2
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Interpolate
+========================================
+
+.. doxygenclass:: nbla::Interpolate
+	:project: Cpp
+	:members: 

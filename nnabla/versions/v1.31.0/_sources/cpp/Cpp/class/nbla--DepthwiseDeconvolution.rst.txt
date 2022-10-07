@@ -1,0 +1,6 @@
+class nbla::DepthwiseDeconvolution
+========================================
+
+.. doxygenclass:: nbla::DepthwiseDeconvolution
+	:project: Cpp
+	:members: 

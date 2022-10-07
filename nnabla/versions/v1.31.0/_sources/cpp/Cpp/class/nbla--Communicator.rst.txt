@@ -1,0 +1,6 @@
+class nbla::Communicator
+========================================
+
+.. doxygenclass:: nbla::Communicator
+	:project: Cpp
+	:members: 

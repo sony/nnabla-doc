@@ -1,0 +1,6 @@
+class nbla::Arange
+========================================
+
+.. doxygenclass:: nbla::Arange
+	:project: Cpp
+	:members: 

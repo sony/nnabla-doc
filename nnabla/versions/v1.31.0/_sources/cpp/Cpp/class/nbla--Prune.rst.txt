@@ -1,0 +1,6 @@
+class nbla::Prune
+========================================
+
+.. doxygenclass:: nbla::Prune
+	:project: Cpp
+	:members: 

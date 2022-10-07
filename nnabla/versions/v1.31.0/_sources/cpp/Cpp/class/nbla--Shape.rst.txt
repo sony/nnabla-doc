@@ -1,0 +1,6 @@
+class nbla::Shape
+========================================
+
+.. doxygenclass:: nbla::Shape
+	:project: Cpp
+	:members: 

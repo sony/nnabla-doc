@@ -1,0 +1,6 @@
+class nbla::CpuDlpackArray
+========================================
+
+.. doxygenclass:: nbla::CpuDlpackArray
+	:project: Cpp
+	:members: 

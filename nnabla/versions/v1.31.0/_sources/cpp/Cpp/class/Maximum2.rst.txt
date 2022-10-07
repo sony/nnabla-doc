@@ -1,0 +1,6 @@
+class Maximum2
+========================================
+
+.. doxygenclass:: Maximum2
+	:project: Cpp
+	:members: 

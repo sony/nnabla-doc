@@ -1,0 +1,6 @@
+class RSubScalar
+========================================
+
+.. doxygenclass:: RSubScalar
+	:project: Cpp
+	:members: 
