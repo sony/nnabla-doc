@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quantization Aware Training &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Extensions" href="../ext.html" />
+    <link rel="prev" title="Misc" href="misc.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="save_load.html">NNP save and load utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_utils.html">Image Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="data_iterator.html">Data Iterators</a></li>
+<li class="toctree-l4"><a class="reference internal" href="debug_utils.html">Debug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dlpack.html">DLPack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rnn.html">RNN Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Quantization Aware Training</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../python.html">Python Package</a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">Python API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../utils.html">Utils</a></li>
+      <li class="breadcrumb-item active">Quantization Aware Training</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/python/api/utils/quantization_aware_training.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="quantization-aware-training">
+<h1>Quantization Aware Training<a class="headerlink" href="#quantization-aware-training" title="Permalink to this headline"></a></h1>
+<section id="qatconfig">
+<h2>QATConfig<a class="headerlink" href="#qatconfig" title="Permalink to this headline"></a></h2>
+<p>Configuration for quantization aware training.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.qnn.</span></span><span class="sig-name descname"><span class="pre">QATConfig</span></span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATConfig" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RecorderPosition">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RecorderPosition</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATConfig.RecorderPosition"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RecorderPosition" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/enum.html#enum.Enum" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Position to add recorder for function.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RecorderPosition.BEFORE">
+<span class="sig-name descname"><span class="pre">BEFORE</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RecorderPosition.BEFORE" title="Permalink to this definition"></a></dt>
+<dd><p>Add recoder only before a function</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RecorderPosition.BOTH">
+<span class="sig-name descname"><span class="pre">BOTH</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">1</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RecorderPosition.BOTH" title="Permalink to this definition"></a></dt>
+<dd><p>Add recoder before/after a function</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RoundingMethod">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">RoundingMethod</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATConfig.RoundingMethod"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RoundingMethod" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/enum.html#enum.Enum" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">enum.Enum</span></code></a></p>
+<p>Round method of scale</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RoundingMethod.CEIL">
+<span class="sig-name descname"><span class="pre">CEIL</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'CEIL'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RoundingMethod.CEIL" title="Permalink to this definition"></a></dt>
+<dd><p>round up.
+e.g. ceil(9.4) = 10</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RoundingMethod.FLOOR">
+<span class="sig-name descname"><span class="pre">FLOOR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'FLOOR'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RoundingMethod.FLOOR" title="Permalink to this definition"></a></dt>
+<dd><p>round down.
+e.g. floor(9.5) = 9</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RoundingMethod.NOTROUND">
+<span class="sig-name descname"><span class="pre">NOTROUND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'NOTROUND'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RoundingMethod.NOTROUND" title="Permalink to this definition"></a></dt>
+<dd><p>not round</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.RoundingMethod.ROUND">
+<span class="sig-name descname"><span class="pre">ROUND</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ROUND'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.RoundingMethod.ROUND" title="Permalink to this definition"></a></dt>
+<dd><p>round.
+e.g. round(9.4) = 9, round(9.5) = 10</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.bn_folding">
+<span class="sig-name descname"><span class="pre">bn_folding</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.bn_folding" title="Permalink to this definition"></a></dt>
+<dd><p>Enable Batch Normalization Folding.
+Note that sometimes this can cause the training become unstable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.bn_self_folding">
+<span class="sig-name descname"><span class="pre">bn_self_folding</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.bn_self_folding" title="Permalink to this definition"></a></dt>
+<dd><p>Enable Batch Normalization Self-Folding.
+Note that sometimes this can cause the training become unstable.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.channel_last">
+<span class="sig-name descname"><span class="pre">channel_last</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.channel_last" title="Permalink to this definition"></a></dt>
+<dd><p>Enable channel last (channel_first is only supported now)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.channel_wise">
+<span class="sig-name descname"><span class="pre">channel_wise</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.channel_wise" title="Permalink to this definition"></a></dt>
+<dd><p>Enable channel-wise quantization</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.dtype">
+<span class="sig-name descname"><span class="pre">dtype</span></span><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.dtype" title="Permalink to this definition"></a></dt>
+<dd><p>Precision</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">numpy.int8</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.ext_name">
+<span class="sig-name descname"><span class="pre">ext_name</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'cudnn'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.ext_name" title="Permalink to this definition"></a></dt>
+<dd><p>Extension Context. ‘cpu’, ‘cuda’ or ‘cudnn’</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.learning_rate_scale">
+<span class="sig-name descname"><span class="pre">learning_rate_scale</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0.1</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.learning_rate_scale" title="Permalink to this definition"></a></dt>
+<dd><p>QAT Learning_rate = NonQNN Learning_rate * learning_rate_scale.
+Recommend setting it to 0.1 or 0.01</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.narrow_range">
+<span class="sig-name descname"><span class="pre">narrow_range</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.narrow_range" title="Permalink to this definition"></a></dt>
+<dd><p>Narrow the lower-bound (e.g., when in int8, -128 -&gt; -127)</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.niter_to_recording">
+<span class="sig-name descname"><span class="pre">niter_to_recording</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.niter_to_recording" title="Permalink to this definition"></a></dt>
+<dd><p>Step start to record</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.niter_to_training">
+<span class="sig-name descname"><span class="pre">niter_to_training</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">-1</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.niter_to_training" title="Permalink to this definition"></a></dt>
+<dd><p>Step start to QAT.
+The number of steps between recording and training should be greater than the number of steps of one epoch training.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.pow2">
+<span class="sig-name descname"><span class="pre">pow2</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ROUND'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.pow2" title="Permalink to this definition"></a></dt>
+<dd><p>Member of <a class="reference internal" href="#nnabla.utils.qnn.QATConfig.RoundingMethod" title="nnabla.utils.qnn.QATConfig.RoundingMethod"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.QATConfig.RoundingMethod</span></code></a>.
+Round the scale to power-of-2.
+If you want to deploy the model with tensorrt, please enable this.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.record_layers">
+<span class="sig-name descname"><span class="pre">record_layers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[]</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.record_layers" title="Permalink to this definition"></a></dt>
+<dd><p>list of nnabla function names.
+Recording layers.
+If empty, add recoders to all layers. Otherwise, only add recoders to functions in record_layers.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.recorder_activation">
+<span class="sig-name descname"><span class="pre">recorder_activation</span></span><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.recorder_activation" title="Permalink to this definition"></a></dt>
+<dd><p>One of <code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MinMaxMinMaxRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.AbsMaxRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MinMaxMvaRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MaxMaxRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MaxMvaRecorderCallback</span></code>
+Recorder of activation</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MaxMvaRecorderCallback</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.recorder_position">
+<span class="sig-name descname"><span class="pre">recorder_position</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">0</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.recorder_position" title="Permalink to this definition"></a></dt>
+<dd><p>Member of <a class="reference internal" href="#nnabla.utils.qnn.QATConfig.RecorderPosition" title="nnabla.utils.qnn.QATConfig.RecorderPosition"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.QATConfig.RecorderPosition</span></code></a>.
+Recorder position</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.recorder_weight">
+<span class="sig-name descname"><span class="pre">recorder_weight</span></span><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.recorder_weight" title="Permalink to this definition"></a></dt>
+<dd><p>One of <code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MinMaxMinMaxRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.AbsMaxRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MinMaxMvaRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MaxMaxRecorderCallback</span></code>,
+<code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MaxMvaRecorderCallback</span></code>
+Recorder of weight</p>
+<p>alias of <code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.utils.qnn.MinMaxMinMaxRecorderCallback</span></code></p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.round_mode">
+<span class="sig-name descname"><span class="pre">round_mode</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'HALF_TO_EVEN'</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.round_mode" title="Permalink to this definition"></a></dt>
+<dd><p>Round mode of quantize layer</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.skip_bias">
+<span class="sig-name descname"><span class="pre">skip_bias</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.skip_bias" title="Permalink to this definition"></a></dt>
+<dd><p>Skip quantizing bias of Affine and bias of the Convolution function family</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.skip_inputs_layers">
+<span class="sig-name descname"><span class="pre">skip_inputs_layers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Convolution',</span> <span class="pre">'Deconvolution']</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.skip_inputs_layers" title="Permalink to this definition"></a></dt>
+<dd><p>List of nnabla function name.
+Skip quantizing inputs layers of network</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.skip_outputs_layers">
+<span class="sig-name descname"><span class="pre">skip_outputs_layers</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">['Affine']</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.skip_outputs_layers" title="Permalink to this definition"></a></dt>
+<dd><p>List of nnabla function name.
+Skip quantizing outputs layers of network</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATConfig.zero_point">
+<span class="sig-name descname"><span class="pre">zero_point</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">False</span></em><a class="headerlink" href="#nnabla.utils.qnn.QATConfig.zero_point" title="Permalink to this definition"></a></dt>
+<dd><p>Use zero-point (asymmetric) or not use (symmetric)</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="qattensorrtconfig">
+<h2>QATTensorRTConfig<a class="headerlink" href="#qattensorrtconfig" title="Permalink to this headline"></a></h2>
+<p>The default quantization aware training Configuration that meets the requirements of TensorRT.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATTensorRTConfig">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.qnn.</span></span><span class="sig-name descname"><span class="pre">QATTensorRTConfig</span></span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATTensorRTConfig"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATTensorRTConfig" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+<section id="qatscheduler">
+<h2>QATScheduler<a class="headerlink" href="#qatscheduler" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATScheduler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.qnn.</span></span><span class="sig-name descname"><span class="pre">QATScheduler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">config=&lt;nnabla.utils.qnn.QATTensorRTConfig</span> <span class="pre">object&gt;</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver=None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATScheduler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATScheduler" title="Permalink to this definition"></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3.6/library/functions.html#object" title="(in Python v3.6)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Scheduler for quantization aware training.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>config</strong> (<a class="reference internal" href="#nnabla.utils.qnn.QATConfig" title="nnabla.utils.qnn.QATConfig"><code class="xref py py-obj docutils literal notranslate"><span class="pre">QATConfig</span></code></a>) – Quantization-Aware-Training Configuration</p></li>
+<li><p><strong>solver</strong> (<a class="reference internal" href="../solver.html#nnabla.solvers.Solver" title="nnabla.solver.Solver"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.solver.Solver</span></code></a>) – Neural Network Solver</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.utils.qnn</span> <span class="kn">import</span> <span class="n">QATScheduler</span><span class="p">,</span> <span class="n">QATConfig</span><span class="p">,</span> <span class="n">PrecisionMode</span>
+
+<span class="c1"># Set configuration</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">QATConfig</span><span class="p">()</span>
+<span class="n">config</span><span class="o">.</span><span class="n">bn_folding</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">config</span><span class="o">.</span><span class="n">bn_self_folding</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">config</span><span class="o">.</span><span class="n">channel_last</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">config</span><span class="o">.</span><span class="n">precision_mode</span> <span class="o">=</span> <span class="n">PrecisionMode</span><span class="o">.</span><span class="n">SIM_QNN</span>
+<span class="n">config</span><span class="o">.</span><span class="n">niter_to_recording</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="n">config</span><span class="o">.</span><span class="n">niter_to_training</span> <span class="o">=</span> <span class="mi">500</span>
+
+<span class="n">qat_scheduler</span> <span class="o">=</span> <span class="n">QATScheduler</span><span class="p">(</span><span class="n">config</span><span class="o">=</span><span class="n">config</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">)</span>
+
+<span class="c1"># convert graph to enable quantization aware training.</span>
+<span class="n">qat_scheduler</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span> <span class="c1"># pred is the output variable of training network</span>
+<span class="n">qat_scheduler</span><span class="p">(</span><span class="n">vpred</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># vpred is the output variable of evaluation network</span>
+
+<span class="c1"># Training loop</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">training_step</span><span class="p">):</span>
+    <span class="n">qat_scheduler</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+    <span class="c1"># Your training code here</span>
+
+<span class="c1"># save quantized nnp</span>
+<span class="n">qat_scheduler</span><span class="o">.</span><span class="n">save</span><span class="p">(</span><span class="s1">&#39;qnn.np&#39;</span><span class="p">,</span> <span class="n">vimage</span><span class="p">,</span> <span class="n">deploy</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># vimage is the input variable of network</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATScheduler.save">
+<span class="sig-name descname"><span class="pre">save</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">fname</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">batch_size</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">net_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'net'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">deploy</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATScheduler.save"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATScheduler.save" title="Permalink to this definition"></a></dt>
+<dd><p>Save QAT network model to NNP file as default.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>fname</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – NNP file name.</p></li>
+<li><p><strong>inputs</strong> (<a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> or list of <a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – Network inputs variables.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – batch size.</p></li>
+<li><p><strong>net_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – network name.</p></li>
+<li><p><strong>deploy</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Whether to apply QNN deployment conversion. deploy=True is not supported yet.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.qnn.QATScheduler.step">
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/qnn.html#QATScheduler.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.qnn.QATScheduler.step" title="Permalink to this definition"></a></dt>
+<dd><p>Step in the state of QNN. According to the number of iterations in config.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="misc.html" class="btn btn-neutral float-left" title="Misc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../ext.html" class="btn btn-neutral float-right" title="Extensions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::Function &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::FunctionDb" href="nbla--FunctionDb.html" />
+    <link rel="prev" title="class Floor" href="Floor.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::Function</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--Function.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-function">
+<h1>class nbla::Function<a class="headerlink" href="#class-nbla-function" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8FunctionE">
+<span id="_CPPv3N4nbla8FunctionE"></span><span id="_CPPv2N4nbla8FunctionE"></span><span id="nbla::Function"></span><span class="target" id="classnbla_1_1Function"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Function</span></span></span><a class="headerlink" href="#_CPPv4N4nbla8FunctionE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>An interface for the units of computation. </p>
+<p>This is extended to implement a new <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> which implements forward computation (<a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ab4008cfbf032b728ded183647516075f"><span class="std std-ref">forward()</span></a> function) of the function</p>
+<p><div class="math notranslate nohighlight">
+\[ {\mathbf y} = f({\mathbf x}) \]</div>
+</p>
+<p>and backward computation (<a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a2062f16de445fc0d1d5fe4ded349933a"><span class="std std-ref">backward()</span></a> function)</p>
+<p><div class="math notranslate nohighlight">
+\[ \Delta {\mathbf x} += \Delta {\mathbf y} \cdot \nabla_{\mathbf x} {\mathbf y} \]</div>
+</p>
+<p>where <span class="math notranslate nohighlight">\(\Delta {\mathbf x}\)</span> and <span class="math notranslate nohighlight">\(\Delta {\mathbf y}\)</span> are backpropagation error (gradient) of the input and output variable propagated through backward computations of descendant of computation graph, and <span class="math notranslate nohighlight">\(\nabla_{\mathbf x} {\mathbf y}\)</span> is a <a class="reference external" href="https://en.wikipedia.org/wiki/Jacobian_matrix_and_determinant">Jacobian matrix</a> of the function. Note that propagated error is not substituted but accumulated to the gradient of the input variable because we assume <span class="math notranslate nohighlight">\({\mathbf x}\)</span> can be used more than once by other functions. In the above example, the number of each of input and output variable is one, but <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> can take multiple inputs and outputs. </p>
+<p>Subclassed by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; Args… &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; bool, bool, int, int, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; bool, float, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; bool, int, float, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const string &amp;, bool, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const string &amp;, const string &amp;, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, bool, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const string &amp;, bool, bool, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const string &amp;, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const string &amp;, float, int, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const string &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const vector&lt; float &gt; &amp;, int, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, bool, const vector&lt; int &gt; &amp;, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, float, float, float, float, float, bool, bool, float, bool, float, float, bool, float, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, float, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, float, float, bool, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, float, float, bool, const string &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;, int, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; const vector&lt; int &gt; &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; double, double &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; double, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, bool, bool, bool, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, const vector&lt; float &gt; &amp;, const vector&lt; float &gt; &amp;, const vector&lt; float &gt; &amp;, int, bool, bool, int, int, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, const vector&lt; int &gt; &amp;, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, const vector&lt; int &gt; &amp;, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, const vector&lt; int &gt; &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, float, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, float, const vector&lt; int &gt; &amp;, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, float, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; float, float, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, bool, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, bool, bool, int, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, bool, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const string &amp;, float, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int, bool, const vector&lt; int &gt; &amp;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int, bool, float, float, bool, const string &amp;, const vector&lt; float &gt; &amp;, const string &amp;, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int, int, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, const vector&lt; int &gt; &amp;, int, int, const vector&lt; int &gt; &amp;, const string &amp;, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, const vector&lt; int &gt; &amp;, float, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, float &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, float, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, float, const vector&lt; int &gt; &amp;, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, int, const vector&lt; int &gt; &amp;, const string &amp;, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, int, const vector&lt; int &gt; &amp;, float, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, int, const vector&lt; int &gt; &amp;, int &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, int, float, bool, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; int, int, int, const string &amp;, bool, const string &amp;, bool &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt;&gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BaseFunction"><span class="std std-ref">nbla::BaseFunction&lt; Args &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BinaryError"><span class="std std-ref">nbla::BinaryError&lt; T &gt;</span></a>, <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1ConfusionMatrix"><span class="std std-ref">nbla::ConfusionMatrix&lt; T, T1 &gt;</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function8FunctionERK7Context">
+<span id="_CPPv3N4nbla8Function8FunctionERK7Context"></span><span id="_CPPv2N4nbla8Function8FunctionERK7Context"></span><span id="nbla::Function::Function__ContextCR"></span><span class="target" id="classnbla_1_1Function_1af16eb104fc1a7658ecab65754891faef"></span><span class="k"><span class="pre">explicit</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Function</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function8FunctionERK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copying and storing <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function5setupERK9VariablesRK9Variables">
+<span id="_CPPv3N4nbla8Function5setupERK9VariablesRK9Variables"></span><span id="_CPPv2N4nbla8Function5setupERK9VariablesRK9Variables"></span><span id="nbla::Function::setup__VariablesCR.VariablesCR"></span><span class="target" id="classnbla_1_1Function_1ac0e07761bb475c9d004536d31fb7fc65"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setup</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function5setupERK9VariablesRK9Variables" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Setting up function. </p>
+<p>This must be called before the <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> instance is used, and will do:</p>
+<p><ul class="simple">
+<li><p>Determine <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> class used according to the return of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1acf40587ed1d9630f802f3fff3a9dffa7"><span class="std std-ref">Function::allowed_array_classes</span></a> and the given <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>.</p></li>
+<li><p>Type and shape check.</p></li>
+<li><p>Calling Function::setup_impl.</p></li>
+<li><p>Pre-allocate memory to prevent locking in asynchronous execution in CUDA etc.</p></li>
+</ul>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – vector of Variable* </p></li>
+<li><p><strong>outputs</strong> – vector of Variable* </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function7forwardERK9VariablesRK9Variables">
+<span id="_CPPv3N4nbla8Function7forwardERK9VariablesRK9Variables"></span><span id="_CPPv2N4nbla8Function7forwardERK9VariablesRK9Variables"></span><span id="nbla::Function::forward__VariablesCR.VariablesCR"></span><span class="target" id="classnbla_1_1Function_1ab4008cfbf032b728ded183647516075f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">forward</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function7forwardERK9VariablesRK9Variables" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Compute forwardprop and store results into outputs’ data. </p>
+<p>Checking shapes before calling forward_impl() which must be implemented in a derived function. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ac0e07761bb475c9d004536d31fb7fc65"><span class="std std-ref">setup()</span></a> arguments. </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function8backwardERK9VariablesRK9VariablesRK6vectorIbERK6vectorIbE">
+<span id="_CPPv3N4nbla8Function8backwardERK9VariablesRK9VariablesRK6vectorIbERK6vectorIbE"></span><span id="_CPPv2N4nbla8Function8backwardERK9VariablesRK9VariablesRK6vectorIbERK6vectorIbE"></span><span id="nbla::Function::backward__VariablesCR.VariablesCR.vector:b:CR.vector:b:CR"></span><span class="target" id="classnbla_1_1Function_1a2062f16de445fc0d1d5fe4ded349933a"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">backward</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">propagate_down</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">acccum</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function8backwardERK9VariablesRK9VariablesRK6vectorIbERK6vectorIbE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Compute backprop multiplied with outputs’ grad and store it to inputs’ grad. </p>
+<p>Checking shapes before calling backward_impl() which must be implemented in a derived function. <div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ac0e07761bb475c9d004536d31fb7fc65"><span class="std std-ref">setup()</span></a> arguments. </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function15setup_recomputeERK9VariablesRK9Variables">
+<span id="_CPPv3N4nbla8Function15setup_recomputeERK9VariablesRK9Variables"></span><span id="_CPPv2N4nbla8Function15setup_recomputeERK9VariablesRK9Variables"></span><span id="nbla::Function::setup_recompute__VariablesCR.VariablesCR"></span><span class="target" id="classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">setup_recompute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function15setup_recomputeERK9VariablesRK9Variables" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Setting up for <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a04b8e6f5e1f39fa6501255e42b4a5405"><span class="std std-ref">recompute()</span></a>. </p>
+<p>Setting up anything that needs to be done before forward execution for recomputation. If any of outpus of need_setup_recompute is true, this method is called just before <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ab4008cfbf032b728ded183647516075f"><span class="std std-ref">forward()</span></a>.</p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a04b8e6f5e1f39fa6501255e42b4a5405"><span class="std std-ref">recompute()</span></a> </p>
+</div>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1aa323fe42eba30f20f11ebea0bc50360c"><span class="std std-ref">need_setup_recompute()</span></a> </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function9recomputeERK9VariablesRK9Variables">
+<span id="_CPPv3N4nbla8Function9recomputeERK9VariablesRK9Variables"></span><span id="_CPPv2N4nbla8Function9recomputeERK9VariablesRK9Variables"></span><span id="nbla::Function::recompute__VariablesCR.VariablesCR"></span><span class="target" id="classnbla_1_1Function_1a04b8e6f5e1f39fa6501255e42b4a5405"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recompute</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">inputs</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9VariablesE" title="nbla::Variables"><span class="n"><span class="pre">Variables</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">outputs</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function9recomputeERK9VariablesRK9Variables" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Reproduce previous <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ab4008cfbf032b728ded183647516075f"><span class="std std-ref">forward()</span></a>. </p>
+<p>Reproduce previous <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ab4008cfbf032b728ded183647516075f"><span class="std std-ref">forward()</span></a> execution. This method is called during backward execution.</p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a> </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function21set_active_input_maskERK6vectorIbE">
+<span id="_CPPv3N4nbla8Function21set_active_input_maskERK6vectorIbE"></span><span id="_CPPv2N4nbla8Function21set_active_input_maskERK6vectorIbE"></span><span id="nbla::Function::set_active_input_mask__vector:b:CR"></span><span class="target" id="classnbla_1_1Function_1af06b6fecd43dac649d3da3eba6ee8b14"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_active_input_mask</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">bool</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">mask</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function21set_active_input_maskERK6vectorIbE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Activate or deactivate inputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function7contextEv">
+<span id="_CPPv3NK4nbla8Function7contextEv"></span><span id="_CPPv2NK4nbla8Function7contextEv"></span><span id="nbla::Function::contextC"></span><span class="target" id="classnbla_1_1Function_1a49613c5626dedadee7e25292f229fbca"></span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">context</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function7contextEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a> used in this function. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function8in_typesEv">
+<span id="_CPPv3N4nbla8Function8in_typesEv"></span><span id="_CPPv2N4nbla8Function8in_typesEv"></span><span id="nbla::Function::in_types"></span><span class="target" id="classnbla_1_1Function_1af2a03210dc1906b7ef1c3ffd93ca3ea8"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">in_types</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N4nbla8Function8in_typesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get input dtypes. </p>
+<p>Last in_type will be used repeatedly if size of in_types is smaller than size of inputs </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function9out_typesEv">
+<span id="_CPPv3N4nbla8Function9out_typesEv"></span><span id="_CPPv2N4nbla8Function9out_typesEv"></span><span id="nbla::Function::out_types"></span><span class="target" id="classnbla_1_1Function_1a330f5414876cbfd94f98e7ac960d2a2b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">out_types</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N4nbla8Function9out_typesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get output dtypes. </p>
+<p>Last out_type will be used repeatedly if size of out_types is smaller than size of outputs </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function10min_inputsEv">
+<span id="_CPPv3N4nbla8Function10min_inputsEv"></span><span id="_CPPv2N4nbla8Function10min_inputsEv"></span><span id="nbla::Function::min_inputs"></span><span class="target" id="classnbla_1_1Function_1a3a142a172255eb8fc0ec413a62e2498e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_inputs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N4nbla8Function10min_inputsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get minimum number of inputs. </p>
+<p>This is meant to be used in setup function with in_types which is used to get maximum number of inputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function11min_outputsEv">
+<span id="_CPPv3N4nbla8Function11min_outputsEv"></span><span id="_CPPv2N4nbla8Function11min_outputsEv"></span><span id="nbla::Function::min_outputs"></span><span class="target" id="classnbla_1_1Function_1a0029908ea072b3150adb0aea6aa6c61c"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">min_outputs</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N4nbla8Function11min_outputsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get minimum number of outputs. </p>
+<p>This is meant to be used in setup function with out_types which is used to get max number of outputs. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function4nameEv">
+<span id="_CPPv3N4nbla8Function4nameEv"></span><span id="_CPPv2N4nbla8Function4nameEv"></span><span id="nbla::Function::name"></span><span class="target" id="classnbla_1_1Function_1ad29c655d9765eb35a3422799845c9544"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N4nbla8Function4nameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get function name in string. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function21allowed_array_classesEv">
+<span id="_CPPv3N4nbla8Function21allowed_array_classesEv"></span><span id="_CPPv2N4nbla8Function21allowed_array_classesEv"></span><span id="nbla::Function::allowed_array_classes"></span><span class="target" id="classnbla_1_1Function_1acf40587ed1d9630f802f3fff3a9dffa7"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowed_array_classes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4N4nbla8Function21allowed_array_classesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array classes that are allowed to be specified by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function24grad_depends_output_dataEii">
+<span id="_CPPv3NK4nbla8Function24grad_depends_output_dataEii"></span><span id="_CPPv2NK4nbla8Function24grad_depends_output_dataEii"></span><span id="nbla::Function::grad_depends_output_data__i.iC"></span><span class="target" id="classnbla_1_1Function_1ae76c3a913e598e2d4c88b98f3126f1bf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad_depends_output_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function24grad_depends_output_dataEii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag for checking if in-grad depends on out-data. </p>
+<p>Checking if i-th input’ gradient computation requires o-th output’s data or not.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If any of inputs requires an output variable data when computing its gradient, this function must be overridden to return appropriate boolean value. Otherwise, backward computation will be incorrect. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p></li>
+<li><p><strong>o</strong> – <strong>[in]</strong> Output variable index.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function23grad_depends_input_dataEii">
+<span id="_CPPv3NK4nbla8Function23grad_depends_input_dataEii"></span><span id="_CPPv2NK4nbla8Function23grad_depends_input_dataEii"></span><span id="nbla::Function::grad_depends_input_data__i.iC"></span><span class="target" id="classnbla_1_1Function_1a3b706ac79b528dc47359e6748d2d8f5f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad_depends_input_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">final</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function23grad_depends_input_dataEii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag for checking if in-grad depends on in-data. </p>
+<p>Checking if i-th input’ gradient computation requires j-th input’s data or not.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p></li>
+<li><p><strong>j</strong> – <strong>[in]</strong> Input variable index. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function29auto_grad_depends_output_dataEii">
+<span id="_CPPv3NK4nbla8Function29auto_grad_depends_output_dataEii"></span><span id="_CPPv2NK4nbla8Function29auto_grad_depends_output_dataEii"></span><span id="nbla::Function::auto_grad_depends_output_data__i.iC"></span><span class="target" id="classnbla_1_1Function_1a5dd68f095bc58a1bdf33aa688f2adbe6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">auto_grad_depends_output_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function29auto_grad_depends_output_dataEii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag to check if in-grad depends on out-data for auto grad. </p>
+<p>Checking if i-th input’s gradient computation requires o-th output’s data or not when auto grad (nnabla.grad). This method is refered in auto-forward mode to clear memory consumption dynamically.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If the grad dependencies of the output are different between <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a2062f16de445fc0d1d5fe4ded349933a"><span class="std std-ref">Function::backward</span></a> and auto grad, this function must be overridden to return appropriate boolean value. Otherwise, auto grad computation will be incorrect. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p></li>
+<li><p><strong>o</strong> – <strong>[in]</strong> Output variable index.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function28auto_grad_depends_input_dataEii">
+<span id="_CPPv3NK4nbla8Function28auto_grad_depends_input_dataEii"></span><span id="_CPPv2NK4nbla8Function28auto_grad_depends_input_dataEii"></span><span id="nbla::Function::auto_grad_depends_input_data__i.iC"></span><span class="target" id="classnbla_1_1Function_1a1095df9ecd51643db0a2e396ea70d60b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">auto_grad_depends_input_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">j</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">final</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function28auto_grad_depends_input_dataEii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag to check if in-grad depends on in-data for auto grad. </p>
+<p>Checking if i-th input’s gradient computation requires j-th input’s data or not when auto grad (nnabla.grad). This method is refered in auto-forward mode to clear memory consumption dynamically.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p></li>
+<li><p><strong>j</strong> – <strong>[in]</strong> Input variable index. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function31overwrite_input_data_in_forwardEi">
+<span id="_CPPv3NK4nbla8Function31overwrite_input_data_in_forwardEi"></span><span id="_CPPv2NK4nbla8Function31overwrite_input_data_in_forwardEi"></span><span id="nbla::Function::overwrite_input_data_in_forward__iC"></span><span class="target" id="classnbla_1_1Function_1adfdad32c90049658aacbfab76e592c0c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">overwrite_input_data_in_forward</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">final</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function31overwrite_input_data_in_forwardEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag for checking if i-th input is overwritten in forward or not. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function12inplace_dataEi">
+<span id="_CPPv3NK4nbla8Function12inplace_dataEi"></span><span id="_CPPv2NK4nbla8Function12inplace_dataEi"></span><span id="nbla::Function::inplace_data__iC"></span><span class="target" id="classnbla_1_1Function_1aaea6d6cca1d5f87d1756b67b683bf7c2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inplace_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function12inplace_dataEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get in-place-level of i-th input variable’s data (see below). </p>
+<p>0 (NOT_INPLACE): Not in-placed 1 (INPLACE_NOT_MODIFY): In-placed but not modified. 2 (INPLACE): In-placed and modified.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If a subclass uses in-place computation, the function must override this function. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p>
+</dd>
+<dt class="field-even">Return values</dt>
+<dd class="field-even"><p><strong>Returns</strong> – 0 by default. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function17inplace_data_withEi">
+<span id="_CPPv3NK4nbla8Function17inplace_data_withEi"></span><span id="_CPPv2NK4nbla8Function17inplace_data_withEi"></span><span id="nbla::Function::inplace_data_with__iC"></span><span class="target" id="classnbla_1_1Function_1aafb3c07cfc222f85367fd062a43e760b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">inplace_data_with</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function17inplace_data_withEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the output variable index where i-th variables’ data in-placed to. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This is only valid if the i-th variable is in-placed. The maintainer of a sub-class function must override this function. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function28prohibit_clear_input_buffersEv">
+<span id="_CPPv3NK4nbla8Function28prohibit_clear_input_buffersEv"></span><span id="_CPPv2NK4nbla8Function28prohibit_clear_input_buffersEv"></span><span id="nbla::Function::prohibit_clear_input_buffersC"></span><span class="target" id="classnbla_1_1Function_1a745c7c00fa85fb0a13c8b498430bbabf"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prohibit_clear_input_buffers</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function28prohibit_clear_input_buffersEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A flag for preventing that the graph engine clears buffers of input variables even if clear_buffer is true and condition mets. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function24prohibit_zero_input_gradEv">
+<span id="_CPPv3NK4nbla8Function24prohibit_zero_input_gradEv"></span><span id="_CPPv2NK4nbla8Function24prohibit_zero_input_gradEv"></span><span id="nbla::Function::prohibit_zero_input_gradC"></span><span class="target" id="classnbla_1_1Function_1a9ca00b392894a92fe7650e0a03735e8b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prohibit_zero_input_grad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function24prohibit_zero_input_gradEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A flag for preventing that the graph engine sets input gradient buffer as 0 even when accum is true. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function20need_setup_recomputeEi">
+<span id="_CPPv3NK4nbla8Function20need_setup_recomputeEi"></span><span id="_CPPv2NK4nbla8Function20need_setup_recomputeEi"></span><span id="nbla::Function::need_setup_recompute__iC"></span><span class="target" id="classnbla_1_1Function_1aa323fe42eba30f20f11ebea0bc50360c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_setup_recompute</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function20need_setup_recomputeEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A flag for checking if <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a> is needed. </p>
+<p>Checking if o-th output’ data requires <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a>.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a> will skipped during forward execution if none of outputs requires <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a9a7ec96032153cc7426719b98faf3f3e"><span class="std std-ref">setup_recompute()</span></a>. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>o</strong> – <strong>[in]</strong> Output variable index.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Function4copyEv">
+<span id="_CPPv3NK4nbla8Function4copyEv"></span><span id="_CPPv2NK4nbla8Function4copyEv"></span><span id="nbla::Function::copyC"></span><span class="target" id="classnbla_1_1Function_1a89d5f89c0811719d95db4b5917858e40"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4nbla8FunctionE" title="nbla::Function"><span class="n"><span class="pre">Function</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="m"><span class="pre">0</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Function4copyEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy another instance of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> with the same context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Function19ask_if_used_and_useEv">
+<span id="_CPPv3N4nbla8Function19ask_if_used_and_useEv"></span><span id="_CPPv2N4nbla8Function19ask_if_used_and_useEv"></span><span id="nbla::Function::ask_if_used_and_use"></span><span class="target" id="classnbla_1_1Function_1af7c7c0fda071b17e2f6a37246f8221be"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ask_if_used_and_use</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Function19ask_if_used_and_useEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check whether this was already used, and turn it used. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Floor.html" class="btn btn-neutral float-left" title="class Floor" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--FunctionDb.html" class="btn btn-neutral float-right" title="class nbla::FunctionDb" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

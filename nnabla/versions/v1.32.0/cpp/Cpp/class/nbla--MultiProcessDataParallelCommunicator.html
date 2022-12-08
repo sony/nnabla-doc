@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::MultiProcessDataParallelCommunicator &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::NaiveAllocator" href="nbla--NaiveAllocator.html" />
+    <link rel="prev" title="class MulScalar" href="MulScalar.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::MultiProcessDataParallelCommunicator</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--MultiProcessDataParallelCommunicator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-multiprocessdataparallelcommunicator">
+<h1>class nbla::MultiProcessDataParallelCommunicator<a class="headerlink" href="#class-nbla-multiprocessdataparallelcommunicator" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla36MultiProcessDataParallelCommunicatorE">
+<span id="_CPPv3I0EN4nbla36MultiProcessDataParallelCommunicatorE"></span><span id="_CPPv2I0EN4nbla36MultiProcessDataParallelCommunicatorE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">MultiProcessDataParallelCommunicator</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--Communicator.html#_CPPv4N4nbla12CommunicatorE" title="nbla::Communicator"><span class="n"><span class="pre">Communicator</span></span></a><a class="headerlink" href="#_CPPv4I0EN4nbla36MultiProcessDataParallelCommunicatorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1MultiProcessDataParallelCommunicator"><span class="std std-ref">MultiProcessDataParallelCommunicator</span></a> interface which is extended to implement a new DataParallelcommunicator class. </p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1MultiProcessDataParallelCommunicator"><span class="std std-ref">MultiProcessDataParallelCommunicator</span></a> exchanges gradients parameters or parameters itself. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator36MultiProcessDataParallelCommunicatorERK7Context">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator36MultiProcessDataParallelCommunicatorERK7Context"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator36MultiProcessDataParallelCommunicatorERK7Context"></span><span id="nbla::MultiProcessDataParallelCommunicator::MultiProcessDataParallelCommunicator__ContextCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1aa37dc8450c8eaab85d4f328b71684019"></span><span class="sig-name descname"><span class="n"><span class="pre">MultiProcessDataParallelCommunicator</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator36MultiProcessDataParallelCommunicatorERK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor takes at least context and parameters. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ctx</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a> </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator26add_context_and_parametersERK4pairI7Context6vectorI4pairI6string11VariablePtrEEE">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator26add_context_and_parametersERK4pairI7Context6vectorI4pairI6string11VariablePtrEEE"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator26add_context_and_parametersERK4pairI7Context6vectorI4pairI6string11VariablePtrEEE"></span><span id="nbla::MultiProcessDataParallelCommunicator::add_context_and_parameters__pair:Context.vector:pair:string.VariablePtr:::CR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1ad0c8c177053f8a47d0222e322bcd96be"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_context_and_parameters</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla11VariablePtrE" title="nbla::VariablePtr"><span class="n"><span class="pre">VariablePtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx_params</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator26add_context_and_parametersERK4pairI7Context6vectorI4pairI6string11VariablePtrEEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Adding context and parameters communicated via this class. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>cparams</strong> – pair&lt;<a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>, vector of pair&lt;name, VariablePtr&gt; </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator25remove_context_parametersERK4pairI7Context6vectorI6stringEE">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator25remove_context_parametersERK4pairI7Context6vectorI6stringEE"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator25remove_context_parametersERK4pairI7Context6vectorI6stringEE"></span><span id="nbla::MultiProcessDataParallelCommunicator::remove_context_parameters__pair:Context.vector:string::CR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a1933b91966014635b133292a6307627f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">remove_context_parameters</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx_keys</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator25remove_context_parametersERK4pairI7Context6vectorI6stringEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Remove previously registered parameters by keys. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator24clear_context_parametersEv">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator24clear_context_parametersEv"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator24clear_context_parametersEv"></span><span id="nbla::MultiProcessDataParallelCommunicator::clear_context_parameters"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a332254ae4e1d1b470774626c7abed023"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clear_context_parameters</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator24clear_context_parametersEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Clear all parameters. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator4initEv">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator4initEv"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator4initEv"></span><span id="nbla::MultiProcessDataParallelCommunicator::init"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a797f9b18e2f3710761de130faff9b762"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">init</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator4initEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Initall or initrank, depending multi-threads or multi-processes. </p>
+<p>This function MUST be called after all parameters communicated are added by `add_context_and_parameters` method. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator9new_groupE4pairI6string6vectorIiEE">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator9new_groupE4pairI6string6vectorIiEE"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator9new_groupE4pairI6string6vectorIiEE"></span><span id="nbla::MultiProcessDataParallelCommunicator::new_group__pair:string.vector:i::"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a2ab9d4d494acf1cf4d93b2619b84cbb3"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">new_group</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">pair</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name_ranks_pair</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator9new_groupE4pairI6string6vectorIiEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create group. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator11list_groupsEv">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator11list_groupsEv"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator11list_groupsEv"></span><span id="nbla::MultiProcessDataParallelCommunicator::list_groups"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1abc4b9e03cd08235b33e4242b6f548b5b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">unordered_map</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">,</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">list_groups</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator11list_groupsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>List groups. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator10find_groupERK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator10find_groupERK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator10find_groupERK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::find_group__stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a29e64766fc12f0de8d2339275d4160e6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">int</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">find_group</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator10find_groupERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Find groups. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator6reduceERK6vectorI10NdArrayPtrEibbRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator6reduceERK6vectorI10NdArrayPtrEibbRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator6reduceERK6vectorI10NdArrayPtrEibbRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::reduce__vector:NdArrayPtr:CR.i.b.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1ac325b8258d8160c4d66fecc3e6068709"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reduce</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ndarray_list</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dst</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator6reduceERK6vectorI10NdArrayPtrEibbRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>reduce over parameters added. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndarray_list</strong> – Vector of NdArrayPtr. </p></li>
+<li><p><strong>dst</strong> – Destination rank. </p></li>
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator6reduceE10NdArrayPtribbRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator6reduceE10NdArrayPtribbRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator6reduceE10NdArrayPtribbRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::reduce__NdArrayPtr.i.b.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1af3b0fae20b4971bf2a0631eb356689cf"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reduce</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ndarray</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">dst</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator6reduceE10NdArrayPtribbRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>reduce over parameters added. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – NdArrayPtr. </p></li>
+<li><p><strong>dst</strong> – Destination rank. </p></li>
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator9allreduceEbb">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator9allreduceEbb"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator9allreduceEbb"></span><span id="nbla::MultiProcessDataParallelCommunicator::allreduce__b.b"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1af238683f965ed2047833f6eeb98664be"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allreduce</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator9allreduceEbb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>allreduce over parameters added. </p>
+<p>Deprecated. Use all_reduce.</p>
+<p>Currently, <em>allreduce</em> is applied to gradient regions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator10all_reduceERK6vectorI10NdArrayPtrEbbRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator10all_reduceERK6vectorI10NdArrayPtrEbbRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator10all_reduceERK6vectorI10NdArrayPtrEbbRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::all_reduce__vector:NdArrayPtr:CR.b.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a405774b9322fa8e1aef42ed584acf4b0"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">all_reduce</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ndarray_list</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator10all_reduceERK6vectorI10NdArrayPtrEbbRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>all_reduce over parameters added. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndarray_list</strong> – Vector of NdArrayPtr </p></li>
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator10all_reduceE10NdArrayPtrbbRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator10all_reduceE10NdArrayPtrbbRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator10all_reduceE10NdArrayPtrbbRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::all_reduce__NdArrayPtr.b.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a9e1ace47853a7d57e7368e5aef9ea593"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">all_reduce</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ndarray</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator10all_reduceE10NdArrayPtrbbRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>all_reduce over parameters added. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – NdArrayPtr </p></li>
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator14reduce_scatterERK6vectorI10NdArrayPtrE10NdArrayPtrbRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator14reduce_scatterERK6vectorI10NdArrayPtrE10NdArrayPtrbRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator14reduce_scatterERK6vectorI10NdArrayPtrE10NdArrayPtrbRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::reduce_scatter__vector:NdArrayPtr:CR.NdArrayPtr.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a97d84562b855197ca1455af9286d3f2a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reduce_scatter</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ndarray_list</span></span>, <a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ndarray</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator14reduce_scatterERK6vectorI10NdArrayPtrE10NdArrayPtrbRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>reducescatter. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndarray_list</strong> – Vector of NdArrayPtr </p></li>
+<li><p><strong>ndarray</strong> – NdArrayPtr </p></li>
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator5bcastERK6vectorI10NdArrayPtrEibRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator5bcastERK6vectorI10NdArrayPtrEibRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator5bcastERK6vectorI10NdArrayPtrEibRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::bcast__vector:NdArrayPtr:CR.i.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a102b6700f658d06b4b19ed2c88c6e4c6"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bcast</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ndarray_list</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator5bcastERK6vectorI10NdArrayPtrEibRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>broadcast. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndarray_list</strong> – Vector of NdArrayPtr. </p></li>
+<li><p><strong>src</strong> – Source rank. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator5bcastE10NdArrayPtribRK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator5bcastE10NdArrayPtribRK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator5bcastE10NdArrayPtribRK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::bcast__NdArrayPtr.i.b.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a6878d37f10e0608b9eb77ae47c20b600"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bcast</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ndarray</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">src</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator5bcastE10NdArrayPtribRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>broadcast. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> – NdArrayPtr. </p></li>
+<li><p><strong>src</strong> – Source rank. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator10all_gatherE10NdArrayPtrRK6vectorI10NdArrayPtrERK6string">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator10all_gatherE10NdArrayPtrRK6vectorI10NdArrayPtrERK6string"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator10all_gatherE10NdArrayPtrRK6vectorI10NdArrayPtrERK6string"></span><span id="nbla::MultiProcessDataParallelCommunicator::all_gather__NdArrayPtr.vector:NdArrayPtr:CR.stringCR"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1ada0ccc2531464f39c63a49d18c02cf0e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">all_gather</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ndarray</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ndarray_list</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">group</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="s"><span class="pre">&quot;world&quot;</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator10all_gatherE10NdArrayPtrRK6vectorI10NdArrayPtrERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>all_gather. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ndarray</strong> – data to be sent. </p></li>
+<li><p><strong>ndarray_list</strong> – Vector of NdArrayPtr to receive data. </p></li>
+<li><p><strong>group</strong> – Name of a group. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator12reduce_asyncEb">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator12reduce_asyncEb"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator12reduce_asyncEb"></span><span id="nbla::MultiProcessDataParallelCommunicator::reduce_async__b"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1ad5e3ec88cbaba2418001328af990756b"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reduce_async</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator12reduce_asyncEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>reduce asynchronously. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>division</strong> – Divide the reduced value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator15allreduce_asyncEbb">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator15allreduce_asyncEbb"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator15allreduce_asyncEbb"></span><span id="nbla::MultiProcessDataParallelCommunicator::allreduce_async__b.b"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a34e02912a5608a64eb7c39c65c0ae1fa"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allreduce_async</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">inplace</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator15allreduce_asyncEbb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>reduce asynchronously. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>division</strong> – Divide the reduced value. </p></li>
+<li><p><strong>inplace</strong> – Pack the arrays into one large array if false. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator19reducescatter_asyncEb">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator19reducescatter_asyncEb"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator19reducescatter_asyncEb"></span><span id="nbla::MultiProcessDataParallelCommunicator::reducescatter_async__b"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1af7bcdc2b7cdc59c3b1b88d8b6f37b21a"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">reducescatter_async</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">division</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator19reducescatter_asyncEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>reducescatter asynchronously. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>division</strong> – Divide the reduced value. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator11bcast_asyncEv">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator11bcast_asyncEv"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator11bcast_asyncEv"></span><span id="nbla::MultiProcessDataParallelCommunicator::bcast_async"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a8dc779734766d3deaec00b977dd8520e"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bcast_async</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator11bcast_asyncEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>broadcast asynchronously. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator15allgather_asyncEv">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator15allgather_asyncEv"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator15allgather_asyncEv"></span><span id="nbla::MultiProcessDataParallelCommunicator::allgather_async"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a8188c6e0cccd1803fd94714dfef3e172"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allgather_async</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator15allgather_asyncEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>allgather asynchronously. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla36MultiProcessDataParallelCommunicator21allowed_array_classesEv">
+<span id="_CPPv3N4nbla36MultiProcessDataParallelCommunicator21allowed_array_classesEv"></span><span id="_CPPv2N4nbla36MultiProcessDataParallelCommunicator21allowed_array_classesEv"></span><span id="nbla::MultiProcessDataParallelCommunicator::allowed_array_classes"></span><span class="target" id="classnbla_1_1MultiProcessDataParallelCommunicator_1a6985c7aace5a5d1771ba42ccc070642d"></span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allowed_array_classes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla36MultiProcessDataParallelCommunicator21allowed_array_classesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array classes that are allowed to be specified by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Context"><span class="std std-ref">Context</span></a>. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="MulScalar.html" class="btn btn-neutral float-left" title="class MulScalar" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--NaiveAllocator.html" class="btn btn-neutral float-right" title="class nbla::NaiveAllocator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

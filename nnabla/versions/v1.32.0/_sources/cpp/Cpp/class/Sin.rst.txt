@@ -1,0 +1,6 @@
+class Sin
+========================================
+
+.. doxygenclass:: Sin
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::FusedConvolution
+========================================
+
+.. doxygenclass:: nbla::FusedConvolution
+	:project: Cpp
+	:members: 

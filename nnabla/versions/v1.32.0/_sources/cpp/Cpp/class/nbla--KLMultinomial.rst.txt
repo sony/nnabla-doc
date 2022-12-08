@@ -1,0 +1,6 @@
+class nbla::KLMultinomial
+========================================
+
+.. doxygenclass:: nbla::KLMultinomial
+	:project: Cpp
+	:members: 

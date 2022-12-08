@@ -1,0 +1,6 @@
+class AbsoluteError
+========================================
+
+.. doxygenclass:: AbsoluteError
+	:project: Cpp
+	:members: 

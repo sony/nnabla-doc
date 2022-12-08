@@ -1,0 +1,6 @@
+class nbla::BackendUtils
+========================================
+
+.. doxygenclass:: nbla::BackendUtils
+	:project: Cpp
+	:members: 

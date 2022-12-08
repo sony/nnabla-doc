@@ -1,0 +1,6 @@
+class GreaterScalar
+========================================
+
+.. doxygenclass:: GreaterScalar
+	:project: Cpp
+	:members: 

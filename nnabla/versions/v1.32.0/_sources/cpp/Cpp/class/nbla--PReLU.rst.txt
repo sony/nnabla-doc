@@ -1,0 +1,6 @@
+class nbla::PReLU
+========================================
+
+.. doxygenclass:: nbla::PReLU
+	:project: Cpp
+	:members: 

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::Memory &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::Meshgrid" href="nbla--Meshgrid.html" />
+    <link rel="prev" title="class nbla::MeanSubtraction" href="nbla--MeanSubtraction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::Memory</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--Memory.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-memory">
+<h1>class nbla::Memory<a class="headerlink" href="#class-nbla-memory" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6MemoryE">
+<span id="_CPPv3N4nbla6MemoryE"></span><span id="_CPPv2N4nbla6MemoryE"></span><span id="nbla::Memory"></span><span class="target" id="classnbla_1_1Memory"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Memory</span></span></span><a class="headerlink" href="#_CPPv4N4nbla6MemoryE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> interface class. </p>
+<p>The <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> class is designed to be managed by a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Allocator"><span class="std std-ref">Allocator</span></a> instance. This is extended to implement a device memory class which is responsible for allocating/freeing a device memory block, and splitting into/merging blocks. </p>
+<p>Subclassed by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CpuMemory"><span class="std std-ref">nbla::CpuMemory</span></a></p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory6MemoryE6size_tRK6string">
+<span id="_CPPv3N4nbla6Memory6MemoryE6size_tRK6string"></span><span id="_CPPv2N4nbla6Memory6MemoryE6size_tRK6string"></span><span id="nbla::Memory::Memory__s.stringCR"></span><span class="target" id="classnbla_1_1Memory_1ad5c8f33ca259401c7dc4a7abae3555de"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Memory</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">bytes</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device_id</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory6MemoryE6size_tRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor will be called from a inherited class constructor to set bytes and device_id. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6MemoryD0Ev">
+<span id="_CPPv3N4nbla6MemoryD0Ev"></span><span id="_CPPv2N4nbla6MemoryD0Ev"></span><span id="nbla::Memory::~Memory"></span><span class="target" id="classnbla_1_1Memory_1a24f9d4f3d7d8f74bdab46aab3ddaef37"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">~Memory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6MemoryD0Ev" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A derived class must implements destructor. </p>
+<p>This destructor does nothing.</p>
+<p>The memory allocated in Memory::alloc_impl function of a derived class</p>
+<p>must be freed in destuctor of the derived class. It is recommended to insert assertion ensuring that this-&gt;<a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory_1a495c9c938c71bd0b8e2d35f8066542fc"><span class="std std-ref">prev()</span></a> returns false to check runtime fatal issue.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If ptr_ is nullptr, a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> has previously been merged to another, and is not retaining a memory block that should be freed. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory5bytesEv">
+<span id="_CPPv3NK4nbla6Memory5bytesEv"></span><span id="_CPPv2NK4nbla6Memory5bytesEv"></span><span id="nbla::Memory::bytesC"></span><span class="target" id="classnbla_1_1Memory_1a44c786cc9d976156e41b23467ca1decd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bytes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory5bytesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get memory block size in bytes. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory15requested_bytesEv">
+<span id="_CPPv3NK4nbla6Memory15requested_bytesEv"></span><span id="_CPPv2NK4nbla6Memory15requested_bytesEv"></span><span id="nbla::Memory::requested_bytesC"></span><span class="target" id="classnbla_1_1Memory_1a8795fcd285d3418a2ae57c7c8475d005"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">requested_bytes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory15requested_bytesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get requested allocation memory size in bytes. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory9device_idEv">
+<span id="_CPPv3NK4nbla6Memory9device_idEv"></span><span id="_CPPv2NK4nbla6Memory9device_idEv"></span><span id="nbla::Memory::device_idC"></span><span class="target" id="classnbla_1_1Memory_1ad21f08e7c3491d8c4821a54b1dafcdac"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">device_id</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory9device_idEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get device id as a string. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory7pointerEv">
+<span id="_CPPv3N4nbla6Memory7pointerEv"></span><span id="_CPPv2N4nbla6Memory7pointerEv"></span><span id="nbla::Memory::pointer"></span><span class="target" id="classnbla_1_1Memory_1a81b6e5b7747bc085b077ccf1e1a5fd04"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">pointer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory7pointerEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get a raw pointer retaining a memory block instance. </p>
+<p>In <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CpuMemory"><span class="std std-ref">CpuMemory</span></a> realization, it is a raw memory block allocated by malloc. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory13const_pointerEv">
+<span id="_CPPv3NK4nbla6Memory13const_pointerEv"></span><span id="_CPPv2NK4nbla6Memory13const_pointerEv"></span><span id="nbla::Memory::const_pointerC"></span><span class="target" id="classnbla_1_1Memory_1ac9c5f1f5acf4d90afb3bb3e4087c1ac2"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">const_pointer</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory13const_pointerEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get a raw pointer retaining a memory block instance. </p>
+<p>In <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CpuMemory"><span class="std std-ref">CpuMemory</span></a> realization, it is a raw memory block allocated by malloc. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory6lockedEv">
+<span id="_CPPv3NK4nbla6Memory6lockedEv"></span><span id="_CPPv2NK4nbla6Memory6lockedEv"></span><span id="nbla::Memory::lockedC"></span><span class="target" id="classnbla_1_1Memory_1aef2fd96f3add4274558eebe2d869bbd8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">locked</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory6lockedEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This returns true if this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> instance is in use. </p>
+<p>The lock state is managed by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a> instance in a RAII way. <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Allocator_1a4f9c48443944eed088cfb1ab83bb0cd6"><span class="std std-ref">Allocator::alloc</span></a> function returns a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a> instance retaining a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> instance with lock. At the end of life of the <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a> instance, the lock is released to inform whether the memory instance can be merged with a consecutive (next_ or prev_) memory block at <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory_1ac184505ea3078094007ed45a783c9d5f"><span class="std std-ref">Memory::try_merge</span></a> function. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory8disabledEv">
+<span id="_CPPv3N4nbla6Memory8disabledEv"></span><span id="_CPPv2N4nbla6Memory8disabledEv"></span><span id="nbla::Memory::disabled"></span><span class="target" id="classnbla_1_1Memory_1a1343a4df481a96f23fc07e92c3e55add"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">disabled</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory8disabledEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This returns whether the <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> instance was disabled by merging to another memory block. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory4nextEv">
+<span id="_CPPv3NK4nbla6Memory4nextEv"></span><span id="_CPPv2NK4nbla6Memory4nextEv"></span><span id="nbla::Memory::nextC"></span><span class="target" id="classnbla_1_1Memory_1a46f712af424543ff6b307b6360c6116e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">next</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory4nextEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the next memory block which has previously been split from an originally allocated memory block. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla6Memory4prevEv">
+<span id="_CPPv3NK4nbla6Memory4prevEv"></span><span id="_CPPv2NK4nbla6Memory4prevEv"></span><span id="nbla::Memory::prevC"></span><span class="target" id="classnbla_1_1Memory_1a495c9c938c71bd0b8e2d35f8066542fc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">prev</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla6Memory4prevEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns the previous memory block. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory_1a46f712af424543ff6b307b6360c6116e"><span class="std std-ref">Memory::next</span></a> </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory4lockEv">
+<span id="_CPPv3N4nbla6Memory4lockEv"></span><span id="_CPPv2N4nbla6Memory4lockEv"></span><span id="nbla::Memory::lock"></span><span class="target" id="classnbla_1_1Memory_1a4069bcccec257e3f8a5332993d97b7a1"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lock</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory4lockEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get a lock of this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Memory"><span class="std std-ref">Memory</span></a> instance when it’s used to prevent merging with another. </p>
+<p>The lock is obtained by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a> in its initialization. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory7releaseEv">
+<span id="_CPPv3N4nbla6Memory7releaseEv"></span><span id="_CPPv2N4nbla6Memory7releaseEv"></span><span id="nbla::Memory::release"></span><span class="target" id="classnbla_1_1Memory_1a8e97b9faf574ac6f6a168e6ced4a5757"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">release</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory7releaseEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Release a lock when it’s not used. </p>
+<p>The lock is released by <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1AllocatorMemory"><span class="std std-ref">AllocatorMemory</span></a> in its destructor. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory19get_physical_memoryEv">
+<span id="_CPPv3N4nbla6Memory19get_physical_memoryEv"></span><span id="_CPPv2N4nbla6Memory19get_physical_memoryEv"></span><span id="nbla::Memory::get_physical_memory"></span><span class="target" id="classnbla_1_1Memory_1a1e383fe133cb51b90241b26981cb1857"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla20VecPhysicalMemoryPtrE" title="nbla::VecPhysicalMemoryPtr"><span class="n"><span class="pre">VecPhysicalMemoryPtr</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_physical_memory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory19get_physical_memoryEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get physical memory as reference. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory24append_physical_memoriesER20VecPhysicalMemoryPtr">
+<span id="_CPPv3N4nbla6Memory24append_physical_memoriesER20VecPhysicalMemoryPtr"></span><span id="_CPPv2N4nbla6Memory24append_physical_memoriesER20VecPhysicalMemoryPtr"></span><span id="nbla::Memory::append_physical_memories__VecPhysicalMemoryPtrR"></span><span class="target" id="classnbla_1_1Memory_1a0f9238fa0f14955c000fa2fab57a32ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">append_physical_memories</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla20VecPhysicalMemoryPtrE" title="nbla::VecPhysicalMemoryPtr"><span class="n"><span class="pre">VecPhysicalMemoryPtr</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">p_mems</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory24append_physical_memoriesER20VecPhysicalMemoryPtr" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Append physical memories. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory21clear_physical_memoryEv">
+<span id="_CPPv3N4nbla6Memory21clear_physical_memoryEv"></span><span id="_CPPv2N4nbla6Memory21clear_physical_memoryEv"></span><span id="nbla::Memory::clear_physical_memory"></span><span class="target" id="classnbla_1_1Memory_1aaa8d4331bdc8672f50cb80755383d66a"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clear_physical_memory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory21clear_physical_memoryEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Clear physical memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory5allocEv">
+<span id="_CPPv3N4nbla6Memory5allocEv"></span><span id="_CPPv2N4nbla6Memory5allocEv"></span><span id="nbla::Memory::alloc"></span><span class="target" id="classnbla_1_1Memory_1a2a43dd8960bc512f54147801ac338722"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">alloc</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory5allocEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Allocate memory by Memory::alloc_impl implemented in an implementation class. </p>
+<p>This should be called before using this instance, and is designed to be called via Allocator::alloc_retry which should be called in Allocator::alloc_impl in an implementation class. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory12bytes_activeEv">
+<span id="_CPPv3N4nbla6Memory12bytes_activeEv"></span><span id="_CPPv2N4nbla6Memory12bytes_activeEv"></span><span id="nbla::Memory::bytes_active"></span><span class="target" id="classnbla_1_1Memory_1a41888a3af6470670ced481da27b74060"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bytes_active</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory12bytes_activeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns number of bytes of memory block this owns. </p>
+<p>This returns 0 if this is not originally allocated memory instance, i.e., divided by another memory. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory6divideE6size_t">
+<span id="_CPPv3N4nbla6Memory6divideE6size_t"></span><span id="_CPPv2N4nbla6Memory6divideE6size_t"></span><span id="nbla::Memory::divide__s"></span><span class="target" id="classnbla_1_1Memory_1a1931133ea190fc1ab3e055f3e8f665fe"></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">divide</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">second_start</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory6divideE6size_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>This splits memory at an offset specified by second_start, and returns a second block. </p>
+<p>A first block is retained in this instance. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory9try_mergeEP6Memory">
+<span id="_CPPv3N4nbla6Memory9try_mergeEP6Memory"></span><span id="_CPPv2N4nbla6Memory9try_mergeEP6Memory"></span><span id="nbla::Memory::try_merge__MemoryP"></span><span class="target" id="classnbla_1_1Memory_1ac184505ea3078094007ed45a783c9d5f"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">try_merge</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">from</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory9try_mergeEP6Memory" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Merge another memory block specified by from if it’s possible. </p>
+<p>Merging is performed if the following conditions are met;</p>
+<p><ul class="simple">
+<li><p>`from` is a valid pointer.</p></li>
+<li><p>`from` is not locked.</p></li>
+<li><p>`from` is next or previous of this.</p></li>
+</ul>
+</p>
+<p>When merged, `from` will be disabled by Memory::disable. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory4bindEv">
+<span id="_CPPv3N4nbla6Memory4bindEv"></span><span id="_CPPv2N4nbla6Memory4bindEv"></span><span id="nbla::Memory::bind"></span><span class="target" id="classnbla_1_1Memory_1acedafd20c3850759c931c1302961f1e5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">bind</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory4bindEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Bind physical memories on virtual address. </p>
+<p>This method can be executed only if memory_type_ == MemType::Virtual. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory6unbindEv">
+<span id="_CPPv3N4nbla6Memory6unbindEv"></span><span id="_CPPv2N4nbla6Memory6unbindEv"></span><span id="nbla::Memory::unbind"></span><span class="target" id="classnbla_1_1Memory_1a237d157d5e1886e1e204cb2be01c9288"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unbind</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory6unbindEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Unbind physical memories from corresponding virtual address, and return physical memory list as vector. </p>
+<p>This method can be executed only if memory_type_ == MemType::Virtual. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory4growER20VecPhysicalMemoryPtr">
+<span id="_CPPv3N4nbla6Memory4growER20VecPhysicalMemoryPtr"></span><span id="_CPPv2N4nbla6Memory4growER20VecPhysicalMemoryPtr"></span><span id="nbla::Memory::grow__VecPhysicalMemoryPtrR"></span><span class="target" id="classnbla_1_1Memory_1a26e691b7b09424519097d2faf3d0ca70"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grow</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla20VecPhysicalMemoryPtrE" title="nbla::VecPhysicalMemoryPtr"><span class="n"><span class="pre">VecPhysicalMemoryPtr</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">p_mems</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory4growER20VecPhysicalMemoryPtr" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Glow virtual memory from already allocated virtual address. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory23get_device_memory_stateEv">
+<span id="_CPPv3N4nbla6Memory23get_device_memory_stateEv"></span><span id="_CPPv2N4nbla6Memory23get_device_memory_stateEv"></span><span id="nbla::Memory::get_device_memory_state"></span><span class="target" id="classnbla_1_1Memory_1a53db425c1e3201eb6bea6253b9ab1116"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla17DeviceMemoryStateE" title="nbla::DeviceMemoryState"><span class="n"><span class="pre">DeviceMemoryState</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_device_memory_state</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory23get_device_memory_stateEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get device memory state. </p>
+<p>In default this function does noting and return DeviceMemoryState::Unlocked. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory18lock_device_memoryEv">
+<span id="_CPPv3N4nbla6Memory18lock_device_memoryEv"></span><span id="_CPPv2N4nbla6Memory18lock_device_memoryEv"></span><span id="nbla::Memory::lock_device_memory"></span><span class="target" id="classnbla_1_1Memory_1a71d0b1fc1b514c1a95df1765cdba00ca"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">lock_device_memory</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory18lock_device_memoryEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Request device memory state to `request`. </p>
+<p>`request` must be DeviceMemoryState. In default this function does nothing. </p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla6Memory21associate_consecutiveEP6MemoryP6Memory">
+<span id="_CPPv3N4nbla6Memory21associate_consecutiveEP6MemoryP6Memory"></span><span id="_CPPv2N4nbla6Memory21associate_consecutiveEP6MemoryP6Memory"></span><span id="nbla::Memory::associate_consecutive__MemoryP.MemoryP"></span><span class="target" id="classnbla_1_1Memory_1a53b5ce6d61caaeeefcee30dbad257142"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">associate_consecutive</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">left</span></span>, <a class="reference internal" href="#_CPPv4N4nbla6MemoryE" title="nbla::Memory"><span class="n"><span class="pre">Memory</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">right</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla6Memory21associate_consecutiveEP6MemoryP6Memory" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set Memory::prev_/Memory::next_ pointers of `left` and `right` as connected. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--MeanSubtraction.html" class="btn btn-neutral float-left" title="class nbla::MeanSubtraction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--Meshgrid.html" class="btn btn-neutral float-right" title="class nbla::Meshgrid" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+class nbla::CReLU
+========================================
+
+.. doxygenclass:: nbla::CReLU
+	:project: Cpp
+	:members: 

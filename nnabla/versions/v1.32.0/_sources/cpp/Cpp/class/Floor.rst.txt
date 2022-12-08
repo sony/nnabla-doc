@@ -1,0 +1,6 @@
+class Floor
+========================================
+
+.. doxygenclass:: Floor
+	:project: Cpp
+	:members: 

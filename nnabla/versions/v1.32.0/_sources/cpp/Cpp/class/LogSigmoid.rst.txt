@@ -1,0 +1,6 @@
+class LogSigmoid
+========================================
+
+.. doxygenclass:: LogSigmoid
+	:project: Cpp
+	:members: 

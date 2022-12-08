@@ -1,0 +1,6 @@
+class nbla::FunctionHookWithObject
+========================================
+
+.. doxygenclass:: nbla::FunctionHookWithObject
+	:project: Cpp
+	:members: 

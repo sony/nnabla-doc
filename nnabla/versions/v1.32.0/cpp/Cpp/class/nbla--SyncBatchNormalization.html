@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::SyncBatchNormalization &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::SyncedArray" href="nbla--SyncedArray.html" />
+    <link rel="prev" title="class Swish" href="Swish.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::SyncBatchNormalization</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--SyncBatchNormalization.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-syncbatchnormalization">
+<h1>class nbla::SyncBatchNormalization<a class="headerlink" href="#class-nbla-syncbatchnormalization" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla22SyncBatchNormalizationE">
+<span id="_CPPv3I0EN4nbla22SyncBatchNormalizationE"></span><span id="_CPPv2I0EN4nbla22SyncBatchNormalizationE"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1SyncBatchNormalization"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SyncBatchNormalization</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--BatchNormalization.html#_CPPv4I0EN4nbla18BatchNormalizationE" title="nbla::BatchNormalization"><span class="n"><span class="pre">BatchNormalization</span></span></a><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4I0EN4nbla22SyncBatchNormalizationE" title="nbla::SyncBatchNormalization::T"><span class="n"><span class="pre">T</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4I0EN4nbla22SyncBatchNormalizationE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Batch normalization with sync between other processes at training time defined as <div class="math notranslate nohighlight">
+\[\begin{split} \begin{array}{lcl} \mu &amp;=&amp; \frac{1}{M} \sum x_i\\ \sigma^2 &amp;=&amp; \frac{1}{M} \left(\sum x_i - \mu\right)^2\\ \hat{x}_i &amp;=&amp; \frac{x_i - \mu}{\sqrt{\sigma^2 + \epsilon}} \\ y_i &amp;=&amp; \hat{x}_i \gamma + \beta. \end{array} \end{split}\]</div>
+. </p>
+<p>Inputs:<ul class="simple">
+<li><p>N-D array of input.</p></li>
+<li><p>N-D array of beta which is learned.</p></li>
+<li><p>N-D array of gamma which is learned.</p></li>
+<li><p>N-D array of running mean (modified during forward execution).</p></li>
+<li><p>N-D array of running variance (modified during forward execution).</p></li>
+</ul>
+</p>
+<p>Outputs (1 or 3):<ul class="simple">
+<li><p>N-D array.</p></li>
+<li><p>(Optional) N-D array of batch mean.</p></li>
+<li><p>(Optional) N-D array of batch variance.</p></li>
+</ul>
+</p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p>Implementing Synchronized Multi-GPU Batch Normalization <a class="reference external" href="https://hangzhang.org/PyTorch-Encoding/notes/syncbn.html">https://hangzhang.org/PyTorch-Encoding/notes/syncbn.html</a> </p>
+</div>
+</p>
+<dl class="field-list simple">
+<dt class="field-odd">Template Parameters</dt>
+<dd class="field-odd"><p><strong>T</strong> – Data type for computation.</p>
+</dd>
+<dt class="field-even">Param comm</dt>
+<dd class="field-even"><p>The communicator </p>
+</dd>
+<dt class="field-odd">Param group</dt>
+<dd class="field-odd"><p>The name of the communicator group </p>
+</dd>
+<dt class="field-even">Param axes</dt>
+<dd class="field-even"><p>Axes mean and variance are taken. </p>
+</dd>
+<dt class="field-odd">Param decay_rate</dt>
+<dd class="field-odd"><p>Decay rate of running mean and variance. </p>
+</dd>
+<dt class="field-even">Param eps</dt>
+<dd class="field-even"><p>Tiny value to avoid zero division by std.</p>
+</dd>
+</dl>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla22SyncBatchNormalization4copyEv">
+<span id="_CPPv3NK4nbla22SyncBatchNormalization4copyEv"></span><span id="_CPPv2NK4nbla22SyncBatchNormalization4copyEv"></span><span id="nbla::SyncBatchNormalization::copyC"></span><span class="target" id="classnbla_1_1SyncBatchNormalization_1a6d42dd3ab1c00cbee7e7e967f5200eb9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Function.html#_CPPv4N4nbla8FunctionE" title="nbla::Function"><span class="n"><span class="pre">Function</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4NK4nbla22SyncBatchNormalization4copyEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy another instance of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> with the same context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla22SyncBatchNormalization4nameEv">
+<span id="_CPPv3N4nbla22SyncBatchNormalization4nameEv"></span><span id="_CPPv2N4nbla22SyncBatchNormalization4nameEv"></span><span id="nbla::SyncBatchNormalization::name"></span><span class="target" id="classnbla_1_1SyncBatchNormalization_1aa1a261432a8fe5fb74039d06b9d35130"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">override</span></span><a class="headerlink" href="#_CPPv4N4nbla22SyncBatchNormalization4nameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get function name in string. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla22SyncBatchNormalization24grad_depends_output_dataEii">
+<span id="_CPPv3NK4nbla22SyncBatchNormalization24grad_depends_output_dataEii"></span><span id="_CPPv2NK4nbla22SyncBatchNormalization24grad_depends_output_dataEii"></span><span id="nbla::SyncBatchNormalization::grad_depends_output_data__i.iC"></span><span class="target" id="classnbla_1_1SyncBatchNormalization_1a3e6cfc7565a3073e196bf21f093b121c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">grad_depends_output_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">i</span></span>, <span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">o</span></span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla22SyncBatchNormalization24grad_depends_output_dataEii" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Dependency flag for checking if in-grad depends on out-data. </p>
+<p>Checking if i-th input’ gradient computation requires o-th output’s data or not.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>If any of inputs requires an output variable data when computing its gradient, this function must be overridden to return appropriate boolean value. Otherwise, backward computation will be incorrect. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>i</strong> – <strong>[in]</strong> Input variable index. </p></li>
+<li><p><strong>o</strong> – <strong>[in]</strong> Output variable index.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Swish.html" class="btn btn-neutral float-left" title="class Swish" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--SyncedArray.html" class="btn btn-neutral float-right" title="class nbla::SyncedArray" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

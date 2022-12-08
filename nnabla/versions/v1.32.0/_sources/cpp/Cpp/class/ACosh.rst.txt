@@ -1,0 +1,6 @@
+class ACosh
+========================================
+
+.. doxygenclass:: ACosh
+	:project: Cpp
+	:members: 

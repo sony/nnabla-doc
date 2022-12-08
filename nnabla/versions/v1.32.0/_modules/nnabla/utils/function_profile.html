@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.utils.function_profile &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.utils.function_profile</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.utils.function_profile</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2018,2019,2020,2021 Sony Corporation.</span>
+<span class="c1"># Copyright 2021 Sony Group Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+
+<span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;profile&#39;</span><span class="p">]</span>
+
+<span class="kn">import</span> <span class="nn">atexit</span>
+<span class="kn">import</span> <span class="nn">cProfile</span>
+<span class="kn">import</span> <span class="nn">pstats</span>
+
+
+<span class="k">def</span> <span class="nf">_null_condition</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">return</span> <span class="kc">True</span>
+
+
+<div class="viewcode-block" id="FunctionProfile"><a class="viewcode-back" href="../../../python/api/utils/misc.html#nnabla.utils.function_profile.FunctionProfile">[docs]</a><span class="k">class</span> <span class="nc">FunctionProfile</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Function profiler object.</span>
+
+<span class="sd">    This is usually not directly used by users. It&#39;s created via</span>
+<span class="sd">    :func:`profile`, and attached to a decorated</span>
+<span class="sd">    function object as an attribute ``profiler``. See ``profile`` function for</span>
+<span class="sd">    details.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="c1"># A global flag to check if anyone is profiling</span>
+    <span class="n">profiling</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fn</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile_class</span><span class="o">=</span><span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">,</span> <span class="n">print_freq</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">print_restrictions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fn</span> <span class="o">=</span> <span class="n">fn</span>
+        <span class="k">if</span> <span class="n">condition</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">condition</span> <span class="o">=</span> <span class="n">_null_condition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition</span> <span class="o">=</span> <span class="n">condition</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">profile_class</span> <span class="o">=</span> <span class="n">profile_class</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print_freq</span> <span class="o">=</span> <span class="n">print_freq</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_stats</span><span class="p">()</span>
+        <span class="c1"># https://docs.python.org/2/library/profile.html#pstats.Stats.sort_stats</span>
+        <span class="k">if</span> <span class="n">sort_keys</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">sort_keys</span> <span class="o">=</span> <span class="p">(</span><span class="s1">&#39;cumulative&#39;</span><span class="p">,</span> <span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;calls&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">sort_keys</span> <span class="o">=</span> <span class="n">sort_keys</span>
+        <span class="k">if</span> <span class="n">print_restrictions</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">print_restrictions</span> <span class="o">=</span> <span class="p">(</span><span class="mi">40</span><span class="p">,)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">print_restrictions</span> <span class="o">=</span> <span class="n">print_restrictions</span>
+        <span class="n">atexit</span><span class="o">.</span><span class="n">register</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_atexit</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ncalls</span> <span class="o">+=</span> <span class="mi">1</span>
+
+        <span class="k">if</span> <span class="n">FunctionProfile</span><span class="o">.</span><span class="n">profiling</span><span class="p">:</span>
+            <span class="c1"># Don&#39;t profile if Any other function is being profiled</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+        <span class="n">profiler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">profile_class</span><span class="p">()</span>
+
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">FunctionProfile</span><span class="o">.</span><span class="n">profiling</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="n">profiler</span><span class="o">.</span><span class="n">runcall</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="n">FunctionProfile</span><span class="o">.</span><span class="n">profiling</span> <span class="o">=</span> <span class="kc">False</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="n">profiler</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">stats</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">profiler</span><span class="p">)</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_freq</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ncalls</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">print_freq</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+
+<div class="viewcode-block" id="FunctionProfile.reset_stats"><a class="viewcode-back" href="../../../python/api/utils/misc.html#nnabla.utils.function_profile.FunctionProfile.reset_stats">[docs]</a>    <span class="k">def</span> <span class="nf">reset_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Manually reset the profiling statistics collected so far.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">stats</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">ncalls</span> <span class="o">=</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="FunctionProfile.print_stats"><a class="viewcode-back" href="../../../python/api/utils/misc.html#nnabla.utils.function_profile.FunctionProfile.print_stats">[docs]</a>    <span class="k">def</span> <span class="nf">print_stats</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;Manually print profiling result.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            reset (bool): If False is specified, the profiling statistics so</span>
+<span class="sd">                far is maintained. If ``True`` (default),</span>
+<span class="sd">                :obj:`~reset_stats`</span>
+<span class="sd">                is called to reset the profiling statistics.</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ncalls</span><span class="p">:</span>
+            <span class="k">return</span>
+
+        <span class="n">stats</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">stats</span>
+        <span class="n">code</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="vm">__code__</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--- Function Profiling ---&#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File &quot;</span><span class="si">{}</span><span class="s1">&quot;, line </span><span class="si">{}</span><span class="s1">, function </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">,</span>
+            <span class="n">code</span><span class="o">.</span><span class="n">co_firstlineno</span><span class="p">,</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span><span class="p">))</span>
+        <span class="n">stats</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">sort_keys</span><span class="p">)</span>
+        <span class="n">stats</span><span class="o">.</span><span class="n">print_stats</span><span class="p">(</span><span class="o">*</span><span class="bp">self</span><span class="o">.</span><span class="n">print_restrictions</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------------&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">reset</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">reset_stats</span><span class="p">()</span></div>
+
+    <span class="k">def</span> <span class="nf">_atexit</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="c1"># To avoid error in pytest `capture.py`.</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Ignore atexit error during pytest.&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;--------------------------&#39;</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="profile"><a class="viewcode-back" href="../../../python/api/utils/misc.html#nnabla.utils.function_profile.profile">[docs]</a><span class="k">def</span> <span class="nf">profile</span><span class="p">(</span><span class="n">fn</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">profile_class</span><span class="o">=</span><span class="n">cProfile</span><span class="o">.</span><span class="n">Profile</span><span class="p">,</span> <span class="n">print_freq</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">print_restrictions</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;Decorating a function that is profiled with a Python profiler</span>
+<span class="sd">    such as :class:`cProfile.Profile`.</span>
+
+<span class="sd">    **Note**: ``function`` doesn&#39;t refer to :obj:`~nnabla.function.Function`.</span>
+<span class="sd">    A Python function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        fn (function):</span>
+<span class="sd">            A function that is profiled. If None is specified (default), it</span>
+<span class="sd">            returns a new decorator function. It is used when you want to</span>
+<span class="sd">            specify optional arguments of this decorator function.</span>
+<span class="sd">        condition (function):</span>
+<span class="sd">            A function object which takes the same inputs with the decorated</span>
+<span class="sd">            function, and returns a boolean value. The decorated function is</span>
+<span class="sd">            profiled only when the ``condition`` function returns ``True``.</span>
+<span class="sd">            By default, it returns always `True`, hence profiling is performed</span>
+<span class="sd">            everytime the decorated function is called.</span>
+<span class="sd">        profile_class (class):</span>
+<span class="sd">            A profiler class such as :obj:`cProfile.Profile` and</span>
+<span class="sd">            :obj:`Profile.Profile`. The default value is</span>
+<span class="sd">            :obj:`cProfile.Profile`.</span>
+<span class="sd">        print_freq (int):</span>
+<span class="sd">            The profiling result is printed at function calls with an interval</span>
+<span class="sd">            specified by ``print_freq``. If 0 is specified (default), the</span>
+<span class="sd">            profiling result is only printed at the end of the Python process</span>
+<span class="sd">            unless ``decorated_func.profiler.print_stats()`` is called</span>
+<span class="sd">            manually.</span>
+<span class="sd">        sort_keys (iterable):</span>
+<span class="sd">            A list or tuple of string, which is passed to</span>
+<span class="sd">            :meth:`pstats.Stats.sort_stats` as arguments. The default is</span>
+<span class="sd">            ``(&#39;cumulative&#39;, &#39;time&#39;, &#39;calls&#39;)``.</span>
+<span class="sd">        print_restriction (iterable):</span>
+<span class="sd">            A list or tuple which is passed to</span>
+<span class="sd">            :meth:`pstats.Stats.print_stats` as arguments. The default</span>
+<span class="sd">            value is ``(40,)``, which results in only 40 functions inside the</span>
+<span class="sd">            decorated function are printed in the profiling result.</span>
+
+<span class="sd">    Returns: function</span>
+
+<span class="sd">        A decorated function. If ``fn`` is ``None``, a new decorator function</span>
+<span class="sd">        with optional arguments specified.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        By decorating a function as following, the profling result is printed</span>
+<span class="sd">        at the end of the Python process.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            from nnabla.utils import function_profile</span>
+
+<span class="sd">            @function_profile.profile</span>
+<span class="sd">            def foo(a, b, c=None, d=None):</span>
+<span class="sd">                ...</span>
+
+<span class="sd">        If you want to manually print the profiling result so far, use</span>
+<span class="sd">        :meth:`FunctionProfile.print_stats`</span>
+<span class="sd">        of the :obj:`FunctionProfile` object</span>
+<span class="sd">        attached to the decorated function as ``profiler`` attribute.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            foo.profiler.print_stats()</span>
+
+<span class="sd">        If you want to profile the function only when a specific argument is</span>
+<span class="sd">        passed to, use the ``condition`` argument as following.</span>
+
+<span class="sd">        .. code-block:: python</span>
+
+<span class="sd">            def profile_only_if_c_is_not_none(a, b, c=None, d=None):</span>
+<span class="sd">                return c is not None</span>
+
+<span class="sd">            @function_profile.profile(condition=profile_only_if_c_is_not_none)</span>
+<span class="sd">            def foo(a, b, c=None, d=None):</span>
+<span class="sd">                ...</span>
+
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">fn</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">def</span> <span class="nf">new_decorator</span><span class="p">(</span><span class="n">fn</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">profile</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">condition</span><span class="p">,</span> <span class="n">profile_class</span><span class="o">=</span><span class="n">profile_class</span><span class="p">,</span> <span class="n">print_freq</span><span class="o">=</span><span class="n">print_freq</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">,</span> <span class="n">print_restrictions</span><span class="o">=</span><span class="n">print_restrictions</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_decorator</span>
+    <span class="n">profiler</span> <span class="o">=</span> <span class="n">FunctionProfile</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">condition</span><span class="o">=</span><span class="n">condition</span><span class="p">,</span> <span class="n">profile_class</span><span class="o">=</span><span class="n">profile_class</span><span class="p">,</span>
+                               <span class="n">print_freq</span><span class="o">=</span><span class="n">print_freq</span><span class="p">,</span> <span class="n">sort_keys</span><span class="o">=</span><span class="n">sort_keys</span><span class="p">,</span> <span class="n">print_restrictions</span><span class="o">=</span><span class="n">print_restrictions</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">new_fn</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">profiler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">)</span>
+
+    <span class="n">new_fn</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__name__</span>
+    <span class="n">new_fn</span><span class="o">.</span><span class="vm">__doc__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__doc__</span>
+    <span class="n">new_fn</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__dict__</span>
+    <span class="n">new_fn</span><span class="o">.</span><span class="vm">__module__</span> <span class="o">=</span> <span class="n">fn</span><span class="o">.</span><span class="vm">__module__</span>
+    <span class="n">new_fn</span><span class="o">.</span><span class="n">profiler</span> <span class="o">=</span> <span class="n">profiler</span>
+    <span class="k">return</span> <span class="n">new_fn</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python API Reference &mdash; Neural Network Libraries 1.32.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Common" href="api/common.html" />
+    <link rel="prev" title="Python API Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.32.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../python.html">Python Package</a></li>
+      <li class="breadcrumb-item active">Python API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/python/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nnabla">
+<span id="id1"></span><span id="python-api-reference"></span><h1>Python API Reference<a class="headerlink" href="#module-nnabla" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/common.html">Common</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#module-nnabla.config">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#module-nnabla.logger">Logger</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#auto-forward-mode">Auto-forward mode</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#context">Context</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#context-specifier-api">Context Specifier API</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/nd_array.html">NdArray</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/variable.html">Variable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/computation_graph.html">Computation Graph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/computation_graph.html#id2">Computation Graph</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/function.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/function.html#id1">Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/function.html#module-nnabla.functions">List of Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#neural-network-layers">Neural Network Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#neural-network-activation">Neural Network Activation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#normalization">Normalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#reduction">Reduction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#arithmetic">Arithmetic</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#logical">Logical</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#math">Math</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#array-manipulation">Array Manipulation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#stochasticity">Stochasticity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#loss-functions">Loss Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#signal-processing">Signal Processing</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#geometric-neural-network-layers">Geometric Neural Network Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#quantized-neural-network-layers">Quantized Neural Network Layers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#unsupported-special-use">Unsupported, Special Use</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#image-object-detection">Image Object Detection</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#validation">Validation</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/parametric_function.html">Parametric Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/parametric_function.html#module-nnabla.parameter">Parameter Management API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/parametric_function.html#module-nnabla.parametric_functions">List of Parametric Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/parametric_function.html#parameter-initializer">Parameter Initializer</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/grad.html">Grad</a></li>
+<li class="toctree-l1"><a class="reference internal" href="api/solver.html">Solvers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/solver.html#solver">Solver</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/solver.html#list-of-solvers">List of solvers</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/communicator.html">Communicator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/communicator.html#communicator-interface">Communicator interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/communicator.html#list-of-communicators">List of communicators</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/monitor.html">Monitors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/monitor.html#list-of-monitors">List of Monitors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/monitor.html#utility-functions">Utility functions</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/save_load.html">NNP save and load utilities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/image_utils.html">Image Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/data_iterator.html">Data Iterators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/data_iterator.html#datasource">DataSource</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/data_iterator.html#dataiterator">DataIterator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/data_iterator.html#utilities">Utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/debug_utils.html">Debug Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.profiler">Graph Profiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.inspection.profile">Time Profiler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.inspection.value_trace">Nan/Inf Tracer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.inspection.pretty_print">Pretty Printer</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/dlpack.html">DLPack</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/rnn.html">RNN Utils</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/misc.html">Misc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/misc.html#module-nnabla.utils.function_profile">Python function profiler utilities</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/quantization_aware_training.html">Quantization Aware Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/quantization_aware_training.html#qatconfig">QATConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/quantization_aware_training.html#qattensorrtconfig">QATTensorRTConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/quantization_aware_training.html#qatscheduler">QATScheduler</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/ext.html">Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/ext.html#module-nnabla.ext_utils">Utilities for extension</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/ext.html#apis-of-extension-modules">APIs of extension modules</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/models.html">Pretrained Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/models/imagenet.html">ImageNet Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models/imagenet.html#module-nnabla.models.imagenet.base">Common interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models/imagenet.html#module-nnabla.models.imagenet">List of models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/models/object_detection.html">Object Detection Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models/object_detection.html#module-nnabla.models.object_detection.base">Common interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models/object_detection.html#module-nnabla.models.object_detection">List of models</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/models/semantic_segmentation.html">Semantic Segmentation Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models/semantic_segmentation.html#module-nnabla.models.semantic_segmentation.base">Common interfaces</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models/semantic_segmentation.html#module-nnabla.models.semantic_segmentation">List of models</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/lms.html">Out-of-core execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/lms.html#swapinoutscheduler">SwapInOutScheduler</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/module.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/module.html#module">Module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/graph_def.html">Graph Definition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protograph">ProtoGraph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protonetwork">ProtoNetwork</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protovariable">ProtoVariable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protofunction">ProtoFunction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#load">load</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#save">save</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#create-protobuf-representation-from-computation-graph">Create Protobuf Representation from Computation Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#create-graph-from-variable">create_graph_from_variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#get-default-graph">get_default_graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#get-default-graph-by-variable">get_default_graph_by_variable</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#graph">graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#reset-default-graph">reset_default_graph</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/sequential.html">Sequential</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/sequential.html#id1">Sequential</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/experimental.html">Experimental</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/viewers.html">Viewers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/viewers.html#simplegraph">SimpleGraph</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/tb_graph_writer.html">Show Graph by Tensorboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/tb_graph_writer.html#tbgraphwriter">TBGraphWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/graph_converters.html">Graph Converters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/graph_converters.html#function-modifiers">Function Modifiers</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/trainers.html">Trainers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html">Mixed Precision Trainings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#dynamiclossscalingupdater">DynamicLossScalingUpdater</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/parametric_function_classes.html">Parametric Function Classes</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Python API Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/common.html" class="btn btn-neutral float-right" title="Common" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

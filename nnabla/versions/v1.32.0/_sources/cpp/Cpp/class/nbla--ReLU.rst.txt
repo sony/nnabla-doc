@@ -1,0 +1,6 @@
+class nbla::ReLU
+========================================
+
+.. doxygenclass:: nbla::ReLU
+	:project: Cpp
+	:members: 

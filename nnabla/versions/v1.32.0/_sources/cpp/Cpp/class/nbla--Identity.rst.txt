@@ -1,0 +1,6 @@
+class nbla::Identity
+========================================
+
+.. doxygenclass:: nbla::Identity
+	:project: Cpp
+	:members: 

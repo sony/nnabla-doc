@@ -1,0 +1,6 @@
+class HuberLoss
+========================================
+
+.. doxygenclass:: HuberLoss
+	:project: Cpp
+	:members: 
