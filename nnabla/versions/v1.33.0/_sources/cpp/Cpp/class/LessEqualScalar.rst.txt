@@ -1,0 +1,6 @@
+class LessEqualScalar
+========================================
+
+.. doxygenclass:: LessEqualScalar
+	:project: Cpp
+	:members: 

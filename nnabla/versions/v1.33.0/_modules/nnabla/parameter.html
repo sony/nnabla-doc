@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.parameter &mdash; Neural Network Libraries 1.33.0 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.33.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.parameter</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.parameter</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2017,2018,2019,2020,2021 Sony Corporation.</span>
+<span class="c1"># Copyright 2021 Sony Group Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">from</span> <span class="nn">six</span> <span class="kn">import</span> <span class="n">iteritems</span>
+
+<span class="kn">from</span> <span class="nn">contextlib</span> <span class="kn">import</span> <span class="n">contextmanager</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="kn">import</span> <span class="nn">google.protobuf.text_format</span> <span class="k">as</span> <span class="nn">text_format</span>
+<span class="kn">import</span> <span class="nn">numpy</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">from</span> <span class="nn">nnabla.logger</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">import</span> <span class="nn">nnabla.utils.nnabla_pb2</span> <span class="k">as</span> <span class="nn">nnabla_pb2</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.get_file_handle</span> <span class="kn">import</span> <span class="n">get_parameter_file_loader</span><span class="p">,</span> <span class="n">load_files</span><span class="p">,</span> <span class="n">FileHandlerContext</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.get_file_handle</span> <span class="kn">import</span> <span class="n">get_file_handle_save</span><span class="p">,</span> <span class="n">get_parameter_file_savers</span><span class="p">,</span> <span class="n">save_files</span>
+
+<span class="c1"># TODO temporary work around to suppress FutureWarning message.</span>
+<span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">simplefilter</span><span class="p">(</span><span class="s1">&#39;ignore&#39;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">FutureWarning</span><span class="p">)</span>
+
+<span class="n">current_scope</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+<span class="n">root_scope</span> <span class="o">=</span> <span class="n">current_scope</span>
+<span class="n">current_no_grad</span> <span class="o">=</span> <span class="kc">False</span>
+
+
+<div class="viewcode-block" id="get_current_parameter_scope"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.get_current_parameter_scope">[docs]</a><span class="k">def</span> <span class="nf">get_current_parameter_scope</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Returns current parameter scope.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="k">return</span> <span class="n">current_scope</span></div>
+
+
+<div class="viewcode-block" id="no_grad"><a class="viewcode-back" href="../../python/api/computation_graph.html#nnabla.no_grad">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">no_grad</span><span class="p">(</span><span class="n">no_grad_</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;No gradients for the whole network.</span>
+
+<span class="sd">    No gradients are required when creating a network, such that when the forward pass is executed,</span>
+<span class="sd">    all intermediate buffers except for the leafs in the network are gone at the same time, resulting in</span>
+<span class="sd">    memory optimization.</span>
+
+<span class="sd">    This is useful for example when an output of a pre-trained network is used for an input to</span>
+<span class="sd">    another network, where the first pre-trained network does not need to be fine-tuned, but the other</span>
+<span class="sd">    network is optimized.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        no_grad_ (bool): No gradient flag. Default is True.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        with nn.no_grad():</span>
+<span class="sd">            output0 = &lt;Network0&gt;(&lt;input0&gt;)</span>
+
+<span class="sd">        output1 = &lt;Network1&gt;(&lt;input1&gt;, output0)</span>
+<span class="sd">        loss = &lt;Loss&gt;(output1, &lt;ground_truth&gt;)</span>
+<span class="sd">        loss.forward(clear_no_need_grad=True)</span>
+
+
+<span class="sd">    This context also works in the dynamic mode.</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        with nn.auto_forward(), nn.no_grad():</span>
+<span class="sd">            output0 = &lt;Network0&gt;(&lt;input0&gt;)</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        When working with the static network, the need_grad property of the input (e.g., input image) must be False</span>
+<span class="sd">        and do not forget to add `&lt;root&gt;.forward(clear_no_need_grad=True)`; </span>
+<span class="sd">        otherwise, all intermediate buffers are not gone as expected.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">global</span> <span class="n">current_no_grad</span>
+    <span class="n">prev_no_grad</span> <span class="o">=</span> <span class="n">current_no_grad</span>
+    <span class="n">current_no_grad</span> <span class="o">=</span> <span class="n">no_grad_</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">current_no_grad</span> <span class="o">=</span> <span class="n">prev_no_grad</span></div>
+
+
+<div class="viewcode-block" id="parameter_scope"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.parameter_scope">[docs]</a><span class="nd">@contextmanager</span>
+<span class="k">def</span> <span class="nf">parameter_scope</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">scope</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Grouping parameters registered by parametric functions</span>
+<span class="sd">    listed in :mod:`nnabla.parametric_functions`.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        name (str): Parameter scope name.</span>
+
+<span class="sd">        scope (OrderedDict, optional):</span>
+<span class="sd">            Specify current parameter scope as a local dictionary.</span>
+<span class="sd">            The default value is ``None``. In this case,</span>
+<span class="sd">            the current parameter scope maintained in global is used.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import nnabla.functions as F</span>
+
+<span class="sd">        with nn.parameter_scope(&#39;conv1&#39;):</span>
+<span class="sd">            conv_out1 = PF.convolution(x, 32, (5, 5))</span>
+<span class="sd">            bn_out1 = PF.batch_normalization(conv_out1)</span>
+<span class="sd">            act_out1 = F.relu(bn_out1)</span>
+<span class="sd">        with nn.parameter_scope(&#39;conv2&#39;):</span>
+<span class="sd">            conv_out2 = PF.convolution(act_out1, 64, (3, 3))</span>
+<span class="sd">            bn_out2 = PF.batch_normalization(conv_out2)</span>
+<span class="sd">            act_out2 = F.relu(bn_out2)</span>
+
+<span class="sd">    Nesting `with` blocks allows you to nest parameter scopes.</span>
+<span class="sd">    This can also be done by using &quot;/&quot; inside the parameter names.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        with nn.parameter_scope(&#39;network1&#39;):</span>
+<span class="sd">            with nn.parameter_scope(&#39;conv1&#39;):</span>
+<span class="sd">                conv_out1 = PF.convolution(x, 32, (5, 5))</span>
+<span class="sd">                bn_out1 = PF.batch_normalization(conv_out1)</span>
+<span class="sd">                act_out1 = F.relu(bn_out1)</span>
+<span class="sd">            with nn.parameter_scope(&#39;conv2&#39;):</span>
+<span class="sd">                conv_out2 = PF.convolution(act_out1, 64, (3, 3))</span>
+<span class="sd">                bn_out2 = PF.batch_normalization(conv_out2)</span>
+<span class="sd">                act_out2 = F.relu(bn_out2)</span>
+
+<span class="sd">    is equivalent to</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        with nn.parameter_scope(&#39;network1/conv1&#39;):</span>
+<span class="sd">            conv_out1 = PF.convolution(x, 32, (5, 5))</span>
+<span class="sd">            bn_out1 = PF.batch_normalization(conv_out1)</span>
+<span class="sd">            act_out1 = F.relu(bn_out1)</span>
+<span class="sd">        with nn.parameter_scope(&#39;network1/conv2&#39;):</span>
+<span class="sd">            conv_out2 = PF.convolution(act_out1, 64, (3, 3))</span>
+<span class="sd">            bn_out2 = PF.batch_normalization(conv_out2)</span>
+<span class="sd">            act_out2 = F.relu(bn_out2)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">strip</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">names</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s1">&#39;Invalid argument of parameter_scope(&quot;</span><span class="si">{}</span><span class="s1">&quot;).&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+    <span class="n">prev_scope</span> <span class="o">=</span> <span class="n">current_scope</span>
+    <span class="k">if</span> <span class="n">scope</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">scope</span> <span class="o">=</span> <span class="n">current_scope</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;Scope must be a dictionary. </span><span class="si">{}</span><span class="s1"> is given.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">scope</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">parent_scope</span> <span class="o">=</span> <span class="n">scope</span>
+        <span class="c1"># When name is empty, the given scope is used as a current scope.</span>
+        <span class="k">if</span> <span class="n">name</span><span class="p">:</span>
+            <span class="c1"># Creates a new scope dict if it doesn&#39;t exist.</span>
+            <span class="c1"># `dict.get` returns default value (OrderedDict())</span>
+            <span class="c1"># if scope contains `name`</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="n">scope</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">OrderedDict</span><span class="p">())</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">scope</span><span class="p">,</span> <span class="nb">dict</span><span class="p">)</span>
+            <span class="n">parent_scope</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">scope</span>
+    <span class="n">current_scope</span> <span class="o">=</span> <span class="n">scope</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">yield</span> <span class="n">current_scope</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">current_scope</span> <span class="o">=</span> <span class="n">prev_scope</span></div>
+
+
+<span class="k">def</span> <span class="nf">get_parameter</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="n">get_parameter</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">current_scope</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">param</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">param</span>
+
+
+<span class="k">def</span> <span class="nf">pop_parameter</span><span class="p">(</span><span class="n">key</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove and get parameter by key.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        key(str): Key of parameter.</span>
+
+<span class="sd">    Returns: ~nnabla.Variable</span>
+<span class="sd">        Parameter if key found, otherwise None.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="n">pop_parameter</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]))</span>
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">current_scope</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">current_scope</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">param</span>
+
+
+<span class="k">def</span> <span class="nf">set_parameter</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">param</span><span class="p">):</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">key</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="n">set_parameter</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">param</span><span class="p">)</span>
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="n">current_scope</span><span class="p">[</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">param</span>
+
+
+<span class="k">def</span> <span class="nf">_create_parameter_by_initializer</span><span class="p">(</span><span class="n">initializer</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">need_grad</span><span class="p">):</span>
+
+    <span class="c1"># If initializer is not set, just returns a new variable with zeros.</span>
+    <span class="k">if</span> <span class="n">initializer</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">assert</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">shape</span><span class="p">,</span> <span class="n">need_grad</span><span class="o">=</span><span class="n">need_grad</span><span class="p">)</span>
+        <span class="n">param</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">zero</span><span class="p">()</span>  <span class="c1"># Initialize with zero.</span>
+        <span class="k">return</span> <span class="n">param</span>
+
+    <span class="c1"># Initialize by a numpy array.</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">initializer</span><span class="p">,</span> <span class="n">numpy</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>  <span class="c1"># numpy init</span>
+        <span class="k">assert</span> <span class="p">(</span><span class="n">shape</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)</span> <span class="o">==</span> <span class="n">initializer</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span>
+            <span class="n">initializer</span><span class="p">,</span> <span class="n">need_grad</span><span class="o">=</span><span class="n">need_grad</span><span class="p">)</span>
+
+    <span class="c1"># Initialize by Initializer or callable object which takes shape as an argument.</span>
+    <span class="k">if</span> <span class="n">callable</span><span class="p">(</span><span class="n">initializer</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="n">shape</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span>
+        <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="o">.</span><span class="n">from_numpy_array</span><span class="p">(</span>
+            <span class="n">initializer</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="nb">list</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">shape</span><span class="p">))),</span> <span class="n">need_grad</span><span class="o">=</span><span class="n">need_grad</span><span class="p">)</span>
+
+    <span class="c1"># Invalid initialzier argument.</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+        <span class="s2">&quot;`initializer` must be either the :obj:`numpy.ndarray`&quot;</span>
+        <span class="s2">&quot; or an instance inherited from `nnabla.initializer.BaseInitializer`.&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="get_parameter_or_create"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.get_parameter_or_create">[docs]</a><span class="k">def</span> <span class="nf">get_parameter_or_create</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">initializer</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">need_grad</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+                            <span class="n">as_need_grad</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Returns an existing parameter variable in current parameter scope</span>
+<span class="sd">    with the provided name.</span>
+
+<span class="sd">    If a variable with the provided name does not exist,</span>
+<span class="sd">    a new variable is created and registered to the current parameter scope</span>
+<span class="sd">    with the name, then returned.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        name(str):</span>
+<span class="sd">            The name under the current scope. If it already exists, the name</span>
+<span class="sd">            is queried from the parameter manager.</span>
+<span class="sd">        shape (:obj:`tuple` of :obj:`int`):</span>
+<span class="sd">            Shape of created parameter. The shape of the specified</span>
+<span class="sd">            parameter must match with this shape. The default is None which is</span>
+<span class="sd">            only valid if initializer is given as an :obj:`numpy.ndarray`.</span>
+<span class="sd">        initializer (:obj:`nnabla.initializer.BaseInitializer` or :obj:`numpy.ndarray`):</span>
+<span class="sd">            An initialization function to be applied to the parameter.</span>
+<span class="sd">            :obj:`numpy.ndarray` can also be given to initialize parameters</span>
+<span class="sd">            from numpy array data.</span>
+<span class="sd">        need_grad (bool):</span>
+<span class="sd">            Register the parameter with the specified ``need_grad`` flag.</span>
+<span class="sd">            The default is True. If the flag is different from the previously</span>
+<span class="sd">            specified one, the flag will be overwritten, but the values will be</span>
+<span class="sd">            kept.</span>
+<span class="sd">        as_need_grad (bool):</span>
+<span class="sd">            Get a parameter variable with the specified ``need_grad`` flag.</span>
+<span class="sd">            Note that this doesn&#39;t overwrite the flag of the registered parameter</span>
+<span class="sd">            variable with the provided name. Instead, if the given flag</span>
+<span class="sd">            mismatches with the previously registered ``need_grad`` flag, it</span>
+<span class="sd">            returns a new variable referring to the same array contents but with</span>
+<span class="sd">            ``need_grad=as_need_grad``.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        It returns a `Variable` which is unlinked from the</span>
+<span class="sd">        registered one in the current parmeter scope</span>
+<span class="sd">        (using :py:meth:`nnabla.Variable.get_unlinked_variable`).</span>
+<span class="sd">        That means changing a `need_grad` attribute doesn&#39;t affect</span>
+<span class="sd">        the variable existing in the current parameter scope.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1"># Resolve delimiter &#39;/&#39; in parameter name.</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="n">name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+            <span class="k">return</span> <span class="n">get_parameter_or_create</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">1</span><span class="p">:]),</span> <span class="n">shape</span><span class="p">,</span> <span class="n">initializer</span><span class="p">,</span> <span class="n">need_grad</span><span class="p">,</span> <span class="n">as_need_grad</span><span class="p">)</span>
+
+    <span class="c1"># Set need_grad if as_need_grad is not specified.</span>
+    <span class="k">if</span> <span class="n">as_need_grad</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">as_need_grad</span> <span class="o">=</span> <span class="n">need_grad</span>
+
+    <span class="c1"># Overwrite as_need_grad if current_no_grad is True</span>
+    <span class="k">global</span> <span class="n">current_no_grad</span>
+    <span class="n">as_need_grad</span> <span class="o">=</span> <span class="kc">False</span> <span class="k">if</span> <span class="n">current_no_grad</span> <span class="k">else</span> <span class="n">as_need_grad</span>
+
+    <span class="c1"># Try to find a existing parameter.</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">get_parameter</span><span class="p">(</span><span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="c1"># Postprocess for a parameter variable</span>
+    <span class="k">def</span> <span class="nf">_returning</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+        <span class="n">v</span> <span class="o">=</span> <span class="n">v</span><span class="o">.</span><span class="n">get_unlinked_variable</span><span class="p">(</span><span class="n">need_grad</span><span class="o">=</span><span class="n">as_need_grad</span><span class="p">)</span>
+        <span class="n">v</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">names</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">v</span>
+
+    <span class="c1"># If found, verify shape and flags, and returns it.</span>
+    <span class="k">if</span> <span class="n">param</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">param</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s1">&#39;The size of existing parameter &quot;</span><span class="si">{}</span><span class="s1">&quot; </span><span class="si">{}</span><span class="s1"> is different from the &#39;</span>
+                <span class="s1">&#39;size of new parameter </span><span class="si">{}</span><span class="s1">.</span><span class="se">\n</span><span class="s1">&#39;</span>
+                <span class="s1">&#39;To clear all parameters, call nn.clear_parameters().&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+                    <span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">shape</span><span class="p">)))</span>
+
+        <span class="k">if</span> <span class="n">need_grad</span> <span class="o">!=</span> <span class="n">param</span><span class="o">.</span><span class="n">need_grad</span><span class="p">:</span>
+            <span class="n">param</span><span class="o">.</span><span class="n">need_grad</span> <span class="o">=</span> <span class="n">need_grad</span>
+            <span class="n">set_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">_returning</span><span class="p">(</span><span class="n">param</span><span class="p">)</span>
+
+    <span class="k">class</span> <span class="nc">VariableInfo</span><span class="p">:</span>
+        <span class="k">pass</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">VariableInfo</span><span class="p">()</span>
+    <span class="n">info</span><span class="o">.</span><span class="n">initializer</span> <span class="o">=</span> <span class="n">initializer</span>
+
+    <span class="c1"># Create a new parameter using specified configuration,</span>
+    <span class="c1"># and write it to current scope..</span>
+    <span class="n">param</span> <span class="o">=</span> <span class="n">_create_parameter_by_initializer</span><span class="p">(</span><span class="n">initializer</span><span class="p">,</span> <span class="n">shape</span><span class="p">,</span> <span class="n">need_grad</span><span class="p">)</span>
+    <span class="n">param</span><span class="o">.</span><span class="n">info</span> <span class="o">=</span> <span class="n">info</span>
+    <span class="n">set_parameter</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">param</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">_returning</span><span class="p">(</span><span class="n">param</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="get_parameters"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.get_parameters">[docs]</a><span class="k">def</span> <span class="nf">get_parameters</span><span class="p">(</span><span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="n">grad_only</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Get parameter Variables under the current parameter scope.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params (dict): Internal use. User doesn&#39;t set it manually.</span>
+<span class="sd">        path (str): Internal use.  User doesn&#39;t set it manually.</span>
+<span class="sd">        grad_only (bool): Retrieve all parameters under the current scope if</span>
+<span class="sd">            False, while only parameters with need_grad=True are retrieved</span>
+<span class="sd">            if True.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        dict: {:obj:`str` : :obj:`~nnabla.Variable`}</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">params</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">iteritems</span><span class="p">(</span><span class="n">current_scope</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">with</span> <span class="n">parameter_scope</span><span class="p">(</span><span class="n">k</span><span class="p">):</span>
+                <span class="n">params</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span>
+                    <span class="n">params</span><span class="p">,</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">path</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="n">k</span><span class="p">,</span> <span class="n">grad_only</span><span class="o">=</span><span class="n">grad_only</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">grad_only</span> <span class="ow">or</span> <span class="n">v</span><span class="o">.</span><span class="n">need_grad</span><span class="p">:</span>
+                <span class="n">params</span><span class="p">[</span><span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">path</span><span class="p">,</span> <span class="n">k</span><span class="p">])</span> <span class="k">if</span> <span class="n">path</span> <span class="k">else</span> <span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">v</span>
+    <span class="k">return</span> <span class="n">params</span></div>
+
+
+<div class="viewcode-block" id="clear_parameters"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.clear_parameters">[docs]</a><span class="k">def</span> <span class="nf">clear_parameters</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Clear all parameters in the current scope.&quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">current_scope</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">current_scope</span><span class="o">.</span><span class="n">keys</span><span class="p">()):</span>
+        <span class="k">del</span> <span class="n">current_scope</span><span class="p">[</span><span class="n">key</span><span class="p">]</span></div>
+
+
+<span class="k">def</span> <span class="nf">set_parameter_from_proto</span><span class="p">(</span><span class="n">proto</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">parameter</span> <span class="ow">in</span> <span class="n">proto</span><span class="o">.</span><span class="n">parameter</span><span class="p">:</span>
+        <span class="n">var</span> <span class="o">=</span> <span class="n">get_parameter_or_create</span><span class="p">(</span>
+            <span class="n">parameter</span><span class="o">.</span><span class="n">variable_name</span><span class="p">,</span> <span class="n">parameter</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">,</span>
+            <span class="n">need_grad</span><span class="o">=</span><span class="n">parameter</span><span class="o">.</span><span class="n">need_grad</span><span class="p">)</span>
+        <span class="n">param</span> <span class="o">=</span> <span class="n">numpy</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">parameter</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="n">parameter</span><span class="o">.</span><span class="n">shape</span><span class="o">.</span><span class="n">dim</span><span class="p">)</span>
+        <span class="n">var</span><span class="o">.</span><span class="n">d</span> <span class="o">=</span> <span class="n">param</span>
+
+
+<div class="viewcode-block" id="load_parameters"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.load_parameters">[docs]</a><span class="k">def</span> <span class="nf">load_parameters</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">proto</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">needs_proto</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="s2">&quot;.nntxt&quot;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Load parameters from a file with the specified format.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      path : path or file object</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">extension</span>
+
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">FileHandlerContext</span><span class="p">()</span>
+    <span class="k">if</span> <span class="n">proto</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">proto</span> <span class="o">=</span> <span class="n">nnabla_pb2</span><span class="o">.</span><span class="n">NNablaProtoBuf</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ctx</span><span class="o">.</span><span class="n">proto</span> <span class="o">=</span> <span class="n">proto</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">needs_proto</span> <span class="o">=</span> <span class="n">needs_proto</span>
+    <span class="c1"># Get parameter file loaders</span>
+    <span class="n">file_loaders</span> <span class="o">=</span> <span class="n">get_parameter_file_loader</span><span class="p">()</span>
+    <span class="n">load_files</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">file_loaders</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">ctx</span><span class="o">.</span><span class="n">proto</span></div>
+
+
+<div class="viewcode-block" id="save_parameters"><a class="viewcode-back" href="../../python/api/parametric_function.html#nnabla.save_parameters">[docs]</a><span class="k">def</span> <span class="nf">save_parameters</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extension</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Save all parameters into a file with the specified format.</span>
+
+<span class="sd">    Currently hdf5 and protobuf formats are supported.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      path : path or file object</span>
+<span class="sd">      params (dict, optional): Parameters to be saved. Dictionary is of a parameter name (:obj:`str`) to :obj:`~nnabla.Variable`.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="n">_</span><span class="p">,</span> <span class="n">ext</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ext</span> <span class="o">=</span> <span class="n">extension</span>
+    <span class="n">ctx</span> <span class="o">=</span> <span class="n">FileHandlerContext</span><span class="p">()</span>
+    <span class="n">ctx</span><span class="o">.</span><span class="n">parameters</span> <span class="o">=</span> <span class="n">get_parameters</span><span class="p">(</span>
+        <span class="n">grad_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span> <span class="k">if</span> <span class="n">params</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">params</span>
+    <span class="n">file_savers</span> <span class="o">=</span> <span class="n">get_parameter_file_savers</span><span class="p">()</span>
+    <span class="n">supported</span> <span class="o">=</span> <span class="n">save_files</span><span class="p">(</span><span class="n">ctx</span><span class="p">,</span> <span class="n">file_savers</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">ext</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">supported</span><span class="p">,</span> <span class="s1">&#39;Only supported </span><span class="si">{}</span><span class="s1">.&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+        <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="n">file_savers</span><span class="o">.</span><span class="n">keys</span><span class="p">())))</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;Parameter save (</span><span class="si">{}</span><span class="s2">): </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">ext</span><span class="p">,</span> <span class="n">path</span><span class="p">))</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

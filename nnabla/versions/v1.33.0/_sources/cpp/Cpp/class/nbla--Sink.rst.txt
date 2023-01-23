@@ -1,0 +1,6 @@
+class nbla::Sink
+========================================
+
+.. doxygenclass:: nbla::Sink
+	:project: Cpp
+	:members: 

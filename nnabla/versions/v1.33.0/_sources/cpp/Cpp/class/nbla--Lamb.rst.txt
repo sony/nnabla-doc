@@ -1,0 +1,6 @@
+class nbla::Lamb
+========================================
+
+.. doxygenclass:: nbla::Lamb
+	:project: Cpp
+	:members: 

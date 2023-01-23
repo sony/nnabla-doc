@@ -1,0 +1,6 @@
+class nbla::SwapInOutScheduler
+========================================
+
+.. doxygenclass:: nbla::SwapInOutScheduler
+	:project: Cpp
+	:members: 

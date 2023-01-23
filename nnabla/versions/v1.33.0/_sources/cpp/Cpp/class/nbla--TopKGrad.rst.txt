@@ -1,0 +1,6 @@
+class nbla::TopKGrad
+========================================
+
+.. doxygenclass:: nbla::TopKGrad
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Randn
+========================================
+
+.. doxygenclass:: nbla::Randn
+	:project: Cpp
+	:members: 

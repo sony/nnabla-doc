@@ -1,0 +1,6 @@
+class nbla::FFT
+========================================
+
+.. doxygenclass:: nbla::FFT
+	:project: Cpp
+	:members: 

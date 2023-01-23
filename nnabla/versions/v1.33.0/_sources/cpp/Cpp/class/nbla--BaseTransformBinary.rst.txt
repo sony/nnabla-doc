@@ -1,0 +1,6 @@
+class nbla::BaseTransformBinary
+========================================
+
+.. doxygenclass:: nbla::BaseTransformBinary
+	:project: Cpp
+	:members: 

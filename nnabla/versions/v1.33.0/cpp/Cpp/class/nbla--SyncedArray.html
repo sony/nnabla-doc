@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::SyncedArray &mdash; Neural Network Libraries 1.33.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::SyncedArrayCallback" href="nbla--SyncedArrayCallback.html" />
+    <link rel="prev" title="class nbla::SyncBatchNormalization" href="nbla--SyncBatchNormalization.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.33.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::SyncedArray</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--SyncedArray.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-syncedarray">
+<h1>class nbla::SyncedArray<a class="headerlink" href="#class-nbla-syncedarray" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArrayE">
+<span id="_CPPv3N4nbla11SyncedArrayE"></span><span id="_CPPv2N4nbla11SyncedArrayE"></span><span id="nbla::SyncedArray"></span><span class="target" id="classnbla_1_1SyncedArray"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">SyncedArray</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><span class="n"><span class="pre">std</span></span><span class="p"><span class="pre">::</span></span><span class="n"><span class="pre">enable_shared_from_this</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4nbla11SyncedArrayE" title="nbla::SyncedArray"><span class="n"><span class="pre">SyncedArray</span></span></a><span class="p"><span class="pre">&gt;</span></span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArrayE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Synchronized array interface that implicitly transfers and cast arrays over devices and data types.Shared pointer of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray4castE6dtypesRK7ContextbKi">
+<span id="_CPPv3N4nbla11SyncedArray4castE6dtypesRK7ContextbKi"></span><span id="_CPPv2N4nbla11SyncedArray4castE6dtypesRK7ContextbKi"></span><span id="nbla::SyncedArray::cast__dtypes.ContextCR.b.iC"></span><span class="target" id="classnbla_1_1SyncedArray_1a0ec6382680ec256cc6099eae7085de0f"></span><a class="reference internal" href="nbla--Array.html#_CPPv4N4nbla5ArrayE" title="nbla::Array"><span class="n"><span class="pre">Array</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">cast</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dtype</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">write_only</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">async_flags</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlagE" title="nbla::AsyncFlag"><span class="n"><span class="pre">AsyncFlag</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlag4NONEE" title="nbla::AsyncFlag::NONE"><span class="n"><span class="pre">NONE</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray4castE6dtypesRK7ContextbKi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cast and get array with dtype context. </p>
+<p>This will return an array object with specified dtype and device with implicit synchronization over different dtypes/devices.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>write_only</strong> – <strong>[in]</strong> When true, just returns an <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> instance requested without synchronization. </p></li>
+<li><p><strong>async_flags</strong> – <strong>[in]</strong> AsyncFlag::NONE -&gt; Synchronous synchronization AsyncFlag::ASYNC -&gt; Asynchronous synchronization AsyncFlag::UNSAFE -&gt; No synchronization to host AsyncFlag::ASYNC | AsyncFlag::UNSAFE -&gt; The memory region of the source array of an asynchronous data transfer is not guranteed to be kept safe until the end of the transfer. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray7cast_spE6dtypesRK7ContextbKi">
+<span id="_CPPv3N4nbla11SyncedArray7cast_spE6dtypesRK7ContextbKi"></span><span id="_CPPv2N4nbla11SyncedArray7cast_spE6dtypesRK7ContextbKi"></span><span id="nbla::SyncedArray::cast_sp__dtypes.ContextCR.b.iC"></span><span class="target" id="classnbla_1_1SyncedArray_1ad33e5a927e325f1c8f2f16c5c3b02ff4"></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Array.html#_CPPv4N4nbla5ArrayE" title="nbla::Array"><span class="n"><span class="pre">Array</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">cast_sp</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dtype</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">write_only</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">async_flags</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlagE" title="nbla::AsyncFlag"><span class="n"><span class="pre">AsyncFlag</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlag4NONEE" title="nbla::AsyncFlag::NONE"><span class="n"><span class="pre">NONE</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray7cast_spE6dtypesRK7ContextbKi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Cast and get array as a shared_ptr. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a0ec6382680ec256cc6099eae7085de0f"><span class="std std-ref">cast</span></a> </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray3getE6dtypesRK7ContextKi">
+<span id="_CPPv3N4nbla11SyncedArray3getE6dtypesRK7ContextKi"></span><span id="_CPPv2N4nbla11SyncedArray3getE6dtypesRK7ContextKi"></span><span id="nbla::SyncedArray::get__dtypes.ContextCR.iC"></span><span class="target" id="classnbla_1_1SyncedArray_1a70bc938b82489b4fc76508ec5a593cba"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Array.html#_CPPv4N4nbla5ArrayE" title="nbla::Array"><span class="n"><span class="pre">Array</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">get</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dtype</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">async_flags</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlagE" title="nbla::AsyncFlag"><span class="n"><span class="pre">AsyncFlag</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlag4NONEE" title="nbla::AsyncFlag::NONE"><span class="n"><span class="pre">NONE</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray3getE6dtypesRK7ContextKi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array with dtype context. </p>
+<p>This will return an array object with specified dtype and device with implicit synchronization. Note that this function call does not move the head in array list.</p>
+<p>TODO: Is “const” member function appropriate? This implicitly creates or modify array contents of specified dtype-context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray6get_spE6dtypesRK7ContextKi">
+<span id="_CPPv3N4nbla11SyncedArray6get_spE6dtypesRK7ContextKi"></span><span id="_CPPv2N4nbla11SyncedArray6get_spE6dtypesRK7ContextKi"></span><span id="nbla::SyncedArray::get_sp__dtypes.ContextCR.iC"></span><span class="target" id="classnbla_1_1SyncedArray_1a26e273bf1028f9e86164e98701698c8c"></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Array.html#_CPPv4N4nbla5ArrayE" title="nbla::Array"><span class="n"><span class="pre">Array</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_sp</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dtype</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">async_flags</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlagE" title="nbla::AsyncFlag"><span class="n"><span class="pre">AsyncFlag</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlag4NONEE" title="nbla::AsyncFlag::NONE"><span class="n"><span class="pre">NONE</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray6get_spE6dtypesRK7ContextKi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array as a shared pointer. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray10head_arrayEv">
+<span id="_CPPv3N4nbla11SyncedArray10head_arrayEv"></span><span id="_CPPv2N4nbla11SyncedArray10head_arrayEv"></span><span id="nbla::SyncedArray::head_array"></span><span class="target" id="classnbla_1_1SyncedArray_1ab0addabc7cbbcffcb63f6a0f4a2692fc"></span><a class="reference internal" href="nbla--Array.html#_CPPv4N4nbla5ArrayE" title="nbla::Array"><span class="n"><span class="pre">Array</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">head_array</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray10head_arrayEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the head array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray13head_array_spEv">
+<span id="_CPPv3N4nbla11SyncedArray13head_array_spEv"></span><span id="_CPPv2N4nbla11SyncedArray13head_array_spEv"></span><span id="nbla::SyncedArray::head_array_sp"></span><span class="target" id="classnbla_1_1SyncedArray_1ac57b1b1796ac4835354f3a5b4751bf60"></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Array.html#_CPPv4N4nbla5ArrayE" title="nbla::Array"><span class="n"><span class="pre">Array</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">head_array_sp</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray13head_array_spEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the head array as a shared pointer. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray8data_ptrE6dtypesRK7ContextbKi">
+<span id="_CPPv3N4nbla11SyncedArray8data_ptrE6dtypesRK7ContextbKi"></span><span id="_CPPv2N4nbla11SyncedArray8data_ptrE6dtypesRK7ContextbKi"></span><span id="nbla::SyncedArray::data_ptr__dtypes.ContextCR.b.iC"></span><span class="target" id="classnbla_1_1SyncedArray_1aa727c2f56190136d27f70bea2dbf4c96"></span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">data_ptr</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">dtype</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">write_only</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">async_flags</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlagE" title="nbla::AsyncFlag"><span class="n"><span class="pre">AsyncFlag</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla9AsyncFlag4NONEE" title="nbla::AsyncFlag::NONE"><span class="n"><span class="pre">NONE</span></span></a><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray8data_ptrE6dtypesRK7ContextbKi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get array’s ptr. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dtype</strong> – <strong>[in]</strong> Enum of data type. </p></li>
+<li><p><strong>ctx</strong> – <strong>[in]</strong> Descriptor of array backend. </p></li>
+<li><p><strong>write_only</strong> – <strong>[in]</strong> No synchronization happens. </p></li>
+<li><p><strong>async_flags</strong> – <strong>[in]</strong> AsyncFlag::NONE -&gt; Synchronous synchronization happens. AsyncFlag::ASYNC -&gt; Asynchronous synchronization happens. AsyncFlag::SAFE -&gt; Same as AsyncFlag::NONE. AsyncFlag::ASYNC | AsyncFlag::SAFE -&gt; Asynchronous synchronization happens and the synchronized source array keeps safe against the host operation. </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray5dtypeEv">
+<span id="_CPPv3NK4nbla11SyncedArray5dtypeEv"></span><span id="_CPPv2NK4nbla11SyncedArray5dtypeEv"></span><span id="nbla::SyncedArray::dtypeC"></span><span class="target" id="classnbla_1_1SyncedArray_1af513eb1de22ff7d78b9b68a0e4fa6343"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6dtypesE" title="nbla::dtypes"><span class="n"><span class="pre">dtypes</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">dtype</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray5dtypeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get dtype. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray14has_head_arrayEv">
+<span id="_CPPv3N4nbla11SyncedArray14has_head_arrayEv"></span><span id="_CPPv2N4nbla11SyncedArray14has_head_arrayEv"></span><span id="nbla::SyncedArray::has_head_array"></span><span class="target" id="classnbla_1_1SyncedArray_1a9cbc5caf6dc6738daa04e348617e21fa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_head_array</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray14has_head_arrayEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns true if this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> has the head array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray16head_array_classEv">
+<span id="_CPPv3N4nbla11SyncedArray16head_array_classEv"></span><span id="_CPPv2N4nbla11SyncedArray16head_array_classEv"></span><span id="nbla::SyncedArray::head_array_class"></span><span class="target" id="classnbla_1_1SyncedArray_1ad63086eff754c9f5348fdb88a1b65e9e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">head_array_class</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray16head_array_classEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the array class of the head. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray14get_num_arraysEv">
+<span id="_CPPv3NK4nbla11SyncedArray14get_num_arraysEv"></span><span id="_CPPv2NK4nbla11SyncedArray14get_num_arraysEv"></span><span id="nbla::SyncedArray::get_num_arraysC"></span><span class="target" id="classnbla_1_1SyncedArray_1a69f791fc053b2f8714f0bab7231c6d10"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6Size_tE" title="nbla::Size_t"><span class="n"><span class="pre">Size_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_num_arrays</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray14get_num_arraysEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the number of arrays. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray4sizeEv">
+<span id="_CPPv3NK4nbla11SyncedArray4sizeEv"></span><span id="_CPPv2NK4nbla11SyncedArray4sizeEv"></span><span id="nbla::SyncedArray::sizeC"></span><span class="target" id="classnbla_1_1SyncedArray_1a03c0e3dea80a5794211fc2296b97c120"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6Size_tE" title="nbla::Size_t"><span class="n"><span class="pre">Size_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">size</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray4sizeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Size. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray4zeroEv">
+<span id="_CPPv3N4nbla11SyncedArray4zeroEv"></span><span id="_CPPv2N4nbla11SyncedArray4zeroEv"></span><span id="nbla::SyncedArray::zero"></span><span class="target" id="classnbla_1_1SyncedArray_1a75c7bcfe211b8d377a72180f29100a64"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">zero</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray4zeroEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Fill all element with 0. </p>
+<p>Note: This is lazily evaluated at calling of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a70bc938b82489b4fc76508ec5a593cba"><span class="std std-ref">get()</span></a> or <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a0ec6382680ec256cc6099eae7085de0f"><span class="std std-ref">cast()</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray4fillEf">
+<span id="_CPPv3N4nbla11SyncedArray4fillEf"></span><span id="_CPPv2N4nbla11SyncedArray4fillEf"></span><span id="nbla::SyncedArray::fill__float"></span><span class="target" id="classnbla_1_1SyncedArray_1ab94791a1f8de65ec46aa6948a61e0327"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">fill</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">float</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">value</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray4fillEf" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Fill all element with given float value. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray18modification_countEv">
+<span id="_CPPv3NK4nbla11SyncedArray18modification_countEv"></span><span id="_CPPv2NK4nbla11SyncedArray18modification_countEv"></span><span id="nbla::SyncedArray::modification_countC"></span><span class="target" id="classnbla_1_1SyncedArray_1a2af2b61caae20c95a09ba5ca9687a0b3"></span><span class="n"><span class="pre">size_t</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">modification_count</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray18modification_countEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get number of modification count. </p>
+<p>Modification accounts for calling either cast, zero or fill. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray12clear_calledEv">
+<span id="_CPPv3NK4nbla11SyncedArray12clear_calledEv"></span><span id="_CPPv2NK4nbla11SyncedArray12clear_calledEv"></span><span id="nbla::SyncedArray::clear_calledC"></span><span class="target" id="classnbla_1_1SyncedArray_1a15994049882e80bf3dee333008acb943"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">clear_called</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray12clear_calledEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get clear called flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray9copy_fromEPK11SyncedArray">
+<span id="_CPPv3N4nbla11SyncedArray9copy_fromEPK11SyncedArray"></span><span id="_CPPv2N4nbla11SyncedArray9copy_fromEPK11SyncedArray"></span><span id="nbla::SyncedArray::copy_from__SyncedArrayCP"></span><span class="target" id="classnbla_1_1SyncedArray_1ad230ae654c82e18d1c2aeb51024b2545"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">copy_from</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4N4nbla11SyncedArrayE" title="nbla::SyncedArray"><span class="n"><span class="pre">SyncedArray</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="n sig-param"><span class="pre">src</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray9copy_fromEPK11SyncedArray" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Copy values from another SynedArray. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>The copy is happening in a device and a dtype of source array. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray7zeroingEv">
+<span id="_CPPv3NK4nbla11SyncedArray7zeroingEv"></span><span id="_CPPv2NK4nbla11SyncedArray7zeroingEv"></span><span id="nbla::SyncedArray::zeroingC"></span><span class="target" id="classnbla_1_1SyncedArray_1a463358da54d8fe87740039e28dda2051"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">zeroing</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray7zeroingEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get whether or not it fills array values obtained in cast/get call later. </p>
+<p>This is provided to determine gradient accumulation flags in our computation graph engine, as well as to determine whether or not solver and communicator execute their operations by depending on whether gradients are updated. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray6narrowEK6Size_tK6Size_t">
+<span id="_CPPv3N4nbla11SyncedArray6narrowEK6Size_tK6Size_t"></span><span id="_CPPv2N4nbla11SyncedArray6narrowEK6Size_tK6Size_t"></span><span id="nbla::SyncedArray::narrow__Size_tC.Size_tC"></span><span class="target" id="classnbla_1_1SyncedArray_1a220086a935840df50cdca4980b05bc68"></span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="#_CPPv4N4nbla11SyncedArrayE" title="nbla::SyncedArray"><span class="n"><span class="pre">SyncedArray</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">narrow</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6Size_tE" title="nbla::Size_t"><span class="n"><span class="pre">Size_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">narrow_size</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6Size_tE" title="nbla::Size_t"><span class="n"><span class="pre">Size_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">offset</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray6narrowEK6Size_tK6Size_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get a new narrowed <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray11is_narrowedEv">
+<span id="_CPPv3NK4nbla11SyncedArray11is_narrowedEv"></span><span id="_CPPv2NK4nbla11SyncedArray11is_narrowedEv"></span><span id="nbla::SyncedArray::is_narrowedC"></span><span class="target" id="classnbla_1_1SyncedArray_1a50eccaceec08db6b8058df4ee37cf190"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_narrowed</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray11is_narrowedEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns true if this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> is narrowed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray8is_childEv">
+<span id="_CPPv3NK4nbla11SyncedArray8is_childEv"></span><span id="_CPPv2NK4nbla11SyncedArray8is_childEv"></span><span id="nbla::SyncedArray::is_childC"></span><span class="target" id="classnbla_1_1SyncedArray_1adf157a5b32081d51fd26fdb3cee50b71"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_child</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray8is_childEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns true if this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> has the Parent. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray7is_rootEv">
+<span id="_CPPv3NK4nbla11SyncedArray7is_rootEv"></span><span id="_CPPv2NK4nbla11SyncedArray7is_rootEv"></span><span id="nbla::SyncedArray::is_rootC"></span><span class="target" id="classnbla_1_1SyncedArray_1a749602a77f3cdece61f8529f6915a680"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">is_root</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray7is_rootEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns true if this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> has not the Parent. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray10has_familyEv">
+<span id="_CPPv3NK4nbla11SyncedArray10has_familyEv"></span><span id="_CPPv2NK4nbla11SyncedArray10has_familyEv"></span><span id="nbla::SyncedArray::has_familyC"></span><span class="target" id="classnbla_1_1SyncedArray_1afaff5088919808b61dcff655aa63eb0e"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_family</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray10has_familyEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Returns true if this <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> has a parent or child SyncedArrays. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla11SyncedArray32get_python_user_reference_countsEv">
+<span id="_CPPv3NK4nbla11SyncedArray32get_python_user_reference_countsEv"></span><span id="_CPPv2NK4nbla11SyncedArray32get_python_user_reference_countsEv"></span><span id="nbla::SyncedArray::get_python_user_reference_countsC"></span><span class="target" id="classnbla_1_1SyncedArray_1a0861b6ea2f3ff3a642c1d5d6f3b47ff6"></span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">get_python_user_reference_counts</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla11SyncedArray32get_python_user_reference_countsEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get the refernce counts from a Python user. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla11SyncedArray35update_python_user_reference_countsEKi">
+<span id="_CPPv3N4nbla11SyncedArray35update_python_user_reference_countsEKi"></span><span id="_CPPv2N4nbla11SyncedArray35update_python_user_reference_countsEKi"></span><span id="nbla::SyncedArray::update_python_user_reference_counts__iC"></span><span class="target" id="classnbla_1_1SyncedArray_1a069e10730bce2f8074a422897c0536d1"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">update_python_user_reference_counts</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">diff</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla11SyncedArray35update_python_user_reference_countsEKi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Update the refernce counts from a Python user. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--SyncBatchNormalization.html" class="btn btn-neutral float-left" title="class nbla::SyncBatchNormalization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--SyncedArrayCallback.html" class="btn btn-neutral float-right" title="class nbla::SyncedArrayCallback" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

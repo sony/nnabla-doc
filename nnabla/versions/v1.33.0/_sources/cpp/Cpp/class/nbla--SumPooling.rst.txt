@@ -1,0 +1,6 @@
+class nbla::SumPooling
+========================================
+
+.. doxygenclass:: nbla::SumPooling
+	:project: Cpp
+	:members: 

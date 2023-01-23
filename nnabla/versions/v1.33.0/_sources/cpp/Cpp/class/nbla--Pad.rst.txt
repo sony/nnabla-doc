@@ -1,0 +1,6 @@
+class nbla::Pad
+========================================
+
+.. doxygenclass:: nbla::Pad
+	:project: Cpp
+	:members: 

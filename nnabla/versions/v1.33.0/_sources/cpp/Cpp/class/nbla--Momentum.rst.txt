@@ -1,0 +1,6 @@
+class nbla::Momentum
+========================================
+
+.. doxygenclass:: nbla::Momentum
+	:project: Cpp
+	:members: 

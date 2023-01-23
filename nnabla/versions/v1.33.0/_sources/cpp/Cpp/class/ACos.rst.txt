@@ -1,0 +1,6 @@
+class ACos
+========================================
+
+.. doxygenclass:: ACos
+	:project: Cpp
+	:members: 
