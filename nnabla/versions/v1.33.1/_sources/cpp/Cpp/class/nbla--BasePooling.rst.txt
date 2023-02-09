@@ -1,0 +1,6 @@
+class nbla::BasePooling
+========================================
+
+.. doxygenclass:: nbla::BasePooling
+	:project: Cpp
+	:members: 

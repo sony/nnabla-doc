@@ -1,0 +1,6 @@
+class nbla::RandomShift
+========================================
+
+.. doxygenclass:: nbla::RandomShift
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class NotEqualScalar
+========================================
+
+.. doxygenclass:: NotEqualScalar
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::CELU
+========================================
+
+.. doxygenclass:: nbla::CELU
+	:project: Cpp
+	:members: 

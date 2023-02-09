@@ -1,0 +1,6 @@
+class nbla::BatchInv
+========================================
+
+.. doxygenclass:: nbla::BatchInv
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::ReduceSum
+========================================
+
+.. doxygenclass:: nbla::ReduceSum
+	:project: Cpp
+	:members: 

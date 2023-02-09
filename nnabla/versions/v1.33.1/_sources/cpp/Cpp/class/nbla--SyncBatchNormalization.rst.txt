@@ -1,0 +1,6 @@
+class nbla::SyncBatchNormalization
+========================================
+
+.. doxygenclass:: nbla::SyncBatchNormalization
+	:project: Cpp
+	:members: 

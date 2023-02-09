@@ -1,0 +1,6 @@
+class nbla::Linspace
+========================================
+
+.. doxygenclass:: nbla::Linspace
+	:project: Cpp
+	:members: 

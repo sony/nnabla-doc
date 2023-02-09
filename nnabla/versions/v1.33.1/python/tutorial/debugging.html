@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debugging &mdash; Neural Network Libraries 1.33.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Static vs Dynamic Neural Networks in NNabla" href="dynamic_and_static_nn.html" />
+    <link rel="prev" title="NNabla Models Finetuning Tutorial" href="model_finetuning.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.33.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../tutorial.html">Python API Tutorial</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="by_examples.html">NNabla by Examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="python_api.html">NNabla Python API Demonstration Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model_finetuning.html">NNabla Models Finetuning Tutorial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="model_finetuning.html#finetuning-more">Finetuning more</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Debugging</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#visit-method">Visit Method</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#pprint">PPrint</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#simple-graph-viewer">Simple Graph Viewer</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#profiling-utils">Profiling Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#value-tracer">Value Tracer</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="dynamic_and_static_nn.html">Static vs Dynamic Neural Networks in NNabla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="graph_converters.html">Graph Converters</a></li>
+<li class="toctree-l3"><a class="reference internal" href="mixed_precision_training.html">Mixed Precision Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="multi_device_training.html">Data Parallel Distributed Training</a></li>
+<li class="toctree-l3"><a class="reference internal" href="function_list_and_converter.html">Function list and converter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="quantization_aware_training.html">Quantization-Aware-Training Tutorial</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../examples.html">Python API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../api.html">Python API Reference</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../python.html">Python Package</a></li>
+          <li class="breadcrumb-item"><a href="../tutorial.html">Python API Tutorial</a></li>
+      <li class="breadcrumb-item active">Debugging</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/python/tutorial/debugging.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debugging">
+<h1>Debugging<a class="headerlink" href="#debugging" title="Permalink to this headline"></a></h1>
+<p>Deep neural networks are going deeper and deeper every year, requiring
+more components in the networks. Such complexity often misleads us to
+mal-configure the networks that can turn out be critical. Even if we
+correctly configure a neural network as desired, we may still want to
+find out its performance bottleneck, e.g., from which layer(s) the
+computational bottleneck comes.</p>
+<p>In this debugging tutorial, we introduce the following ways to deal with
+such cases:</p>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">visit</span></code> method of a variable</p></li>
+<li><p>pretty-print</p></li>
+<li><p>simple graph viewer</p></li>
+<li><p>profiling utils</p></li>
+<li><p>value tracer</p></li>
+</ol>
+<p>We will go over each technique, but first prepare the following
+reference model.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># If you run this notebook on Google Colab, uncomment and run the following to set up dependencies.
+# !pip install nnabla-ext-cuda100
+# !git clone https://github.com/sony/nnabla.git
+# %cd nnabla/tutorial
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Python2/3 compatibility
+from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import division
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import numpy as np
+import nnabla as nn
+import nnabla.logger as logger
+import nnabla.functions as F
+import nnabla.parametric_functions as PF
+import nnabla.solvers as S
+
+def block(x, maps, test=False, name=&quot;block&quot;):
+    h = x
+    with nn.parameter_scope(name):
+        with nn.parameter_scope(&quot;in-block-1&quot;):
+            h = PF.convolution(h, maps, kernel=(3, 3), pad=(1, 1), with_bias=False)
+            h = PF.batch_normalization(h, batch_stat=not test)
+            h = F.relu(h)
+        with nn.parameter_scope(&quot;in-block-2&quot;):
+            h = PF.convolution(h, maps // 2, kernel=(3, 3), pad=(1, 1), with_bias=False)
+            h = PF.batch_normalization(h, batch_stat=not test)
+            h = F.relu(h)
+        with nn.parameter_scope(&quot;in-block-3&quot;):
+            h = PF.convolution(h, maps, kernel=(3, 3), pad=(1, 1), with_bias=False)
+            h = PF.batch_normalization(h, batch_stat=not test)
+
+        if h.shape[1] != x.shape[1]:
+            with nn.parameter_scope(&quot;skip&quot;):
+                s = PF.convolution(x, maps, kernel=(3, 3), pad=(1, 1), with_bias=False)
+                s = PF.batch_normalization(s, batch_stat=not test)
+
+    return F.relu(h + s)
+
+def network(x, maps=16, test=False):
+    h = x
+    h = PF.convolution(h, maps, kernel=(3, 3), pad=(1, 1), name=&quot;first-conv&quot;, with_bias=False)
+    h = PF.batch_normalization(h, batch_stat=not test, name=&quot;first-bn&quot;)
+    h = F.relu(h)
+    for l in range(4):
+        h = block(h, maps * 2 ** (l + 1), name=&quot;block-{}&quot;.format(l))
+        h = F.max_pooling(h, (2, 2))
+    h = F.average_pooling(h, h.shape[2:])
+    pred = PF.affine(h, 100, name=&quot;pred&quot;)
+    return pred
+</pre></div>
+</div>
+<section id="visit-method">
+<h2>Visit Method<a class="headerlink" href="#visit-method" title="Permalink to this headline"></a></h2>
+<p>Visit method of a variable takes either lambda, function, callable
+object as an argument and calls it over all NNabla functions where the
+variable can traverse in the forward order. It is easier to see the
+usage than expalined.</p>
+<p>First of all, define the callable class.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>class PrintFunc(object):
+    def __call__(self, nnabla_func):
+        print(&quot;==========&quot;)
+        print(nnabla_func.info.type_name)
+        print(nnabla_func.inputs)
+        print(nnabla_func.outputs)
+        print(nnabla_func.info.args)
+</pre></div>
+</div>
+<p>This callable object takes a NNabla function, e.g., convolution, relu,
+etc., so a user can get information of that function.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nn.clear_parameters()  # this call is just in case to do the following code again
+
+x = nn.Variable.from_numpy_array(np.random.randn(*[4, 3, 128, 128]))
+pred = network(x)
+pred.visit(PrintFunc())
+</pre></div>
+</div>
+<p>This is the low-level API to see the graph information as you want by
+hand.</p>
+</section>
+<section id="pprint">
+<h2>PPrint<a class="headerlink" href="#pprint" title="Permalink to this headline"></a></h2>
+<p>PPrint method is one of the instantiation of the visit method. We can
+see the graph structure in the topological (forward) order in details.
+Here is a usage to see detailed information of a graph.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nn.clear_parameters()  # call this in case you want to run the following code agian
+
+x = nn.Variable.from_numpy_array(np.random.randn(*[4, 3, 128, 128]))
+pred = network(x)
+
+# pprint
+from nnabla.utils.inspection import pprint
+pprint(pred, summary=True, forward=True, backward=True)
+</pre></div>
+</div>
+</section>
+<section id="simple-graph-viewer">
+<h2>Simple Graph Viewer<a class="headerlink" href="#simple-graph-viewer" title="Permalink to this headline"></a></h2>
+<p>Visit method is very useful for getting information about each function
+used in a graph, but it is hard to see the details of the whole network
+structure, e.g., which variable is connected to which variable. So we
+have a graph viewer that visually shows the whole structure of network,
+enabling us to debug more efficiently. Using this graph viewer is
+straightforward, as shown in the following code:</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nn.clear_parameters()  # call this in case you want to run the following code agian
+
+x = nn.Variable([4, 3, 128, 128])
+pred = network(x)
+</pre></div>
+</div>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>import nnabla.experimental.viewers as V
+
+graph = V.SimpleGraph(verbose=False)
+graph.view(pred)
+</pre></div>
+</div>
+<p>If one would like to see more detailed information as in <code class="docutils literal notranslate"><span class="pre">visit</span></code>
+method case, change verbose option to <code class="docutils literal notranslate"><span class="pre">True</span></code>.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>graph = V.SimpleGraph(verbose=True)
+graph.view(pred)
+</pre></div>
+</div>
+<p>Now one can see detailed information!</p>
+<p>Note that this viewer is mainly for NNabla users who want to write codes
+in python, so for those who like to see more beautiful network and play
+with that, please use Neural Network Console and visit
+<a class="reference external" href="https://dl.sony.com/">https://dl.sony.com/</a>.</p>
+</section>
+<section id="profiling-utils">
+<h2>Profiling Utils<a class="headerlink" href="#profiling-utils" title="Permalink to this headline"></a></h2>
+<p>Basically, this feature is <strong>for developers</strong> who want to know the whole
+stats in speed and which functions could be bottlenecks. NNabla provides
+a simple profiling tool. Once a network is prepared, one better to have
+other components to train the network like a loss function and solvers.</p>
+<p>To create the profiler and see the results, run the following codes.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span>nn.clear_parameters()  # call this in case you want to run the following code agian
+
+# Context
+from nnabla.ext_utils import get_extension_context
+device = &quot;cudnn&quot;
+ctx = get_extension_context(device)
+nn.set_default_context(ctx)
+
+# Network
+x = nn.Variable.from_numpy_array(np.random.randn(*[4, 3, 128, 128]))
+t = nn.Variable([4, 1])
+pred = network(x)
+loss = F.mean(F.softmax_cross_entropy(pred, t))
+
+# Solver
+solver = S.Momentum()
+solver.set_parameters(nn.get_parameters())
+
+# Profiler
+from nnabla.utils.profiler import GraphProfiler
+B = GraphProfiler(loss, solver=solver, device_id=0, ext_name=device, n_run=100)
+B.run()
+print(&quot;Profile finished.&quot;)
+
+# Report
+from nnabla.utils.profiler import GraphProfilerCsvWriter
+with open(&quot;./profile.csv&quot;, &quot;w&quot;) as f:
+    writer = GraphProfilerCsvWriter(B, file=f)
+    writer.write()
+print(&quot;Report is prepared.&quot;)
+</pre></div>
+</div>
+<p>You can also find
+<a class="reference external" href="http://43.196.179.83:8000/build-doc/doc/html/python/api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler">TimeProfiler</a>
+to profile, but it is more fine-grained in measureing execution time.</p>
+<p>With TimeProfiler, you can put a callback function to the forward and/or
+backward method in the training loop.</p>
+</section>
+<section id="value-tracer">
+<h2>Value Tracer<a class="headerlink" href="#value-tracer" title="Permalink to this headline"></a></h2>
+<p>We sometimes want to check if there exsits NaN/Inf. NanInfTracer is a
+convenient way to check if one of all layers in a graph has NaN/Inf
+value.</p>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span># Create graph again just in case
+nn.clear_parameters()  # call this in case you want to run the following code agian
+
+# Try to switch these two
+x = nn.Variable.from_numpy_array(np.random.randn(*[4, 3, 64, 64]))
+#x = nn.Variable([4, 3, 64, 64])
+pred = network(x)
+
+# NanInfTracer
+from nnabla.utils.inspection import NanInfTracer
+nit = NanInfTracer(trace_inf=True, trace_nan=True, need_details=True)
+
+with nit.trace():
+    # Try to comment either of these two or both
+    pred.forward(function_post_hook=nit.forward_post_hook)
+    pred.backward(function_post_hook=nit.backward_post_hook)
+
+print(nit.check())
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="model_finetuning.html" class="btn btn-neutral float-left" title="NNabla Models Finetuning Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dynamic_and_static_nn.html" class="btn btn-neutral float-right" title="Static vs Dynamic Neural Networks in NNabla" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

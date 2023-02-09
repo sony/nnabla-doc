@@ -1,0 +1,6 @@
+class nbla::Norm
+========================================
+
+.. doxygenclass:: nbla::Norm
+	:project: Cpp
+	:members: 

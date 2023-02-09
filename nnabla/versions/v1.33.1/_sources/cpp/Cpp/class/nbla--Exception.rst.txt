@@ -1,0 +1,6 @@
+class nbla::Exception
+========================================
+
+.. doxygenclass:: nbla::Exception
+	:project: Cpp
+	:members: 

@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ API Document &mdash; Neural Network Libraries 1.33.1 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="NNABLA C++ API Document" href="cpp_api.html" />
+    <link rel="prev" title="C++ API Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.33.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">C++ API Document</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="cpp_api.html">NNABLA C++ API Document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../cpp.html">C++ API</a></li>
+      <li class="breadcrumb-item active">C++ API Document</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/cpp/doc.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-api-document">
+<h1>C++ API Document<a class="headerlink" href="#c-api-document" title="Permalink to this headline"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="cpp_api.html">NNABLA C++ API Document</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Cpp/class.html">NNABLA Class</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Abs.html">class Abs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/AbsoluteError.html">class AbsoluteError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ACos.html">class ACos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ACosh.html">class ACosh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AdaBelief.html">class nbla::AdaBelief</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AdaBound.html">class nbla::AdaBound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Adadelta.html">class nbla::Adadelta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Adagrad.html">class nbla::Adagrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Adam.html">class nbla::Adam</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Adamax.html">class nbla::Adamax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AdamW.html">class nbla::AdamW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AdaptiveSeparableConvolution.html">class nbla::AdaptiveSeparableConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Add2.html">class nbla::Add2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AddN.html">class nbla::AddN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/AddScalar.html">class AddScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Affine.html">class nbla::Affine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AffineGrid.html">class nbla::AffineGrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Allocator.html">class nbla::Allocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AllocatorMemory.html">class nbla::AllocatorMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AMSBound.html">class nbla::AMSBound</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AMSGRAD.html">class nbla::AMSGRAD</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Arange.html">class nbla::Arange</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Array.html">class nbla::Array</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ArrayCreator.html">class nbla::ArrayCreator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ArrayGroup.html">class nbla::ArrayGroup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ArraySynchronizer.html">class nbla::ArraySynchronizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ASin.html">class ASin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ASinh.html">class ASinh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Assign.html">class nbla::Assign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ATan.html">class ATan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ATan2.html">class ATan2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Atanh.html">class Atanh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AutoForward.html">class nbla::AutoForward</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--AveragePooling.html">class nbla::AveragePooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BackendBase.html">class nbla::BackendBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BackendUtils.html">class nbla::BackendUtils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BaseCgVariable.html">class nbla::BaseCgVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BaseFunction.html">class nbla::BaseFunction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BaseNdArray.html">class nbla::BaseNdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BasePooling.html">class nbla::BasePooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BaseTransformBinary.html">class nbla::BaseTransformBinary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BaseTransformUnary.html">class nbla::BaseTransformUnary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BaseVariable.html">class nbla::BaseVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BatchCholesky.html">class nbla::BatchCholesky</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BatchDet.html">class nbla::BatchDet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BatchInv.html">class nbla::BatchInv</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BatchLogdet.html">class nbla::BatchLogdet</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BatchMatmul.html">class nbla::BatchMatmul</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BatchNormalization.html">class nbla::BatchNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/BcAdd2.html">class BcAdd2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BinaryConnectAffine.html">class nbla::BinaryConnectAffine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BinaryConnectConvolution.html">class nbla::BinaryConnectConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BinaryCrossEntropy.html">class nbla::BinaryCrossEntropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BinaryError.html">class nbla::BinaryError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/BinarySigmoid.html">class BinarySigmoid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/BinaryTanh.html">class BinaryTanh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BinaryWeightAffine.html">class nbla::BinaryWeightAffine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BinaryWeightConvolution.html">class nbla::BinaryWeightConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BoolFill.html">class nbla::BoolFill</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BoolGather.html">class nbla::BoolGather</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BoolScatter.html">class nbla::BoolScatter</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Broadcast.html">class nbla::Broadcast</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--BroadcastTo.html">class nbla::BroadcastTo</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CachingAllocatorWithBuckets.html">class nbla::CachingAllocatorWithBuckets</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CachingAllocatorWithBucketsBase.html">class nbla::CachingAllocatorWithBucketsBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Callback.html">class nbla::Callback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CategoricalCrossEntropy.html">class nbla::CategoricalCrossEntropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Ceil.html">class Ceil</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CELU.html">class nbla::CELU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CgFunction.html">class nbla::CgFunction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CgVariable.html">class nbla::CgVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ChannelFirstAdaptor.html">class nbla::ChannelFirstAdaptor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ClearCalledFlagRecorder.html">class nbla::ClearCalledFlagRecorder</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ClipGradByNorm.html">class nbla::ClipGradByNorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ClipGradByValue.html">class nbla::ClipGradByValue</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Communicator.html">class nbla::Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Concatenate.html">class nbla::Concatenate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ConfusionMatrix.html">class nbla::ConfusionMatrix</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Constant.html">class nbla::Constant</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Context.html">class nbla::Context</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Convolution.html">class nbla::Convolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Cos.html">class Cos</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Cosh.html">class Cosh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Cpu.html">class nbla::Cpu</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CpuArray.html">class nbla::CpuArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CpuCachedArray.html">class nbla::CpuCachedArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CpuDlpackArray.html">class nbla::CpuDlpackArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CpuMemory.html">class nbla::CpuMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CReLU.html">class nbla::CReLU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CumProd.html">class nbla::CumProd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--CumSum.html">class nbla::CumSum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DataParallelCommunicator.html">class nbla::DataParallelCommunicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Deconvolution.html">class nbla::Deconvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DeformableConvolution.html">class nbla::DeformableConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DepthwiseConvolution.html">class nbla::DepthwiseConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DepthwiseDeconvolution.html">class nbla::DepthwiseDeconvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DequantizeLinear.html">class nbla::DequantizeLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DestructorCallback.html">class nbla::DestructorCallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Div2.html">class Div2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DlpackArray.html">class nbla::DlpackArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--DlpackArrayRegistry.html">class nbla::DlpackArrayRegistry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Dropout.html">class nbla::Dropout</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/ELU.html">class ELU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Embed.html">class nbla::Embed</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/EqualScalar.html">class EqualScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Erf.html">class Erf</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Exception.html">class nbla::Exception</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--utils--nnp--Executor.html">class nbla::utils::nnp::Executor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Exp.html">class Exp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FFT.html">class nbla::FFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FixedPointQuantize.html">class nbla::FixedPointQuantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Flip.html">class nbla::Flip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Floor.html">class Floor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Function.html">class nbla::Function</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FunctionDb.html">class nbla::FunctionDb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FunctionHookWithObject.html">class nbla::FunctionHookWithObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FunctionRegistry.html">class nbla::FunctionRegistry</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FusedBatchNormalization.html">class nbla::FusedBatchNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--FusedConvolution.html">class nbla::FusedConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GarbageCollector.html">class nbla::GarbageCollector</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Gather.html">class nbla::Gather</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GatherNd.html">class nbla::GatherNd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GlobalAveragePooling.html">class nbla::GlobalAveragePooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GlobalClearBufferState.html">class nbla::GlobalClearBufferState</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GlobalContext.html">class nbla::GlobalContext</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GlobalFunctionCallback.html">class nbla::GlobalFunctionCallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GlobalSolverCallback.html">class nbla::GlobalSolverCallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/GreaterEqualScalar.html">class GreaterEqualScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/GreaterScalar.html">class GreaterScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GroupNormalization.html">class nbla::GroupNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--GRU.html">class nbla::GRU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Hard.html">class Hard</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/HardTanh.html">class HardTanh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/HuberLoss.html">class HuberLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/HuberLoss.html">class HuberLoss</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Identity.html">class nbla::Identity</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--IFFT.html">class nbla::IFFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ImageAugmentation.html">class nbla::ImageAugmentation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--INQAffine.html">class nbla::INQAffine</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--INQConvolution.html">class nbla::INQConvolution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--InstanceNormalization.html">class nbla::InstanceNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Interpolate.html">class nbla::Interpolate</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ISTFT.html">class nbla::ISTFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--KLMultinomial.html">class nbla::KLMultinomial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Lamb.html">class nbla::Lamb</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Lars.html">class nbla::Lars</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--LayerNormalization.html">class nbla::LayerNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--LeakyReLU.html">class nbla::LeakyReLU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/LessEqualScalar.html">class LessEqualScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/LessScalar.html">class LessScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Linspace.html">class nbla::Linspace</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Log.html">class Log</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/LogicalAndScalar.html">class LogicalAndScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/LogicalOrScalar.html">class LogicalOrScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/LogicalXorScalar.html">class LogicalXorScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/LogSigmoid.html">class LogSigmoid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--LogSoftmax.html">class nbla::LogSoftmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--LSTM.html">class nbla::LSTM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MatrixDiag.html">class nbla::MatrixDiag</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MatrixDiagPart.html">class nbla::MatrixDiagPart</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Max.html">class nbla::Max</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Maximum2.html">class Maximum2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/MaximumScalar.html">class MaximumScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MaxPooling.html">class nbla::MaxPooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MaxPoolingBackward.html">class nbla::MaxPoolingBackward</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Mean.html">class nbla::Mean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MeanSubtraction.html">class nbla::MeanSubtraction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Memory.html">class nbla::Memory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Meshgrid.html">class nbla::Meshgrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Min.html">class nbla::Min</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Minimum2.html">class Minimum2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/MinimumScalar.html">class MinimumScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MinMaxQuantize.html">class nbla::MinMaxQuantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Momentum.html">class nbla::Momentum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--utils--nnp--Monitor.html">class nbla::utils::nnp::Monitor</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Mul2.html">class Mul2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MulN.html">class nbla::MulN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/MulScalar.html">class MulScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--MultiProcessDataParallelCommunicator.html">class nbla::MultiProcessDataParallelCommunicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--NaiveAllocator.html">class nbla::NaiveAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--NdArray.html">class nbla::NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Nesterov.html">class nbla::Nesterov</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--utils--nnp--Network.html">class nbla::utils::nnp::Network</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--NmsDetection2d.html">class nbla::NmsDetection2d</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--NNabla.html">class nbla::NNabla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--utils--nnp--Nnp.html">class nbla::utils::nnp::Nnp</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Norm.html">class nbla::Norm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--NormNormalization.html">class nbla::NormNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/NotEqualScalar.html">class NotEqualScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--OneHot.html">class nbla::OneHot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--utils--nnp--Optimizer.html">class nbla::utils::nnp::Optimizer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--PackPaddedSequence.html">class nbla::PackPaddedSequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Pad.html">class nbla::Pad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--PadPackedSequence.html">class nbla::PadPackedSequence</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--PatchCorrelation.html">class nbla::PatchCorrelation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--PhysicalMemory.html">class nbla::PhysicalMemory</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Pow2.html">class Pow2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Pow2Quantize.html">class nbla::Pow2Quantize</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/PowScalar.html">class PowScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--PReLU.html">class nbla::PReLU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Prod.html">class nbla::Prod</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Prune.html">class nbla::Prune</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--QuantizeLinear.html">class nbla::QuantizeLinear</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Rand.html">class nbla::Rand</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandBeta.html">class nbla::RandBeta</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandBinomial.html">class nbla::RandBinomial</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandGamma.html">class nbla::RandGamma</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Randint.html">class nbla::Randint</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Randn.html">class nbla::Randn</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandomChoice.html">class nbla::RandomChoice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandomCrop.html">class nbla::RandomCrop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandomErase.html">class nbla::RandomErase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandomFlip.html">class nbla::RandomFlip</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandomManager.html">class nbla::RandomManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RandomShift.html">class nbla::RandomShift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/RDivScalar.html">class RDivScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Recompute.html">class nbla::Recompute</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ReduceMean.html">class nbla::ReduceMean</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ReduceSum.html">class nbla::ReduceSum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ReLU.html">class nbla::ReLU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Reshape.html">class nbla::Reshape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RMSprop.html">class nbla::RMSprop</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RMSpropGraves.html">class nbla::RMSpropGraves</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RNN.html">class nbla::RNN</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--RoiAlign.html">class nbla::RoiAlign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Round.html">class Round</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/RPowScalar.html">class RPowScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/RSubScalar.html">class RSubScalar</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ScatterAdd.html">class nbla::ScatterAdd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--ScatterNd.html">class nbla::ScatterNd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SearchSorted.html">class nbla::SearchSorted</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SELU.html">class nbla::SELU</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Sgd.html">class nbla::Sgd</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SgdW.html">class nbla::SgdW</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Shape.html">class nbla::Shape</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Shift.html">class nbla::Shift</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Sigmoid.html">class Sigmoid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SigmoidCrossEntropy.html">class nbla::SigmoidCrossEntropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Sign.html">class Sign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Sin.html">class Sin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Sinc.html">class Sinc</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SingletonManager.html">class nbla::SingletonManager</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Sinh.html">class Sinh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Sink.html">class nbla::Sink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Slice.html">class nbla::Slice</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Softmax.html">class nbla::Softmax</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SoftmaxCrossEntropy.html">class nbla::SoftmaxCrossEntropy</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/SoftSign.html">class SoftSign</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Solver.html">class nbla::Solver</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Sort.html">class nbla::Sort</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SpectralNorm.html">class nbla::SpectralNorm</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Split.html">class nbla::Split</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/SquaredError.html">class SquaredError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Stack.html">class nbla::Stack</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--STFT.html">class nbla::STFT</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Sub2.html">class Sub2</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Sum.html">class nbla::Sum</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SumPooling.html">class nbla::SumPooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SwapInOutScheduler.html">class nbla::SwapInOutScheduler</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Swish.html">class Swish</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SyncBatchNormalization.html">class nbla::SyncBatchNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SyncedArray.html">class nbla::SyncedArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--SyncedArrayCallback.html">class nbla::SyncedArrayCallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Tan.html">class Tan</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/Tanh.html">class Tanh</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/TanhShrink.html">class TanhShrink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--TensorNormalization.html">class nbla::TensorNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Tile.html">class nbla::Tile</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--TopKData.html">class nbla::TopKData</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--TopKGrad.html">class nbla::TopKGrad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--TopNError.html">class nbla::TopNError</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--utils--nnp--TrainingConfig.html">class nbla::utils::nnp::TrainingConfig</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--TransformBinary.html">class nbla::TransformBinary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--TransformUnary.html">class nbla::TransformUnary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Transpose.html">class nbla::Transpose</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Unlink.html">class nbla::Unlink</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Unpooling.html">class nbla::Unpooling</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--UpdateHookWithObject.html">class nbla::UpdateHookWithObject</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Variable.html">class nbla::Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--VATNoise.html">class nbla::VATNoise</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--VirtualCachingAllocator.html">class nbla::VirtualCachingAllocator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--VirtualCachingAllocatorBase.html">class nbla::VirtualCachingAllocatorBase</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--WarpByFlow.html">class nbla::WarpByFlow</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--WarpByGrid.html">class nbla::WarpByGrid</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--WeightNormalization.html">class nbla::WeightNormalization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--WeightStandardization.html">class nbla::WeightStandardization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/class/nbla--Where.html">class nbla::Where</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Cpp/struct.html">NNABLA Struct</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--CommunicatorBackwardCallback.html">struct nbla::CommunicatorBackwardCallback</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Executor--DataVariable.html">struct nbla::utils::nnp::Executor::DataVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Optimizer--DataVariable.html">struct nbla::utils::nnp::Optimizer::DataVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Monitor--DataVariable.html">struct nbla::utils::nnp::Monitor::DataVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--float_bits.html">struct nbla::float_bits</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--FunctionDbItem.html">struct nbla::FunctionDbItem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Optimizer--GeneratorVariable.html">struct nbla::utils::nnp::Optimizer::GeneratorVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Optimizer--LossVariable.html">struct nbla::utils::nnp::Optimizer::LossVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Monitor--MonitorVariable.html">struct nbla::utils::nnp::Monitor::MonitorVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Executor--OutputVariable.html">struct nbla::utils::nnp::Executor::OutputVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--PadItem.html">struct nbla::PadItem</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--utils--nnp--Optimizer--ParameterVariable.html">struct nbla::utils::nnp::Optimizer::ParameterVariable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--Solver--Params.html">struct nbla::Solver::Params</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--PoolingConfiguration.html">struct nbla::PoolingConfiguration</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/struct/nbla--Solver--SolverState.html">struct nbla::Solver::SolverState</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="Cpp/namespace.html">NNABLA Namespace</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/namespace/nbla.html">namespace nbla</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/namespace/nbla--utils.html">namespace nbla::utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="Cpp/namespace/nbla--utils--nnp.html">namespace nbla::utils::nnp</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="C++ API Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cpp_api.html" class="btn btn-neutral float-right" title="NNABLA C++ API Document" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

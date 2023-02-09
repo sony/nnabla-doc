@@ -1,0 +1,6 @@
+class nbla::RNN
+========================================
+
+.. doxygenclass:: nbla::RNN
+	:project: Cpp
+	:members: 

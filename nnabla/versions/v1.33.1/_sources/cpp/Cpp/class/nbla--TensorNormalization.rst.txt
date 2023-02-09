@@ -1,0 +1,6 @@
+class nbla::TensorNormalization
+========================================
+
+.. doxygenclass:: nbla::TensorNormalization
+	:project: Cpp
+	:members: 

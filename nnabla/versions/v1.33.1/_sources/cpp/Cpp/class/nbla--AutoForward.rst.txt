@@ -1,0 +1,6 @@
+class nbla::AutoForward
+========================================
+
+.. doxygenclass:: nbla::AutoForward
+	:project: Cpp
+	:members: 

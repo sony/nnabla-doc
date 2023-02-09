@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.backward_functions &mdash; Neural Network Libraries 1.33.1 documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.33.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.backward_functions</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.backward_functions</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2019,2020,2021 Sony Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="c1"># Backward function</span>
+<span class="kn">from</span> <span class="nn">.backward_function.affine</span> <span class="kn">import</span> <span class="n">affine_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.rnn</span> <span class="kn">import</span> <span class="n">rnn_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.lstm</span> <span class="kn">import</span> <span class="n">lstm_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.gru</span> <span class="kn">import</span> <span class="n">gru_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.convolution</span> <span class="kn">import</span> <span class="n">convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.fused_convolution</span> <span class="kn">import</span> <span class="n">fused_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.depthwise_convolution</span> <span class="kn">import</span> <span class="n">depthwise_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.deconvolution</span> <span class="kn">import</span> <span class="n">deconvolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.depthwise_deconvolution</span> <span class="kn">import</span> <span class="n">depthwise_deconvolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.deformable_convolution</span> <span class="kn">import</span> <span class="n">deformable_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.adaptive_separable_convolution</span> <span class="kn">import</span> <span class="n">adaptive_separable_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.max_pooling</span> <span class="kn">import</span> <span class="n">max_pooling_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.average_pooling</span> <span class="kn">import</span> <span class="n">average_pooling_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.global_average_pooling</span> <span class="kn">import</span> <span class="n">global_average_pooling_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sum_pooling</span> <span class="kn">import</span> <span class="n">sum_pooling_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.unpooling</span> <span class="kn">import</span> <span class="n">unpooling_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.embed</span> <span class="kn">import</span> <span class="n">embed_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.roi_align</span> <span class="kn">import</span> <span class="n">roi_align_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sigmoid</span> <span class="kn">import</span> <span class="n">sigmoid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.swish</span> <span class="kn">import</span> <span class="n">swish_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.tanh</span> <span class="kn">import</span> <span class="n">tanh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.relu</span> <span class="kn">import</span> <span class="n">relu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.leaky_relu</span> <span class="kn">import</span> <span class="n">leaky_relu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.softmax</span> <span class="kn">import</span> <span class="n">softmax_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.log_softmax</span> <span class="kn">import</span> <span class="n">log_softmax_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.elu</span> <span class="kn">import</span> <span class="n">elu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.selu</span> <span class="kn">import</span> <span class="n">selu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.crelu</span> <span class="kn">import</span> <span class="n">crelu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.celu</span> <span class="kn">import</span> <span class="n">celu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.prelu</span> <span class="kn">import</span> <span class="n">prelu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.gelu</span> <span class="kn">import</span> <span class="n">gelu_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.mish</span> <span class="kn">import</span> <span class="n">mish_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.relu6</span> <span class="kn">import</span> <span class="n">relu6_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.hard_sigmoid</span> <span class="kn">import</span> <span class="n">hard_sigmoid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.hard_tanh</span> <span class="kn">import</span> <span class="n">hard_tanh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.log_sigmoid</span> <span class="kn">import</span> <span class="n">log_sigmoid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.softplus</span> <span class="kn">import</span> <span class="n">softplus_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.softsign</span> <span class="kn">import</span> <span class="n">softsign_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.tanh_shrink</span> <span class="kn">import</span> <span class="n">tanh_shrink_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sinc</span> <span class="kn">import</span> <span class="n">sinc_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.fused_batch_normalization</span> <span class="kn">import</span> <span class="n">fused_batch_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_normalization</span> <span class="kn">import</span> <span class="n">batch_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.group_normalization</span> <span class="kn">import</span> <span class="n">group_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.instance_normalization</span> <span class="kn">import</span> <span class="n">instance_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.layer_normalization</span> <span class="kn">import</span> <span class="n">layer_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.norm_normalization</span> <span class="kn">import</span> <span class="n">norm_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sync_batch_normalization</span> <span class="kn">import</span> <span class="n">sync_batch_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.tensor_normalization</span> <span class="kn">import</span> <span class="n">tensor_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.weight_normalization</span> <span class="kn">import</span> <span class="n">weight_normalization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.weight_standardization</span> <span class="kn">import</span> <span class="n">weight_standardization_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.spectral_norm</span> <span class="kn">import</span> <span class="n">spectral_norm_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.mean_subtraction</span> <span class="kn">import</span> <span class="n">mean_subtraction_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.clip_grad_by_value</span> <span class="kn">import</span> <span class="n">clip_grad_by_value_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.clip_grad_by_norm</span> <span class="kn">import</span> <span class="n">clip_grad_by_norm_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sum</span> <span class="kn">import</span> <span class="n">sum_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.cumsum</span> <span class="kn">import</span> <span class="n">cumsum_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.mean</span> <span class="kn">import</span> <span class="n">mean_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.max</span> <span class="kn">import</span> <span class="n">max_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.min</span> <span class="kn">import</span> <span class="n">min_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.norm</span> <span class="kn">import</span> <span class="n">norm_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.prod</span> <span class="kn">import</span> <span class="n">prod_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.cumprod</span> <span class="kn">import</span> <span class="n">cumprod_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.reduce_sum</span> <span class="kn">import</span> <span class="n">reduce_sum_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.reduce_mean</span> <span class="kn">import</span> <span class="n">reduce_mean_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.add2</span> <span class="kn">import</span> <span class="n">add2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.add_n</span> <span class="kn">import</span> <span class="n">add_n_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.bc_add2</span> <span class="kn">import</span> <span class="n">bc_add2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sub2</span> <span class="kn">import</span> <span class="n">sub2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.mul2</span> <span class="kn">import</span> <span class="n">mul2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.mul_n</span> <span class="kn">import</span> <span class="n">mul_n_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.div2</span> <span class="kn">import</span> <span class="n">div2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pow2</span> <span class="kn">import</span> <span class="n">pow2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.add_scalar</span> <span class="kn">import</span> <span class="n">add_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.mul_scalar</span> <span class="kn">import</span> <span class="n">mul_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pow_scalar</span> <span class="kn">import</span> <span class="n">pow_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.r_sub_scalar</span> <span class="kn">import</span> <span class="n">r_sub_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.r_div_scalar</span> <span class="kn">import</span> <span class="n">r_div_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.r_pow_scalar</span> <span class="kn">import</span> <span class="n">r_pow_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sign</span> <span class="kn">import</span> <span class="n">sign_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.minimum2</span> <span class="kn">import</span> <span class="n">minimum2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.maximum2</span> <span class="kn">import</span> <span class="n">maximum2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.minimum_scalar</span> <span class="kn">import</span> <span class="n">minimum_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.maximum_scalar</span> <span class="kn">import</span> <span class="n">maximum_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_and</span> <span class="kn">import</span> <span class="n">logical_and_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_or</span> <span class="kn">import</span> <span class="n">logical_or_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_xor</span> <span class="kn">import</span> <span class="n">logical_xor_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.equal</span> <span class="kn">import</span> <span class="n">equal_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.not_equal</span> <span class="kn">import</span> <span class="n">not_equal_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.greater_equal</span> <span class="kn">import</span> <span class="n">greater_equal_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.greater</span> <span class="kn">import</span> <span class="n">greater_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.less_equal</span> <span class="kn">import</span> <span class="n">less_equal_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.less</span> <span class="kn">import</span> <span class="n">less_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.searchsorted</span> <span class="kn">import</span> <span class="n">searchsorted_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_and_scalar</span> <span class="kn">import</span> <span class="n">logical_and_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_or_scalar</span> <span class="kn">import</span> <span class="n">logical_or_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_xor_scalar</span> <span class="kn">import</span> <span class="n">logical_xor_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.equal_scalar</span> <span class="kn">import</span> <span class="n">equal_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.not_equal_scalar</span> <span class="kn">import</span> <span class="n">not_equal_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.greater_equal_scalar</span> <span class="kn">import</span> <span class="n">greater_equal_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.greater_scalar</span> <span class="kn">import</span> <span class="n">greater_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.less_equal_scalar</span> <span class="kn">import</span> <span class="n">less_equal_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.less_scalar</span> <span class="kn">import</span> <span class="n">less_scalar_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.logical_not</span> <span class="kn">import</span> <span class="n">logical_not_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.isnan</span> <span class="kn">import</span> <span class="n">isnan_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.isinf</span> <span class="kn">import</span> <span class="n">isinf_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.reset_nan</span> <span class="kn">import</span> <span class="n">reset_nan_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.reset_inf</span> <span class="kn">import</span> <span class="n">reset_inf_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.where</span> <span class="kn">import</span> <span class="n">where_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.constant</span> <span class="kn">import</span> <span class="n">constant_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.arange</span> <span class="kn">import</span> <span class="n">arange_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.linspace</span> <span class="kn">import</span> <span class="n">linspace_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.abs</span> <span class="kn">import</span> <span class="n">abs_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.exp</span> <span class="kn">import</span> <span class="n">exp_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.log</span> <span class="kn">import</span> <span class="n">log_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.identity</span> <span class="kn">import</span> <span class="n">identity_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_matmul</span> <span class="kn">import</span> <span class="n">batch_matmul_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.round</span> <span class="kn">import</span> <span class="n">round_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.ceil</span> <span class="kn">import</span> <span class="n">ceil_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.floor</span> <span class="kn">import</span> <span class="n">floor_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sin</span> <span class="kn">import</span> <span class="n">sin_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.cos</span> <span class="kn">import</span> <span class="n">cos_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.tan</span> <span class="kn">import</span> <span class="n">tan_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sinh</span> <span class="kn">import</span> <span class="n">sinh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.cosh</span> <span class="kn">import</span> <span class="n">cosh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.asin</span> <span class="kn">import</span> <span class="n">asin_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.acos</span> <span class="kn">import</span> <span class="n">acos_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.atan</span> <span class="kn">import</span> <span class="n">atan_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.atan2</span> <span class="kn">import</span> <span class="n">atan2_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.asinh</span> <span class="kn">import</span> <span class="n">asinh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.acosh</span> <span class="kn">import</span> <span class="n">acosh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.atanh</span> <span class="kn">import</span> <span class="n">atanh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.erf</span> <span class="kn">import</span> <span class="n">erf_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.concatenate</span> <span class="kn">import</span> <span class="n">concatenate_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.split</span> <span class="kn">import</span> <span class="n">split_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.stack</span> <span class="kn">import</span> <span class="n">stack_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.slice</span> <span class="kn">import</span> <span class="n">slice_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pad</span> <span class="kn">import</span> <span class="n">pad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.transpose</span> <span class="kn">import</span> <span class="n">transpose_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.broadcast</span> <span class="kn">import</span> <span class="n">broadcast_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.broadcast_to</span> <span class="kn">import</span> <span class="n">broadcast_to_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.tile</span> <span class="kn">import</span> <span class="n">tile_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.one_hot</span> <span class="kn">import</span> <span class="n">one_hot_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.flip</span> <span class="kn">import</span> <span class="n">flip_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.shift</span> <span class="kn">import</span> <span class="n">shift_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sort</span> <span class="kn">import</span> <span class="n">sort_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.reshape</span> <span class="kn">import</span> <span class="n">reshape_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.shape</span> <span class="kn">import</span> <span class="n">shape_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.matrix_diag</span> <span class="kn">import</span> <span class="n">matrix_diag_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.matrix_diag_part</span> <span class="kn">import</span> <span class="n">matrix_diag_part_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.meshgrid</span> <span class="kn">import</span> <span class="n">meshgrid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_det</span> <span class="kn">import</span> <span class="n">batch_det_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_inv</span> <span class="kn">import</span> <span class="n">batch_inv_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_logdet</span> <span class="kn">import</span> <span class="n">batch_logdet_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_cholesky</span> <span class="kn">import</span> <span class="n">batch_cholesky_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.assign</span> <span class="kn">import</span> <span class="n">assign_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.gather</span> <span class="kn">import</span> <span class="n">gather_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.gather_nd</span> <span class="kn">import</span> <span class="n">gather_nd_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.bool_gather</span> <span class="kn">import</span> <span class="n">bool_gather_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.scatter_nd</span> <span class="kn">import</span> <span class="n">scatter_nd_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.scatter_add</span> <span class="kn">import</span> <span class="n">scatter_add_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.bool_scatter</span> <span class="kn">import</span> <span class="n">bool_scatter_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.bool_fill</span> <span class="kn">import</span> <span class="n">bool_fill_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pack_padded_sequence</span> <span class="kn">import</span> <span class="n">pack_padded_sequence_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pad_packed_sequence</span> <span class="kn">import</span> <span class="n">pad_packed_sequence_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.interpolate</span> <span class="kn">import</span> <span class="n">interpolate_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.fft</span> <span class="kn">import</span> <span class="n">fft_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.ifft</span> <span class="kn">import</span> <span class="n">ifft_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.stft</span> <span class="kn">import</span> <span class="n">stft_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.istft</span> <span class="kn">import</span> <span class="n">istft_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.dropout</span> <span class="kn">import</span> <span class="n">dropout_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.top_k_data</span> <span class="kn">import</span> <span class="n">top_k_data_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.top_k_grad</span> <span class="kn">import</span> <span class="n">top_k_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.rand</span> <span class="kn">import</span> <span class="n">rand_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.randint</span> <span class="kn">import</span> <span class="n">randint_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.randn</span> <span class="kn">import</span> <span class="n">randn_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.rand_binomial</span> <span class="kn">import</span> <span class="n">rand_binomial_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.rand_beta</span> <span class="kn">import</span> <span class="n">rand_beta_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.rand_gamma</span> <span class="kn">import</span> <span class="n">rand_gamma_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.random_choice</span> <span class="kn">import</span> <span class="n">random_choice_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.random_crop</span> <span class="kn">import</span> <span class="n">random_crop_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.random_flip</span> <span class="kn">import</span> <span class="n">random_flip_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.random_shift</span> <span class="kn">import</span> <span class="n">random_shift_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.random_erase</span> <span class="kn">import</span> <span class="n">random_erase_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.image_augmentation</span> <span class="kn">import</span> <span class="n">image_augmentation_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sigmoid_cross_entropy</span> <span class="kn">import</span> <span class="n">sigmoid_cross_entropy_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_cross_entropy</span> <span class="kn">import</span> <span class="n">binary_cross_entropy_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.softmax_cross_entropy</span> <span class="kn">import</span> <span class="n">softmax_cross_entropy_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.categorical_cross_entropy</span> <span class="kn">import</span> <span class="n">categorical_cross_entropy_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.squared_error</span> <span class="kn">import</span> <span class="n">squared_error_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.absolute_error</span> <span class="kn">import</span> <span class="n">absolute_error_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.huber_loss</span> <span class="kn">import</span> <span class="n">huber_loss_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.epsilon_insensitive_loss</span> <span class="kn">import</span> <span class="n">epsilon_insensitive_loss_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.kl_multinomial</span> <span class="kn">import</span> <span class="n">kl_multinomial_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.affine_grid</span> <span class="kn">import</span> <span class="n">affine_grid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.warp_by_grid</span> <span class="kn">import</span> <span class="n">warp_by_grid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.warp_by_flow</span> <span class="kn">import</span> <span class="n">warp_by_flow_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_sigmoid</span> <span class="kn">import</span> <span class="n">binary_sigmoid_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_tanh</span> <span class="kn">import</span> <span class="n">binary_tanh_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_connect_affine</span> <span class="kn">import</span> <span class="n">binary_connect_affine_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_connect_convolution</span> <span class="kn">import</span> <span class="n">binary_connect_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_weight_affine</span> <span class="kn">import</span> <span class="n">binary_weight_affine_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_weight_convolution</span> <span class="kn">import</span> <span class="n">binary_weight_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.inq_affine</span> <span class="kn">import</span> <span class="n">inq_affine_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.inq_convolution</span> <span class="kn">import</span> <span class="n">inq_convolution_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.fixed_point_quantize</span> <span class="kn">import</span> <span class="n">fixed_point_quantize_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.min_max_quantize</span> <span class="kn">import</span> <span class="n">min_max_quantize_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pow2_quantize</span> <span class="kn">import</span> <span class="n">pow2_quantize_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.prune</span> <span class="kn">import</span> <span class="n">prune_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.quantize_linear</span> <span class="kn">import</span> <span class="n">quantize_linear_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.dequantize_linear</span> <span class="kn">import</span> <span class="n">dequantize_linear_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.top_n_error</span> <span class="kn">import</span> <span class="n">top_n_error_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.binary_error</span> <span class="kn">import</span> <span class="n">binary_error_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.confusion_matrix</span> <span class="kn">import</span> <span class="n">confusion_matrix_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.vat_noise</span> <span class="kn">import</span> <span class="n">vat_noise_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.unlink</span> <span class="kn">import</span> <span class="n">unlink_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sink</span> <span class="kn">import</span> <span class="n">sink_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.nms_detection2d</span> <span class="kn">import</span> <span class="n">nms_detection2d_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.max_pooling_backward</span> <span class="kn">import</span> <span class="n">max_pooling_backward_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.patch_correlation</span> <span class="kn">import</span> <span class="n">patch_correlation_backward</span>
+
+<span class="c1"># Mapping</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+<span class="n">registry</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+
+<span class="n">registry</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">Affine</span><span class="o">=</span><span class="n">affine_backward</span><span class="p">,</span>
+    <span class="n">RNN</span><span class="o">=</span><span class="n">rnn_backward</span><span class="p">,</span>
+    <span class="n">LSTM</span><span class="o">=</span><span class="n">lstm_backward</span><span class="p">,</span>
+    <span class="n">GRU</span><span class="o">=</span><span class="n">gru_backward</span><span class="p">,</span>
+    <span class="n">Convolution</span><span class="o">=</span><span class="n">convolution_backward</span><span class="p">,</span>
+    <span class="n">FusedConvolution</span><span class="o">=</span><span class="n">fused_convolution_backward</span><span class="p">,</span>
+    <span class="n">DepthwiseConvolution</span><span class="o">=</span><span class="n">depthwise_convolution_backward</span><span class="p">,</span>
+    <span class="n">Deconvolution</span><span class="o">=</span><span class="n">deconvolution_backward</span><span class="p">,</span>
+    <span class="n">DepthwiseDeconvolution</span><span class="o">=</span><span class="n">depthwise_deconvolution_backward</span><span class="p">,</span>
+    <span class="n">DeformableConvolution</span><span class="o">=</span><span class="n">deformable_convolution_backward</span><span class="p">,</span>
+    <span class="n">AdaptiveSeparableConvolution</span><span class="o">=</span><span class="n">adaptive_separable_convolution_backward</span><span class="p">,</span>
+    <span class="n">MaxPooling</span><span class="o">=</span><span class="n">max_pooling_backward</span><span class="p">,</span>
+    <span class="n">AveragePooling</span><span class="o">=</span><span class="n">average_pooling_backward</span><span class="p">,</span>
+    <span class="n">GlobalAveragePooling</span><span class="o">=</span><span class="n">global_average_pooling_backward</span><span class="p">,</span>
+    <span class="n">SumPooling</span><span class="o">=</span><span class="n">sum_pooling_backward</span><span class="p">,</span>
+    <span class="n">Unpooling</span><span class="o">=</span><span class="n">unpooling_backward</span><span class="p">,</span>
+    <span class="n">Embed</span><span class="o">=</span><span class="n">embed_backward</span><span class="p">,</span>
+    <span class="n">RoiAlign</span><span class="o">=</span><span class="n">roi_align_backward</span><span class="p">,</span>
+    <span class="n">Sigmoid</span><span class="o">=</span><span class="n">sigmoid_backward</span><span class="p">,</span>
+    <span class="n">Swish</span><span class="o">=</span><span class="n">swish_backward</span><span class="p">,</span>
+    <span class="n">Tanh</span><span class="o">=</span><span class="n">tanh_backward</span><span class="p">,</span>
+    <span class="n">ReLU</span><span class="o">=</span><span class="n">relu_backward</span><span class="p">,</span>
+    <span class="n">LeakyReLU</span><span class="o">=</span><span class="n">leaky_relu_backward</span><span class="p">,</span>
+    <span class="n">Softmax</span><span class="o">=</span><span class="n">softmax_backward</span><span class="p">,</span>
+    <span class="n">LogSoftmax</span><span class="o">=</span><span class="n">log_softmax_backward</span><span class="p">,</span>
+    <span class="n">ELU</span><span class="o">=</span><span class="n">elu_backward</span><span class="p">,</span>
+    <span class="n">SELU</span><span class="o">=</span><span class="n">selu_backward</span><span class="p">,</span>
+    <span class="n">CReLU</span><span class="o">=</span><span class="n">crelu_backward</span><span class="p">,</span>
+    <span class="n">CELU</span><span class="o">=</span><span class="n">celu_backward</span><span class="p">,</span>
+    <span class="n">PReLU</span><span class="o">=</span><span class="n">prelu_backward</span><span class="p">,</span>
+    <span class="n">GELU</span><span class="o">=</span><span class="n">gelu_backward</span><span class="p">,</span>
+    <span class="n">Mish</span><span class="o">=</span><span class="n">mish_backward</span><span class="p">,</span>
+    <span class="n">ReLU6</span><span class="o">=</span><span class="n">relu6_backward</span><span class="p">,</span>
+    <span class="n">HardSigmoid</span><span class="o">=</span><span class="n">hard_sigmoid_backward</span><span class="p">,</span>
+    <span class="n">HardTanh</span><span class="o">=</span><span class="n">hard_tanh_backward</span><span class="p">,</span>
+    <span class="n">LogSigmoid</span><span class="o">=</span><span class="n">log_sigmoid_backward</span><span class="p">,</span>
+    <span class="n">SoftPlus</span><span class="o">=</span><span class="n">softplus_backward</span><span class="p">,</span>
+    <span class="n">SoftSign</span><span class="o">=</span><span class="n">softsign_backward</span><span class="p">,</span>
+    <span class="n">TanhShrink</span><span class="o">=</span><span class="n">tanh_shrink_backward</span><span class="p">,</span>
+    <span class="n">Sinc</span><span class="o">=</span><span class="n">sinc_backward</span><span class="p">,</span>
+    <span class="n">FusedBatchNormalization</span><span class="o">=</span><span class="n">fused_batch_normalization_backward</span><span class="p">,</span>
+    <span class="n">BatchNormalization</span><span class="o">=</span><span class="n">batch_normalization_backward</span><span class="p">,</span>
+    <span class="n">GroupNormalization</span><span class="o">=</span><span class="n">group_normalization_backward</span><span class="p">,</span>
+    <span class="n">InstanceNormalization</span><span class="o">=</span><span class="n">instance_normalization_backward</span><span class="p">,</span>
+    <span class="n">LayerNormalization</span><span class="o">=</span><span class="n">layer_normalization_backward</span><span class="p">,</span>
+    <span class="n">NormNormalization</span><span class="o">=</span><span class="n">norm_normalization_backward</span><span class="p">,</span>
+    <span class="n">SyncBatchNormalization</span><span class="o">=</span><span class="n">sync_batch_normalization_backward</span><span class="p">,</span>
+    <span class="n">TensorNormalization</span><span class="o">=</span><span class="n">tensor_normalization_backward</span><span class="p">,</span>
+    <span class="n">WeightNormalization</span><span class="o">=</span><span class="n">weight_normalization_backward</span><span class="p">,</span>
+    <span class="n">WeightStandardization</span><span class="o">=</span><span class="n">weight_standardization_backward</span><span class="p">,</span>
+    <span class="n">SpectralNorm</span><span class="o">=</span><span class="n">spectral_norm_backward</span><span class="p">,</span>
+    <span class="n">MeanSubtraction</span><span class="o">=</span><span class="n">mean_subtraction_backward</span><span class="p">,</span>
+    <span class="n">ClipGradByValue</span><span class="o">=</span><span class="n">clip_grad_by_value_backward</span><span class="p">,</span>
+    <span class="n">ClipGradByNorm</span><span class="o">=</span><span class="n">clip_grad_by_norm_backward</span><span class="p">,</span>
+    <span class="n">Sum</span><span class="o">=</span><span class="n">sum_backward</span><span class="p">,</span>
+    <span class="n">CumSum</span><span class="o">=</span><span class="n">cumsum_backward</span><span class="p">,</span>
+    <span class="n">Mean</span><span class="o">=</span><span class="n">mean_backward</span><span class="p">,</span>
+    <span class="n">Max</span><span class="o">=</span><span class="n">max_backward</span><span class="p">,</span>
+    <span class="n">Min</span><span class="o">=</span><span class="n">min_backward</span><span class="p">,</span>
+    <span class="n">Norm</span><span class="o">=</span><span class="n">norm_backward</span><span class="p">,</span>
+    <span class="n">Prod</span><span class="o">=</span><span class="n">prod_backward</span><span class="p">,</span>
+    <span class="n">CumProd</span><span class="o">=</span><span class="n">cumprod_backward</span><span class="p">,</span>
+    <span class="n">ReduceSum</span><span class="o">=</span><span class="n">reduce_sum_backward</span><span class="p">,</span>
+    <span class="n">ReduceMean</span><span class="o">=</span><span class="n">reduce_mean_backward</span><span class="p">,</span>
+    <span class="n">Add2</span><span class="o">=</span><span class="n">add2_backward</span><span class="p">,</span>
+    <span class="n">AddN</span><span class="o">=</span><span class="n">add_n_backward</span><span class="p">,</span>
+    <span class="n">BcAdd2</span><span class="o">=</span><span class="n">bc_add2_backward</span><span class="p">,</span>
+    <span class="n">Sub2</span><span class="o">=</span><span class="n">sub2_backward</span><span class="p">,</span>
+    <span class="n">Mul2</span><span class="o">=</span><span class="n">mul2_backward</span><span class="p">,</span>
+    <span class="n">MulN</span><span class="o">=</span><span class="n">mul_n_backward</span><span class="p">,</span>
+    <span class="n">Div2</span><span class="o">=</span><span class="n">div2_backward</span><span class="p">,</span>
+    <span class="n">Pow2</span><span class="o">=</span><span class="n">pow2_backward</span><span class="p">,</span>
+    <span class="n">AddScalar</span><span class="o">=</span><span class="n">add_scalar_backward</span><span class="p">,</span>
+    <span class="n">MulScalar</span><span class="o">=</span><span class="n">mul_scalar_backward</span><span class="p">,</span>
+    <span class="n">PowScalar</span><span class="o">=</span><span class="n">pow_scalar_backward</span><span class="p">,</span>
+    <span class="n">RSubScalar</span><span class="o">=</span><span class="n">r_sub_scalar_backward</span><span class="p">,</span>
+    <span class="n">RDivScalar</span><span class="o">=</span><span class="n">r_div_scalar_backward</span><span class="p">,</span>
+    <span class="n">RPowScalar</span><span class="o">=</span><span class="n">r_pow_scalar_backward</span><span class="p">,</span>
+    <span class="n">Sign</span><span class="o">=</span><span class="n">sign_backward</span><span class="p">,</span>
+    <span class="n">Minimum2</span><span class="o">=</span><span class="n">minimum2_backward</span><span class="p">,</span>
+    <span class="n">Maximum2</span><span class="o">=</span><span class="n">maximum2_backward</span><span class="p">,</span>
+    <span class="n">MinimumScalar</span><span class="o">=</span><span class="n">minimum_scalar_backward</span><span class="p">,</span>
+    <span class="n">MaximumScalar</span><span class="o">=</span><span class="n">maximum_scalar_backward</span><span class="p">,</span>
+    <span class="n">LogicalAnd</span><span class="o">=</span><span class="n">logical_and_backward</span><span class="p">,</span>
+    <span class="n">LogicalOr</span><span class="o">=</span><span class="n">logical_or_backward</span><span class="p">,</span>
+    <span class="n">LogicalXor</span><span class="o">=</span><span class="n">logical_xor_backward</span><span class="p">,</span>
+    <span class="n">Equal</span><span class="o">=</span><span class="n">equal_backward</span><span class="p">,</span>
+    <span class="n">NotEqual</span><span class="o">=</span><span class="n">not_equal_backward</span><span class="p">,</span>
+    <span class="n">GreaterEqual</span><span class="o">=</span><span class="n">greater_equal_backward</span><span class="p">,</span>
+    <span class="n">Greater</span><span class="o">=</span><span class="n">greater_backward</span><span class="p">,</span>
+    <span class="n">LessEqual</span><span class="o">=</span><span class="n">less_equal_backward</span><span class="p">,</span>
+    <span class="n">Less</span><span class="o">=</span><span class="n">less_backward</span><span class="p">,</span>
+    <span class="n">SearchSorted</span><span class="o">=</span><span class="n">searchsorted_backward</span><span class="p">,</span>
+    <span class="n">LogicalAndScalar</span><span class="o">=</span><span class="n">logical_and_scalar_backward</span><span class="p">,</span>
+    <span class="n">LogicalOrScalar</span><span class="o">=</span><span class="n">logical_or_scalar_backward</span><span class="p">,</span>
+    <span class="n">LogicalXorScalar</span><span class="o">=</span><span class="n">logical_xor_scalar_backward</span><span class="p">,</span>
+    <span class="n">EqualScalar</span><span class="o">=</span><span class="n">equal_scalar_backward</span><span class="p">,</span>
+    <span class="n">NotEqualScalar</span><span class="o">=</span><span class="n">not_equal_scalar_backward</span><span class="p">,</span>
+    <span class="n">GreaterEqualScalar</span><span class="o">=</span><span class="n">greater_equal_scalar_backward</span><span class="p">,</span>
+    <span class="n">GreaterScalar</span><span class="o">=</span><span class="n">greater_scalar_backward</span><span class="p">,</span>
+    <span class="n">LessEqualScalar</span><span class="o">=</span><span class="n">less_equal_scalar_backward</span><span class="p">,</span>
+    <span class="n">LessScalar</span><span class="o">=</span><span class="n">less_scalar_backward</span><span class="p">,</span>
+    <span class="n">LogicalNot</span><span class="o">=</span><span class="n">logical_not_backward</span><span class="p">,</span>
+    <span class="n">IsNaN</span><span class="o">=</span><span class="n">isnan_backward</span><span class="p">,</span>
+    <span class="n">IsInf</span><span class="o">=</span><span class="n">isinf_backward</span><span class="p">,</span>
+    <span class="n">ResetNaN</span><span class="o">=</span><span class="n">reset_nan_backward</span><span class="p">,</span>
+    <span class="n">ResetInf</span><span class="o">=</span><span class="n">reset_inf_backward</span><span class="p">,</span>
+    <span class="n">Where</span><span class="o">=</span><span class="n">where_backward</span><span class="p">,</span>
+    <span class="n">Constant</span><span class="o">=</span><span class="n">constant_backward</span><span class="p">,</span>
+    <span class="n">Arange</span><span class="o">=</span><span class="n">arange_backward</span><span class="p">,</span>
+    <span class="n">Linspace</span><span class="o">=</span><span class="n">linspace_backward</span><span class="p">,</span>
+    <span class="n">Abs</span><span class="o">=</span><span class="n">abs_backward</span><span class="p">,</span>
+    <span class="n">Exp</span><span class="o">=</span><span class="n">exp_backward</span><span class="p">,</span>
+    <span class="n">Log</span><span class="o">=</span><span class="n">log_backward</span><span class="p">,</span>
+    <span class="n">Identity</span><span class="o">=</span><span class="n">identity_backward</span><span class="p">,</span>
+    <span class="n">BatchMatmul</span><span class="o">=</span><span class="n">batch_matmul_backward</span><span class="p">,</span>
+    <span class="n">Round</span><span class="o">=</span><span class="n">round_backward</span><span class="p">,</span>
+    <span class="n">Ceil</span><span class="o">=</span><span class="n">ceil_backward</span><span class="p">,</span>
+    <span class="n">Floor</span><span class="o">=</span><span class="n">floor_backward</span><span class="p">,</span>
+    <span class="n">Sin</span><span class="o">=</span><span class="n">sin_backward</span><span class="p">,</span>
+    <span class="n">Cos</span><span class="o">=</span><span class="n">cos_backward</span><span class="p">,</span>
+    <span class="n">Tan</span><span class="o">=</span><span class="n">tan_backward</span><span class="p">,</span>
+    <span class="n">Sinh</span><span class="o">=</span><span class="n">sinh_backward</span><span class="p">,</span>
+    <span class="n">Cosh</span><span class="o">=</span><span class="n">cosh_backward</span><span class="p">,</span>
+    <span class="n">ASin</span><span class="o">=</span><span class="n">asin_backward</span><span class="p">,</span>
+    <span class="n">ACos</span><span class="o">=</span><span class="n">acos_backward</span><span class="p">,</span>
+    <span class="n">ATan</span><span class="o">=</span><span class="n">atan_backward</span><span class="p">,</span>
+    <span class="n">ATan2</span><span class="o">=</span><span class="n">atan2_backward</span><span class="p">,</span>
+    <span class="n">ASinh</span><span class="o">=</span><span class="n">asinh_backward</span><span class="p">,</span>
+    <span class="n">ACosh</span><span class="o">=</span><span class="n">acosh_backward</span><span class="p">,</span>
+    <span class="n">ATanh</span><span class="o">=</span><span class="n">atanh_backward</span><span class="p">,</span>
+    <span class="n">Erf</span><span class="o">=</span><span class="n">erf_backward</span><span class="p">,</span>
+    <span class="n">Concatenate</span><span class="o">=</span><span class="n">concatenate_backward</span><span class="p">,</span>
+    <span class="n">Split</span><span class="o">=</span><span class="n">split_backward</span><span class="p">,</span>
+    <span class="n">Stack</span><span class="o">=</span><span class="n">stack_backward</span><span class="p">,</span>
+    <span class="n">Slice</span><span class="o">=</span><span class="n">slice_backward</span><span class="p">,</span>
+    <span class="n">Pad</span><span class="o">=</span><span class="n">pad_backward</span><span class="p">,</span>
+    <span class="n">Transpose</span><span class="o">=</span><span class="n">transpose_backward</span><span class="p">,</span>
+    <span class="n">Broadcast</span><span class="o">=</span><span class="n">broadcast_backward</span><span class="p">,</span>
+    <span class="n">BroadcastTo</span><span class="o">=</span><span class="n">broadcast_to_backward</span><span class="p">,</span>
+    <span class="n">Tile</span><span class="o">=</span><span class="n">tile_backward</span><span class="p">,</span>
+    <span class="n">OneHot</span><span class="o">=</span><span class="n">one_hot_backward</span><span class="p">,</span>
+    <span class="n">Flip</span><span class="o">=</span><span class="n">flip_backward</span><span class="p">,</span>
+    <span class="n">Shift</span><span class="o">=</span><span class="n">shift_backward</span><span class="p">,</span>
+    <span class="n">Sort</span><span class="o">=</span><span class="n">sort_backward</span><span class="p">,</span>
+    <span class="n">Reshape</span><span class="o">=</span><span class="n">reshape_backward</span><span class="p">,</span>
+    <span class="n">Shape</span><span class="o">=</span><span class="n">shape_backward</span><span class="p">,</span>
+    <span class="n">MatrixDiag</span><span class="o">=</span><span class="n">matrix_diag_backward</span><span class="p">,</span>
+    <span class="n">MatrixDiagPart</span><span class="o">=</span><span class="n">matrix_diag_part_backward</span><span class="p">,</span>
+    <span class="n">Meshgrid</span><span class="o">=</span><span class="n">meshgrid_backward</span><span class="p">,</span>
+    <span class="n">BatchDet</span><span class="o">=</span><span class="n">batch_det_backward</span><span class="p">,</span>
+    <span class="n">BatchInv</span><span class="o">=</span><span class="n">batch_inv_backward</span><span class="p">,</span>
+    <span class="n">BatchLogdet</span><span class="o">=</span><span class="n">batch_logdet_backward</span><span class="p">,</span>
+    <span class="n">BatchCholesky</span><span class="o">=</span><span class="n">batch_cholesky_backward</span><span class="p">,</span>
+    <span class="n">Assign</span><span class="o">=</span><span class="n">assign_backward</span><span class="p">,</span>
+    <span class="n">Gather</span><span class="o">=</span><span class="n">gather_backward</span><span class="p">,</span>
+    <span class="n">GatherNd</span><span class="o">=</span><span class="n">gather_nd_backward</span><span class="p">,</span>
+    <span class="n">BoolGather</span><span class="o">=</span><span class="n">bool_gather_backward</span><span class="p">,</span>
+    <span class="n">ScatterNd</span><span class="o">=</span><span class="n">scatter_nd_backward</span><span class="p">,</span>
+    <span class="n">ScatterAdd</span><span class="o">=</span><span class="n">scatter_add_backward</span><span class="p">,</span>
+    <span class="n">BoolScatter</span><span class="o">=</span><span class="n">bool_scatter_backward</span><span class="p">,</span>
+    <span class="n">BoolFill</span><span class="o">=</span><span class="n">bool_fill_backward</span><span class="p">,</span>
+    <span class="n">PackPaddedSequence</span><span class="o">=</span><span class="n">pack_padded_sequence_backward</span><span class="p">,</span>
+    <span class="n">PadPackedSequence</span><span class="o">=</span><span class="n">pad_packed_sequence_backward</span><span class="p">,</span>
+    <span class="n">Interpolate</span><span class="o">=</span><span class="n">interpolate_backward</span><span class="p">,</span>
+    <span class="n">FFT</span><span class="o">=</span><span class="n">fft_backward</span><span class="p">,</span>
+    <span class="n">IFFT</span><span class="o">=</span><span class="n">ifft_backward</span><span class="p">,</span>
+    <span class="n">STFT</span><span class="o">=</span><span class="n">stft_backward</span><span class="p">,</span>
+    <span class="n">ISTFT</span><span class="o">=</span><span class="n">istft_backward</span><span class="p">,</span>
+    <span class="n">Dropout</span><span class="o">=</span><span class="n">dropout_backward</span><span class="p">,</span>
+    <span class="n">TopKData</span><span class="o">=</span><span class="n">top_k_data_backward</span><span class="p">,</span>
+    <span class="n">TopKGrad</span><span class="o">=</span><span class="n">top_k_grad_backward</span><span class="p">,</span>
+    <span class="n">Rand</span><span class="o">=</span><span class="n">rand_backward</span><span class="p">,</span>
+    <span class="n">Randint</span><span class="o">=</span><span class="n">randint_backward</span><span class="p">,</span>
+    <span class="n">Randn</span><span class="o">=</span><span class="n">randn_backward</span><span class="p">,</span>
+    <span class="n">RandBinomial</span><span class="o">=</span><span class="n">rand_binomial_backward</span><span class="p">,</span>
+    <span class="n">RandBeta</span><span class="o">=</span><span class="n">rand_beta_backward</span><span class="p">,</span>
+    <span class="n">RandGamma</span><span class="o">=</span><span class="n">rand_gamma_backward</span><span class="p">,</span>
+    <span class="n">RandomChoice</span><span class="o">=</span><span class="n">random_choice_backward</span><span class="p">,</span>
+    <span class="n">RandomCrop</span><span class="o">=</span><span class="n">random_crop_backward</span><span class="p">,</span>
+    <span class="n">RandomFlip</span><span class="o">=</span><span class="n">random_flip_backward</span><span class="p">,</span>
+    <span class="n">RandomShift</span><span class="o">=</span><span class="n">random_shift_backward</span><span class="p">,</span>
+    <span class="n">RandomErase</span><span class="o">=</span><span class="n">random_erase_backward</span><span class="p">,</span>
+    <span class="n">ImageAugmentation</span><span class="o">=</span><span class="n">image_augmentation_backward</span><span class="p">,</span>
+    <span class="n">SigmoidCrossEntropy</span><span class="o">=</span><span class="n">sigmoid_cross_entropy_backward</span><span class="p">,</span>
+    <span class="n">BinaryCrossEntropy</span><span class="o">=</span><span class="n">binary_cross_entropy_backward</span><span class="p">,</span>
+    <span class="n">SoftmaxCrossEntropy</span><span class="o">=</span><span class="n">softmax_cross_entropy_backward</span><span class="p">,</span>
+    <span class="n">CategoricalCrossEntropy</span><span class="o">=</span><span class="n">categorical_cross_entropy_backward</span><span class="p">,</span>
+    <span class="n">SquaredError</span><span class="o">=</span><span class="n">squared_error_backward</span><span class="p">,</span>
+    <span class="n">AbsoluteError</span><span class="o">=</span><span class="n">absolute_error_backward</span><span class="p">,</span>
+    <span class="n">HuberLoss</span><span class="o">=</span><span class="n">huber_loss_backward</span><span class="p">,</span>
+    <span class="n">EpsilonInsensitiveLoss</span><span class="o">=</span><span class="n">epsilon_insensitive_loss_backward</span><span class="p">,</span>
+    <span class="n">KLMultinomial</span><span class="o">=</span><span class="n">kl_multinomial_backward</span><span class="p">,</span>
+    <span class="n">AffineGrid</span><span class="o">=</span><span class="n">affine_grid_backward</span><span class="p">,</span>
+    <span class="n">WarpByGrid</span><span class="o">=</span><span class="n">warp_by_grid_backward</span><span class="p">,</span>
+    <span class="n">WarpByFlow</span><span class="o">=</span><span class="n">warp_by_flow_backward</span><span class="p">,</span>
+    <span class="n">BinarySigmoid</span><span class="o">=</span><span class="n">binary_sigmoid_backward</span><span class="p">,</span>
+    <span class="n">BinaryTanh</span><span class="o">=</span><span class="n">binary_tanh_backward</span><span class="p">,</span>
+    <span class="n">BinaryConnectAffine</span><span class="o">=</span><span class="n">binary_connect_affine_backward</span><span class="p">,</span>
+    <span class="n">BinaryConnectConvolution</span><span class="o">=</span><span class="n">binary_connect_convolution_backward</span><span class="p">,</span>
+    <span class="n">BinaryWeightAffine</span><span class="o">=</span><span class="n">binary_weight_affine_backward</span><span class="p">,</span>
+    <span class="n">BinaryWeightConvolution</span><span class="o">=</span><span class="n">binary_weight_convolution_backward</span><span class="p">,</span>
+    <span class="n">INQAffine</span><span class="o">=</span><span class="n">inq_affine_backward</span><span class="p">,</span>
+    <span class="n">INQConvolution</span><span class="o">=</span><span class="n">inq_convolution_backward</span><span class="p">,</span>
+    <span class="n">FixedPointQuantize</span><span class="o">=</span><span class="n">fixed_point_quantize_backward</span><span class="p">,</span>
+    <span class="n">MinMaxQuantize</span><span class="o">=</span><span class="n">min_max_quantize_backward</span><span class="p">,</span>
+    <span class="n">Pow2Quantize</span><span class="o">=</span><span class="n">pow2_quantize_backward</span><span class="p">,</span>
+    <span class="n">Prune</span><span class="o">=</span><span class="n">prune_backward</span><span class="p">,</span>
+    <span class="n">QuantizeLinear</span><span class="o">=</span><span class="n">quantize_linear_backward</span><span class="p">,</span>
+    <span class="n">DequantizeLinear</span><span class="o">=</span><span class="n">dequantize_linear_backward</span><span class="p">,</span>
+    <span class="n">TopNError</span><span class="o">=</span><span class="n">top_n_error_backward</span><span class="p">,</span>
+    <span class="n">BinaryError</span><span class="o">=</span><span class="n">binary_error_backward</span><span class="p">,</span>
+    <span class="n">ConfusionMatrix</span><span class="o">=</span><span class="n">confusion_matrix_backward</span><span class="p">,</span>
+    <span class="n">VATNoise</span><span class="o">=</span><span class="n">vat_noise_backward</span><span class="p">,</span>
+    <span class="n">Unlink</span><span class="o">=</span><span class="n">unlink_backward</span><span class="p">,</span>
+    <span class="n">Sink</span><span class="o">=</span><span class="n">sink_backward</span><span class="p">,</span>
+    <span class="n">NmsDetection2d</span><span class="o">=</span><span class="n">nms_detection2d_backward</span><span class="p">,</span>
+    <span class="n">MaxPoolingBackward</span><span class="o">=</span><span class="n">max_pooling_backward_backward</span><span class="p">,</span>
+    <span class="n">PatchCorrelation</span><span class="o">=</span><span class="n">patch_correlation_backward</span><span class="p">,</span>
+<span class="p">))</span>
+
+<span class="c1"># Update the mapping for the function of the periodic property in backwards</span>
+<span class="kn">from</span> <span class="nn">.backward_function.affine</span> <span class="kn">import</span> <span class="n">affine_data_grad_backward</span><span class="p">,</span> <span class="n">affine_filter_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.convolution</span> <span class="kn">import</span> <span class="n">convolution_data_grad_backward</span><span class="p">,</span> <span class="n">convolution_filter_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.deconvolution</span> <span class="kn">import</span> <span class="n">deconvolution_data_grad_backward</span><span class="p">,</span> <span class="n">deconvolution_filter_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.embed</span> <span class="kn">import</span> <span class="n">embed_filter_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.batch_normalization</span> <span class="kn">import</span> <span class="n">batch_normalization_backward_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.fused_batch_normalization</span> <span class="kn">import</span> <span class="n">fused_batch_normalization_backward_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.average_pooling</span> <span class="kn">import</span> <span class="n">average_pooling_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.global_average_pooling</span> <span class="kn">import</span> <span class="n">global_average_pooling_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.sum_pooling</span> <span class="kn">import</span> <span class="n">sum_pooling_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.unpooling</span> <span class="kn">import</span> <span class="n">unpooling_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.concatenate</span> <span class="kn">import</span> <span class="n">concatenate_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.slice</span> <span class="kn">import</span> <span class="n">slice_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.pad</span> <span class="kn">import</span> <span class="n">pad_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.transpose</span> <span class="kn">import</span> <span class="n">transpose_data_grad_backward</span>
+<span class="kn">from</span> <span class="nn">.backward_function.interpolate</span> <span class="kn">import</span> <span class="n">interpolate_data_grad_backward</span>
+
+<div class="viewcode-block" id="register"><a class="viewcode-back" href="../../python/api/grad.html#nnabla.backward_functions.register">[docs]</a><span class="k">def</span> <span class="nf">register</span><span class="p">(</span><span class="n">func_name</span><span class="p">,</span> <span class="n">func</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Register the backward function to a function.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">      func_name (str): The function class name, for example, Affine.</span>
+<span class="sd">      func (function): The function to be called as the backward function to the function `func_name`..</span>
+<span class="sd">                       Arguments of the func must be (ctx: nn.Context, inputs: list of nn.Variable, **kwargs)..</span>
+<span class="sd">                       The inputs are the ones to the function of the `func_name`. The kwargs are</span>
+<span class="sd">                       the arguments of the function. For example, if the `func_name` is Affine,</span>
+<span class="sd">                       func is `affine_backward`, the inputs are data, weights, and bias if necessary, and</span>
+<span class="sd">                       kwargs = dict(base_axis=base_axis).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">registry</span><span class="p">[</span><span class="n">func_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">func</span></div>
+
+<div class="viewcode-block" id="show_registry"><a class="viewcode-back" href="../../python/api/grad.html#nnabla.backward_functions.show_registry">[docs]</a><span class="k">def</span> <span class="nf">show_registry</span><span class="p">():</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Show all backward fuctions registry</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">registry</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Functions registered are ones which originally support the backward method.</span><span class="se">\n</span><span class="s2">&quot;</span>
+          <span class="s2">&quot;Functions e.g., F.constant which do not support the backward can be parts of &quot;</span>
+          <span class="s2">&quot;the computation graph targeted by nn.grad.&quot;</span><span class="p">)</span></div>
+
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;AffineDataGrad&quot;</span><span class="p">,</span> <span class="n">affine_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;AffineFilterGrad&quot;</span><span class="p">,</span> <span class="n">affine_filter_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;ConvolutionDataGrad&quot;</span><span class="p">,</span> <span class="n">convolution_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;ConvolutionFilterGrad&quot;</span><span class="p">,</span> <span class="n">convolution_filter_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;DeconvolutionDataGrad&quot;</span><span class="p">,</span> <span class="n">deconvolution_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;DeconvolutionFilterGrad&quot;</span><span class="p">,</span> <span class="n">deconvolution_filter_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;EmbedFilterGrad&quot;</span><span class="p">,</span> <span class="n">embed_filter_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;BatchNormalizationBackward&quot;</span><span class="p">,</span> <span class="n">batch_normalization_backward_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;FusedBatchNormalizationBackward&quot;</span><span class="p">,</span> <span class="n">fused_batch_normalization_backward_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;UnpoolingDataGrad&quot;</span><span class="p">,</span> <span class="n">unpooling_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;AveragePoolingDataGrad&quot;</span><span class="p">,</span> <span class="n">average_pooling_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;GlobalAveragePoolingDataGrad&quot;</span><span class="p">,</span> <span class="n">global_average_pooling_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;MaxPoolingBackwardDataGrad&quot;</span><span class="p">,</span> <span class="n">max_pooling_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;SumPoolingDataGrad&quot;</span><span class="p">,</span> <span class="n">sum_pooling_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;ConcatenateDataGrad&quot;</span><span class="p">,</span> <span class="n">concatenate_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;SliceDataGrad&quot;</span><span class="p">,</span> <span class="n">slice_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;PadDataGrad&quot;</span><span class="p">,</span> <span class="n">pad_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;TransposeDataGrad&quot;</span><span class="p">,</span> <span class="n">transpose_data_grad_backward</span><span class="p">)</span>
+<span class="n">register</span><span class="p">(</span><span class="s2">&quot;InterpolateDataGrad&quot;</span><span class="p">,</span> <span class="n">interpolate_data_grad_backward</span><span class="p">)</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+class nbla::BaseVariable
+========================================
+
+.. doxygenclass:: nbla::BaseVariable
+	:project: Cpp
+	:members: 
