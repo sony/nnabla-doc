@@ -1,0 +1,6 @@
+class Log
+========================================
+
+.. doxygenclass:: Log
+	:project: Cpp
+	:members: 

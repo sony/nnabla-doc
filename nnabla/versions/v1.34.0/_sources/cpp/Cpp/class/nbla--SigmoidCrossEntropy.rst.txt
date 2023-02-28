@@ -1,0 +1,6 @@
+class nbla::SigmoidCrossEntropy
+========================================
+
+.. doxygenclass:: nbla::SigmoidCrossEntropy
+	:project: Cpp
+	:members: 

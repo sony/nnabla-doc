@@ -1,0 +1,6 @@
+class nbla::SgdW
+========================================
+
+.. doxygenclass:: nbla::SgdW
+	:project: Cpp
+	:members: 

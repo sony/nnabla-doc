@@ -1,0 +1,6 @@
+struct nbla::Solver::SolverState
+========================================
+
+.. doxygenstruct:: nbla::Solver::SolverState
+	:project: Cpp
+	:members: 

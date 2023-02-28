@@ -1,0 +1,6 @@
+class nbla::AMSBound
+========================================
+
+.. doxygenclass:: nbla::AMSBound
+	:project: Cpp
+	:members: 

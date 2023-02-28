@@ -1,0 +1,6 @@
+class nbla::AdaBound
+========================================
+
+.. doxygenclass:: nbla::AdaBound
+	:project: Cpp
+	:members: 

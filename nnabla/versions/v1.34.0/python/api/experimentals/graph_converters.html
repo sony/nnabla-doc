@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graph Converters &mdash; Neural Network Libraries 1.34.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Trainers" href="trainers.html" />
+    <link rel="prev" title="Show Graph by Tensorboard" href="tb_graph_writer.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.34.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sequential.html">Sequential</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../experimental.html">Experimental</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="viewers.html">Viewers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="tb_graph_writer.html">Show Graph by Tensorboard</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Graph Converters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html">Trainers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mixed_precision_trainings.html">Mixed Precision Trainings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="parametric_function_classes.html">Parametric Function Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../python.html">Python Package</a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">Python API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../experimental.html">Experimental</a></li>
+      <li class="breadcrumb-item active">Graph Converters</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/python/api/experimentals/graph_converters.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="graph-converters">
+<h1>Graph Converters<a class="headerlink" href="#graph-converters" title="Permalink to this headline"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.GraphConverter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">GraphConverter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">modifiers</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/graph_converter.html#GraphConverter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.GraphConverter" title="Permalink to this definition"></a></dt>
+<dd><p>Convert a graph with the modifiers by traversing from output variables.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.GraphConverter.convert">
+<span class="sig-name descname"><span class="pre">convert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">o</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/graph_converter.html#GraphConverter.convert"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.GraphConverter.convert" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>o</strong> (list of <a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – Output variables.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.FunctionModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">FunctionModifier</span></span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/graph_converter.html#FunctionModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.FunctionModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Base class of modifiers.</p>
+<p>The <a class="reference internal" href="#nnabla.experimental.graph_converters.FunctionModifier.modify" title="nnabla.experimental.graph_converters.FunctionModifier.modify"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">modify</span></code></a> method is called for a function with inputs in a graph topological order
+when you call the GraphConverter(&lt;modifiers&gt;).convert(&lt;root variable&gt;) method.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.FunctionModifier.finish_up">
+<span class="sig-name descname"><span class="pre">finish_up</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/graph_converter.html#FunctionModifier.finish_up"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.FunctionModifier.finish_up" title="Permalink to this definition"></a></dt>
+<dd><p>Finish the very time function modification.</p>
+<p>Clean up the internal modifier states.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>None</strong> – </p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>None</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.FunctionModifier.get_parameter_scope">
+<span class="sig-name descname"><span class="pre">get_parameter_scope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/graph_converter.html#FunctionModifier.get_parameter_scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.FunctionModifier.get_parameter_scope" title="Permalink to this definition"></a></dt>
+<dd><p>Get the parameter name corresponding to v</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>v</strong> (<a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – NNabla Variable Object.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Scope name</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)">str</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.FunctionModifier.modify">
+<span class="sig-name descname"><span class="pre">modify</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">f</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/graph_converter.html#FunctionModifier.modify"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.FunctionModifier.modify" title="Permalink to this definition"></a></dt>
+<dd><p>Modify the function.</p>
+<p>Implement this method in a sub class to modify a function.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ReLUToLeakyReLUModifier</span><span class="p">(</span><span class="n">FunctionModifier</span><span class="p">):</span>
+
+  <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">(</span><span class="n">ReLUToLeakyReLUModifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+  <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;ReLU&#39;</span><span class="p">:</span>
+      <span class="n">x</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+      <span class="k">return</span> <span class="n">F</span><span class="o">.</span><span class="n">leaky_relu</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This examples is a simple case since the network topological order does not change.
+In GraphConverter, we expect the modify method is called along
+the original network tolopogical order not the modified order.
+In such a complex case, see themodify method of <a class="reference internal" href="#nnabla.experimental.graph_converters.BatchNormalizationFoldingModifierInner" title="nnabla.experimental.graph_converters.BatchNormalizationFoldingModifierInner"><code class="xref py py-obj docutils literal notranslate"><span class="pre">BatchNormalizationFoldingModifierInner</span></code></a>
+as a reference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f</strong> (<a class="reference internal" href="../function.html#nnabla.function.Function" title="nnabla.function.Function"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.function.Function</span></code></a>) – NNabla function object.</p></li>
+<li><p><strong>inputs</strong> (list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>) – New inputs to <code class="xref any docutils literal notranslate"><span class="pre">f</span></code>. This may be modified one or the same as f.inputs.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p><code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code> or list of <code class="xref py py-obj docutils literal notranslate"><span class="pre">Variable</span></code>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<section id="function-modifiers">
+<h2>Function Modifiers<a class="headerlink" href="#function-modifiers" title="Permalink to this headline"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.BatchNormalizationFoldingModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">BatchNormalizationFoldingModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">opposite</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/batch_normalization_folding.html#BatchNormalizationFoldingModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.BatchNormalizationFoldingModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Single <code class="xref any docutils literal notranslate"><span class="pre">Convolution</span> <span class="pre">-&gt;</span> <span class="pre">BatchNormalization</span></code> pass is folded into one <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>.</p>
+<p>If there is a <code class="xref any docutils literal notranslate"><span class="pre">Convolution</span> <span class="pre">-&gt;</span> <span class="pre">BatchNormalization</span></code> pass,
+fold the batch normalization parameters to the kernel
+and bias (if it exists) of the preceding convolution,
+then skip the batch normalization following the convolution.</p>
+<p>Supported folding functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.affine.Affine" title="nnabla.experimental.parametric_function_class.affine.Affine"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Affine</span></code></a>.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">BatchNormalizationFoldingModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.AddBiasModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">AddBiasModifier</span></span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/batch_normalization_folding.html#AddBiasModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.AddBiasModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Add bias to <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a> in BatchNormalization folding case if it doesn’t have bias.</p>
+<p>Supported folding functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.affine.Affine" title="nnabla.experimental.parametric_function_class.affine.Affine"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Affine</span></code></a>.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">AddBiasModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.BatchNormalizationFoldingModifierInner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">BatchNormalizationFoldingModifierInner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/batch_normalization_folding.html#BatchNormalizationFoldingModifierInner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.BatchNormalizationFoldingModifierInner" title="Permalink to this definition"></a></dt>
+<dd><p>Single <code class="xref any docutils literal notranslate"><span class="pre">Convolution</span> <span class="pre">-&gt;</span> <span class="pre">BatchNormalization</span></code> pass is folded into one <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>.</p>
+<p>If there is a <code class="xref any docutils literal notranslate"><span class="pre">Convolution</span> <span class="pre">-&gt;</span> <span class="pre">BatchNormalization</span></code> pass,
+fold the batch normalization parameters to the kernel
+and bias (if it exists) of the preceding convolution,
+then skip the batch normalization following the convolution.</p>
+<p>Supported folding functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.affine.Affine" title="nnabla.experimental.parametric_function_class.affine.Affine"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Affine</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.BatchNormalizationFoldingOppositeModifierInner">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">BatchNormalizationFoldingOppositeModifierInner</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/batch_normalization_folding.html#BatchNormalizationFoldingOppositeModifierInner"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.BatchNormalizationFoldingOppositeModifierInner" title="Permalink to this definition"></a></dt>
+<dd><p>Single <code class="xref any docutils literal notranslate"><span class="pre">BatchNormalization</span> <span class="pre">-&gt;</span> <span class="pre">Convolution</span></code> pass is folded into one <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>.</p>
+<p>If there is a <code class="xref any docutils literal notranslate"><span class="pre">BatchNormalization</span> <span class="pre">-&gt;</span> <span class="pre">Convolution</span></code> pass,
+fold the batch normalization parameters to the kernel
+and bias (if it exists) of the preceding convolution,
+then skip the batch normalization following the convolution.</p>
+<p>Supported folding functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.affine.Affine" title="nnabla.experimental.parametric_function_class.affine.Affine"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Affine</span></code></a>.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.BatchNormalizationSelfFoldingModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">BatchNormalizationSelfFoldingModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'bn-self-folding'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/batch_normalization_self_folding.html#BatchNormalizationSelfFoldingModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.BatchNormalizationSelfFoldingModifier" title="Permalink to this definition"></a></dt>
+<dd><p>The parameters of the batch normalization replaced simple scale and bias.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – Prefix of the parameter scope.</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">BatchNormalizationSelfFoldingModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.FusedBatchNormalizationModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">FusedBatchNormalizationModifier</span></span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/fused_batch_normalization.html#FusedBatchNormalizationModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.FusedBatchNormalizationModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Block <code class="xref any docutils literal notranslate"><span class="pre">BatchNormalization</span> <span class="pre">-&gt;</span> <span class="pre">Add2</span> <span class="pre">-&gt;</span> <span class="pre">Non-Linear</span></code> pass is fused into one <code class="xref any docutils literal notranslate"><span class="pre">FusedBatchNormalization</span></code>.</p>
+<p>If there is a block <code class="xref any docutils literal notranslate"><span class="pre">BatchNormalization</span> <span class="pre">-&gt;</span> <span class="pre">Add2</span> <span class="pre">-&gt;</span> <span class="pre">Non-Linear</span></code> pass,
+remove all the block functions and replace the whole block to <code class="xref any docutils literal notranslate"><span class="pre">FusedBatchNormalization</span></code>.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">FusedBatchNormalizationModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.UnfusedBatchNormalizationModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">UnfusedBatchNormalizationModifier</span></span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/unfused_batch_normalization.html#UnfusedBatchNormalizationModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.UnfusedBatchNormalizationModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Unfuse <code class="xref any docutils literal notranslate"><span class="pre">FusedBatchNormalization</span></code> to <code class="xref any docutils literal notranslate"><span class="pre">BatchNormalization</span> <span class="pre">-&gt;</span> <span class="pre">Add2</span> <span class="pre">-&gt;</span> <span class="pre">Non-Linear</span></code> block.</p>
+<p>If there is a <code class="xref any docutils literal notranslate"><span class="pre">FusedBatchNormalization</span></code> pass, remove the fused batch normalization
+and replace it with the block <code class="xref any docutils literal notranslate"><span class="pre">BatchNormalization</span> <span class="pre">-&gt;</span> <span class="pre">Add2</span> <span class="pre">-&gt;</span> <span class="pre">Non-Linear</span></code>.</p>
+<p>Supported Non-Linear functions: <a class="reference internal" href="../function.html#nnabla.functions.relu" title="nnabla.functions.relu"><code class="xref any py py-func docutils literal notranslate"><span class="pre">relu</span></code></a></p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">UnfusedBatchNormalizationModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.ChannelLastModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">ChannelLastModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs_cl</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/channel_last.html#ChannelLastModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.ChannelLastModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Convert graph shape from Channel first (NCHW) to Channel last (NHWC) format.</p>
+<p>Supported functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization" title="nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization"><code class="xref any py py-class docutils literal notranslate"><span class="pre">BatchNormalization</span></code></a>,
+<code class="xref any docutils literal notranslate"><span class="pre">MaxPooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">AveragePooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">SumPooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">Unpooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">Concatenate</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>list of nn.Variable</em>) – Original very begining inputs (NCHW) of a network.</p></li>
+<li><p><strong>inputs_cl</strong> (<em>list of nn.Variable</em>) – Channel last version of very begining inputs (NHWC) of a network.
+If this is not given, <code class="xref any docutils literal notranslate"><span class="pre">inputs_cl</span></code> are generated internally and holded.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">ChannelLastModifier</span><span class="p">(</span><span class="o">&lt;</span><span class="n">inputs</span> <span class="n">of</span> <span class="n">pred</span><span class="o">&gt;</span><span class="p">)]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.ChannelFirstModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">ChannelFirstModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">inputs_cf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/channel_first.html#ChannelFirstModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.ChannelFirstModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Convert graph shape from Channel last (NHWC) to Channel first (NCHW) format.</p>
+<p>Supported functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization" title="nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization"><code class="xref any py py-class docutils literal notranslate"><span class="pre">BatchNormalization</span></code></a>,
+<code class="xref any docutils literal notranslate"><span class="pre">MaxPooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">AveragePooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">SumPooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">Unpooling</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">Concatenate</span></code></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> (<em>list of nn.Variable</em>) – Original channel last version of very begining inputs (NHWC) of a network.</p></li>
+<li><p><strong>inputs_cf</strong> (<em>list of nn.Variable</em>) – Channel first version of very begining inputs (NCHW) of a network.
+If this is not given, <code class="xref any docutils literal notranslate"><span class="pre">inputs_cf</span></code> are generated internally and holded.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">ChannelFirstModifier</span><span class="p">(</span><span class="o">&lt;</span><span class="n">inputs</span> <span class="n">of</span> <span class="n">pred</span><span class="o">&gt;</span><span class="p">)]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.RemoveFunctionModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">RemoveFunctionModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rm_funcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/remove_function.html#RemoveFunctionModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.RemoveFunctionModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Remove specified function layer(s) from a graph.</p>
+<p>A convenient converter when one or more functions in
+an existing graph needs to be removed. This converter
+remove specified function(s) without recreating a new
+graph from scratch.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rm_funcs</strong> (list of <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – list of function name</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">RemoveFunctionModifier</span><span class="p">(</span><span class="n">rm_funcs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;BatchNormalization&#39;</span><span class="p">,</span> <span class="s1">&#39;MulScalar&#39;</span><span class="p">])]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.BatchNormBatchStatModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">BatchNormBatchStatModifier</span></span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/batch_norm_batchstat.html#BatchNormBatchStatModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.BatchNormBatchStatModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Change <code class="xref any docutils literal notranslate"><span class="pre">batch_stat</span></code> to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#False" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>.
+Supported functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization" title="nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization"><code class="xref any py py-class docutils literal notranslate"><span class="pre">BatchNormalization</span></code></a>, <code class="xref any docutils literal notranslate"><span class="pre">FusedBatchNormalization</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">SyncBatchNormalization</span></code>.</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">BatchNormBatchStatModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.TestModeModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">TestModeModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">rm_funcs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">[]</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/test_mode.html#TestModeModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.TestModeModifier" title="Permalink to this definition"></a></dt>
+<dd><p>This converter combines BatNormBatchStateModifier and RemoveFunctionModifer.
+It changes <code class="xref any docutils literal notranslate"><span class="pre">batch_stat</span></code> to <a class="reference external" href="https://docs.python.org/3.6/library/constants.html#False" title="(in Python v3.6)"><code class="xref any docutils literal notranslate"><span class="pre">False</span></code></a>.
+Supported functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization" title="nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization"><code class="xref any py py-class docutils literal notranslate"><span class="pre">BatchNormalization</span></code></a>, <code class="xref any docutils literal notranslate"><span class="pre">FusedBatchNormalization</span></code>, <code class="xref any docutils literal notranslate"><span class="pre">SyncBatchNormalization</span></code>.</p>
+<p>Functions that specified <code class="xref any docutils literal notranslate"><span class="pre">rm_funcs</span></code> will be removed from a graph.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>rm_funcs</strong> (list of <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">str</span></code></a>) – list of function name</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">TestModeModifier</span><span class="p">(</span><span class="n">rm_funcs</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;MulScalar&#39;</span><span class="p">])]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.IdentityModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">IdentityModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">copy_value</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/identity.html#IdentityModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.IdentityModifier" title="Permalink to this definition"></a></dt>
+<dd><p>All functions are replaced to the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Input variable mapping from the original input to another input. Default is the empty dictionary, so the new graph shares the original inputs.</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">IdentityModifier</span><span class="p">({</span><span class="n">x0</span><span class="p">:</span> <span class="n">x1</span><span class="p">})]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.NoGradModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">NoGradModifier</span></span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/no_grad.html#NoGradModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.NoGradModifier" title="Permalink to this definition"></a></dt>
+<dd><p>All functions are replaced to the same <code class="xref any docutils literal notranslate"><span class="pre">new</span></code> function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>inputs</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)"><code class="xref py py-obj docutils literal notranslate"><span class="pre">dict</span></code></a>) – Input variable mapping from the original input to another input. Default is the empty dictionary, so the new graph shares the original inputs.</p>
+</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">NoGradModifier</span><span class="p">()]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.PruningModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">PruningModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pruning_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functions_to_prune</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('Convolution',</span> <span class="pre">'Deconvolution',</span> <span class="pre">'DepthwiseConvolution',</span> <span class="pre">'DepthwiseDeconvolution',</span> <span class="pre">'Affine')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/prune.html#PruningModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.PruningModifier" title="Permalink to this definition"></a></dt>
+<dd><p>Use <a class="reference internal" href="#nnabla.experimental.graph_converters.PruningModifier" title="nnabla.experimental.graph_converters.PruningModifier"><code class="xref any py py-class docutils literal notranslate"><span class="pre">PruningModifier</span></code></a> to prune the small weight value to 0.
+The pruning is channel-wise. Using the channel-wise L2 norm to represent the degree of sparsity.
+If the L2 norm less than the threshold provided, all the value of this channel will be set to 0.</p>
+<p>Supported pruning functions: <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution" title="nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Convolution</span></code></a>, <a class="reference internal" href="parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution" title="nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="xref any py py-class docutils literal notranslate"><span class="pre">Deconvolution</span></code></a>, <code class="xref any docutils literal notranslate"><span class="pre">DepthwiseConvolution</span></code>, ‘DepthwiseDeconvolution’, ‘Affine’</p>
+<p>Examples:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">nnabla.experimental.graph_converters</span> <span class="k">as</span> <span class="nn">GC</span>
+
+<span class="n">modifiers</span> <span class="o">=</span> <span class="p">[</span><span class="n">GC</span><span class="o">.</span><span class="n">PruningModifier</span><span class="p">(</span><span class="n">pruning_threshold</span><span class="o">=</span><span class="mf">0.1</span><span class="p">)]</span>
+<span class="n">gc</span> <span class="o">=</span> <span class="n">GC</span><span class="o">.</span><span class="n">GraphConverter</span><span class="p">(</span><span class="n">modifiers</span><span class="p">)</span>
+<span class="n">pred</span> <span class="o">=</span> <span class="n">gc</span><span class="o">.</span><span class="n">convert</span><span class="p">(</span><span class="n">pred</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.PruningModifier.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pruning_threshold</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">functions_to_prune</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">('Convolution',</span> <span class="pre">'Deconvolution',</span> <span class="pre">'DepthwiseConvolution',</span> <span class="pre">'DepthwiseDeconvolution',</span> <span class="pre">'Affine')</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">channel_last</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/prune.html#PruningModifier.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.PruningModifier.__init__" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>pruning_threshold</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Threshold of the L2 norm.</p></li>
+<li><p><strong>functions_to_prune</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a>) – Functions to pruning.</p></li>
+<li><p><strong>channel_last</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – If True, the data formnat of network is considered to be NHWC.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.QuantizeNonQNNToRecordingModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">QuantizeNonQNNToRecordingModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions_ranks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">training</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/quantize.html#QuantizeNonQNNToRecordingModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.QuantizeNonQNNToRecordingModifier" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.graph_converters.QuantizeRecordingToTrainingModifier">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.graph_converters.</span></span><span class="sig-name descname"><span class="pre">QuantizeRecordingToTrainingModifier</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">functions_ranks</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">config</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/graph_converters/quantize.html#QuantizeRecordingToTrainingModifier"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.graph_converters.QuantizeRecordingToTrainingModifier" title="Permalink to this definition"></a></dt>
+<dd></dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="tb_graph_writer.html" class="btn btn-neutral float-left" title="Show Graph by Tensorboard" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="trainers.html" class="btn btn-neutral float-right" title="Trainers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

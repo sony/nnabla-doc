@@ -1,0 +1,6 @@
+struct nbla::PoolingConfiguration
+========================================
+
+.. doxygenstruct:: nbla::PoolingConfiguration
+	:project: Cpp
+	:members: 

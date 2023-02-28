@@ -1,0 +1,6 @@
+class nbla::GroupNormalization
+========================================
+
+.. doxygenclass:: nbla::GroupNormalization
+	:project: Cpp
+	:members: 

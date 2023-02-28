@@ -1,0 +1,6 @@
+class nbla::ONNXResize
+========================================
+
+.. doxygenclass:: nbla::ONNXResize
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::INQConvolution
+========================================
+
+.. doxygenclass:: nbla::INQConvolution
+	:project: Cpp
+	:members: 

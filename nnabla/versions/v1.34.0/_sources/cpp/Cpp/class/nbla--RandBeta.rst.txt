@@ -1,0 +1,6 @@
+class nbla::RandBeta
+========================================
+
+.. doxygenclass:: nbla::RandBeta
+	:project: Cpp
+	:members: 

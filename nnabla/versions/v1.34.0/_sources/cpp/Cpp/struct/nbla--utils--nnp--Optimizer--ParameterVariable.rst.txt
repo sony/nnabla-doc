@@ -1,0 +1,6 @@
+struct nbla::utils::nnp::Optimizer::ParameterVariable
+========================================
+
+.. doxygenstruct:: nbla::utils::nnp::Optimizer::ParameterVariable
+	:project: Cpp
+	:members: 

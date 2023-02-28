@@ -1,0 +1,6 @@
+class nbla::Adamax
+========================================
+
+.. doxygenclass:: nbla::Adamax
+	:project: Cpp
+	:members: 

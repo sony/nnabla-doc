@@ -1,0 +1,6 @@
+class nbla::BaseNdArray
+========================================
+
+.. doxygenclass:: nbla::BaseNdArray
+	:project: Cpp
+	:members: 

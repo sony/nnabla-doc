@@ -1,0 +1,6 @@
+class LogicalXorScalar
+========================================
+
+.. doxygenclass:: LogicalXorScalar
+	:project: Cpp
+	:members: 

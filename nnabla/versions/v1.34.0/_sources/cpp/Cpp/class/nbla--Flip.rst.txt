@@ -1,0 +1,6 @@
+class nbla::Flip
+========================================
+
+.. doxygenclass:: nbla::Flip
+	:project: Cpp
+	:members: 

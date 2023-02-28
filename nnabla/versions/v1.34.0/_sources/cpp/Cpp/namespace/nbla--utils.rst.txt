@@ -1,0 +1,6 @@
+namespace nbla::utils
+========================================
+
+.. doxygennamespace:: nbla::utils
+	:project: Cpp
+	:members: 

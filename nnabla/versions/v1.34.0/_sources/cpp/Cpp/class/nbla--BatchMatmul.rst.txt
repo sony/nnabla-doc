@@ -1,0 +1,6 @@
+class nbla::BatchMatmul
+========================================
+
+.. doxygenclass:: nbla::BatchMatmul
+	:project: Cpp
+	:members: 

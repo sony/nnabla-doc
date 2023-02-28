@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::CgVariable &mdash; Neural Network Libraries 1.34.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::ChannelFirstAdaptor" href="nbla--ChannelFirstAdaptor.html" />
+    <link rel="prev" title="class nbla::CgFunction" href="nbla--CgFunction.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../../index.html" class="icon icon-home"> Neural Network Libraries
+          </a>
+              <div class="version">
+                1.34.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::CgVariable</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--CgVariable.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-cgvariable">
+<h1>class nbla::CgVariable<a class="headerlink" href="#class-nbla-cgvariable" title="Permalink to this headline"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariableE">
+<span id="_CPPv3N4nbla10CgVariableE"></span><span id="_CPPv2N4nbla10CgVariableE"></span><span id="nbla::CgVariable"></span><span class="target" id="classnbla_1_1CgVariable"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--BaseCgVariable.html#_CPPv4N4nbla14BaseCgVariableE" title="nbla::BaseCgVariable"><span class="n"><span class="pre">BaseCgVariable</span></span></a><a class="headerlink" href="#_CPPv4N4nbla10CgVariableE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Computation graph variable. </p>
+<p>A <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> object is held in this object as a data container. In addition, a CGVariable object keeps information about the computation graph it belongs to. The information if such as the pointer to the parent function which creates this variable and some performance optimization clues. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10CgVariableEv">
+<span id="_CPPv3N4nbla10CgVariable10CgVariableEv"></span><span id="_CPPv2N4nbla10CgVariable10CgVariableEv"></span><span id="nbla::CgVariable::CgVariable"></span><span class="target" id="classnbla_1_1CgVariable_1a2f13cb21768f52a20373c2da45c06c64"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10CgVariableEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create 0-shaped variable with no need_grad flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10CgVariableEb">
+<span id="_CPPv3N4nbla10CgVariable10CgVariableEb"></span><span id="_CPPv2N4nbla10CgVariable10CgVariableEb"></span><span id="nbla::CgVariable::CgVariable__b"></span><span class="target" id="classnbla_1_1CgVariable_1a0483df4ad630b1e5cb52dfc134382d4a"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">need_grad</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10CgVariableEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create 0-shaped variable with need_grad option. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>need_grad</strong> – <strong>[in]</strong> Whether this variable requires gradient computation or not </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10CgVariableE7Shape_t">
+<span id="_CPPv3N4nbla10CgVariable10CgVariableE7Shape_t"></span><span id="_CPPv2N4nbla10CgVariable10CgVariableE7Shape_t"></span><span id="nbla::CgVariable::CgVariable__Shape_t"></span><span class="target" id="classnbla_1_1CgVariable_1a834f5f334f2f37166e87d58a44b3f091"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">shape</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10CgVariableE7Shape_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a variable by shape. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>shape</strong> – <strong>[in]</strong> <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Shape"><span class="std std-ref">Shape</span></a> passed to <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> object held in the created instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10CgVariableE7Shape_tb">
+<span id="_CPPv3N4nbla10CgVariable10CgVariableE7Shape_tb"></span><span id="_CPPv2N4nbla10CgVariable10CgVariableE7Shape_tb"></span><span id="nbla::CgVariable::CgVariable__Shape_t.b"></span><span class="target" id="classnbla_1_1CgVariable_1af3753c54ad7558aba540298c64b05fe4"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">shape</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">need_grad</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10CgVariableE7Shape_tb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a variable by shape with need_grad option. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>shape</strong> – <strong>[in]</strong> <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Shape"><span class="std std-ref">Shape</span></a> passed to <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> object held in the created instance. </p></li>
+<li><p><strong>need_grad</strong> – <strong>[in]</strong> Whether this variable requires gradient computation or not </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10CgVariableE11VariablePtr">
+<span id="_CPPv3N4nbla10CgVariable10CgVariableE11VariablePtr"></span><span id="_CPPv2N4nbla10CgVariable10CgVariableE11VariablePtr"></span><span id="nbla::CgVariable::CgVariable__VariablePtr"></span><span class="target" id="classnbla_1_1CgVariable_1af9ba486dc33e3f28d52efa84329d7194"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla11VariablePtrE" title="nbla::VariablePtr"><span class="n"><span class="pre">VariablePtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">var</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10CgVariableE11VariablePtr" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create by a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> instance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>var</strong> – <strong>[in]</strong> Reference of an existing <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> object. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10CgVariableE11VariablePtrb">
+<span id="_CPPv3N4nbla10CgVariable10CgVariableE11VariablePtrb"></span><span id="_CPPv2N4nbla10CgVariable10CgVariableE11VariablePtrb"></span><span id="nbla::CgVariable::CgVariable__VariablePtr.b"></span><span class="target" id="classnbla_1_1CgVariable_1a4ca8814085cafb4cc9ab4b4083c77834"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">CgVariable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla11VariablePtrE" title="nbla::VariablePtr"><span class="n"><span class="pre">VariablePtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">var</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">need_grad</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10CgVariableE11VariablePtrb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create by a <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> instance. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>var</strong> – <strong>[in]</strong> Reference of an existing <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> object. </p></li>
+<li><p><strong>need_grad</strong> – <strong>[in]</strong> Whether this variable requires gradient computation or not </p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable9need_gradEv">
+<span id="_CPPv3NK4nbla10CgVariable9need_gradEv"></span><span id="_CPPv2NK4nbla10CgVariable9need_gradEv"></span><span id="nbla::CgVariable::need_gradC"></span><span class="target" id="classnbla_1_1CgVariable_1a2636967883733cb7194aa132168252ec"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_grad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable9need_gradEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get need grad flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable16need_grad_is_setEv">
+<span id="_CPPv3NK4nbla10CgVariable16need_grad_is_setEv"></span><span id="_CPPv2NK4nbla10CgVariable16need_grad_is_setEv"></span><span id="nbla::CgVariable::need_grad_is_setC"></span><span class="target" id="classnbla_1_1CgVariable_1af271b3363075b965a91f0302a4204b13"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_grad_is_set</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable16need_grad_is_setEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check if need grad flag is set. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable13set_need_gradEb">
+<span id="_CPPv3N4nbla10CgVariable13set_need_gradEb"></span><span id="_CPPv2N4nbla10CgVariable13set_need_gradEb"></span><span id="nbla::CgVariable::set_need_grad__b"></span><span class="target" id="classnbla_1_1CgVariable_1a342f5d1ce4a26cf26a17b509a2a57cd4"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_need_grad</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable13set_need_gradEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set need grad flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable15unset_need_gradEv">
+<span id="_CPPv3N4nbla10CgVariable15unset_need_gradEv"></span><span id="_CPPv2N4nbla10CgVariable15unset_need_gradEv"></span><span id="nbla::CgVariable::unset_need_grad"></span><span class="target" id="classnbla_1_1CgVariable_1a97361caf2a9ab28bdf92b14caf54ebbb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unset_need_grad</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable15unset_need_gradEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Unset need grad flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable15need_grad_stateEv">
+<span id="_CPPv3NK4nbla10CgVariable15need_grad_stateEv"></span><span id="_CPPv2NK4nbla10CgVariable15need_grad_stateEv"></span><span id="nbla::CgVariable::need_grad_stateC"></span><span class="target" id="classnbla_1_1CgVariable_1a2c329f3055bfbf39209e036fb79b0b31"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_grad_state</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable15need_grad_stateEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get need grad state flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable22need_grad_state_is_setEv">
+<span id="_CPPv3NK4nbla10CgVariable22need_grad_state_is_setEv"></span><span id="_CPPv2NK4nbla10CgVariable22need_grad_state_is_setEv"></span><span id="nbla::CgVariable::need_grad_state_is_setC"></span><span class="target" id="classnbla_1_1CgVariable_1a7f61db96be0ed76dc1e10d66e6476034"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">need_grad_state_is_set</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable22need_grad_state_is_setEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check if need grad state is set. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable19set_need_grad_stateEb">
+<span id="_CPPv3N4nbla10CgVariable19set_need_grad_stateEb"></span><span id="_CPPv2N4nbla10CgVariable19set_need_grad_stateEb"></span><span id="nbla::CgVariable::set_need_grad_state__b"></span><span class="target" id="classnbla_1_1CgVariable_1ae534f6804aeac46e8eba83dcc57d83b7"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_need_grad_state</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable19set_need_grad_stateEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set need grad state flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable21unset_need_grad_stateEv">
+<span id="_CPPv3N4nbla10CgVariable21unset_need_grad_stateEv"></span><span id="_CPPv2N4nbla10CgVariable21unset_need_grad_stateEv"></span><span id="nbla::CgVariable::unset_need_grad_state"></span><span class="target" id="classnbla_1_1CgVariable_1aafd1276df5eaaf4d05bddd0da730ced8"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">unset_need_grad_state</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable21unset_need_grad_stateEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Unset need grad state flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable9recomputeEv">
+<span id="_CPPv3NK4nbla10CgVariable9recomputeEv"></span><span id="_CPPv2NK4nbla10CgVariable9recomputeEv"></span><span id="nbla::CgVariable::recomputeC"></span><span class="target" id="classnbla_1_1CgVariable_1aad2b597053aa5f638c6013f4cbbb0bd6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">recompute</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable9recomputeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get recompute flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable13set_recomputeEb">
+<span id="_CPPv3N4nbla10CgVariable13set_recomputeEb"></span><span id="_CPPv2N4nbla10CgVariable13set_recomputeEb"></span><span id="nbla::CgVariable::set_recompute__b"></span><span class="target" id="classnbla_1_1CgVariable_1a338af30eb396d039683123a13810d4d6"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_recompute</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable13set_recomputeEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set recompute flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable19prohibit_clear_dataEv">
+<span id="_CPPv3N4nbla10CgVariable19prohibit_clear_dataEv"></span><span id="_CPPv2N4nbla10CgVariable19prohibit_clear_dataEv"></span><span id="nbla::CgVariable::prohibit_clear_data"></span><span class="target" id="classnbla_1_1CgVariable_1aa1c541e7b61179a7714cf069c994d8cb"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">prohibit_clear_data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable19prohibit_clear_dataEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get prohibit_clear_data_ flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable23set_prohibit_clear_dataEb">
+<span id="_CPPv3N4nbla10CgVariable23set_prohibit_clear_dataEb"></span><span id="_CPPv2N4nbla10CgVariable23set_prohibit_clear_dataEb"></span><span id="nbla::CgVariable::set_prohibit_clear_data__b"></span><span class="target" id="classnbla_1_1CgVariable_1a0049b9ff3b9188a0ba8bfbd3ebfa8ae9"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_prohibit_clear_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">b</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable23set_prohibit_clear_dataEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set prohibit_clear_data_ flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10set_parentE13CgFunctionPtr">
+<span id="_CPPv3N4nbla10CgVariable10set_parentE13CgFunctionPtr"></span><span id="_CPPv2N4nbla10CgVariable10set_parentE13CgFunctionPtr"></span><span id="nbla::CgVariable::set_parent__CgFunctionPtr"></span><span class="target" id="classnbla_1_1CgVariable_1ab590a4f4e7b80e25e955c8344dd2152f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_parent</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10set_parentE13CgFunctionPtr" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set parent function. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users usually don’t use this directly. Used in connect function. </p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>func</strong> – <strong>[in]</strong> <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a>.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable6parentEv">
+<span id="_CPPv3N4nbla10CgVariable6parentEv"></span><span id="_CPPv2N4nbla10CgVariable6parentEv"></span><span id="nbla::CgVariable::parent"></span><span class="target" id="classnbla_1_1CgVariable_1aa98c0bc4b3c62e7caf163ed9f9bc72bc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">parent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable6parentEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get parent function which produces outputs to this variable. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable10has_parentEv">
+<span id="_CPPv3N4nbla10CgVariable10has_parentEv"></span><span id="_CPPv2N4nbla10CgVariable10has_parentEv"></span><span id="nbla::CgVariable::has_parent"></span><span class="target" id="classnbla_1_1CgVariable_1a8cd71d3cd333089a26d6d37794fcb49c"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">has_parent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable10has_parentEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Query if a parent function is set. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable4rankEv">
+<span id="_CPPv3NK4nbla10CgVariable4rankEv"></span><span id="_CPPv2NK4nbla10CgVariable4rankEv"></span><span id="nbla::CgVariable::rankC"></span><span class="target" id="classnbla_1_1CgVariable_1a2e5f35d18717c21e2135053c6bafe325"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">rank</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable4rankEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Longest path from root variable. </p>
+<p>Holds weak function references. <a class="reference external" href="https://stackoverflow.com/a/22110715">https://stackoverflow.com/a/22110715</a> </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable9set_rank_Ei">
+<span id="_CPPv3N4nbla10CgVariable9set_rank_Ei"></span><span id="_CPPv2N4nbla10CgVariable9set_rank_Ei"></span><span id="nbla::CgVariable::set_rank___i"></span><span class="target" id="classnbla_1_1CgVariable_1a5744eb3ecaa2abc23f13c8c8c4cbb431"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_rank_</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">rank</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable9set_rank_Ei" title="Permalink to this definition"></a><br /></dt>
+<dd><p>set rank. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Users shouldn’t call this directly. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1CgVariable_1a6edb97816f791464efd5159a87f8bf2b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">forward</span> <span class="pre">(bool</span> <span class="pre">clear_buffer=false,</span> <span class="pre">bool</span> <span class="pre">clear_no_need_grad=false,</span> <span class="pre">unordered_set&lt;</span> <span class="pre">CgFunctionPtr</span> <span class="pre">&gt;</span> <span class="pre">*fclosed=nullptr,</span> <span class="pre">function_hook_type</span> <span class="pre">pre_callback=nullptr,</span> <span class="pre">function_hook_type</span> <span class="pre">post_callback=nullptr)</span></span></dt>
+<dd><p>Forward propagation from root inputs to this variable. </p>
+<p>The predecessor functions are executed in order of lower rank to higher rank until reaching this variable.</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CgVariable_1a81dbee643684ce67008e2a06a4a643df"><span class="std std-ref">set_persistent()</span></a> to prevent a specific variable to be cleared during forward propagation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clear_buffer</strong> – <strong>[in]</strong> Clear <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray"><span class="std std-ref">SyncedArray</span></a> object of a variable never be used during the rest of forward propagation. This option significantly saves the memory consumption. This is not usually used in training phase because backward computation requires data computed during forward prop. </p></li>
+<li><p><strong>clear_need_grad</strong> – <strong>[in]</strong> Clear the unreferenced variables with need_grad=False during forward propagation. True is usually used when calling this during training. This is ignored when clear_buffer=True. </p></li>
+<li><p><strong>fclosed</strong> – <strong>[in]</strong> Set arbitrary fclosed flags to control forward computation. This is used for forward_all function.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1CgVariable_1aadfcc889a1a4c007b9dfaeed3eadf2f6"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">backward</span> <span class="pre">(NdArrayPtr</span> <span class="pre">grad=nullptr,</span> <span class="pre">bool</span> <span class="pre">clear_buffer=false,</span> <span class="pre">vector&lt;</span> <span class="pre">CommunicatorBackwardCallbackPtr</span> <span class="pre">&gt;</span> <span class="pre">communicator_callbacks={},</span> <span class="pre">function_hook_type</span> <span class="pre">pre_callback=nullptr,</span> <span class="pre">function_hook_type</span> <span class="pre">post_callback=nullptr,</span> <span class="pre">const</span> <span class="pre">bool</span> <span class="pre">clear_initial_grad=false)</span></span></dt>
+<dd><p>Performs a backward propagation. </p>
+<p>starting from this variable until the root variable(s) is/are reached in the computation graph. The propagation will stop at a variable with need_grad=false. Backward propagation through predecessors of this variable.</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CgVariable_1a81dbee643684ce67008e2a06a4a643df"><span class="std std-ref">set_persistent()</span></a> to prevent a specific variable to be cleared during forward propagation. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>grad</strong> – <strong>[in]</strong> The backward error signal of this variable. if nullptr is set, its gradients are set as 1. </p></li>
+<li><p><strong>clear_buffer</strong> – <strong>[in]</strong> Clears the no longer referenced variables during backpropagation to save memory. </p></li>
+<li><p><strong>communicator_callbacks</strong> – The callback functions invoked when 1) backward computation of each function is finished and 2) all backward computation is finished. </p></li>
+<li><p><strong>clear_initial_grad</strong> – If true, the input parameter, grad, will be cleared during backward propagation. This flag is only activated when grad is set.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable15mark_need_setupEv">
+<span id="_CPPv3N4nbla10CgVariable15mark_need_setupEv"></span><span id="_CPPv2N4nbla10CgVariable15mark_need_setupEv"></span><span id="nbla::CgVariable::mark_need_setup"></span><span class="target" id="classnbla_1_1CgVariable_1a37d4406a0ec90cf3795c68a2c58cf605"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">mark_need_setup</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable15mark_need_setupEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Mark need_setup flag for all function references. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable27check_and_unmark_need_setupE13CgFunctionPtr">
+<span id="_CPPv3N4nbla10CgVariable27check_and_unmark_need_setupE13CgFunctionPtr"></span><span id="_CPPv2N4nbla10CgVariable27check_and_unmark_need_setupE13CgFunctionPtr"></span><span id="nbla::CgVariable::check_and_unmark_need_setup__CgFunctionPtr"></span><span class="target" id="classnbla_1_1CgVariable_1a565f2a6ef13571cc2a32841d2a58e2dd"></span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">check_and_unmark_need_setup</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">func</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable27check_and_unmark_need_setupE13CgFunctionPtr" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Check need_setup signal, and unmark it. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable17allow_modify_dataEv">
+<span id="_CPPv3NK4nbla10CgVariable17allow_modify_dataEv"></span><span id="_CPPv2NK4nbla10CgVariable17allow_modify_dataEv"></span><span id="nbla::CgVariable::allow_modify_dataC"></span><span class="target" id="classnbla_1_1CgVariable_1a687c2eb904679588fc7db6b4231a98a5"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">allow_modify_data</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable17allow_modify_dataEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Whether the data can be in-placed. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable21set_allow_modify_dataEb">
+<span id="_CPPv3N4nbla10CgVariable21set_allow_modify_dataEb"></span><span id="_CPPv2N4nbla10CgVariable21set_allow_modify_dataEb"></span><span id="nbla::CgVariable::set_allow_modify_data__b"></span><span class="target" id="classnbla_1_1CgVariable_1a218fecd5490e85ab0ed92af0296b9b0f"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_allow_modify_data</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">allow</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable21set_allow_modify_dataEb" title="Permalink to this definition"></a><br /></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>User shouldn’t call this directly. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable14set_persistentEb">
+<span id="_CPPv3N4nbla10CgVariable14set_persistentEb"></span><span id="_CPPv2N4nbla10CgVariable14set_persistentEb"></span><span id="nbla::CgVariable::set_persistent__b"></span><span class="target" id="classnbla_1_1CgVariable_1a81dbee643684ce67008e2a06a4a643df"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_persistent</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">p</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable14set_persistentEb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set persistent flag. </p>
+<p>If it’s true, the variable data and grad are never cleared during forward or backward propagation with clear options. It is useful for visualization and debugging purposes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>p</strong> – <strong>[in]</strong> Persistent flag. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable10persistentEv">
+<span id="_CPPv3NK4nbla10CgVariable10persistentEv"></span><span id="_CPPv2NK4nbla10CgVariable10persistentEv"></span><span id="nbla::CgVariable::persistentC"></span><span class="target" id="classnbla_1_1CgVariable_1a963f790fa8623de00e9d518468e16cdc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">persistent</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable10persistentEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get persistent flag. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1CgVariable_1ac3543e5a786efb9b08b2398b9a18e998"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">clear_during_auto_forward</span> <span class="pre">()</span></span></dt>
+<dd><p>Clear the memory during forward propagation in auto-forward mode. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable8set_nameE6string">
+<span id="_CPPv3N4nbla10CgVariable8set_nameE6string"></span><span id="_CPPv2N4nbla10CgVariable8set_nameE6string"></span><span id="nbla::CgVariable::set_name__string"></span><span class="target" id="classnbla_1_1CgVariable_1a0a493785df9950f840cd30480ffd7219"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">set_name</span></span></span><span class="sig-paren">(</span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable8set_nameE6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set variable name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla10CgVariable4nameEv">
+<span id="_CPPv3NK4nbla10CgVariable4nameEv"></span><span id="_CPPv2NK4nbla10CgVariable4nameEv"></span><span id="nbla::CgVariable::nameC"></span><span class="target" id="classnbla_1_1CgVariable_1a4d639cbb0c6c8dbec5d22049e30078a0"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">name</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla10CgVariable4nameEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get variable name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1CgVariable_1afcc8192fc266c30db67614486d757f39"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Ptr</span> <span class="pre">create_deep_copy</span> <span class="pre">(Context</span> <span class="pre">ctx,</span> <span class="pre">bool</span> <span class="pre">copy_grad=true)</span></span></dt>
+<dd><p>Deepcopy method. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable24visit_function_recursiveE13CgFunctionPtrR13unordered_setI13CgFunctionPtrEKb8functionIFv13CgFunctionPtrEE">
+<span id="_CPPv3N4nbla10CgVariable24visit_function_recursiveE13CgFunctionPtrR13unordered_setI13CgFunctionPtrEKb8functionIFv13CgFunctionPtrEE"></span><span id="_CPPv2N4nbla10CgVariable24visit_function_recursiveE13CgFunctionPtrR13unordered_setI13CgFunctionPtrEKb8functionIFv13CgFunctionPtrEE"></span><span class="target" id="classnbla_1_1CgVariable_1a29bcbc80b5f4113abd5c88696db30dc5"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">visit_function_recursive</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">func</span></span>, <span class="n"><span class="pre">unordered_set</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">fclosed</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">recomputation</span></span>, <span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">forward_callback</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable24visit_function_recursiveE13CgFunctionPtrR13unordered_setI13CgFunctionPtrEKb8functionIFv13CgFunctionPtrEE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Execute callback at functions in forward order in a graph. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla10CgVariable23visit_function_backwardE13CgFunctionPtr8functionIFv13CgFunctionPtrEE6vectorI31CommunicatorBackwardCallbackPtrE">
+<span id="_CPPv3N4nbla10CgVariable23visit_function_backwardE13CgFunctionPtr8functionIFv13CgFunctionPtrEE6vectorI31CommunicatorBackwardCallbackPtrE"></span><span id="_CPPv2N4nbla10CgVariable23visit_function_backwardE13CgFunctionPtr8functionIFv13CgFunctionPtrEE6vectorI31CommunicatorBackwardCallbackPtrE"></span><span class="target" id="classnbla_1_1CgVariable_1a14bc6706d604d89e6be9bcfd162a8d94"></span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">visit_function_backward</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">func</span></span>, <span class="n"><span class="pre">function</span></span><span class="p"><span class="pre">&lt;</span></span><span class="kt"><span class="pre">void</span></span><span class="p"><span class="pre">(</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla13CgFunctionPtrE" title="nbla::CgFunctionPtr"><span class="n"><span class="pre">CgFunctionPtr</span></span></a><span class="p"><span class="pre">)</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">backward_callback</span></span>, <span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla31CommunicatorBackwardCallbackPtrE" title="nbla::CommunicatorBackwardCallbackPtr"><span class="n"><span class="pre">CommunicatorBackwardCallbackPtr</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">communicator_callbacks</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla10CgVariable23visit_function_backwardE13CgFunctionPtr8functionIFv13CgFunctionPtrEE6vectorI31CommunicatorBackwardCallbackPtrE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Execute callback at functions in backward order in a graph. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--CgFunction.html" class="btn btn-neutral float-left" title="class nbla::CgFunction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--ChannelFirstAdaptor.html" class="btn btn-neutral float-right" title="class nbla::ChannelFirstAdaptor" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

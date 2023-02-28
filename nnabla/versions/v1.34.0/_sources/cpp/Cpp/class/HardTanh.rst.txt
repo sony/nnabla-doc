@@ -1,0 +1,6 @@
+class HardTanh
+========================================
+
+.. doxygenclass:: HardTanh
+	:project: Cpp
+	:members: 

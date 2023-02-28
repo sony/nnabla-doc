@@ -1,0 +1,6 @@
+class nbla::BoolGather
+========================================
+
+.. doxygenclass:: nbla::BoolGather
+	:project: Cpp
+	:members: 
