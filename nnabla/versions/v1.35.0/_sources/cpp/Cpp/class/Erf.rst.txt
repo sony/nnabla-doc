@@ -1,0 +1,6 @@
+class Erf
+========================================
+
+.. doxygenclass:: Erf
+	:project: Cpp
+	:members: 

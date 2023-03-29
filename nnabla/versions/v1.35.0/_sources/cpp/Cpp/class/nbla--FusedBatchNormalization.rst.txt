@@ -1,0 +1,6 @@
+class nbla::FusedBatchNormalization
+========================================
+
+.. doxygenclass:: nbla::FusedBatchNormalization
+	:project: Cpp
+	:members: 

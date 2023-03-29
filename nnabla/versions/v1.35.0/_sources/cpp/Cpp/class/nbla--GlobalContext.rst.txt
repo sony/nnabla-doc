@@ -1,0 +1,6 @@
+class nbla::GlobalContext
+========================================
+
+.. doxygenclass:: nbla::GlobalContext
+	:project: Cpp
+	:members: 

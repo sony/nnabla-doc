@@ -1,0 +1,6 @@
+class nbla::NaiveAllocator
+========================================
+
+.. doxygenclass:: nbla::NaiveAllocator
+	:project: Cpp
+	:members: 

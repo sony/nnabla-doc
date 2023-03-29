@@ -1,0 +1,6 @@
+class nbla::BatchCholesky
+========================================
+
+.. doxygenclass:: nbla::BatchCholesky
+	:project: Cpp
+	:members: 

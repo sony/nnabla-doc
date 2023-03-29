@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.experimental.graph_converters.quantize &mdash; Neural Network Libraries 1.35.0 documentation</title>
+      <link rel="stylesheet" href="../../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.35.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.experimental.graph_converters.quantize</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.experimental.graph_converters.quantize</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright (c) 2020 Sony Corporation. All Rights Reserved.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">defaultdict</span>
+
+<span class="kn">from</span> <span class="nn">.graph_converter</span> <span class="kn">import</span> <span class="n">FunctionModifier</span>
+<span class="kn">from</span> <span class="nn">.batch_normalization_folding</span> <span class="kn">import</span> <span class="n">BatchNormalizationFoldingModifier</span>
+<span class="kn">from</span> <span class="nn">.batch_normalization_self_folding</span> <span class="kn">import</span> <span class="n">BatchNormalizationSelfFoldingModifier</span>
+<span class="kn">from</span> <span class="nn">.remove_function</span> <span class="kn">import</span> <span class="n">RemoveFunctionModifier</span>
+
+
+<div class="viewcode-block" id="QuantizeNonQNNToRecordingModifier"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.QuantizeNonQNNToRecordingModifier">[docs]</a><span class="k">class</span> <span class="nc">QuantizeNonQNNToRecordingModifier</span><span class="p">(</span><span class="n">FunctionModifier</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functions_ranks</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QuantizeNonQNNToRecordingModifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fct_bin_set</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Add2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">add2</span><span class="p">,</span>
+            <span class="s1">&#39;Sub2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">sub2</span><span class="p">,</span>
+            <span class="s1">&#39;Mul2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">mul2</span><span class="p">,</span>
+            <span class="s1">&#39;Div2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">div2</span><span class="p">,</span>
+            <span class="s1">&#39;Pow2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">pow2</span>
+        <span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_training</span> <span class="o">=</span> <span class="n">training</span>
+
+        <span class="c1"># Dict to record the rank of each function</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">functions_ranks</span> <span class="o">=</span> <span class="n">functions_ranks</span>
+
+    <span class="k">def</span> <span class="nf">get_function_rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions_ranks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">rank</span>
+
+    <span class="k">def</span> <span class="nf">check</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="k">def</span> <span class="nf">backward_traverse</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+            <span class="c1"># list functions between input and f</span>
+            <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+                    <span class="n">backward_traverse</span><span class="p">(</span><span class="n">inp</span><span class="o">.</span><span class="n">parent</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">forward_traverse</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">l</span><span class="p">):</span>
+            <span class="c1"># list functions between f and output</span>
+            <span class="k">for</span> <span class="n">fref</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">function_references</span><span class="p">:</span>
+                <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">fref</span><span class="p">)</span>
+                <span class="n">forward_traverse</span><span class="p">(</span><span class="n">fref</span><span class="p">,</span> <span class="n">l</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">is_skip_layer</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="n">skip_inputs_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">skip_inputs_layers</span>
+            <span class="n">skip_outputs_layers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span><span class="o">.</span><span class="n">skip_outputs_layers</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_inputs_layers</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">skip_outputs_layers</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">False</span>
+
+            <span class="n">fs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">skip_outputs_layers</span><span class="p">:</span>
+                <span class="n">forward_traverse</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">]))</span>
+            <span class="n">is_output_layer</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">skip_outputs_layers</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="k">for</span> <span class="n">skl</span> <span class="ow">in</span> <span class="n">skip_outputs_layers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">skl</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">:</span>
+                    <span class="n">is_output_layer</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+
+            <span class="n">fs</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">if</span> <span class="n">skip_inputs_layers</span><span class="p">:</span>
+                <span class="n">backward_traverse</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">fs</span><span class="p">)</span>
+            <span class="n">is_input_layer</span> <span class="o">=</span> <span class="kc">True</span> <span class="k">if</span> <span class="n">skip_inputs_layers</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="n">fs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">([</span><span class="n">func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="k">for</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">]))</span>
+            <span class="k">for</span> <span class="n">skl</span> <span class="ow">in</span> <span class="n">skip_inputs_layers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">skl</span> <span class="ow">in</span> <span class="n">fs</span><span class="p">:</span>
+                    <span class="n">is_input_layer</span> <span class="o">=</span> <span class="kc">False</span>
+                    <span class="k">break</span>
+
+            <span class="k">for</span> <span class="n">skl</span> <span class="ow">in</span> <span class="n">skip_inputs_layers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="n">skl</span> <span class="ow">and</span> <span class="n">is_input_layer</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">for</span> <span class="n">skl</span> <span class="ow">in</span> <span class="n">skip_outputs_layers</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="n">skl</span> <span class="ow">and</span> <span class="n">is_output_layer</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">True</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span>
+
+        <span class="c1"># Do not record sink and bn</span>
+        <span class="k">if</span> <span class="n">fn</span> <span class="o">==</span> <span class="s1">&#39;Sink&#39;</span> <span class="ow">or</span> <span class="n">fn</span> <span class="o">==</span> <span class="s1">&#39;BatchNormalization&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="c1"># Only add recorder to specific layers</span>
+        <span class="c1"># If record_layers empty, add to all layers</span>
+        <span class="n">record_layers</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">record_layers</span>
+        <span class="k">if</span> <span class="n">record_layers</span> <span class="ow">and</span> <span class="p">(</span><span class="n">fn</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">record_layers</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+
+        <span class="k">if</span> <span class="n">is_skip_layer</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span>
+
+    <span class="k">def</span> <span class="nf">share_recorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">new_inputs</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+        <span class="c1"># share quantization parameters for Add2 and Concat</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+        <span class="n">recorder_activation</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_activation</span>
+        <span class="n">recorder_weight</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_weight</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">channel_last</span> <span class="k">else</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Add2&#39;</span><span class="p">,</span> <span class="s1">&#39;Concatenate&#39;</span><span class="p">]:</span>
+            <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+            <span class="n">min_rank</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rank</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                <span class="k">if</span> <span class="n">input_var</span><span class="o">.</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="n">min_rank</span><span class="p">:</span>
+                    <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                    <span class="n">min_rank</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">rank</span>
+            <span class="n">shared_name</span> <span class="o">=</span> <span class="s1">&#39;x0&#39;</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_parameter_scope</span><span class="p">(</span><span class="n">new_inputs</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">new_inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">idx</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">input_var</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                    <span class="n">input_var</span> <span class="o">=</span> <span class="n">recorder_activation</span><span class="p">()(</span>
+                        <span class="n">input_var</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_training</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">shared_name</span><span class="p">)</span>
+                <span class="n">new_inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">input_var</span>
+        <span class="k">return</span> <span class="n">new_inputs</span>
+
+    <span class="k">def</span> <span class="nf">add_recorder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+        <span class="n">function_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function_rank</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+        <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">function_rank</span><span class="p">)</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">channel_last</span> <span class="k">else</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">recorder_activation</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_activation</span>
+        <span class="n">recorder_weight</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_weight</span>
+
+        <span class="n">params_idx</span> <span class="o">=</span> <span class="mi">1</span>
+        <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Concatenate&#39;</span><span class="p">,</span> <span class="s1">&#39;Stack&#39;</span><span class="p">]:</span>
+            <span class="n">params_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fct_bin_set</span><span class="p">:</span>
+            <span class="n">params_idx</span> <span class="o">=</span> <span class="mi">2</span>
+
+        <span class="n">new_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="c1"># Add recorder for variable(activation)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[:</span><span class="n">params_idx</span><span class="p">]):</span>
+            <span class="n">fref</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">function_references</span>
+            <span class="k">if</span> <span class="n">fref</span> <span class="ow">and</span> <span class="n">fref</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_activation</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">():</span>
+                <span class="n">input_var</span> <span class="o">=</span> <span class="n">fref</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                    <span class="n">parent</span> <span class="o">=</span> <span class="n">input_var</span><span class="o">.</span><span class="n">parent</span>
+                    <span class="k">if</span> <span class="n">parent</span> <span class="ow">and</span> <span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="n">recorder_activation</span><span class="p">()</span><span class="o">.</span><span class="n">name</span><span class="p">():</span>
+                        <span class="n">input_var</span> <span class="o">=</span> <span class="n">input_var</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">input_var</span> <span class="o">=</span> <span class="n">recorder_activation</span><span class="p">()(</span><span class="n">input_var</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_training</span><span class="p">,</span>
+                                                          <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="n">new_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
+
+        <span class="c1"># Add recorder for parameters(weight and bias)</span>
+        <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_parameter</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">params_idx</span><span class="p">:]):</span>
+            <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                <span class="n">input_parameter</span> <span class="o">=</span> <span class="n">recorder_weight</span><span class="p">()(</span><span class="n">input_parameter</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_training</span><span class="p">,</span>
+                                                    <span class="n">name</span><span class="o">=</span><span class="s1">&#39;w</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="n">new_inputs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_parameter</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">new_inputs</span>
+
+    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">check</span><span class="p">(</span><span class="n">f</span><span class="p">):</span>
+            <span class="k">return</span>  <span class="c1"># Skip modify this function</span>
+
+        <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+        <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">channel_last</span> <span class="k">else</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="n">recorder_activation</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_activation</span>
+
+        <span class="c1"># Add recorder for each input</span>
+        <span class="n">new_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_recorder</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+        <span class="n">new_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">share_recorder</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">new_inputs</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+
+        <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modify_as_same</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">new_inputs</span><span class="p">)</span>
+
+        <span class="c1"># Add recorder before/after a function</span>
+        <span class="n">next_func</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">function_references</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">next_func_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function_rank</span><span class="p">(</span><span class="n">next_func</span><span class="p">)</span>
+        <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span><span class="p">,</span> <span class="n">next_func_rank</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_position</span> <span class="o">==</span> <span class="n">cfg</span><span class="o">.</span><span class="n">RecorderPosition</span><span class="o">.</span><span class="n">BOTH</span><span class="p">:</span>
+                <span class="n">h</span> <span class="o">=</span> <span class="n">recorder_activation</span><span class="p">()(</span><span class="n">h</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">training</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_training</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x0&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">h</span></div>
+
+
+<div class="viewcode-block" id="QuantizeRecordingToTrainingModifier"><a class="viewcode-back" href="../../../../python/api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.QuantizeRecordingToTrainingModifier">[docs]</a><span class="k">class</span> <span class="nc">QuantizeRecordingToTrainingModifier</span><span class="p">(</span><span class="n">FunctionModifier</span><span class="p">):</span>
+    <span class="k">class</span> <span class="nc">SimulatedQNN</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Doc here.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functions_ranks</span><span class="p">,</span> <span class="n">modifier</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_config</span> <span class="o">=</span> <span class="n">config</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_modifier</span> <span class="o">=</span> <span class="n">modifier</span>
+            <span class="c1"># input: [tuple(scale, zeropoint)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_input_scale_zeropoint</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+            <span class="c1"># Dict to record the rank of each function</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">functions_ranks</span> <span class="o">=</span> <span class="n">functions_ranks</span>
+
+        <span class="k">def</span> <span class="nf">get_function_rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+            <span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">functions_ranks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">rank</span>
+
+        <span class="k">def</span> <span class="nf">_quantize_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+            <span class="c1"># TODO: multi-outputs</span>
+            <span class="n">rm</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">round_mode</span>
+            <span class="n">nr</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">narrow_range</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">pow2</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">pow2</span><span class="o">.</span><span class="n">value</span>
+
+            <span class="n">h</span> <span class="o">=</span> <span class="n">output</span>
+            <span class="k">for</span> <span class="n">next_func</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">function_references</span><span class="p">:</span>
+                <span class="n">next_fn</span> <span class="o">=</span> <span class="n">next_func</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+                <span class="n">next_func_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function_rank</span><span class="p">(</span><span class="n">next_func</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">next_fn</span> <span class="o">==</span> <span class="s1">&#39;Sink&#39;</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">h</span>
+
+                <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x0&#39;</span>
+                <span class="k">if</span> <span class="n">next_fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifier</span><span class="o">.</span><span class="n">_fct_bin_set</span><span class="p">:</span>
+                    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">elm</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">next_func</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                        <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">elm</span><span class="p">:</span>
+                            <span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;x</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+                <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">next_fn</span><span class="p">,</span> <span class="n">next_func_rank</span><span class="p">)</span>
+                <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                    <span class="n">sy</span><span class="p">,</span> <span class="n">zpy</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_activation</span><span class="o">.</span><span class="n">get_scale_zeropoint</span><span class="p">(</span>
+                        <span class="n">h</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">narrow_range</span><span class="o">=</span><span class="n">nr</span><span class="p">,</span> <span class="n">round_method</span><span class="o">=</span><span class="n">pow2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sy</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">break</span>
+
+            <span class="c1"># D-&gt;Q</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_to_quantize</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="n">sy</span><span class="p">,</span> <span class="n">zpy</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_input_scale_zeropoint</span><span class="p">[</span><span class="n">h</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sy</span><span class="p">,</span> <span class="n">zpy</span><span class="p">)</span>
+
+            <span class="k">return</span> <span class="n">h</span>
+
+        <span class="k">def</span> <span class="nf">try_to_quantize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">round_mode</span><span class="p">,</span> <span class="n">narrow_range</span><span class="p">,</span> <span class="n">dtype</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">quantize_linear</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">,</span> <span class="n">round_mode</span><span class="p">,</span>
+                                  <span class="n">narrow_range</span><span class="p">,</span> <span class="n">dtype</span><span class="p">)</span> <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">def</span> <span class="nf">try_to_dequantize</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">):</span>
+            <span class="n">x</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">dequantize_linear</span><span class="p">(</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span><span class="p">)</span> <span class="k">if</span> <span class="n">scale</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span>
+            <span class="k">return</span> <span class="n">x</span>
+
+        <span class="k">def</span> <span class="nf">get_quantization_params</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">variable</span><span class="p">):</span>
+            <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+            <span class="k">if</span> <span class="n">variable</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">variable</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;QuantizeLinear&#39;</span><span class="p">:</span>
+                <span class="n">scale</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">d</span>
+                <span class="n">zero_point</span> <span class="o">=</span> <span class="n">variable</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">d</span>
+            <span class="k">return</span> <span class="n">scale</span><span class="p">,</span> <span class="n">zero_point</span>
+
+        <span class="k">def</span> <span class="nf">requantize_bias</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">skip_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">with_bias</span><span class="p">():</span>
+                <span class="k">return</span> <span class="kc">True</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="k">else</span> <span class="kc">False</span>
+            <span class="n">functions_with_bias</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Affine&#39;</span><span class="p">,</span> <span class="s1">&#39;Convolution&#39;</span><span class="p">,</span> <span class="s1">&#39;Deconvolution&#39;</span><span class="p">,</span> <span class="s1">&#39;DepthwiseConvolution&#39;</span><span class="p">,</span>
+                                   <span class="s1">&#39;DepthwiseDeconvolution&#39;</span><span class="p">]</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+
+            <span class="c1"># handle bias. recalculate scale and zero point of bias</span>
+            <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="n">functions_with_bias</span> <span class="ow">and</span> <span class="n">with_bias</span><span class="p">():</span>
+                <span class="n">x</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">inputs</span>
+                <span class="n">sx</span><span class="p">,</span> <span class="n">zpx</span><span class="p">,</span> <span class="n">sw</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="c1"># Get scale and zero_point of x</span>
+                <span class="n">sx</span><span class="p">,</span> <span class="n">zpx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_quantization_params</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+                <span class="c1"># Get scale and zero_point of w</span>
+                <span class="n">sw</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_quantization_params</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">sx</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">sw</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">sbd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sx</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span> <span class="o">*</span> \
+                          <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">sw</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+                    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                        <span class="n">sb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">get_parameter_or_create</span><span class="p">(</span>
+                            <span class="s1">&#39;scale-b&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">sbd</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                        <span class="n">zpbd</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">zpx</span><span class="o">.</span><span class="n">copy</span><span class="p">(),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,))</span>
+                        <span class="n">zpb</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter</span><span class="o">.</span><span class="n">get_parameter_or_create</span><span class="p">(</span>
+                            <span class="s1">&#39;zeropoint-b&#39;</span><span class="p">,</span> <span class="p">(</span><span class="mi">1</span><span class="p">,),</span> <span class="n">zpbd</span><span class="p">,</span> <span class="kc">False</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="n">b</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">b</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;QuantizeLinear&#39;</span><span class="p">:</span>
+                            <span class="n">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                            <span class="c1"># Quantize/Dequantize Bias only when skip bias is False</span>
+                            <span class="n">b</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">quantize_linear</span><span class="p">(</span>
+                                <span class="n">b</span><span class="p">,</span> <span class="n">sb</span><span class="p">,</span> <span class="n">zpb</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">skip_bias</span> <span class="k">else</span> <span class="n">b</span>
+                            <span class="n">inputs</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">b</span>
+            <span class="k">return</span> <span class="n">inputs</span>
+
+        <span class="k">def</span> <span class="nf">quantize_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">pow2</span><span class="p">):</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+            <span class="n">params_idx</span> <span class="o">=</span> <span class="mi">1</span>
+            <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Concatenate&#39;</span><span class="p">,</span> <span class="s1">&#39;Stack&#39;</span><span class="p">]:</span>
+                <span class="n">params_idx</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifier</span><span class="o">.</span><span class="n">_fct_bin_set</span><span class="p">:</span>
+                <span class="n">params_idx</span> <span class="o">=</span> <span class="mi">2</span>
+            <span class="c1"># Quantize input</span>
+            <span class="n">inps</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[:</span><span class="n">params_idx</span><span class="p">]):</span>
+                <span class="k">if</span> <span class="n">input_var</span><span class="o">.</span><span class="n">rank</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                        <span class="n">sx</span><span class="p">,</span> <span class="n">zpx</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_activation</span><span class="o">.</span><span class="n">get_scale_zeropoint</span><span class="p">(</span>
+                            <span class="n">input_var</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">narrow_range</span><span class="o">=</span><span class="n">nr</span><span class="p">,</span> <span class="n">round_method</span><span class="o">=</span><span class="n">pow2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;x</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                        <span class="n">input_var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_to_quantize</span><span class="p">(</span>
+                            <span class="n">input_var</span><span class="p">,</span> <span class="n">sx</span><span class="p">,</span> <span class="n">zpx</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">_map_input_scale_zeropoint</span><span class="p">[</span><span class="n">input_var</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">sx</span><span class="p">,</span> <span class="n">zpx</span><span class="p">)</span>
+                <span class="n">inps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_var</span><span class="p">)</span>
+
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">input_parameter</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">[</span><span class="n">params_idx</span><span class="p">:]):</span>
+                <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="n">scope</span><span class="p">):</span>
+                    <span class="n">sw</span><span class="p">,</span> <span class="n">zpw</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">recorder_weight</span><span class="o">.</span><span class="n">get_scale_zeropoint</span><span class="p">(</span>
+                        <span class="n">input_parameter</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="n">axes</span><span class="p">,</span> <span class="n">narrow_range</span><span class="o">=</span><span class="n">nr</span><span class="p">,</span> <span class="n">round_method</span><span class="o">=</span><span class="n">pow2</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s1">&#39;w</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+                    <span class="n">input_parameter</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_to_quantize</span><span class="p">(</span>
+                        <span class="n">input_parameter</span><span class="p">,</span> <span class="n">sw</span><span class="p">,</span> <span class="n">zpw</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">)</span>
+                <span class="n">inps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">input_parameter</span><span class="p">)</span>
+
+            <span class="c1"># handle bias. recalculate scale and zero point of bias</span>
+            <span class="n">inps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">requantize_bias</span><span class="p">(</span>
+                <span class="n">f</span><span class="p">,</span> <span class="n">inps</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">cfg</span><span class="o">.</span><span class="n">skip_bias</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">inps</span>
+
+        <span class="k">def</span> <span class="nf">dequantize_inputs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inps</span><span class="p">):</span>
+            <span class="c1"># Dequantize input</span>
+            <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inps</span><span class="p">):</span>
+                <span class="n">s</span><span class="p">,</span> <span class="n">zp</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="n">frefs</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">function_references</span>
+                <span class="k">for</span> <span class="n">rf</span> <span class="ow">in</span> <span class="n">frefs</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">rf</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;DequantizeLinear&#39;</span><span class="p">:</span>
+                        <span class="n">var</span> <span class="o">=</span> <span class="n">rf</span><span class="o">.</span><span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">var</span><span class="o">.</span><span class="n">parent</span> <span class="ow">and</span> <span class="n">var</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;QuantizeLinear&#39;</span><span class="p">:</span>
+                    <span class="n">s</span><span class="p">,</span> <span class="n">zp</span> <span class="o">=</span> <span class="n">var</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+                <span class="n">var</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_to_dequantize</span><span class="p">(</span><span class="n">var</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+                <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">var</span>
+            <span class="k">return</span> <span class="n">inps</span>
+
+        <span class="k">def</span> <span class="nf">shared_quantization</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inps</span><span class="p">,</span> <span class="n">cfg</span><span class="p">):</span>
+            <span class="c1"># share quantization parameter for Add2 and Concat</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+            <span class="k">if</span> <span class="n">fn</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;Add2&#39;</span><span class="p">,</span> <span class="s1">&#39;Concatenate&#39;</span><span class="p">]:</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">min_rank</span> <span class="o">=</span> <span class="n">inps</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">rank</span>
+                <span class="n">s</span><span class="p">,</span> <span class="n">zp</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="kc">None</span>
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inps</span><span class="p">[</span><span class="mi">1</span><span class="p">:]):</span>
+                    <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">x</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;DequantizeLinear&#39;</span><span class="p">:</span>
+                        <span class="k">if</span> <span class="n">x</span><span class="o">.</span><span class="n">rank</span> <span class="o">&lt;</span> <span class="n">min_rank</span><span class="p">:</span>
+                            <span class="n">idx</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span>
+                            <span class="n">min_rank</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">rank</span>
+                <span class="k">if</span> <span class="n">inps</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">inps</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;DequantizeLinear&#39;</span><span class="p">:</span>
+                    <span class="n">s</span><span class="p">,</span> <span class="n">zp</span> <span class="o">=</span> <span class="n">inps</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">3</span><span class="p">]</span>
+
+                <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inps</span><span class="p">):</span>
+                    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="n">idx</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="k">if</span> <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="ow">and</span> <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s1">&#39;DequantizeLinear&#39;</span><span class="p">:</span>
+                        <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_to_quantize</span><span class="p">(</span><span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">,</span> <span class="n">zp</span><span class="p">,</span>
+                                                   <span class="n">cfg</span><span class="o">.</span><span class="n">round_mode</span><span class="p">,</span>
+                                                   <span class="n">cfg</span><span class="o">.</span><span class="n">narrow_range</span><span class="p">,</span>
+                                                   <span class="n">cfg</span><span class="o">.</span><span class="n">dtype</span><span class="p">)</span>
+                    <span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">try_to_dequantize</span><span class="p">(</span><span class="n">inps</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">s</span><span class="p">,</span> <span class="n">zp</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">inps</span>
+
+        <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+            <span class="n">fn</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+            <span class="n">cfg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_config</span>
+            <span class="n">function_rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_function_rank</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+            <span class="n">scope</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">-</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">fn</span><span class="p">,</span> <span class="n">function_rank</span><span class="p">)</span>
+
+            <span class="n">rm</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">round_mode</span>
+            <span class="n">nr</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">narrow_range</span>
+            <span class="n">dt</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">dtype</span>
+            <span class="n">pow2</span> <span class="o">=</span> <span class="n">cfg</span><span class="o">.</span><span class="n">pow2</span><span class="o">.</span><span class="n">value</span>
+            <span class="n">axes</span> <span class="o">=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="k">if</span> <span class="n">cfg</span><span class="o">.</span><span class="n">channel_last</span> <span class="k">else</span> <span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+
+            <span class="c1"># inputs -&gt; Q -&gt; DQ -&gt; F</span>
+            <span class="n">inps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">quantize_inputs</span><span class="p">(</span>
+                <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">scope</span><span class="p">,</span> <span class="n">cfg</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">rm</span><span class="p">,</span> <span class="n">nr</span><span class="p">,</span> <span class="n">dt</span><span class="p">,</span> <span class="n">pow2</span><span class="p">)</span>
+            <span class="n">inps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dequantize_inputs</span><span class="p">(</span><span class="n">inps</span><span class="p">)</span>
+            <span class="n">inps</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">shared_quantization</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inps</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_modifier</span><span class="o">.</span><span class="n">_modify_as_same</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inps</span><span class="p">)</span>
+
+            <span class="k">if</span> <span class="n">fn</span> <span class="o">==</span> <span class="s1">&#39;Sink&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">h</span>
+
+            <span class="c1"># F -&gt; output -&gt; Q -&gt; DQ</span>
+            <span class="n">h</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_quantize_outputs</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">axes</span><span class="p">,</span> <span class="n">cfg</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">h</span>
+
+        <span class="k">def</span> <span class="nf">__finish__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+            <span class="c1"># input: [tuple(scale, zeropoint)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_map_input_scale_zeropoint</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Doc here.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">functions_ranks</span><span class="p">,</span> <span class="n">config</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">QuantizeRecordingToTrainingModifier</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_fct_bin_set</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="s1">&#39;Add2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">add2</span><span class="p">,</span>
+            <span class="s1">&#39;Sub2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">sub2</span><span class="p">,</span>
+            <span class="s1">&#39;Mul2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">mul2</span><span class="p">,</span>
+            <span class="s1">&#39;Div2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">div2</span><span class="p">,</span>
+            <span class="s1">&#39;Pow2&#39;</span><span class="p">:</span> <span class="n">F</span><span class="o">.</span><span class="n">pow2</span>
+        <span class="p">}</span>
+
+        <span class="kn">from</span> <span class="nn">nnabla.utils.qnn</span> <span class="kn">import</span> <span class="n">PrecisionMode</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_precision_mode_set</span> <span class="o">=</span> <span class="p">{</span>
+            <span class="n">PrecisionMode</span><span class="o">.</span><span class="n">QNN</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="n">PrecisionMode</span><span class="o">.</span><span class="n">SIM_QNN</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">SimulatedQNN</span><span class="p">,</span>
+            <span class="n">PrecisionMode</span><span class="o">.</span><span class="n">MIXED_QNN</span><span class="p">:</span> <span class="kc">None</span>
+        <span class="p">}[</span><span class="n">config</span><span class="o">.</span><span class="n">precision_mode</span><span class="p">](</span><span class="n">functions_ranks</span><span class="p">,</span> <span class="bp">self</span><span class="p">,</span> <span class="n">config</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">modify</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="o">.</span><span class="n">modify</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">inputs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__finish__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_mode</span><span class="o">.</span><span class="n">__finish__</span><span class="p">()</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,6 @@
+class nbla::IFFT
+========================================
+
+.. doxygenclass:: nbla::IFFT
+	:project: Cpp
+	:members: 

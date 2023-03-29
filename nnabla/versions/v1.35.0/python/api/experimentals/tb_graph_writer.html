@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Show Graph by Tensorboard &mdash; Neural Network Libraries 1.35.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="Graph Converters" href="graph_converters.html" />
+    <link rel="prev" title="Viewers" href="viewers.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.35.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sequential.html">Sequential</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../experimental.html">Experimental</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="viewers.html">Viewers</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Show Graph by Tensorboard</a></li>
+<li class="toctree-l4"><a class="reference internal" href="graph_converters.html">Graph Converters</a></li>
+<li class="toctree-l4"><a class="reference internal" href="trainers.html">Trainers</a></li>
+<li class="toctree-l4"><a class="reference internal" href="mixed_precision_trainings.html">Mixed Precision Trainings</a></li>
+<li class="toctree-l4"><a class="reference internal" href="parametric_function_classes.html">Parametric Function Classes</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../python.html">Python Package</a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">Python API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../experimental.html">Experimental</a></li>
+      <li class="breadcrumb-item active">Show Graph by Tensorboard</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/python/api/experimentals/tb_graph_writer.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="show-graph-by-tensorboard">
+<h1>Show Graph by Tensorboard<a class="headerlink" href="#show-graph-by-tensorboard" title="Permalink to this heading"></a></h1>
+<section id="tbgraphwriter">
+<h2>TBGraphWriter<a class="headerlink" href="#tbgraphwriter" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.experimental.tb_graph_writer.TBGraphWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.experimental.tb_graph_writer.</span></span><span class="sig-name descname"><span class="pre">TBGraphWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">log_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'log_out'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">comment</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/tb_graph_writer.html#TBGraphWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.tb_graph_writer.TBGraphWriter" title="Permalink to this definition"></a></dt>
+<dd><dl>
+<dt>This class is a wrapper of tensorboardX summary writer,</dt><dd><p>which enable nn.Variable can be visualized as a graph by tensorboard.</p>
+<dl>
+<dt>Prerequisite:</dt><dd><p>Install tensorflow and tensorboardX, simply by the following commands:</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>pip install tensorflow
+pip install tensorboardX
+</pre></div>
+</div>
+</dd>
+</dl>
+<p>Please refer to the following example to use this class:</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.parametric_functions</span> <span class="k">as</span> <span class="nn">PF</span>
+
+<span class="k">def</span> <span class="nf">show_a_graph</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">nnabla.experimental.tb_graph_writer</span> <span class="kn">import</span> <span class="n">TBGraphWriter</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;please install tensorflow and tensorboardX at first.&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="n">e</span>
+
+    <span class="n">nn</span><span class="o">.</span><span class="n">clear_parameters</span><span class="p">()</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;c1&#39;</span><span class="p">):</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">convolution</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">pad</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="n">h</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">relu</span><span class="p">(</span><span class="n">PF</span><span class="o">.</span><span class="n">batch_normalization</span><span class="p">(</span><span class="n">h</span><span class="p">))</span>
+    <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">parameter_scope</span><span class="p">(</span><span class="s1">&#39;f1&#39;</span><span class="p">):</span>
+        <span class="n">y</span> <span class="o">=</span> <span class="n">PF</span><span class="o">.</span><span class="n">affine</span><span class="p">(</span><span class="n">h</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="n">TBGraphWriter</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;log_out&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tb</span><span class="p">:</span>
+        <span class="n">tb</span><span class="o">.</span><span class="n">from_variable</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="s2">&quot;y&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The corresponding graph can be visualized as the following:</p>
+<a class="reference internal image-reference" href="../../../_images/graph.PNG"><img alt="../../../_images/graph.PNG" src="../../../_images/graph.PNG" style="width: 116.5px; height: 280.5px;" /></a>
+<p>Or, you may show scalar value or histogram of values along the increasing of iteration number
+as the following:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">TBGraphWriter</span><span class="p">(</span><span class="n">log_dir</span><span class="o">=</span><span class="s1">&#39;log_out&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tb</span><span class="p">:</span>
+    <span class="n">values</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">360</span><span class="p">):</span>
+        <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">i</span> <span class="o">/</span> <span class="mf">180.0</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">)</span>
+        <span class="n">tb</span><span class="o">.</span><span class="n">add_scalar</span><span class="p">(</span><span class="s2">&quot;show_curve/sin&quot;</span><span class="p">,</span> <span class="n">s</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">values</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+    <span class="n">nd_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">tb</span><span class="o">.</span><span class="n">add_histogram</span><span class="p">(</span><span class="s2">&quot;histogram&quot;</span><span class="p">,</span> <span class="n">nd_values</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span>
+        <span class="n">nd_values</span> <span class="o">+=</span> <span class="mf">0.05</span>
+</pre></div>
+</div>
+<p>It looks like:</p>
+<a class="reference internal image-reference" href="../../../_images/scalar.PNG"><img alt="../../../_images/scalar.PNG" src="../../../_images/scalar.PNG" style="width: 261.0px; height: 209.0px;" /></a>
+</dd>
+<dt>d</dt><dd><a class="reference internal image-reference" href="../../../_images/histogram.PNG"><img alt="../../../_images/histogram.PNG" src="../../../_images/histogram.PNG" style="width: 193.5px; height: 164.0px;" /></a>
+<p>This class writes a protobuf file to <code class="xref any docutils literal notranslate"><span class="pre">log_dir</span></code> specified folder, thus, user should launch tensorboard
+to specify this folder:</p>
+<div class="highlight-plaintext notranslate"><div class="highlight"><pre><span></span>tensorboard --logdir=log_out
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Then, user may check graph in a web browser, by typing the address:</dt><dd><p><a class="reference external" href="http://localhost:6006">http://localhost:6006</a></p>
+</dd>
+<dt>See Also:</dt><dd><p><a class="reference external" href="https://tensorboardx.readthedocs.io/en/latest/tensorboard.html">https://tensorboardx.readthedocs.io/en/latest/tensorboard.html</a></p>
+</dd>
+</dl>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.experimental.tb_graph_writer.TBGraphWriter.from_variable">
+<span class="sig-name descname"><span class="pre">from_variable</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">leaf</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'output'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/experimental/tb_graph_writer.html#TBGraphWriter.from_variable"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.experimental.tb_graph_writer.TBGraphWriter.from_variable" title="Permalink to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>leaf</strong> (<code class="xref any docutils literal notranslate"><span class="pre">nn.Variable</span></code>) – Leaf node of graph, normally, the output variable of a network</p></li>
+<li><p><strong>output_name</strong> (<em>'str'</em>) – A given name of output variable of graph</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="viewers.html" class="btn btn-neutral float-left" title="Viewers" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="graph_converters.html" class="btn btn-neutral float-right" title="Graph Converters" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

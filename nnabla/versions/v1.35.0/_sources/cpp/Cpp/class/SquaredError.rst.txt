@@ -1,0 +1,6 @@
+class SquaredError
+========================================
+
+.. doxygenclass:: SquaredError
+	:project: Cpp
+	:members: 

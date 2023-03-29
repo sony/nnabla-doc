@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::Variable &mdash; Neural Network Libraries 1.35.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::VATNoise" href="nbla--VATNoise.html" />
+    <link rel="prev" title="class nbla::UpdateHookWithObject" href="nbla--UpdateHookWithObject.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.35.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::Variable</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--Variable.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-variable">
+<h1>class nbla::Variable<a class="headerlink" href="#class-nbla-variable" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8VariableE">
+<span id="_CPPv3N4nbla8VariableE"></span><span id="_CPPv2N4nbla8VariableE"></span><span id="nbla::Variable"></span><span class="target" id="classnbla_1_1Variable"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variable</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--BaseVariable.html#_CPPv4N4nbla12BaseVariableE" title="nbla::BaseVariable"><span class="n"><span class="pre">BaseVariable</span></span></a><a class="headerlink" href="#_CPPv4N4nbla8VariableE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>User interface for <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> and passed to Function.Shared pointer of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a>. </p>
+<p>Users will create arrays via <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> and pass them to <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a>. <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a> has two array region internally, data and grad. Data region is used as an input and/or output of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1ab4008cfbf032b728ded183647516075f"><span class="std std-ref">Function::forward()</span></a>, while grad region is used for storing backprop error of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function_1a2062f16de445fc0d1d5fe4ded349933a"><span class="std std-ref">Function::backward()</span></a>. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Variable8VariableERK7Shape_t">
+<span id="_CPPv3N4nbla8Variable8VariableERK7Shape_t"></span><span id="_CPPv2N4nbla8Variable8VariableERK7Shape_t"></span><span id="nbla::Variable::Variable__Shape_tCR"></span><span class="target" id="classnbla_1_1Variable_1ac5d2165d5ddf898c44541da2d902c93f"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variable</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">shape</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="p"><span class="pre">{</span></span><span class="p"><span class="pre">}</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Variable8VariableERK7Shape_t" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shape</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Shape"><span class="std std-ref">Shape</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla8Variable8VariableE10NdArrayPtr">
+<span id="_CPPv3N4nbla8Variable8VariableE10NdArrayPtr"></span><span id="_CPPv2N4nbla8Variable8VariableE10NdArrayPtr"></span><span id="nbla::Variable::Variable__NdArrayPtr"></span><span class="target" id="classnbla_1_1Variable_1a798578f3140744b02ab318a04df08bcc"></span><span class="n"><span class="pre">NBLA_API</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Variable</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla10NdArrayPtrE" title="nbla::NdArrayPtr"><span class="n"><span class="pre">NdArrayPtr</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">data</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla8Variable8VariableE10NdArrayPtr" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Constructor given <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NdArray"><span class="std std-ref">NdArray</span></a>. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> – A reference of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NdArray"><span class="std std-ref">NdArray</span></a> created by another can be passed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1Variable_1a7b4de152215aa225d018a4d8da49ae90"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">reshape</span> <span class="pre">(const</span> <span class="pre">vector&lt;</span> <span class="pre">int64_t</span> <span class="pre">&gt;</span> <span class="pre">&amp;shape,</span> <span class="pre">bool</span> <span class="pre">force)</span></span></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Reshape"><span class="std std-ref">Reshape</span></a>. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1Variable_1a9fa3769d89a36ba5a7aea8a0caf87616"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Ptr</span> <span class="pre">view</span> <span class="pre">()</span></span></dt>
+<dd><p>Create a new view object without copying data. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1Variable_1aa396b2fc97533374c863d96b597cc65d"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Ptr</span> <span class="pre">view</span> <span class="pre">(const</span> <span class="pre">Shape_t</span> <span class="pre">&amp;shape)</span></span></dt>
+<dd><p>Create a new view object given shape without copying data. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>shape</strong> – <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Shape"><span class="std std-ref">Shape</span></a>. The total size of the shape must match the size of this instance. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Variable5shapeEv">
+<span id="_CPPv3NK4nbla8Variable5shapeEv"></span><span id="_CPPv2NK4nbla8Variable5shapeEv"></span><span id="nbla::Variable::shapeC"></span><span class="target" id="classnbla_1_1Variable_1a2a1e6aa6a6602fe142892ac69d6eb2ab"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">shape</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Variable5shapeEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Return shape of variable. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Variable7stridesEv">
+<span id="_CPPv3NK4nbla8Variable7stridesEv"></span><span id="_CPPv2NK4nbla8Variable7stridesEv"></span><span id="nbla::Variable::stridesC"></span><span class="target" id="classnbla_1_1Variable_1a88a4f7f687df20198f1568e5f04f16bd"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla7Shape_tE" title="nbla::Shape_t"><span class="n"><span class="pre">Shape_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">strides</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Variable7stridesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Return strides of variable. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1Variable_1ac8f2f51a940669c6a10de9821369dc1c"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">Size_t</span> <span class="pre">size</span> <span class="pre">(Size_t</span> <span class="pre">axis=-1)</span> <span class="pre">const</span></span></dt>
+<dd><p>Size of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array"><span class="std std-ref">Array</span></a> (Product of shape dimensions). </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>axis</strong> – Size followed by given axis is computed. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla8Variable4ndimEv">
+<span id="_CPPv3NK4nbla8Variable4ndimEv"></span><span id="_CPPv2NK4nbla8Variable4ndimEv"></span><span id="nbla::Variable::ndimC"></span><span class="target" id="classnbla_1_1Variable_1a0b5250354127bc6c44fd2b865092d238"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv4N4nbla6Size_tE" title="nbla::Size_t"><span class="n"><span class="pre">Size_t</span></span></a><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">ndim</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla8Variable4ndimEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Number of dimensions of array. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla8Variable25cast_data_and_get_pointerEP1TRK7Contextb">
+<span id="_CPPv3I0EN4nbla8Variable25cast_data_and_get_pointerERK7Contextb"></span><span id="_CPPv2I0EN4nbla8Variable25cast_data_and_get_pointerERK7Contextb"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1Variable_1a09f0f238ef4aab2b720807a1ec8974fa"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4nbla8Variable25cast_data_and_get_pointerEP1TRK7Contextb" title="nbla::Variable::cast_data_and_get_pointer::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">cast_data_and_get_pointer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">write_only</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4nbla8Variable25cast_data_and_get_pointerEP1TRK7Contextb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A shortcut function to cast data and get pointer. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a0ec6382680ec256cc6099eae7085de0f"><span class="std std-ref">SyncedArray::cast()</span></a> and <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array_1a768e4ce53952951b20c4e2e6e3d71971"><span class="std std-ref">Array::pointer()</span></a>. </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla8Variable25cast_grad_and_get_pointerEP1TRK7Contextb">
+<span id="_CPPv3I0EN4nbla8Variable25cast_grad_and_get_pointerERK7Contextb"></span><span id="_CPPv2I0EN4nbla8Variable25cast_grad_and_get_pointerERK7Contextb"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1Variable_1acdc86b4217695cc2039b1f7877d83a81"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4nbla8Variable25cast_grad_and_get_pointerEP1TRK7Contextb" title="nbla::Variable::cast_grad_and_get_pointer::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">cast_grad_and_get_pointer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="kt"><span class="pre">bool</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">write_only</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="k"><span class="pre">false</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4nbla8Variable25cast_grad_and_get_pointerEP1TRK7Contextb" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A shortcut function to cast grad and get pointer. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a0ec6382680ec256cc6099eae7085de0f"><span class="std std-ref">SyncedArray::cast()</span></a> and <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array_1a768e4ce53952951b20c4e2e6e3d71971"><span class="std std-ref">Array::pointer()</span></a>. </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla8Variable16get_data_pointerEPK1TRK7Context">
+<span id="_CPPv3I0EN4nbla8Variable16get_data_pointerERK7Context"></span><span id="_CPPv2I0EN4nbla8Variable16get_data_pointerERK7Context"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1Variable_1a101ea128c5bf686517352f25219939b3"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4nbla8Variable16get_data_pointerEPK1TRK7Context" title="nbla::Variable::get_data_pointer::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_data_pointer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4nbla8Variable16get_data_pointerEPK1TRK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A shortcut function to get data pointer. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a70bc938b82489b4fc76508ec5a593cba"><span class="std std-ref">SyncedArray::get()</span></a> and <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array_1ad505b80142dec0baec0019a9b29c0c52"><span class="std std-ref">Array::const_pointer()</span></a>. </p>
+</div>
+</p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4I0EN4nbla8Variable16get_grad_pointerEPK1TRK7Context">
+<span id="_CPPv3I0EN4nbla8Variable16get_grad_pointerERK7Context"></span><span id="_CPPv2I0EN4nbla8Variable16get_grad_pointerERK7Context"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">T</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1Variable_1adcb5d512e41dbadaa42a4fbd45e75bfc"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="#_CPPv4I0EN4nbla8Variable16get_grad_pointerEPK1TRK7Context" title="nbla::Variable::get_grad_pointer::T"><span class="n"><span class="pre">T</span></span></a><span class="w"> </span><span class="p"><span class="pre">*</span></span><span class="sig-name descname"><span class="n"><span class="pre">get_grad_pointer</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4I0EN4nbla8Variable16get_grad_pointerEPK1TRK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>A shortcut function to get grad pointer. </p>
+<p><div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1SyncedArray_1a70bc938b82489b4fc76508ec5a593cba"><span class="std std-ref">SyncedArray::get()</span></a> and <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Array_1ad505b80142dec0baec0019a9b29c0c52"><span class="std std-ref">Array::const_pointer()</span></a>. </p>
+</div>
+</p>
+</dd></dl>
+
+</div>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4IDpEN4nbla8Variable6createE3PtrDp4Args">
+<span id="_CPPv3IDpEN4nbla8Variable6createEDp4Args"></span><span id="_CPPv2IDpEN4nbla8Variable6createEDp4Args"></span><span class="k"><span class="pre">template</span></span><span class="p"><span class="pre">&lt;</span></span><span class="k"><span class="pre">typename</span></span><span class="w"> </span><span class="p"><span class="pre">...</span></span><span class="sig-name descname"><span class="n"><span class="pre">Args</span></span></span><span class="p"><span class="pre">&gt;</span></span><br /><span class="target" id="classnbla_1_1Variable_1a339c4e4212b6e01fe3e640f76e232291"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="n"><span class="pre">Ptr</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create</span></span></span><span class="sig-paren">(</span><a class="reference internal" href="#_CPPv4IDpEN4nbla8Variable6createE3PtrDp4Args" title="nbla::Variable::create::Args"><span class="n"><span class="pre">Args</span></span></a><span class="p"><span class="pre">...</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">args</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4IDpEN4nbla8Variable6createE3PtrDp4Args" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create a shared_ptr instance of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Variable"><span class="std std-ref">Variable</span></a>. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--UpdateHookWithObject.html" class="btn btn-neutral float-left" title="class nbla::UpdateHookWithObject" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--VATNoise.html" class="btn btn-neutral float-right" title="class nbla::VATNoise" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

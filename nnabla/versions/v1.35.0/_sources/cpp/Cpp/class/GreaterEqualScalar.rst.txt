@@ -1,0 +1,6 @@
+class GreaterEqualScalar
+========================================
+
+.. doxygenclass:: GreaterEqualScalar
+	:project: Cpp
+	:members: 

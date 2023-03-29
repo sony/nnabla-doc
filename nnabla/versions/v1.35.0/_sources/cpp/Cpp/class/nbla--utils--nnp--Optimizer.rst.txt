@@ -1,0 +1,6 @@
+class nbla::utils::nnp::Optimizer
+========================================
+
+.. doxygenclass:: nbla::utils::nnp::Optimizer
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Softmax
+========================================
+
+.. doxygenclass:: nbla::Softmax
+	:project: Cpp
+	:members: 

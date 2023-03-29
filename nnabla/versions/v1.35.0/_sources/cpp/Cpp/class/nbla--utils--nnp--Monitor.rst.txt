@@ -1,0 +1,6 @@
+class nbla::utils::nnp::Monitor
+========================================
+
+.. doxygenclass:: nbla::utils::nnp::Monitor
+	:project: Cpp
+	:members: 

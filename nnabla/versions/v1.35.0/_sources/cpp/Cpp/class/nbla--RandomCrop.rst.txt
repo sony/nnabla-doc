@@ -1,0 +1,6 @@
+class nbla::RandomCrop
+========================================
+
+.. doxygenclass:: nbla::RandomCrop
+	:project: Cpp
+	:members: 

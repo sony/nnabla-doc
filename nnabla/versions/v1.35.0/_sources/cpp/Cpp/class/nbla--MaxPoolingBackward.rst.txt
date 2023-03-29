@@ -1,0 +1,6 @@
+class nbla::MaxPoolingBackward
+========================================
+
+.. doxygenclass:: nbla::MaxPoolingBackward
+	:project: Cpp
+	:members: 

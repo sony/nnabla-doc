@@ -1,0 +1,6 @@
+class nbla::Lion
+========================================
+
+.. doxygenclass:: nbla::Lion
+	:project: Cpp
+	:members: 

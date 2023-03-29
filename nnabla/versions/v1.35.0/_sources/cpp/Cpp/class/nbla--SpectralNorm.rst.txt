@@ -1,0 +1,6 @@
+class nbla::SpectralNorm
+========================================
+
+.. doxygenclass:: nbla::SpectralNorm
+	:project: Cpp
+	:members: 

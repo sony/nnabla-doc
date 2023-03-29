@@ -1,0 +1,6 @@
+class nbla::utils::nnp::TrainingConfig
+========================================
+
+.. doxygenclass:: nbla::utils::nnp::TrainingConfig
+	:project: Cpp
+	:members: 

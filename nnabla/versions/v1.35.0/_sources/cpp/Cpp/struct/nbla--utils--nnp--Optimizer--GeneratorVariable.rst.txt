@@ -1,0 +1,6 @@
+struct nbla::utils::nnp::Optimizer::GeneratorVariable
+========================================
+
+.. doxygenstruct:: nbla::utils::nnp::Optimizer::GeneratorVariable
+	:project: Cpp
+	:members: 
