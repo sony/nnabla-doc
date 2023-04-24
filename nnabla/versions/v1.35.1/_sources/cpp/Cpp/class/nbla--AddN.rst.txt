@@ -1,0 +1,6 @@
+class nbla::AddN
+========================================
+
+.. doxygenclass:: nbla::AddN
+	:project: Cpp
+	:members: 

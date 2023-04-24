@@ -1,0 +1,6 @@
+class nbla::ONNXNonMaxSuppression
+========================================
+
+.. doxygenclass:: nbla::ONNXNonMaxSuppression
+	:project: Cpp
+	:members: 

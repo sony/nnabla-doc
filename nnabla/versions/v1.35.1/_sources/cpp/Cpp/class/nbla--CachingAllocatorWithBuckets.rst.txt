@@ -1,0 +1,6 @@
+class nbla::CachingAllocatorWithBuckets
+========================================
+
+.. doxygenclass:: nbla::CachingAllocatorWithBuckets
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::MaxPooling
+========================================
+
+.. doxygenclass:: nbla::MaxPooling
+	:project: Cpp
+	:members: 

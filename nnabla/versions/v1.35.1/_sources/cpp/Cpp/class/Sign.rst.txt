@@ -1,0 +1,6 @@
+class Sign
+========================================
+
+.. doxygenclass:: Sign
+	:project: Cpp
+	:members: 

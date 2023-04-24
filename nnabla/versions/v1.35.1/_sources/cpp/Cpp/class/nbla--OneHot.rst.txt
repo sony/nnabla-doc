@@ -1,0 +1,6 @@
+class nbla::OneHot
+========================================
+
+.. doxygenclass:: nbla::OneHot
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::GRU
+========================================
+
+.. doxygenclass:: nbla::GRU
+	:project: Cpp
+	:members: 

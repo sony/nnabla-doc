@@ -1,0 +1,6 @@
+class nbla::MeanSubtraction
+========================================
+
+.. doxygenclass:: nbla::MeanSubtraction
+	:project: Cpp
+	:members: 

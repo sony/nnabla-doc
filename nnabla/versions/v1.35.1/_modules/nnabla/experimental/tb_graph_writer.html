@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.experimental.tb_graph_writer &mdash; Neural Network Libraries 1.35.1 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.35.1
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.experimental.tb_graph_writer</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.experimental.tb_graph_writer</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2020,2021 Sony Corporation.</span>
+<span class="c1"># Copyright 2021 Sony Group Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">tensorboardX.proto.event_pb2</span> <span class="k">as</span> <span class="nn">event_pb2</span>
+<span class="kn">from</span> <span class="nn">nnabla.parameter</span> <span class="kn">import</span> <span class="n">get_parameters</span>
+<span class="kn">from</span> <span class="nn">tensorboardX</span> <span class="kn">import</span> <span class="n">SummaryWriter</span>
+<span class="kn">from</span> <span class="nn">tensorboardX.proto.attr_value_pb2</span> <span class="kn">import</span> <span class="n">AttrValue</span>
+<span class="kn">from</span> <span class="nn">tensorboardX.proto.graph_pb2</span> <span class="kn">import</span> <span class="n">GraphDef</span>
+<span class="kn">from</span> <span class="nn">tensorboardX.proto.node_def_pb2</span> <span class="kn">import</span> <span class="n">NodeDef</span>
+<span class="kn">from</span> <span class="nn">tensorboardX.proto.tensor_shape_pb2</span> <span class="kn">import</span> <span class="n">TensorShapeProto</span>
+<span class="kn">from</span> <span class="nn">tensorboardX.proto.types_pb2</span> <span class="kn">import</span> <span class="n">DT_FLOAT</span>
+<span class="kn">from</span> <span class="nn">tensorboardX.proto.versions_pb2</span> <span class="kn">import</span> <span class="n">VersionDef</span>
+
+
+<div class="viewcode-block" id="TBGraphWriter"><a class="viewcode-back" href="../../../python/api/experimentals/tb_graph_writer.html#nnabla.experimental.tb_graph_writer.TBGraphWriter">[docs]</a><span class="k">class</span> <span class="nc">TBGraphWriter</span><span class="p">(</span><span class="n">SummaryWriter</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This class is a wrapper of tensorboardX summary writer,</span>
+<span class="sd">    which enable nn.Variable can be visualized as a graph by tensorboard.</span>
+
+<span class="sd">    Prerequisite:</span>
+<span class="sd">       Install tensorflow and tensorboardX, simply by the following commands:</span>
+
+<span class="sd">       .. code-block:: plaintext</span>
+
+<span class="sd">           pip install tensorflow</span>
+<span class="sd">           pip install tensorboardX</span>
+
+<span class="sd">    Please refer to the following example to use this class:</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import numpy as np</span>
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.functions as F</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+
+<span class="sd">        def show_a_graph():</span>
+<span class="sd">            try:</span>
+<span class="sd">                from nnabla.experimental.tb_graph_writer import TBGraphWriter</span>
+<span class="sd">            except Exception as e:</span>
+<span class="sd">                print(&quot;please install tensorflow and tensorboardX at first.&quot;)</span>
+<span class="sd">                raise e</span>
+
+<span class="sd">            nn.clear_parameters()</span>
+<span class="sd">            x = nn.Variable((2, 3, 4, 4))</span>
+<span class="sd">            with nn.parameter_scope(&#39;c1&#39;):</span>
+<span class="sd">                h = PF.convolution(x, 8, (3, 3), pad=(1, 1))</span>
+<span class="sd">                h = F.relu(PF.batch_normalization(h))</span>
+<span class="sd">            with nn.parameter_scope(&#39;f1&#39;):</span>
+<span class="sd">                y = PF.affine(h, 10)</span>
+
+<span class="sd">            with TBGraphWriter(log_dir=&#39;log_out&#39;) as tb:</span>
+<span class="sd">                tb.from_variable(y, output_name=&quot;y&quot;)</span>
+
+<span class="sd">    The corresponding graph can be visualized as the following:</span>
+
+<span class="sd">    .. image:: ./tb_graph_writer_files/graph.PNG</span>
+<span class="sd">       :height: 561px</span>
+<span class="sd">       :width: 233px</span>
+<span class="sd">       :scale: 50%</span>
+
+<span class="sd">    Or, you may show scalar value or histogram of values along the increasing of iteration number</span>
+<span class="sd">    as the following:</span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        with TBGraphWriter(log_dir=&#39;log_out&#39;) as tb:</span>
+<span class="sd">            values = []</span>
+<span class="sd">            for i in range(360):</span>
+<span class="sd">                s = np.sin(i / 180.0 * np.pi)</span>
+<span class="sd">                tb.add_scalar(&quot;show_curve/sin&quot;, s, i)</span>
+<span class="sd">                values.append(s)</span>
+
+<span class="sd">            nd_values = np.array(values)</span>
+<span class="sd">            for i in range(10):</span>
+<span class="sd">                tb.add_histogram(&quot;histogram&quot;, nd_values, i)</span>
+<span class="sd">                nd_values += 0.05</span>
+
+<span class="sd">    It looks like:</span>
+
+<span class="sd">    .. image:: ./tb_graph_writer_files/scalar.PNG</span>
+<span class="sd">       :height: 418px</span>
+<span class="sd">       :width: 522px</span>
+<span class="sd">       :scale: 50%</span>
+
+<span class="sd">d</span>
+<span class="sd">    .. image:: ./tb_graph_writer_files/histogram.PNG</span>
+<span class="sd">       :height: 328px</span>
+<span class="sd">       :width: 387px</span>
+<span class="sd">       :scale: 50%</span>
+
+
+<span class="sd">    This class writes a protobuf file to `log_dir` specified folder, thus, user should launch tensorboard</span>
+<span class="sd">    to specify this folder:</span>
+
+<span class="sd">    .. code-block:: plaintext</span>
+
+<span class="sd">       tensorboard --logdir=log_out</span>
+
+<span class="sd">    Then, user may check graph in a web browser, by typing the address:</span>
+<span class="sd">       http://localhost:6006</span>
+
+<span class="sd">    See Also:</span>
+<span class="sd">        https://tensorboardx.readthedocs.io/en/latest/tensorboard.html</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_dir</span><span class="o">=</span><span class="s2">&quot;log_out&quot;</span><span class="p">,</span> <span class="n">comment</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">TBGraphWriter</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">log_dir</span><span class="p">,</span> <span class="n">comment</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<div class="viewcode-block" id="TBGraphWriter.from_variable"><a class="viewcode-back" href="../../../python/api/experimentals/tb_graph_writer.html#nnabla.experimental.tb_graph_writer.TBGraphWriter.from_variable">[docs]</a>    <span class="k">def</span> <span class="nf">from_variable</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">leaf</span><span class="p">,</span> <span class="n">output_name</span><span class="o">=</span><span class="s2">&quot;output&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Args:</span>
+<span class="sd">          leaf (`nn.Variable`): Leaf node of graph, normally, the output variable of a network</span>
+<span class="sd">          output_name (&#39;str&#39;): A given name of output variable of graph</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">def</span> <span class="nf">parse_variable</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">var_num</span><span class="p">):</span>
+            <span class="k">def</span> <span class="nf">add_variable</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v_idx</span><span class="p">):</span>
+                <span class="n">v_name</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="n">exist</span> <span class="o">=</span> <span class="kc">False</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">v_name</span><span class="p">:</span>
+                    <span class="n">v_name</span><span class="p">,</span> <span class="n">exist</span> <span class="o">=</span> <span class="n">get_variable_name</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v_idx</span><span class="p">)</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">exist</span><span class="p">:</span>
+                    <span class="n">shape_proto</span> <span class="o">=</span> <span class="n">TensorShapeProto</span><span class="p">(</span>
+                        <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">TensorShapeProto</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+
+                    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[]</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">get_func_name</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">)]</span>
+                    <span class="c1"># print(&quot;Variable: {}:{}&quot;.format(v_name, inputs))</span>
+                    <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NodeDef</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">v_name</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+                        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span>
+                        <span class="nb">input</span><span class="o">=</span><span class="n">inputs</span><span class="p">,</span>
+                        <span class="n">attr</span><span class="o">=</span><span class="p">{</span>
+                            <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape_proto</span><span class="p">),</span>
+                            <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">DT_FLOAT</span><span class="p">)</span>
+                        <span class="p">}</span>
+                    <span class="p">))</span>
+                <span class="k">return</span> <span class="n">v_name</span>
+
+            <span class="k">def</span> <span class="nf">get_unique_variable_name</span><span class="p">(</span><span class="n">v_name_base</span><span class="p">):</span>
+                <span class="n">v_num</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">v_name</span> <span class="o">=</span> <span class="n">v_name_base</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v_num</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">v_name</span> <span class="ow">in</span> <span class="n">unique_var_names</span><span class="p">:</span>
+                    <span class="n">v_num</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">v_name</span> <span class="o">=</span> <span class="n">v_name_base</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">v_num</span><span class="p">)</span>
+                <span class="n">unique_var_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">v_name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="n">v_name</span>
+
+            <span class="k">def</span> <span class="nf">get_variable_name</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">v_idx</span><span class="p">):</span>
+                <span class="n">v_name</span> <span class="o">=</span> <span class="n">variables</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">v_name</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">v_name</span><span class="p">,</span> <span class="kc">True</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                        <span class="n">v_name_base</span> <span class="o">=</span> <span class="s2">&quot;Input&quot;</span>
+                        <span class="n">v_name</span> <span class="o">=</span> <span class="n">get_unique_variable_name</span><span class="p">(</span><span class="n">v_name_base</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="ow">not</span> <span class="n">nodes</span><span class="p">:</span>
+                        <span class="n">v_name</span> <span class="o">=</span> <span class="n">output_name</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">f_name_sections</span> <span class="o">=</span> <span class="n">get_func_name</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">)</span>
+                        <span class="n">f_name</span> <span class="o">=</span> <span class="n">f_name_sections</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">f_scope</span> <span class="o">=</span> <span class="n">f_name_sections</span><span class="p">[:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+                        <span class="n">base_name</span> <span class="o">=</span> <span class="s2">&quot;v_</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_name</span><span class="p">)</span>
+                        <span class="n">v_name_base</span> <span class="o">=</span> <span class="s2">&quot;/&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">f_scope</span> <span class="o">+</span> <span class="p">[</span><span class="n">base_name</span><span class="p">])</span>
+                        <span class="n">v_name</span> <span class="o">=</span> <span class="n">get_unique_variable_name</span><span class="p">(</span><span class="n">v_name_base</span><span class="p">)</span>
+
+                    <span class="n">variables</span><span class="p">[</span><span class="n">v</span><span class="p">]</span> <span class="o">=</span> <span class="n">v_name</span>
+                    <span class="k">return</span> <span class="n">v_name</span><span class="p">,</span> <span class="kc">False</span>
+
+            <span class="k">def</span> <span class="nf">get_func_name</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+                <span class="n">func_name</span> <span class="o">=</span> <span class="n">func_names</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">func</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">func_name</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="n">func_name</span>
+                <span class="n">name_scope</span> <span class="o">=</span> <span class="n">loc_var</span><span class="p">[</span><span class="s1">&#39;name_scope&#39;</span><span class="p">]</span>
+                <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">func</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+                    <span class="n">v_name</span> <span class="o">=</span> <span class="n">parameters</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">data</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                    <span class="k">if</span> <span class="n">v_name</span><span class="p">:</span>
+                        <span class="n">name_scope</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">v_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                        <span class="k">break</span>
+                <span class="k">if</span> <span class="n">name_scope</span><span class="p">:</span>
+                    <span class="n">func_name_base</span> <span class="o">=</span> <span class="s1">&#39;/&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="n">name_scope</span><span class="p">,</span> <span class="n">func</span><span class="o">.</span><span class="n">name</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">func_name_base</span> <span class="o">=</span> <span class="n">func</span><span class="o">.</span><span class="n">name</span>
+                <span class="n">func_num</span> <span class="o">=</span> <span class="mi">0</span>
+                <span class="n">func_name</span> <span class="o">=</span> <span class="n">func_name_base</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">func_num</span><span class="p">)</span>
+                <span class="k">while</span> <span class="n">func_name</span> <span class="ow">in</span> <span class="n">unique_func_names</span><span class="p">:</span>
+                    <span class="n">func_num</span> <span class="o">+=</span> <span class="mi">1</span>
+                    <span class="n">func_name</span> <span class="o">=</span> <span class="n">func_name_base</span> <span class="o">+</span> <span class="s1">&#39;_&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">func_num</span><span class="p">)</span>
+                <span class="n">unique_func_names</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">func_name</span><span class="p">)</span>
+                <span class="n">func_names</span><span class="p">[</span><span class="n">func</span><span class="p">]</span> <span class="o">=</span> <span class="n">func_name</span>
+                <span class="k">return</span> <span class="n">func_name</span>
+
+            <span class="k">def</span> <span class="nf">add_func</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+                <span class="n">input_names</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">v_input</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                    <span class="n">v_name</span> <span class="o">=</span> <span class="n">add_variable</span><span class="p">(</span><span class="n">v_input</span><span class="p">,</span> <span class="n">index</span><span class="p">)</span>
+                    <span class="n">input_names</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">v_name</span><span class="p">)</span>
+                <span class="c1"># print(&quot;Function: {}:{}&quot;.format(get_func_name(v.parent), input_names))</span>
+                <span class="n">f_name</span> <span class="o">=</span> <span class="n">get_func_name</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">f_name</span> <span class="ow">in</span> <span class="n">func_set</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+                <span class="n">attrs</span> <span class="o">=</span> <span class="p">[]</span>
+                <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">args</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+                    <span class="n">attr</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">=</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">a</span><span class="p">)</span>
+                    <span class="n">attrs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">attr</span><span class="p">)</span>
+                <span class="n">attr_str</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">attrs</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NodeDef</span><span class="p">(</span>
+                    <span class="n">name</span><span class="o">=</span><span class="n">f_name</span><span class="p">,</span>
+                    <span class="n">op</span><span class="o">=</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span><span class="p">,</span>
+                    <span class="nb">input</span><span class="o">=</span><span class="n">input_names</span><span class="p">,</span>
+                    <span class="n">attr</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;parameters&quot;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="n">attr_str</span><span class="p">)}</span>
+                <span class="p">))</span>
+                <span class="n">func_set</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">f_name</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">True</span>
+
+            <span class="n">name_scope</span> <span class="o">=</span> <span class="n">loc_var</span><span class="p">[</span><span class="s1">&#39;name_scope&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">nodes</span><span class="p">:</span>
+                <span class="n">add_variable</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">var_num</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">v</span><span class="o">.</span><span class="n">parent</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">add_variable</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">var_num</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">add_func</span><span class="p">(</span><span class="n">v</span><span class="p">):</span>
+                    <span class="k">return</span>
+                <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">in_var</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">v</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                    <span class="n">name_scope_stack</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_scope</span><span class="p">)</span>
+                    <span class="n">parse_variable</span><span class="p">(</span><span class="n">in_var</span><span class="p">,</span> <span class="n">idx</span><span class="p">)</span>
+                    <span class="n">name_scope</span> <span class="o">=</span> <span class="n">name_scope_stack</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">loc_var</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">loc_var</span><span class="p">[</span><span class="s1">&#39;name_scope&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="n">name_scope_stack</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">func_names</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">func_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">unique_func_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">unique_var_names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span><span class="n">v</span><span class="o">.</span><span class="n">data</span><span class="p">:</span> <span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span>
+                      <span class="n">v</span> <span class="ow">in</span> <span class="n">get_parameters</span><span class="p">(</span><span class="n">grad_only</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()}</span>
+        <span class="n">parse_variable</span><span class="p">(</span><span class="n">leaf</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="n">nodes</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">current_graph</span> <span class="o">=</span> <span class="n">GraphDef</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">nodes</span><span class="p">,</span> <span class="n">versions</span><span class="o">=</span><span class="n">VersionDef</span><span class="p">(</span><span class="n">producer</span><span class="o">=</span><span class="mi">22</span><span class="p">))</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">event_pb2</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span>
+            <span class="n">graph_def</span><span class="o">=</span><span class="n">current_graph</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_writer</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+
+    <span class="k">def</span> <span class="nf">from_graph_def</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">graph_def</span><span class="p">):</span>
+        <span class="n">variables</span> <span class="o">=</span> <span class="n">graph_def</span><span class="o">.</span><span class="n">variables</span>
+        <span class="n">parameters</span> <span class="o">=</span> <span class="n">graph_def</span><span class="o">.</span><span class="n">parameters</span>
+        <span class="n">functions</span> <span class="o">=</span> <span class="n">graph_def</span><span class="o">.</span><span class="n">functions</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="n">graph_def</span><span class="o">.</span><span class="n">inputs</span>
+        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">scope</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">parameters</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">shape_proto</span> <span class="o">=</span> <span class="n">TensorShapeProto</span><span class="p">(</span>
+                <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">TensorShapeProto</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+            <span class="n">node</span> <span class="o">=</span> <span class="n">NodeDef</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">n</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+                <span class="n">op</span><span class="o">=</span><span class="s1">&#39;Parameter&#39;</span><span class="p">,</span>
+                <span class="nb">input</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">attr</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape_proto</span><span class="p">),</span>
+                    <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">DT_FLOAT</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">)</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="n">scope</span><span class="p">[</span><span class="n">n</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+
+        <span class="k">for</span> <span class="n">n</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">inputs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="n">shape_proto</span> <span class="o">=</span> <span class="n">TensorShapeProto</span><span class="p">(</span>
+                <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">TensorShapeProto</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NodeDef</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">n</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+                <span class="n">op</span><span class="o">=</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span>
+                <span class="nb">input</span><span class="o">=</span><span class="p">[],</span>
+                <span class="n">attr</span><span class="o">=</span><span class="p">{</span>
+                    <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape_proto</span><span class="p">),</span>
+                    <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">DT_FLOAT</span><span class="p">)</span>
+                <span class="p">}</span>
+            <span class="p">))</span>
+
+        <span class="k">for</span> <span class="n">func_name</span><span class="p">,</span> <span class="n">func</span> <span class="ow">in</span> <span class="n">functions</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">func</span><span class="p">[</span><span class="s1">&#39;outputs&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">scope</span><span class="p">:</span>
+                    <span class="n">node</span> <span class="o">=</span> <span class="n">scope</span><span class="p">[</span><span class="n">o</span><span class="p">]</span>
+                    <span class="n">node</span><span class="o">.</span><span class="n">input</span><span class="o">.</span><span class="n">extend</span><span class="p">([</span><span class="n">func_name</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+                        <span class="n">v</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="n">o</span><span class="p">]</span>
+                        <span class="n">shape_proto</span> <span class="o">=</span> <span class="n">TensorShapeProto</span><span class="p">(</span>
+                            <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">TensorShapeProto</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+                        <span class="n">node</span> <span class="o">=</span> <span class="n">NodeDef</span><span class="p">(</span>
+                            <span class="n">name</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+                            <span class="n">op</span><span class="o">=</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span>
+                            <span class="nb">input</span><span class="o">=</span><span class="p">[</span><span class="n">func_name</span><span class="p">],</span>
+                            <span class="n">attr</span><span class="o">=</span><span class="p">{</span>
+                                <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape_proto</span><span class="p">),</span>
+                                <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">DT_FLOAT</span><span class="p">)</span>
+                            <span class="p">}</span>
+                        <span class="p">)</span>
+                        <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">func</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">variables</span><span class="p">:</span>
+                    <span class="n">v</span> <span class="o">=</span> <span class="n">variables</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                    <span class="n">shape_proto</span> <span class="o">=</span> <span class="n">TensorShapeProto</span><span class="p">(</span>
+                        <span class="n">dim</span><span class="o">=</span><span class="p">[</span><span class="n">TensorShapeProto</span><span class="o">.</span><span class="n">Dim</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">d</span><span class="p">)</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">v</span><span class="o">.</span><span class="n">shape</span><span class="p">])</span>
+                    <span class="n">node</span> <span class="o">=</span> <span class="n">NodeDef</span><span class="p">(</span>
+                        <span class="n">name</span><span class="o">=</span><span class="n">o</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">),</span>
+                        <span class="n">op</span><span class="o">=</span><span class="s1">&#39;Variable&#39;</span><span class="p">,</span>
+                        <span class="nb">input</span><span class="o">=</span><span class="p">[],</span>
+                        <span class="n">attr</span><span class="o">=</span><span class="p">{</span>
+                            <span class="s1">&#39;shape&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">shape</span><span class="o">=</span><span class="n">shape_proto</span><span class="p">),</span>
+                            <span class="s1">&#39;dtype&#39;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">DT_FLOAT</span><span class="p">)</span>
+                        <span class="p">}</span>
+                    <span class="p">)</span>
+                    <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+                    <span class="n">scope</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
+            <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">NodeDef</span><span class="p">(</span>
+                <span class="n">name</span><span class="o">=</span><span class="n">func_name</span><span class="p">,</span>
+                <span class="n">op</span><span class="o">=</span><span class="n">func</span><span class="p">[</span><span class="s1">&#39;type&#39;</span><span class="p">],</span>
+                <span class="nb">input</span><span class="o">=</span><span class="n">func</span><span class="p">[</span><span class="s1">&#39;inputs&#39;</span><span class="p">],</span>
+                <span class="n">attr</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;arguments&quot;</span><span class="p">:</span> <span class="n">AttrValue</span><span class="p">(</span><span class="n">s</span><span class="o">=</span><span class="s1">&#39;a=1&#39;</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">))}</span>
+            <span class="p">))</span>
+
+        <span class="n">current_graph</span> <span class="o">=</span> <span class="n">GraphDef</span><span class="p">(</span><span class="n">node</span><span class="o">=</span><span class="n">nodes</span><span class="p">,</span> <span class="n">versions</span><span class="o">=</span><span class="n">VersionDef</span><span class="p">(</span><span class="n">producer</span><span class="o">=</span><span class="mi">22</span><span class="p">))</span>
+        <span class="n">event</span> <span class="o">=</span> <span class="n">event_pb2</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span>
+            <span class="n">graph_def</span><span class="o">=</span><span class="n">current_graph</span><span class="o">.</span><span class="n">SerializeToString</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">file_writer</span><span class="o">.</span><span class="n">add_event</span><span class="p">(</span><span class="n">event</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
