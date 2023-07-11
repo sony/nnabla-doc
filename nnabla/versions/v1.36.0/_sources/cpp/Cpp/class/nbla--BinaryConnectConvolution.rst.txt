@@ -1,0 +1,6 @@
+class nbla::BinaryConnectConvolution
+========================================
+
+.. doxygenclass:: nbla::BinaryConnectConvolution
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::FixedPointQuantize
+========================================
+
+.. doxygenclass:: nbla::FixedPointQuantize
+	:project: Cpp
+	:members: 

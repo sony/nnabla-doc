@@ -1,0 +1,6 @@
+class BinaryTanh
+========================================
+
+.. doxygenclass:: BinaryTanh
+	:project: Cpp
+	:members: 

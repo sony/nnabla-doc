@@ -1,0 +1,6 @@
+class nbla::AllocatorMemory
+========================================
+
+.. doxygenclass:: nbla::AllocatorMemory
+	:project: Cpp
+	:members: 

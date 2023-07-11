@@ -1,0 +1,6 @@
+class nbla::LogSoftmax
+========================================
+
+.. doxygenclass:: nbla::LogSoftmax
+	:project: Cpp
+	:members: 

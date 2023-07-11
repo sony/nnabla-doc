@@ -1,0 +1,6 @@
+class nbla::BinaryWeightAffine
+========================================
+
+.. doxygenclass:: nbla::BinaryWeightAffine
+	:project: Cpp
+	:members: 

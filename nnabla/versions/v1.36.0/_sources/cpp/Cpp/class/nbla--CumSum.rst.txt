@@ -1,0 +1,6 @@
+class nbla::CumSum
+========================================
+
+.. doxygenclass:: nbla::CumSum
+	:project: Cpp
+	:members: 

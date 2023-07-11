@@ -1,0 +1,6 @@
+class nbla::BinaryCrossEntropy
+========================================
+
+.. doxygenclass:: nbla::BinaryCrossEntropy
+	:project: Cpp
+	:members: 

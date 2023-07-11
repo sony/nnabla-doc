@@ -1,0 +1,6 @@
+class nbla::AdamW
+========================================
+
+.. doxygenclass:: nbla::AdamW
+	:project: Cpp
+	:members: 

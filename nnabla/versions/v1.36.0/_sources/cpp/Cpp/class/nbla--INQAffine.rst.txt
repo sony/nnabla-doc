@@ -1,0 +1,6 @@
+class nbla::INQAffine
+========================================
+
+.. doxygenclass:: nbla::INQAffine
+	:project: Cpp
+	:members: 

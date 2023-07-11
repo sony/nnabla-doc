@@ -1,0 +1,6 @@
+class nbla::ClearCalledFlagRecorder
+========================================
+
+.. doxygenclass:: nbla::ClearCalledFlagRecorder
+	:project: Cpp
+	:members: 

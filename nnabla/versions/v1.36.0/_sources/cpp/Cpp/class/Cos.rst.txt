@@ -1,0 +1,6 @@
+class Cos
+========================================
+
+.. doxygenclass:: Cos
+	:project: Cpp
+	:members: 

@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python API Reference &mdash; Neural Network Libraries 1.36.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Common" href="api/common.html" />
+    <link rel="prev" title="Python API Examples" href="examples.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.36.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Python API Reference</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html">Monitors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils.html">Utils</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../python.html">Python Package</a></li>
+      <li class="breadcrumb-item active">Python API Reference</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/python/api.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-nnabla">
+<span id="id1"></span><span id="python-api-reference"></span><h1>Python API Reference<a class="headerlink" href="#module-nnabla" title="Permalink to this heading"></a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api/common.html">Common</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#module-nnabla.config">Config</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#module-nnabla.logger">Logger</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#nnabla.logger.logger"><code class="docutils literal notranslate"><span class="pre">logger</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#auto-forward-mode">Auto-forward mode</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#nnabla.auto_forward"><code class="docutils literal notranslate"><span class="pre">auto_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#nnabla.set_auto_forward"><code class="docutils literal notranslate"><span class="pre">set_auto_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#nnabla.get_auto_forward"><code class="docutils literal notranslate"><span class="pre">get_auto_forward()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/common.html#context">Context</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#nnabla.Context"><code class="docutils literal notranslate"><span class="pre">Context</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/common.html#context-specifier-api">Context Specifier API</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/common.html#nnabla.context_scope"><code class="docutils literal notranslate"><span class="pre">context_scope()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/common.html#nnabla.set_default_context"><code class="docutils literal notranslate"><span class="pre">set_default_context()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/common.html#nnabla.get_current_context"><code class="docutils literal notranslate"><span class="pre">get_current_context()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/nd_array.html">NdArray</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray"><code class="docutils literal notranslate"><span class="pre">NdArray</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.bool_fill"><code class="docutils literal notranslate"><span class="pre">NdArray.bool_fill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.cast"><code class="docutils literal notranslate"><span class="pre">NdArray.cast()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.clear"><code class="docutils literal notranslate"><span class="pre">NdArray.clear()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.clear_called"><code class="docutils literal notranslate"><span class="pre">NdArray.clear_called</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.copy_from"><code class="docutils literal notranslate"><span class="pre">NdArray.copy_from()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.data"><code class="docutils literal notranslate"><span class="pre">NdArray.data</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.data_ptr"><code class="docutils literal notranslate"><span class="pre">NdArray.data_ptr()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.dtype"><code class="docutils literal notranslate"><span class="pre">NdArray.dtype</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.fill"><code class="docutils literal notranslate"><span class="pre">NdArray.fill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.from_numpy_array"><code class="docutils literal notranslate"><span class="pre">NdArray.from_numpy_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.get_data"><code class="docutils literal notranslate"><span class="pre">NdArray.get_data()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.masked_fill"><code class="docutils literal notranslate"><span class="pre">NdArray.masked_fill()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.modification_count"><code class="docutils literal notranslate"><span class="pre">NdArray.modification_count</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.narrow"><code class="docutils literal notranslate"><span class="pre">NdArray.narrow()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.ndim"><code class="docutils literal notranslate"><span class="pre">NdArray.ndim</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.shape"><code class="docutils literal notranslate"><span class="pre">NdArray.shape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.size"><code class="docutils literal notranslate"><span class="pre">NdArray.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.size_from_axis"><code class="docutils literal notranslate"><span class="pre">NdArray.size_from_axis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.strides"><code class="docutils literal notranslate"><span class="pre">NdArray.strides</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.view"><code class="docutils literal notranslate"><span class="pre">NdArray.view()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.zero"><code class="docutils literal notranslate"><span class="pre">NdArray.zero()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/nd_array.html#nnabla.NdArray.zeroing"><code class="docutils literal notranslate"><span class="pre">NdArray.zeroing</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/variable.html">Variable</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/variable.html#nnabla.Variable"><code class="docutils literal notranslate"><span class="pre">Variable</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.apply"><code class="docutils literal notranslate"><span class="pre">Variable.apply()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.backward"><code class="docutils literal notranslate"><span class="pre">Variable.backward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.bool_fill_"><code class="docutils literal notranslate"><span class="pre">Variable.bool_fill_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.clear_all_graph_links"><code class="docutils literal notranslate"><span class="pre">Variable.clear_all_graph_links()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.d"><code class="docutils literal notranslate"><span class="pre">Variable.d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.data"><code class="docutils literal notranslate"><span class="pre">Variable.data</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.forward"><code class="docutils literal notranslate"><span class="pre">Variable.forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.from_numpy_array"><code class="docutils literal notranslate"><span class="pre">Variable.from_numpy_array()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.function_references"><code class="docutils literal notranslate"><span class="pre">Variable.function_references</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.g"><code class="docutils literal notranslate"><span class="pre">Variable.g</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.get_number_of_references"><code class="docutils literal notranslate"><span class="pre">Variable.get_number_of_references</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.get_unlinked_variable"><code class="docutils literal notranslate"><span class="pre">Variable.get_unlinked_variable()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.grad"><code class="docutils literal notranslate"><span class="pre">Variable.grad</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.info"><code class="docutils literal notranslate"><span class="pre">Variable.info</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.masked_fill_"><code class="docutils literal notranslate"><span class="pre">Variable.masked_fill_()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.ndim"><code class="docutils literal notranslate"><span class="pre">Variable.ndim</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.need_grad"><code class="docutils literal notranslate"><span class="pre">Variable.need_grad</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.no_grad"><code class="docutils literal notranslate"><span class="pre">Variable.no_grad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.parent"><code class="docutils literal notranslate"><span class="pre">Variable.parent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.persistent"><code class="docutils literal notranslate"><span class="pre">Variable.persistent</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.recompute"><code class="docutils literal notranslate"><span class="pre">Variable.recompute</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.reset_shape"><code class="docutils literal notranslate"><span class="pre">Variable.reset_shape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.reshape"><code class="docutils literal notranslate"><span class="pre">Variable.reshape()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.rewire_on"><code class="docutils literal notranslate"><span class="pre">Variable.rewire_on()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.shape"><code class="docutils literal notranslate"><span class="pre">Variable.shape</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.size"><code class="docutils literal notranslate"><span class="pre">Variable.size</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.size_from_axis"><code class="docutils literal notranslate"><span class="pre">Variable.size_from_axis()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.unlinked"><code class="docutils literal notranslate"><span class="pre">Variable.unlinked()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.visit"><code class="docutils literal notranslate"><span class="pre">Variable.visit()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/variable.html#nnabla.Variable.visit_check"><code class="docutils literal notranslate"><span class="pre">Variable.visit_check()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/computation_graph.html">Computation Graph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/computation_graph.html#id2">Computation Graph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/computation_graph.html#nnabla.forward_all"><code class="docutils literal notranslate"><span class="pre">forward_all()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/computation_graph.html#nnabla.no_grad"><code class="docutils literal notranslate"><span class="pre">no_grad()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/function.html">Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/function.html#id1">Function</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#nnabla.function.Function"><code class="docutils literal notranslate"><span class="pre">Function</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.args"><code class="docutils literal notranslate"><span class="pre">Function.args</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.auto_grad_depends_input_data"><code class="docutils literal notranslate"><span class="pre">Function.auto_grad_depends_input_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.auto_grad_depends_output_data"><code class="docutils literal notranslate"><span class="pre">Function.auto_grad_depends_output_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.backward"><code class="docutils literal notranslate"><span class="pre">Function.backward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.forward"><code class="docutils literal notranslate"><span class="pre">Function.forward()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.grad_depends_input_data"><code class="docutils literal notranslate"><span class="pre">Function.grad_depends_input_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.grad_depends_output_data"><code class="docutils literal notranslate"><span class="pre">Function.grad_depends_output_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.info"><code class="docutils literal notranslate"><span class="pre">Function.info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.inplace_data"><code class="docutils literal notranslate"><span class="pre">Function.inplace_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.inplace_data_with"><code class="docutils literal notranslate"><span class="pre">Function.inplace_data_with()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.min_outputs"><code class="docutils literal notranslate"><span class="pre">Function.min_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.need_setup_recompute"><code class="docutils literal notranslate"><span class="pre">Function.need_setup_recompute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.recompute"><code class="docutils literal notranslate"><span class="pre">Function.recompute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.set_active_input_mask"><code class="docutils literal notranslate"><span class="pre">Function.set_active_input_mask()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.setup"><code class="docutils literal notranslate"><span class="pre">Function.setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.setup_recompute"><code class="docutils literal notranslate"><span class="pre">Function.setup_recompute()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.Function.tags"><code class="docutils literal notranslate"><span class="pre">Function.tags</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction"><code class="docutils literal notranslate"><span class="pre">PythonFunction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.__init__"><code class="docutils literal notranslate"><span class="pre">PythonFunction.__init__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.backward_impl"><code class="docutils literal notranslate"><span class="pre">PythonFunction.backward_impl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.ctx"><code class="docutils literal notranslate"><span class="pre">PythonFunction.ctx</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.forward_impl"><code class="docutils literal notranslate"><span class="pre">PythonFunction.forward_impl()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.grad_depends_input_data"><code class="docutils literal notranslate"><span class="pre">PythonFunction.grad_depends_input_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.grad_depends_output_data"><code class="docutils literal notranslate"><span class="pre">PythonFunction.grad_depends_output_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.min_outputs"><code class="docutils literal notranslate"><span class="pre">PythonFunction.min_outputs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.name"><code class="docutils literal notranslate"><span class="pre">PythonFunction.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.function.PythonFunction.setup_impl"><code class="docutils literal notranslate"><span class="pre">PythonFunction.setup_impl()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/function.html#module-nnabla.functions">List of Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#neural-network-layers">Neural Network Layers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.affine"><code class="docutils literal notranslate"><span class="pre">affine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.convolution"><code class="docutils literal notranslate"><span class="pre">convolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.depthwise_convolution"><code class="docutils literal notranslate"><span class="pre">depthwise_convolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.deconvolution"><code class="docutils literal notranslate"><span class="pre">deconvolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.depthwise_deconvolution"><code class="docutils literal notranslate"><span class="pre">depthwise_deconvolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.deformable_convolution"><code class="docutils literal notranslate"><span class="pre">deformable_convolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.adaptive_separable_convolution"><code class="docutils literal notranslate"><span class="pre">adaptive_separable_convolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.max_pooling"><code class="docutils literal notranslate"><span class="pre">max_pooling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.average_pooling"><code class="docutils literal notranslate"><span class="pre">average_pooling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.global_average_pooling"><code class="docutils literal notranslate"><span class="pre">global_average_pooling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sum_pooling"><code class="docutils literal notranslate"><span class="pre">sum_pooling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.unpooling"><code class="docutils literal notranslate"><span class="pre">unpooling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.embed"><code class="docutils literal notranslate"><span class="pre">embed()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.rnn"><code class="docutils literal notranslate"><span class="pre">rnn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.lstm"><code class="docutils literal notranslate"><span class="pre">lstm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.gru"><code class="docutils literal notranslate"><span class="pre">gru()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.multi_head_attention"><code class="docutils literal notranslate"><span class="pre">multi_head_attention()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.patch_correlation"><code class="docutils literal notranslate"><span class="pre">patch_correlation()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.roi_align"><code class="docutils literal notranslate"><span class="pre">roi_align()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#neural-network-activation">Neural Network Activation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sigmoid"><code class="docutils literal notranslate"><span class="pre">sigmoid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.swish"><code class="docutils literal notranslate"><span class="pre">swish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.tanh"><code class="docutils literal notranslate"><span class="pre">tanh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.relu"><code class="docutils literal notranslate"><span class="pre">relu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.softmax"><code class="docutils literal notranslate"><span class="pre">softmax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.log_softmax"><code class="docutils literal notranslate"><span class="pre">log_softmax()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.elu"><code class="docutils literal notranslate"><span class="pre">elu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.selu"><code class="docutils literal notranslate"><span class="pre">selu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.crelu"><code class="docutils literal notranslate"><span class="pre">crelu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.celu"><code class="docutils literal notranslate"><span class="pre">celu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.gelu"><code class="docutils literal notranslate"><span class="pre">gelu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.mish"><code class="docutils literal notranslate"><span class="pre">mish()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.prelu"><code class="docutils literal notranslate"><span class="pre">prelu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.leaky_relu"><code class="docutils literal notranslate"><span class="pre">leaky_relu()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.relu6"><code class="docutils literal notranslate"><span class="pre">relu6()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.hard_sigmoid"><code class="docutils literal notranslate"><span class="pre">hard_sigmoid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.hard_tanh"><code class="docutils literal notranslate"><span class="pre">hard_tanh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.log_sigmoid"><code class="docutils literal notranslate"><span class="pre">log_sigmoid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.softplus"><code class="docutils literal notranslate"><span class="pre">softplus()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.softsign"><code class="docutils literal notranslate"><span class="pre">softsign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.tanh_shrink"><code class="docutils literal notranslate"><span class="pre">tanh_shrink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sinc"><code class="docutils literal notranslate"><span class="pre">sinc()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#normalization">Normalization</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.batch_normalization"><code class="docutils literal notranslate"><span class="pre">batch_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.fused_batch_normalization"><code class="docutils literal notranslate"><span class="pre">fused_batch_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sync_batch_normalization"><code class="docutils literal notranslate"><span class="pre">sync_batch_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.mean_subtraction"><code class="docutils literal notranslate"><span class="pre">mean_subtraction()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.norm_normalization"><code class="docutils literal notranslate"><span class="pre">norm_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.clip_by_value"><code class="docutils literal notranslate"><span class="pre">clip_by_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.clip_grad_by_value"><code class="docutils literal notranslate"><span class="pre">clip_grad_by_value()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.clip_by_norm"><code class="docutils literal notranslate"><span class="pre">clip_by_norm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.clip_grad_by_norm"><code class="docutils literal notranslate"><span class="pre">clip_grad_by_norm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.layer_normalization"><code class="docutils literal notranslate"><span class="pre">layer_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.instance_normalization"><code class="docutils literal notranslate"><span class="pre">instance_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.group_normalization"><code class="docutils literal notranslate"><span class="pre">group_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.weight_standardization"><code class="docutils literal notranslate"><span class="pre">weight_standardization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.weight_normalization"><code class="docutils literal notranslate"><span class="pre">weight_normalization()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.spectral_norm"><code class="docutils literal notranslate"><span class="pre">spectral_norm()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#reduction">Reduction</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sum"><code class="docutils literal notranslate"><span class="pre">sum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.mean"><code class="docutils literal notranslate"><span class="pre">mean()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.max"><code class="docutils literal notranslate"><span class="pre">max()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.min"><code class="docutils literal notranslate"><span class="pre">min()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.norm"><code class="docutils literal notranslate"><span class="pre">norm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.prod"><code class="docutils literal notranslate"><span class="pre">prod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.reduce_sum"><code class="docutils literal notranslate"><span class="pre">reduce_sum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.reduce_mean"><code class="docutils literal notranslate"><span class="pre">reduce_mean()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#arithmetic">Arithmetic</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.add2"><code class="docutils literal notranslate"><span class="pre">add2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.add_n"><code class="docutils literal notranslate"><span class="pre">add_n()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sub2"><code class="docutils literal notranslate"><span class="pre">sub2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.mul2"><code class="docutils literal notranslate"><span class="pre">mul2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.mul_n"><code class="docutils literal notranslate"><span class="pre">mul_n()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.div2"><code class="docutils literal notranslate"><span class="pre">div2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.pow2"><code class="docutils literal notranslate"><span class="pre">pow2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.add_scalar"><code class="docutils literal notranslate"><span class="pre">add_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.mul_scalar"><code class="docutils literal notranslate"><span class="pre">mul_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.pow_scalar"><code class="docutils literal notranslate"><span class="pre">pow_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.r_sub_scalar"><code class="docutils literal notranslate"><span class="pre">r_sub_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.r_div_scalar"><code class="docutils literal notranslate"><span class="pre">r_div_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.r_pow_scalar"><code class="docutils literal notranslate"><span class="pre">r_pow_scalar()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#logical">Logical</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.equal"><code class="docutils literal notranslate"><span class="pre">equal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.equal_scalar"><code class="docutils literal notranslate"><span class="pre">equal_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.greater"><code class="docutils literal notranslate"><span class="pre">greater()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.greater_equal"><code class="docutils literal notranslate"><span class="pre">greater_equal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.greater_equal_scalar"><code class="docutils literal notranslate"><span class="pre">greater_equal_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.greater_scalar"><code class="docutils literal notranslate"><span class="pre">greater_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.less"><code class="docutils literal notranslate"><span class="pre">less()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.less_equal"><code class="docutils literal notranslate"><span class="pre">less_equal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.less_equal_scalar"><code class="docutils literal notranslate"><span class="pre">less_equal_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.less_scalar"><code class="docutils literal notranslate"><span class="pre">less_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_and"><code class="docutils literal notranslate"><span class="pre">logical_and()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_and_scalar"><code class="docutils literal notranslate"><span class="pre">logical_and_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_not"><code class="docutils literal notranslate"><span class="pre">logical_not()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_or"><code class="docutils literal notranslate"><span class="pre">logical_or()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_or_scalar"><code class="docutils literal notranslate"><span class="pre">logical_or_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_xor"><code class="docutils literal notranslate"><span class="pre">logical_xor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.logical_xor_scalar"><code class="docutils literal notranslate"><span class="pre">logical_xor_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.not_equal"><code class="docutils literal notranslate"><span class="pre">not_equal()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.not_equal_scalar"><code class="docutils literal notranslate"><span class="pre">not_equal_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sign"><code class="docutils literal notranslate"><span class="pre">sign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.minimum2"><code class="docutils literal notranslate"><span class="pre">minimum2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.maximum2"><code class="docutils literal notranslate"><span class="pre">maximum2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.minimum_scalar"><code class="docutils literal notranslate"><span class="pre">minimum_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.maximum_scalar"><code class="docutils literal notranslate"><span class="pre">maximum_scalar()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.isnan"><code class="docutils literal notranslate"><span class="pre">isnan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.isinf"><code class="docutils literal notranslate"><span class="pre">isinf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.reset_nan"><code class="docutils literal notranslate"><span class="pre">reset_nan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.reset_inf"><code class="docutils literal notranslate"><span class="pre">reset_inf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.where"><code class="docutils literal notranslate"><span class="pre">where()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#math">Math</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.constant"><code class="docutils literal notranslate"><span class="pre">constant()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.arange"><code class="docutils literal notranslate"><span class="pre">arange()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.abs"><code class="docutils literal notranslate"><span class="pre">abs()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.exp"><code class="docutils literal notranslate"><span class="pre">exp()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.log"><code class="docutils literal notranslate"><span class="pre">log()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.round"><code class="docutils literal notranslate"><span class="pre">round()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.ceil"><code class="docutils literal notranslate"><span class="pre">ceil()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.floor"><code class="docutils literal notranslate"><span class="pre">floor()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.identity"><code class="docutils literal notranslate"><span class="pre">identity()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.matrix_diag"><code class="docutils literal notranslate"><span class="pre">matrix_diag()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.matrix_diag_part"><code class="docutils literal notranslate"><span class="pre">matrix_diag_part()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.batch_matmul"><code class="docutils literal notranslate"><span class="pre">batch_matmul()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sin"><code class="docutils literal notranslate"><span class="pre">sin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.cos"><code class="docutils literal notranslate"><span class="pre">cos()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.tan"><code class="docutils literal notranslate"><span class="pre">tan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sinh"><code class="docutils literal notranslate"><span class="pre">sinh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.cosh"><code class="docutils literal notranslate"><span class="pre">cosh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#id0"><code class="docutils literal notranslate"><span class="pre">tanh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.asin"><code class="docutils literal notranslate"><span class="pre">asin()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.acos"><code class="docutils literal notranslate"><span class="pre">acos()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.atan"><code class="docutils literal notranslate"><span class="pre">atan()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.atan2"><code class="docutils literal notranslate"><span class="pre">atan2()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.asinh"><code class="docutils literal notranslate"><span class="pre">asinh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.acosh"><code class="docutils literal notranslate"><span class="pre">acosh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.atanh"><code class="docutils literal notranslate"><span class="pre">atanh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.cumsum"><code class="docutils literal notranslate"><span class="pre">cumsum()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.cumprod"><code class="docutils literal notranslate"><span class="pre">cumprod()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.batch_inv"><code class="docutils literal notranslate"><span class="pre">batch_inv()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.batch_det"><code class="docutils literal notranslate"><span class="pre">batch_det()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.batch_logdet"><code class="docutils literal notranslate"><span class="pre">batch_logdet()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.batch_cholesky"><code class="docutils literal notranslate"><span class="pre">batch_cholesky()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.erf"><code class="docutils literal notranslate"><span class="pre">erf()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#array-manipulation">Array Manipulation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.concatenate"><code class="docutils literal notranslate"><span class="pre">concatenate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.split"><code class="docutils literal notranslate"><span class="pre">split()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.stack"><code class="docutils literal notranslate"><span class="pre">stack()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.slice"><code class="docutils literal notranslate"><span class="pre">slice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.gather"><code class="docutils literal notranslate"><span class="pre">gather()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.gather_nd"><code class="docutils literal notranslate"><span class="pre">gather_nd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.scatter_nd"><code class="docutils literal notranslate"><span class="pre">scatter_nd()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.scatter_add"><code class="docutils literal notranslate"><span class="pre">scatter_add()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.pad"><code class="docutils literal notranslate"><span class="pre">pad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.transpose"><code class="docutils literal notranslate"><span class="pre">transpose()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.broadcast"><code class="docutils literal notranslate"><span class="pre">broadcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.broadcast_to"><code class="docutils literal notranslate"><span class="pre">broadcast_to()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.tile"><code class="docutils literal notranslate"><span class="pre">tile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.meshgrid"><code class="docutils literal notranslate"><span class="pre">meshgrid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.flip"><code class="docutils literal notranslate"><span class="pre">flip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.shift"><code class="docutils literal notranslate"><span class="pre">shift()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sort"><code class="docutils literal notranslate"><span class="pre">sort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.shape"><code class="docutils literal notranslate"><span class="pre">shape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.reshape"><code class="docutils literal notranslate"><span class="pre">reshape()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.one_hot"><code class="docutils literal notranslate"><span class="pre">one_hot()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.assign"><code class="docutils literal notranslate"><span class="pre">assign()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.top_k_data"><code class="docutils literal notranslate"><span class="pre">top_k_data()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.top_k_grad"><code class="docutils literal notranslate"><span class="pre">top_k_grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.pack_padded_sequence"><code class="docutils literal notranslate"><span class="pre">pack_padded_sequence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.pad_packed_sequence"><code class="docutils literal notranslate"><span class="pre">pad_packed_sequence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.searchsorted"><code class="docutils literal notranslate"><span class="pre">searchsorted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.bool_gather"><code class="docutils literal notranslate"><span class="pre">bool_gather()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.bool_scatter"><code class="docutils literal notranslate"><span class="pre">bool_scatter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.bool_fill"><code class="docutils literal notranslate"><span class="pre">bool_fill()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.dot"><code class="docutils literal notranslate"><span class="pre">dot()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#stochasticity">Stochasticity</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.rand"><code class="docutils literal notranslate"><span class="pre">rand()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.randint"><code class="docutils literal notranslate"><span class="pre">randint()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.randn"><code class="docutils literal notranslate"><span class="pre">randn()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.rand_binomial"><code class="docutils literal notranslate"><span class="pre">rand_binomial()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.rand_beta"><code class="docutils literal notranslate"><span class="pre">rand_beta()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.rand_gamma"><code class="docutils literal notranslate"><span class="pre">rand_gamma()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.dropout"><code class="docutils literal notranslate"><span class="pre">dropout()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.random_choice"><code class="docutils literal notranslate"><span class="pre">random_choice()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.random_crop"><code class="docutils literal notranslate"><span class="pre">random_crop()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.random_erase"><code class="docutils literal notranslate"><span class="pre">random_erase()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.random_flip"><code class="docutils literal notranslate"><span class="pre">random_flip()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.random_shift"><code class="docutils literal notranslate"><span class="pre">random_shift()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.image_augmentation"><code class="docutils literal notranslate"><span class="pre">image_augmentation()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#loss-functions">Loss Functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sigmoid_cross_entropy"><code class="docutils literal notranslate"><span class="pre">sigmoid_cross_entropy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_cross_entropy"><code class="docutils literal notranslate"><span class="pre">binary_cross_entropy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.softmax_cross_entropy"><code class="docutils literal notranslate"><span class="pre">softmax_cross_entropy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.categorical_cross_entropy"><code class="docutils literal notranslate"><span class="pre">categorical_cross_entropy()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.squared_error"><code class="docutils literal notranslate"><span class="pre">squared_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.absolute_error"><code class="docutils literal notranslate"><span class="pre">absolute_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.huber_loss"><code class="docutils literal notranslate"><span class="pre">huber_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.epsilon_insensitive_loss"><code class="docutils literal notranslate"><span class="pre">epsilon_insensitive_loss()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.kl_multinomial"><code class="docutils literal notranslate"><span class="pre">kl_multinomial()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#signal-processing">Signal Processing</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.interpolate"><code class="docutils literal notranslate"><span class="pre">interpolate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.fft"><code class="docutils literal notranslate"><span class="pre">fft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.ifft"><code class="docutils literal notranslate"><span class="pre">ifft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.stft"><code class="docutils literal notranslate"><span class="pre">stft()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.istft"><code class="docutils literal notranslate"><span class="pre">istft()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#geometric-neural-network-layers">Geometric Neural Network Layers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.affine_grid"><code class="docutils literal notranslate"><span class="pre">affine_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.warp_by_grid"><code class="docutils literal notranslate"><span class="pre">warp_by_grid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.warp_by_flow"><code class="docutils literal notranslate"><span class="pre">warp_by_flow()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#quantized-neural-network-layers">Quantized Neural Network Layers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_sigmoid"><code class="docutils literal notranslate"><span class="pre">binary_sigmoid()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_tanh"><code class="docutils literal notranslate"><span class="pre">binary_tanh()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_connect_affine"><code class="docutils literal notranslate"><span class="pre">binary_connect_affine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_connect_convolution"><code class="docutils literal notranslate"><span class="pre">binary_connect_convolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_weight_affine"><code class="docutils literal notranslate"><span class="pre">binary_weight_affine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_weight_convolution"><code class="docutils literal notranslate"><span class="pre">binary_weight_convolution()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.fixed_point_quantize"><code class="docutils literal notranslate"><span class="pre">fixed_point_quantize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.min_max_quantize"><code class="docutils literal notranslate"><span class="pre">min_max_quantize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.pow2_quantize"><code class="docutils literal notranslate"><span class="pre">pow2_quantize()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.prune"><code class="docutils literal notranslate"><span class="pre">prune()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.inq_affine"><code class="docutils literal notranslate"><span class="pre">inq_affine()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.inq_convolution"><code class="docutils literal notranslate"><span class="pre">inq_convolution()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#unsupported-special-use">Unsupported, Special Use</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.vat_noise"><code class="docutils literal notranslate"><span class="pre">vat_noise()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.unlink"><code class="docutils literal notranslate"><span class="pre">unlink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.sink"><code class="docutils literal notranslate"><span class="pre">sink()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.confusion_matrix"><code class="docutils literal notranslate"><span class="pre">confusion_matrix()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#image-object-detection">Image Object Detection</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.nms_detection2d"><code class="docutils literal notranslate"><span class="pre">nms_detection2d()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/function.html#validation">Validation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.top_n_error"><code class="docutils literal notranslate"><span class="pre">top_n_error()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/function.html#nnabla.functions.binary_error"><code class="docutils literal notranslate"><span class="pre">binary_error()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/parametric_function.html">Parametric Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/parametric_function.html#module-nnabla.parameter">Parameter Management API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.parameter_scope"><code class="docutils literal notranslate"><span class="pre">parameter_scope()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.get_current_parameter_scope"><code class="docutils literal notranslate"><span class="pre">get_current_parameter_scope()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.get_parameters"><code class="docutils literal notranslate"><span class="pre">get_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.clear_parameters"><code class="docutils literal notranslate"><span class="pre">clear_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.save_parameters"><code class="docutils literal notranslate"><span class="pre">save_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.load_parameters"><code class="docutils literal notranslate"><span class="pre">load_parameters()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parameter.get_parameter_or_create"><code class="docutils literal notranslate"><span class="pre">get_parameter_or_create()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/parametric_function.html#module-nnabla.parametric_functions">List of Parametric Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.parametric_function_api"><code class="docutils literal notranslate"><span class="pre">parametric_function_api()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.affine"><code class="docutils literal notranslate"><span class="pre">affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.convolution"><code class="docutils literal notranslate"><span class="pre">convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.depthwise_convolution"><code class="docutils literal notranslate"><span class="pre">depthwise_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.deconvolution"><code class="docutils literal notranslate"><span class="pre">deconvolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.depthwise_deconvolution"><code class="docutils literal notranslate"><span class="pre">depthwise_deconvolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.deformable_convolution"><code class="docutils literal notranslate"><span class="pre">deformable_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.batch_normalization"><code class="docutils literal notranslate"><span class="pre">batch_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.fused_batch_normalization"><code class="docutils literal notranslate"><span class="pre">fused_batch_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.sync_batch_normalization"><code class="docutils literal notranslate"><span class="pre">sync_batch_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.mean_subtraction"><code class="docutils literal notranslate"><span class="pre">mean_subtraction()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.layer_normalization"><code class="docutils literal notranslate"><span class="pre">layer_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.instance_normalization"><code class="docutils literal notranslate"><span class="pre">instance_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.group_normalization"><code class="docutils literal notranslate"><span class="pre">group_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.rnn"><code class="docutils literal notranslate"><span class="pre">rnn()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.lstm"><code class="docutils literal notranslate"><span class="pre">lstm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.gru"><code class="docutils literal notranslate"><span class="pre">gru()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.embed"><code class="docutils literal notranslate"><span class="pre">embed()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.prelu"><code class="docutils literal notranslate"><span class="pre">prelu()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.svd_affine"><code class="docutils literal notranslate"><span class="pre">svd_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.svd_convolution"><code class="docutils literal notranslate"><span class="pre">svd_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.cpd3_convolution"><code class="docutils literal notranslate"><span class="pre">cpd3_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.binary_connect_affine"><code class="docutils literal notranslate"><span class="pre">binary_connect_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.binary_connect_convolution"><code class="docutils literal notranslate"><span class="pre">binary_connect_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.binary_weight_affine"><code class="docutils literal notranslate"><span class="pre">binary_weight_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.binary_weight_convolution"><code class="docutils literal notranslate"><span class="pre">binary_weight_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.inq_affine"><code class="docutils literal notranslate"><span class="pre">inq_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.inq_convolution"><code class="docutils literal notranslate"><span class="pre">inq_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.fixed_point_quantized_affine"><code class="docutils literal notranslate"><span class="pre">fixed_point_quantized_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.fixed_point_quantized_convolution"><code class="docutils literal notranslate"><span class="pre">fixed_point_quantized_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.min_max_quantized_affine"><code class="docutils literal notranslate"><span class="pre">min_max_quantized_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.min_max_quantized_convolution"><code class="docutils literal notranslate"><span class="pre">min_max_quantized_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.pow2_quantized_affine"><code class="docutils literal notranslate"><span class="pre">pow2_quantized_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.pow2_quantized_convolution"><code class="docutils literal notranslate"><span class="pre">pow2_quantized_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.pruned_affine"><code class="docutils literal notranslate"><span class="pre">pruned_affine()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.pruned_convolution"><code class="docutils literal notranslate"><span class="pre">pruned_convolution()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.min_max_quantize"><code class="docutils literal notranslate"><span class="pre">min_max_quantize()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.lstm_cell"><code class="docutils literal notranslate"><span class="pre">lstm_cell()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.LSTMCell"><code class="docutils literal notranslate"><span class="pre">LSTMCell</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.LSTMCell.__call__"><code class="docutils literal notranslate"><span class="pre">LSTMCell.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.spectral_norm"><code class="docutils literal notranslate"><span class="pre">spectral_norm()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.weight_normalization"><code class="docutils literal notranslate"><span class="pre">weight_normalization()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.multi_head_attention"><code class="docutils literal notranslate"><span class="pre">multi_head_attention()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.transformer"><code class="docutils literal notranslate"><span class="pre">transformer()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.transformer_encode"><code class="docutils literal notranslate"><span class="pre">transformer_encode()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.parametric_functions.transformer_decode"><code class="docutils literal notranslate"><span class="pre">transformer_decode()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/parametric_function.html#parameter-initializer">Parameter Initializer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.BaseInitializer"><code class="docutils literal notranslate"><span class="pre">BaseInitializer</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.BaseInitializer.__call__"><code class="docutils literal notranslate"><span class="pre">BaseInitializer.__call__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.ConstantInitializer"><code class="docutils literal notranslate"><span class="pre">ConstantInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.NormalInitializer"><code class="docutils literal notranslate"><span class="pre">NormalInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.UniformInitializer"><code class="docutils literal notranslate"><span class="pre">UniformInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.UniformIntInitializer"><code class="docutils literal notranslate"><span class="pre">UniformIntInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.RangeInitializer"><code class="docutils literal notranslate"><span class="pre">RangeInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.OrthogonalInitializer"><code class="docutils literal notranslate"><span class="pre">OrthogonalInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.WeightNormalizationScaleInitializer"><code class="docutils literal notranslate"><span class="pre">WeightNormalizationScaleInitializer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.calc_normal_std_he_forward"><code class="docutils literal notranslate"><span class="pre">calc_normal_std_he_forward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.calc_normal_std_he_backward"><code class="docutils literal notranslate"><span class="pre">calc_normal_std_he_backward()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.calc_normal_std_glorot"><code class="docutils literal notranslate"><span class="pre">calc_normal_std_glorot()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/parametric_function.html#nnabla.initializer.calc_uniform_lim_glorot"><code class="docutils literal notranslate"><span class="pre">calc_uniform_lim_glorot()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/grad.html">Grad</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/grad.html#nnabla.grad.grad"><code class="docutils literal notranslate"><span class="pre">grad()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/grad.html#nnabla.backward_functions.register"><code class="docutils literal notranslate"><span class="pre">register()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/grad.html#nnabla.backward_functions.show_registry"><code class="docutils literal notranslate"><span class="pre">show_registry()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/solver.html">Solvers</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/solver.html#solver">Solver</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver"><code class="docutils literal notranslate"><span class="pre">Solver</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.check_inf_grad"><code class="docutils literal notranslate"><span class="pre">Solver.check_inf_grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.check_inf_or_nan_grad"><code class="docutils literal notranslate"><span class="pre">Solver.check_inf_or_nan_grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.check_nan_grad"><code class="docutils literal notranslate"><span class="pre">Solver.check_nan_grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.clear_parameters"><code class="docutils literal notranslate"><span class="pre">Solver.clear_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.clip_grad_by_norm"><code class="docutils literal notranslate"><span class="pre">Solver.clip_grad_by_norm()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.get_parameters"><code class="docutils literal notranslate"><span class="pre">Solver.get_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.get_states"><code class="docutils literal notranslate"><span class="pre">Solver.get_states()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.info"><code class="docutils literal notranslate"><span class="pre">Solver.info</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.learning_rate"><code class="docutils literal notranslate"><span class="pre">Solver.learning_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.load_states"><code class="docutils literal notranslate"><span class="pre">Solver.load_states()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.name"><code class="docutils literal notranslate"><span class="pre">Solver.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.remove_parameters"><code class="docutils literal notranslate"><span class="pre">Solver.remove_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.save_states"><code class="docutils literal notranslate"><span class="pre">Solver.save_states()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.scale_grad"><code class="docutils literal notranslate"><span class="pre">Solver.scale_grad()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.set_learning_rate"><code class="docutils literal notranslate"><span class="pre">Solver.set_learning_rate()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.set_parameters"><code class="docutils literal notranslate"><span class="pre">Solver.set_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.set_states"><code class="docutils literal notranslate"><span class="pre">Solver.set_states()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.set_states_from_protobuf"><code class="docutils literal notranslate"><span class="pre">Solver.set_states_from_protobuf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.set_states_to_protobuf"><code class="docutils literal notranslate"><span class="pre">Solver.set_states_to_protobuf()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.setup"><code class="docutils literal notranslate"><span class="pre">Solver.setup()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.update"><code class="docutils literal notranslate"><span class="pre">Solver.update()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.weight_decay"><code class="docutils literal notranslate"><span class="pre">Solver.weight_decay()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.weight_decay_is_fused"><code class="docutils literal notranslate"><span class="pre">Solver.weight_decay_is_fused()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/solver.html#nnabla.solvers.Solver.zero_grad"><code class="docutils literal notranslate"><span class="pre">Solver.zero_grad()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/solver.html#list-of-solvers">List of solvers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Sgd"><code class="docutils literal notranslate"><span class="pre">Sgd()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Momentum"><code class="docutils literal notranslate"><span class="pre">Momentum()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Lars"><code class="docutils literal notranslate"><span class="pre">Lars()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Nesterov"><code class="docutils literal notranslate"><span class="pre">Nesterov()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Adadelta"><code class="docutils literal notranslate"><span class="pre">Adadelta()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Adagrad"><code class="docutils literal notranslate"><span class="pre">Adagrad()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.AdaBelief"><code class="docutils literal notranslate"><span class="pre">AdaBelief()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.RMSprop"><code class="docutils literal notranslate"><span class="pre">RMSprop()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.RMSpropGraves"><code class="docutils literal notranslate"><span class="pre">RMSpropGraves()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Adam"><code class="docutils literal notranslate"><span class="pre">Adam()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.AdaBound"><code class="docutils literal notranslate"><span class="pre">AdaBound()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Adamax"><code class="docutils literal notranslate"><span class="pre">Adamax()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.AMSGRAD"><code class="docutils literal notranslate"><span class="pre">AMSGRAD()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.AMSBound"><code class="docutils literal notranslate"><span class="pre">AMSBound()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.AdamW"><code class="docutils literal notranslate"><span class="pre">AdamW()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.SgdW"><code class="docutils literal notranslate"><span class="pre">SgdW()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/solver.html#nnabla.solvers.Lamb"><code class="docutils literal notranslate"><span class="pre">Lamb()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/communicator.html">Communicator</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/communicator.html#communicator-interface">Communicator interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator"><code class="docutils literal notranslate"><span class="pre">Communicator</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.abort"><code class="docutils literal notranslate"><span class="pre">Communicator.abort()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.add_context_and_parameters"><code class="docutils literal notranslate"><span class="pre">Communicator.add_context_and_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.all_gather"><code class="docutils literal notranslate"><span class="pre">Communicator.all_gather()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.all_reduce"><code class="docutils literal notranslate"><span class="pre">Communicator.all_reduce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.all_reduce_callback"><code class="docutils literal notranslate"><span class="pre">Communicator.all_reduce_callback()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.allreduce"><code class="docutils literal notranslate"><span class="pre">Communicator.allreduce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.barrier"><code class="docutils literal notranslate"><span class="pre">Communicator.barrier()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.bcast"><code class="docutils literal notranslate"><span class="pre">Communicator.bcast()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.clear_context_parameters"><code class="docutils literal notranslate"><span class="pre">Communicator.clear_context_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.find_group"><code class="docutils literal notranslate"><span class="pre">Communicator.find_group()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.init"><code class="docutils literal notranslate"><span class="pre">Communicator.init()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.list_groups"><code class="docutils literal notranslate"><span class="pre">Communicator.list_groups()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.local_rank"><code class="docutils literal notranslate"><span class="pre">Communicator.local_rank</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.name"><code class="docutils literal notranslate"><span class="pre">Communicator.name</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.new_group"><code class="docutils literal notranslate"><span class="pre">Communicator.new_group()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.rank"><code class="docutils literal notranslate"><span class="pre">Communicator.rank</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.reduce"><code class="docutils literal notranslate"><span class="pre">Communicator.reduce()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.reduce_scatter"><code class="docutils literal notranslate"><span class="pre">Communicator.reduce_scatter()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/communicator.html#nnabla.communicators.Communicator.size"><code class="docutils literal notranslate"><span class="pre">Communicator.size</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/communicator.html#list-of-communicators">List of communicators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/communicator.html#nnabla.communicators.MultiProcessDataParalellCommunicator"><code class="docutils literal notranslate"><span class="pre">MultiProcessDataParalellCommunicator()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/monitor.html">Monitors</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/monitor.html#nnabla.monitor.Monitor"><code class="docutils literal notranslate"><span class="pre">Monitor</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/monitor.html#list-of-monitors">List of Monitors</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorSeries"><code class="docutils literal notranslate"><span class="pre">MonitorSeries</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorSeries.add"><code class="docutils literal notranslate"><span class="pre">MonitorSeries.add()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorTimeElapsed"><code class="docutils literal notranslate"><span class="pre">MonitorTimeElapsed</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorTimeElapsed.add"><code class="docutils literal notranslate"><span class="pre">MonitorTimeElapsed.add()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorImage"><code class="docutils literal notranslate"><span class="pre">MonitorImage</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorImage.add"><code class="docutils literal notranslate"><span class="pre">MonitorImage.add()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorImageTile"><code class="docutils literal notranslate"><span class="pre">MonitorImageTile</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/monitor.html#nnabla.monitor.MonitorImageTile.add"><code class="docutils literal notranslate"><span class="pre">MonitorImageTile.add()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/monitor.html#utility-functions">Utility functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.tile_images"><code class="docutils literal notranslate"><span class="pre">tile_images()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.plot_series"><code class="docutils literal notranslate"><span class="pre">plot_series()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/monitor.html#nnabla.monitor.plot_time_elapsed"><code class="docutils literal notranslate"><span class="pre">plot_time_elapsed()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/utils.html">Utils</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/save_load.html">NNP save and load utilities</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.save.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpLoader"><code class="docutils literal notranslate"><span class="pre">NnpLoader</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpLoader.get_network"><code class="docutils literal notranslate"><span class="pre">NnpLoader.get_network()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpLoader.get_network_names"><code class="docutils literal notranslate"><span class="pre">NnpLoader.get_network_names()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork"><code class="docutils literal notranslate"><span class="pre">NnpNetwork</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork.variables"><code class="docutils literal notranslate"><span class="pre">NnpNetwork.variables</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork.inputs"><code class="docutils literal notranslate"><span class="pre">NnpNetwork.inputs</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/save_load.html#nnabla.utils.nnp_graph.NnpNetwork.outputs"><code class="docutils literal notranslate"><span class="pre">NnpNetwork.outputs</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/image_utils.html">Image Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/image_utils.html#nnabla.utils.image_utils.imread"><code class="docutils literal notranslate"><span class="pre">imread()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/image_utils.html#nnabla.utils.image_utils.imsave"><code class="docutils literal notranslate"><span class="pre">imsave()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/image_utils.html#nnabla.utils.image_utils.imresize"><code class="docutils literal notranslate"><span class="pre">imresize()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/data_iterator.html">Data Iterators</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/data_iterator.html#datasource">DataSource</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSource"><code class="docutils literal notranslate"><span class="pre">DataSource</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSource.apply_order"><code class="docutils literal notranslate"><span class="pre">DataSource.apply_order()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSource.position"><code class="docutils literal notranslate"><span class="pre">DataSource.position</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSource.shuffle"><code class="docutils literal notranslate"><span class="pre">DataSource.shuffle</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSource.variables"><code class="docutils literal notranslate"><span class="pre">DataSource.variables</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithFileCache"><code class="docutils literal notranslate"><span class="pre">DataSourceWithFileCache</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithFileCache.apply_order"><code class="docutils literal notranslate"><span class="pre">DataSourceWithFileCache.apply_order()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithFileCache.position"><code class="docutils literal notranslate"><span class="pre">DataSourceWithFileCache.position</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithFileCache.shuffle"><code class="docutils literal notranslate"><span class="pre">DataSourceWithFileCache.shuffle</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithFileCache.variables"><code class="docutils literal notranslate"><span class="pre">DataSourceWithFileCache.variables</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithMemoryCache"><code class="docutils literal notranslate"><span class="pre">DataSourceWithMemoryCache</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithMemoryCache.apply_order"><code class="docutils literal notranslate"><span class="pre">DataSourceWithMemoryCache.apply_order()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithMemoryCache.position"><code class="docutils literal notranslate"><span class="pre">DataSourceWithMemoryCache.position</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithMemoryCache.shuffle"><code class="docutils literal notranslate"><span class="pre">DataSourceWithMemoryCache.shuffle</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_source.DataSourceWithMemoryCache.variables"><code class="docutils literal notranslate"><span class="pre">DataSourceWithMemoryCache.variables</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/data_iterator.html#dataiterator">DataIterator</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator"><code class="docutils literal notranslate"><span class="pre">DataIterator</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.batch_size"><code class="docutils literal notranslate"><span class="pre">DataIterator.batch_size</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.epoch"><code class="docutils literal notranslate"><span class="pre">DataIterator.epoch</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.next"><code class="docutils literal notranslate"><span class="pre">DataIterator.next()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.position"><code class="docutils literal notranslate"><span class="pre">DataIterator.position</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.register_epoch_begin_callback"><code class="docutils literal notranslate"><span class="pre">DataIterator.register_epoch_begin_callback()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.register_epoch_end_callback"><code class="docutils literal notranslate"><span class="pre">DataIterator.register_epoch_end_callback()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.size"><code class="docutils literal notranslate"><span class="pre">DataIterator.size</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.slice"><code class="docutils literal notranslate"><span class="pre">DataIterator.slice()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.DataIterator.variables"><code class="docutils literal notranslate"><span class="pre">DataIterator.variables</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/data_iterator.html#utilities">Utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.data_iterator"><code class="docutils literal notranslate"><span class="pre">data_iterator()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.data_iterator_simple"><code class="docutils literal notranslate"><span class="pre">data_iterator_simple()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.data_iterator_csv_dataset"><code class="docutils literal notranslate"><span class="pre">data_iterator_csv_dataset()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.data_iterator_cache"><code class="docutils literal notranslate"><span class="pre">data_iterator_cache()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/data_iterator.html#nnabla.utils.data_iterator.data_iterator_concat_datasets"><code class="docutils literal notranslate"><span class="pre">data_iterator_concat_datasets()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/debug_utils.html">Debug Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.profiler">Graph Profiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.profiler.GraphProfiler"><code class="docutils literal notranslate"><span class="pre">GraphProfiler</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.profiler.GraphProfiler.run"><code class="docutils literal notranslate"><span class="pre">GraphProfiler.run()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.profiler.GraphProfilerCsvWriter"><code class="docutils literal notranslate"><span class="pre">GraphProfilerCsvWriter</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.profiler.GraphProfilerCsvWriter.write"><code class="docutils literal notranslate"><span class="pre">GraphProfilerCsvWriter.write()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.inspection.profile">Time Profiler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler"><code class="docutils literal notranslate"><span class="pre">TimeProfiler</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.calc_elapsed_time"><code class="docutils literal notranslate"><span class="pre">TimeProfiler.calc_elapsed_time()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.post_hook"><code class="docutils literal notranslate"><span class="pre">TimeProfiler.post_hook</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.pre_hook"><code class="docutils literal notranslate"><span class="pre">TimeProfiler.pre_hook</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.scope"><code class="docutils literal notranslate"><span class="pre">TimeProfiler.scope()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.profile.TimeProfiler.to_csv"><code class="docutils literal notranslate"><span class="pre">TimeProfiler.to_csv()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.inspection.value_trace">Nan/Inf Tracer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.value_trace.NanInfTracer"><code class="docutils literal notranslate"><span class="pre">NanInfTracer</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.value_trace.NanInfTracer.backward_post_hook"><code class="docutils literal notranslate"><span class="pre">NanInfTracer.backward_post_hook</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.value_trace.NanInfTracer.check"><code class="docutils literal notranslate"><span class="pre">NanInfTracer.check()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.value_trace.NanInfTracer.forward_post_hook"><code class="docutils literal notranslate"><span class="pre">NanInfTracer.forward_post_hook</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.value_trace.NanInfTracer.trace"><code class="docutils literal notranslate"><span class="pre">NanInfTracer.trace()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/debug_utils.html#module-nnabla.utils.inspection.pretty_print">Pretty Printer</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.pretty_print.PrettyPrinter"><code class="docutils literal notranslate"><span class="pre">PrettyPrinter</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.pretty_print.PrettyPrinter.functions"><code class="docutils literal notranslate"><span class="pre">PrettyPrinter.functions</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/debug_utils.html#nnabla.utils.inspection.pretty_print.pprint"><code class="docutils literal notranslate"><span class="pre">pprint()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/dlpack.html">DLPack</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/dlpack.html#nnabla.utils.dlpack.from_dlpack"><code class="docutils literal notranslate"><span class="pre">from_dlpack()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/dlpack.html#nnabla.utils.dlpack.to_dlpack"><code class="docutils literal notranslate"><span class="pre">to_dlpack()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/rnn.html">RNN Utils</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/rnn.html#nnabla.utils.rnn.PackedSequence"><code class="docutils literal notranslate"><span class="pre">PackedSequence</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/rnn.html#nnabla.utils.rnn.pad_sequence"><code class="docutils literal notranslate"><span class="pre">pad_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/rnn.html#nnabla.utils.rnn.pack_padded_sequence"><code class="docutils literal notranslate"><span class="pre">pack_padded_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/rnn.html#nnabla.utils.rnn.pack_sequence"><code class="docutils literal notranslate"><span class="pre">pack_sequence()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/rnn.html#nnabla.utils.rnn.pad_packed_sequence"><code class="docutils literal notranslate"><span class="pre">pad_packed_sequence()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/misc.html">Misc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/misc.html#module-nnabla.utils.function_profile">Python function profiler utilities</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/misc.html#nnabla.utils.function_profile.profile"><code class="docutils literal notranslate"><span class="pre">profile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/misc.html#nnabla.utils.function_profile.FunctionProfile"><code class="docutils literal notranslate"><span class="pre">FunctionProfile</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/misc.html#nnabla.utils.function_profile.FunctionProfile.print_stats"><code class="docutils literal notranslate"><span class="pre">FunctionProfile.print_stats()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/misc.html#nnabla.utils.function_profile.FunctionProfile.reset_stats"><code class="docutils literal notranslate"><span class="pre">FunctionProfile.reset_stats()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/utils/quantization_aware_training.html">Quantization Aware Training</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/quantization_aware_training.html#qatconfig">QATConfig</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig"><code class="docutils literal notranslate"><span class="pre">QATConfig</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RecorderPosition"><code class="docutils literal notranslate"><span class="pre">QATConfig.RecorderPosition</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RecorderPosition.BEFORE"><code class="docutils literal notranslate"><span class="pre">QATConfig.RecorderPosition.BEFORE</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RecorderPosition.BOTH"><code class="docutils literal notranslate"><span class="pre">QATConfig.RecorderPosition.BOTH</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RoundingMethod"><code class="docutils literal notranslate"><span class="pre">QATConfig.RoundingMethod</span></code></a><ul>
+<li class="toctree-l6"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RoundingMethod.CEIL"><code class="docutils literal notranslate"><span class="pre">QATConfig.RoundingMethod.CEIL</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RoundingMethod.FLOOR"><code class="docutils literal notranslate"><span class="pre">QATConfig.RoundingMethod.FLOOR</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RoundingMethod.NOTROUND"><code class="docutils literal notranslate"><span class="pre">QATConfig.RoundingMethod.NOTROUND</span></code></a></li>
+<li class="toctree-l6"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.RoundingMethod.ROUND"><code class="docutils literal notranslate"><span class="pre">QATConfig.RoundingMethod.ROUND</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.bn_folding"><code class="docutils literal notranslate"><span class="pre">QATConfig.bn_folding</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.bn_self_folding"><code class="docutils literal notranslate"><span class="pre">QATConfig.bn_self_folding</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.channel_last"><code class="docutils literal notranslate"><span class="pre">QATConfig.channel_last</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.channel_wise"><code class="docutils literal notranslate"><span class="pre">QATConfig.channel_wise</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.dtype"><code class="docutils literal notranslate"><span class="pre">QATConfig.dtype</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.ext_name"><code class="docutils literal notranslate"><span class="pre">QATConfig.ext_name</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.learning_rate_scale"><code class="docutils literal notranslate"><span class="pre">QATConfig.learning_rate_scale</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.narrow_range"><code class="docutils literal notranslate"><span class="pre">QATConfig.narrow_range</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.niter_to_recording"><code class="docutils literal notranslate"><span class="pre">QATConfig.niter_to_recording</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.niter_to_training"><code class="docutils literal notranslate"><span class="pre">QATConfig.niter_to_training</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.pow2"><code class="docutils literal notranslate"><span class="pre">QATConfig.pow2</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.record_layers"><code class="docutils literal notranslate"><span class="pre">QATConfig.record_layers</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.recorder_activation"><code class="docutils literal notranslate"><span class="pre">QATConfig.recorder_activation</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.recorder_position"><code class="docutils literal notranslate"><span class="pre">QATConfig.recorder_position</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.recorder_weight"><code class="docutils literal notranslate"><span class="pre">QATConfig.recorder_weight</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.round_mode"><code class="docutils literal notranslate"><span class="pre">QATConfig.round_mode</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.skip_bias"><code class="docutils literal notranslate"><span class="pre">QATConfig.skip_bias</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.skip_inputs_layers"><code class="docutils literal notranslate"><span class="pre">QATConfig.skip_inputs_layers</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.skip_outputs_layers"><code class="docutils literal notranslate"><span class="pre">QATConfig.skip_outputs_layers</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATConfig.zero_point"><code class="docutils literal notranslate"><span class="pre">QATConfig.zero_point</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/quantization_aware_training.html#qattensorrtconfig">QATTensorRTConfig</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATTensorRTConfig"><code class="docutils literal notranslate"><span class="pre">QATTensorRTConfig</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATTensorRTConfig.bn_folding"><code class="docutils literal notranslate"><span class="pre">QATTensorRTConfig.bn_folding</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATTensorRTConfig.bn_self_folding"><code class="docutils literal notranslate"><span class="pre">QATTensorRTConfig.bn_self_folding</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATTensorRTConfig.pow2"><code class="docutils literal notranslate"><span class="pre">QATTensorRTConfig.pow2</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATTensorRTConfig.record_layers"><code class="docutils literal notranslate"><span class="pre">QATTensorRTConfig.record_layers</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/utils/quantization_aware_training.html#qatscheduler">QATScheduler</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATScheduler"><code class="docutils literal notranslate"><span class="pre">QATScheduler</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATScheduler.save"><code class="docutils literal notranslate"><span class="pre">QATScheduler.save()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/utils/quantization_aware_training.html#nnabla.utils.qnn.QATScheduler.step"><code class="docutils literal notranslate"><span class="pre">QATScheduler.step()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/ext.html">Extensions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/ext.html#module-nnabla.ext_utils">Utilities for extension</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html#nnabla.ext_utils.list_extensions"><code class="docutils literal notranslate"><span class="pre">list_extensions()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html#nnabla.ext_utils.import_extension_module"><code class="docutils literal notranslate"><span class="pre">import_extension_module()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html#nnabla.ext_utils.get_extension_context"><code class="docutils literal notranslate"><span class="pre">get_extension_context()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/ext.html#apis-of-extension-modules">APIs of extension modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html#nnabla.ext_utils.context"><code class="docutils literal notranslate"><span class="pre">context()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/ext.html#nnabla.ext_utils.device_synchronize"><code class="docutils literal notranslate"><span class="pre">device_synchronize()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/models.html">Pretrained Models</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/models/imagenet.html">ImageNet Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models/imagenet.html#module-nnabla.models.imagenet.base">Common interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.base.ImageNetBase"><code class="docutils literal notranslate"><span class="pre">ImageNetBase</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.base.ImageNetBase.__call__"><code class="docutils literal notranslate"><span class="pre">ImageNetBase.__call__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.base.ImageNetBase.category_names"><code class="docutils literal notranslate"><span class="pre">ImageNetBase.category_names</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.base.ImageNetBase.input_shape"><code class="docutils literal notranslate"><span class="pre">ImageNetBase.input_shape</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/models/imagenet.html#module-nnabla.models.imagenet">List of models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNet18"><code class="docutils literal notranslate"><span class="pre">ResNet18</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNet34"><code class="docutils literal notranslate"><span class="pre">ResNet34</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNet50"><code class="docutils literal notranslate"><span class="pre">ResNet50</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNet101"><code class="docutils literal notranslate"><span class="pre">ResNet101</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNet152"><code class="docutils literal notranslate"><span class="pre">ResNet152</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNet"><code class="docutils literal notranslate"><span class="pre">ResNet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.MobileNet"><code class="docutils literal notranslate"><span class="pre">MobileNet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.MobileNetV2"><code class="docutils literal notranslate"><span class="pre">MobileNetV2</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.SENet"><code class="docutils literal notranslate"><span class="pre">SENet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.SqueezeNetV10"><code class="docutils literal notranslate"><span class="pre">SqueezeNetV10</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.SqueezeNetV11"><code class="docutils literal notranslate"><span class="pre">SqueezeNetV11</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.SqueezeNet"><code class="docutils literal notranslate"><span class="pre">SqueezeNet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.VGG11"><code class="docutils literal notranslate"><span class="pre">VGG11</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.VGG13"><code class="docutils literal notranslate"><span class="pre">VGG13</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.VGG16"><code class="docutils literal notranslate"><span class="pre">VGG16</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.VGG"><code class="docutils literal notranslate"><span class="pre">VGG</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.NIN"><code class="docutils literal notranslate"><span class="pre">NIN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.DenseNet"><code class="docutils literal notranslate"><span class="pre">DenseNet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.InceptionV3"><code class="docutils literal notranslate"><span class="pre">InceptionV3</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.Xception"><code class="docutils literal notranslate"><span class="pre">Xception</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.GoogLeNet"><code class="docutils literal notranslate"><span class="pre">GoogLeNet</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNeXt50"><code class="docutils literal notranslate"><span class="pre">ResNeXt50</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNeXt101"><code class="docutils literal notranslate"><span class="pre">ResNeXt101</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ResNeXt"><code class="docutils literal notranslate"><span class="pre">ResNeXt</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ShuffleNet10"><code class="docutils literal notranslate"><span class="pre">ShuffleNet10</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ShuffleNet05"><code class="docutils literal notranslate"><span class="pre">ShuffleNet05</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ShuffleNet20"><code class="docutils literal notranslate"><span class="pre">ShuffleNet20</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/imagenet.html#nnabla.models.imagenet.ShuffleNet"><code class="docutils literal notranslate"><span class="pre">ShuffleNet</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/models/object_detection.html">Object Detection Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models/object_detection.html#module-nnabla.models.object_detection.base">Common interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.base.ObjectDetection"><code class="docutils literal notranslate"><span class="pre">ObjectDetection</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.base.ObjectDetection.__call__"><code class="docutils literal notranslate"><span class="pre">ObjectDetection.__call__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.base.ObjectDetection.input_shape"><code class="docutils literal notranslate"><span class="pre">ObjectDetection.input_shape</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.utils.LetterBoxTransform"><code class="docutils literal notranslate"><span class="pre">LetterBoxTransform</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.utils.LetterBoxTransform.inverse_coordinate_transform"><code class="docutils literal notranslate"><span class="pre">LetterBoxTransform.inverse_coordinate_transform()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.utils.draw_bounding_boxes"><code class="docutils literal notranslate"><span class="pre">draw_bounding_boxes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/models/object_detection.html#module-nnabla.models.object_detection">List of models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/models/object_detection.html#nnabla.models.object_detection.YoloV2"><code class="docutils literal notranslate"><span class="pre">YoloV2</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/models/semantic_segmentation.html">Semantic Segmentation Models</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/models/semantic_segmentation.html#module-nnabla.models.semantic_segmentation.base">Common interfaces</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/models/semantic_segmentation.html#nnabla.models.semantic_segmentation.base.SemanticSegmentation"><code class="docutils literal notranslate"><span class="pre">SemanticSegmentation</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/models/semantic_segmentation.html#nnabla.models.semantic_segmentation.base.SemanticSegmentation.__call__"><code class="docutils literal notranslate"><span class="pre">SemanticSegmentation.__call__()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/models/semantic_segmentation.html#nnabla.models.semantic_segmentation.base.SemanticSegmentation.input_shape"><code class="docutils literal notranslate"><span class="pre">SemanticSegmentation.input_shape</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/models/semantic_segmentation.html#module-nnabla.models.semantic_segmentation">List of models</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/models/semantic_segmentation.html#nnabla.models.semantic_segmentation.DeepLabV3plus"><code class="docutils literal notranslate"><span class="pre">DeepLabV3plus</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/lms.html">Out-of-core execution</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/lms.html#swapinoutscheduler">SwapInOutScheduler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler.end_scheduling"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler.end_scheduling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler.function_post_hook"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler.function_post_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler.function_pre_hook"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler.function_pre_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler.start_scheduling"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler.start_scheduling()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler.update_post_hook"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler.update_post_hook()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/lms.html#nnabla.lms.SwapInOutScheduler.update_pre_hook"><code class="docutils literal notranslate"><span class="pre">SwapInOutScheduler.update_pre_hook()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/module.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/module.html#module">Module</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/module.html#nnabla.core.module.Module"><code class="docutils literal notranslate"><span class="pre">Module</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.call"><code class="docutils literal notranslate"><span class="pre">Module.call()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.get_parameters"><code class="docutils literal notranslate"><span class="pre">Module.get_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.load_parameters"><code class="docutils literal notranslate"><span class="pre">Module.load_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.parameter_scope"><code class="docutils literal notranslate"><span class="pre">Module.parameter_scope</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.save_parameters"><code class="docutils literal notranslate"><span class="pre">Module.save_parameters()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.training"><code class="docutils literal notranslate"><span class="pre">Module.training</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/module.html#nnabla.core.module.Module.zero_grad"><code class="docutils literal notranslate"><span class="pre">Module.zero_grad()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/graph_def.html">Graph Definition</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protograph">ProtoGraph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph"><code class="docutils literal notranslate"><span class="pre">ProtoGraph</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph.as_proto"><code class="docutils literal notranslate"><span class="pre">ProtoGraph.as_proto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph.current_context"><code class="docutils literal notranslate"><span class="pre">ProtoGraph.current_context</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph.default_graph"><code class="docutils literal notranslate"><span class="pre">ProtoGraph.default_graph()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph.expand_loop_control"><code class="docutils literal notranslate"><span class="pre">ProtoGraph.expand_loop_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph.from_proto"><code class="docutils literal notranslate"><span class="pre">ProtoGraph.from_proto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoGraph.get_parameters"><code class="docutils literal notranslate"><span class="pre">ProtoGraph.get_parameters()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protonetwork">ProtoNetwork</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.__call__"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.__call__()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.as_proto"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.as_proto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.execute_on_proto"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.execute_on_proto()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.expand_loop_control"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.expand_loop_control()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.forward_sequence"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.forward_sequence()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.promote"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.promote()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoNetwork.save"><code class="docutils literal notranslate"><span class="pre">ProtoNetwork.save()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protovariable">ProtoVariable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoVariable"><code class="docutils literal notranslate"><span class="pre">ProtoVariable</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#protofunction">ProtoFunction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoFunction"><code class="docutils literal notranslate"><span class="pre">ProtoFunction</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.ProtoFunction.graph_call"><code class="docutils literal notranslate"><span class="pre">ProtoFunction.graph_call()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#load">load</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.load"><code class="docutils literal notranslate"><span class="pre">load()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#save">save</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.save"><code class="docutils literal notranslate"><span class="pre">save()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#create-protobuf-representation-from-computation-graph">Create Protobuf Representation from Computation Graph</a></li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#create-graph-from-variable">create_graph_from_variable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.create_graph_from_variable"><code class="docutils literal notranslate"><span class="pre">create_graph_from_variable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#get-default-graph">get_default_graph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.get_default_graph"><code class="docutils literal notranslate"><span class="pre">get_default_graph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#get-default-graph-by-variable">get_default_graph_by_variable</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.get_default_graph_by_variable"><code class="docutils literal notranslate"><span class="pre">get_default_graph_by_variable()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#graph">graph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.graph"><code class="docutils literal notranslate"><span class="pre">graph()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/graph_def.html#reset-default-graph">reset_default_graph</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/graph_def.html#nnabla.graph_def.reset_default_graph"><code class="docutils literal notranslate"><span class="pre">reset_default_graph()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/sequential.html">Sequential</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/sequential.html#id1">Sequential</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/sequential.html#nnabla.core.sequential.Sequential"><code class="docutils literal notranslate"><span class="pre">Sequential</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="api/experimental.html">Experimental</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/viewers.html">Viewers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/viewers.html#simplegraph">SimpleGraph</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/viewers.html#nnabla.experimental.viewers.SimpleGraph"><code class="docutils literal notranslate"><span class="pre">SimpleGraph</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/viewers.html#nnabla.experimental.viewers.SimpleGraph.create_graphviz_digraph"><code class="docutils literal notranslate"><span class="pre">SimpleGraph.create_graphviz_digraph()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/viewers.html#nnabla.experimental.viewers.SimpleGraph.save"><code class="docutils literal notranslate"><span class="pre">SimpleGraph.save()</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/viewers.html#nnabla.experimental.viewers.SimpleGraph.view"><code class="docutils literal notranslate"><span class="pre">SimpleGraph.view()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/tb_graph_writer.html">Show Graph by Tensorboard</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/tb_graph_writer.html#tbgraphwriter">TBGraphWriter</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/graph_converters.html">Graph Converters</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.GraphConverter"><code class="docutils literal notranslate"><span class="pre">GraphConverter</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.GraphConverter.convert"><code class="docutils literal notranslate"><span class="pre">GraphConverter.convert()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier"><code class="docutils literal notranslate"><span class="pre">FunctionModifier</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier.finish_up"><code class="docutils literal notranslate"><span class="pre">FunctionModifier.finish_up()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier.get_parameter_scope"><code class="docutils literal notranslate"><span class="pre">FunctionModifier.get_parameter_scope()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FunctionModifier.modify"><code class="docutils literal notranslate"><span class="pre">FunctionModifier.modify()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/graph_converters.html#function-modifiers">Function Modifiers</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.BatchNormalizationFoldingModifier"><code class="docutils literal notranslate"><span class="pre">BatchNormalizationFoldingModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.AddBiasModifier"><code class="docutils literal notranslate"><span class="pre">AddBiasModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.BatchNormalizationFoldingModifierInner"><code class="docutils literal notranslate"><span class="pre">BatchNormalizationFoldingModifierInner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.BatchNormalizationFoldingOppositeModifierInner"><code class="docutils literal notranslate"><span class="pre">BatchNormalizationFoldingOppositeModifierInner</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.BatchNormalizationSelfFoldingModifier"><code class="docutils literal notranslate"><span class="pre">BatchNormalizationSelfFoldingModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.FusedBatchNormalizationModifier"><code class="docutils literal notranslate"><span class="pre">FusedBatchNormalizationModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.UnfusedBatchNormalizationModifier"><code class="docutils literal notranslate"><span class="pre">UnfusedBatchNormalizationModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.ChannelLastModifier"><code class="docutils literal notranslate"><span class="pre">ChannelLastModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.ChannelFirstModifier"><code class="docutils literal notranslate"><span class="pre">ChannelFirstModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.RemoveFunctionModifier"><code class="docutils literal notranslate"><span class="pre">RemoveFunctionModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.BatchNormBatchStatModifier"><code class="docutils literal notranslate"><span class="pre">BatchNormBatchStatModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.TestModeModifier"><code class="docutils literal notranslate"><span class="pre">TestModeModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.IdentityModifier"><code class="docutils literal notranslate"><span class="pre">IdentityModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.NoGradModifier"><code class="docutils literal notranslate"><span class="pre">NoGradModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.PruningModifier"><code class="docutils literal notranslate"><span class="pre">PruningModifier</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.PruningModifier.__init__"><code class="docutils literal notranslate"><span class="pre">PruningModifier.__init__()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.QuantizeNonQNNToRecordingModifier"><code class="docutils literal notranslate"><span class="pre">QuantizeNonQNNToRecordingModifier</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/graph_converters.html#nnabla.experimental.graph_converters.QuantizeRecordingToTrainingModifier"><code class="docutils literal notranslate"><span class="pre">QuantizeRecordingToTrainingModifier</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/trainers.html">Trainers</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/trainers.html#nnabla.experimental.trainers.Trainer"><code class="docutils literal notranslate"><span class="pre">Trainer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/trainers.html#nnabla.experimental.trainers.NaiveClassificationTrainer"><code class="docutils literal notranslate"><span class="pre">NaiveClassificationTrainer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/trainers.html#nnabla.experimental.trainers.NaiveRegressionTrainer"><code class="docutils literal notranslate"><span class="pre">NaiveRegressionTrainer</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/trainers.html#nnabla.experimental.trainers.Updater"><code class="docutils literal notranslate"><span class="pre">Updater</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/trainers.html#nnabla.experimental.trainers.Updater.update"><code class="docutils literal notranslate"><span class="pre">Updater.update()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/trainers.html#nnabla.experimental.trainers.Evaluator"><code class="docutils literal notranslate"><span class="pre">Evaluator</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html">Mixed Precision Trainings</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#dynamiclossscalingupdater">DynamicLossScalingUpdater</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater</span></code></a><ul>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.solver"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.solver</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.loss"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.loss</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.data_feeder"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.data_feeder</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scale"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.scale</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.scaling_factor"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.scaling_factor</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.N"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.N</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.clear_buffer"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.clear_buffer</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.accum_grad"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.accum_grad</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.weight_decay"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.weight_decay</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.comm"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.comm</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.grads"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.grads</span></code></a></li>
+<li class="toctree-l5"><a class="reference internal" href="api/experimentals/mixed_precision_trainings.html#nnabla.experimental.mixed_precision_training.DynamicLossScalingUpdater.update"><code class="docutils literal notranslate"><span class="pre">DynamicLossScalingUpdater.update()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="api/experimentals/parametric_function_classes.html">Parametric Function Classes</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.affine.Affine"><code class="docutils literal notranslate"><span class="pre">Affine</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.affine.Linear"><code class="docutils literal notranslate"><span class="pre">Linear</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Convolution"><code class="docutils literal notranslate"><span class="pre">Convolution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Conv1d"><code class="docutils literal notranslate"><span class="pre">Conv1d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Conv2d"><code class="docutils literal notranslate"><span class="pre">Conv2d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.Conv3d"><code class="docutils literal notranslate"><span class="pre">Conv3d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.convolution.ConvNd"><code class="docutils literal notranslate"><span class="pre">ConvNd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconvolution"><code class="docutils literal notranslate"><span class="pre">Deconvolution</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconv1d"><code class="docutils literal notranslate"><span class="pre">Deconv1d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconv2d"><code class="docutils literal notranslate"><span class="pre">Deconv2d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.Deconv3d"><code class="docutils literal notranslate"><span class="pre">Deconv3d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.deconvolution.DeconvNd"><code class="docutils literal notranslate"><span class="pre">DeconvNd</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNormalization"><code class="docutils literal notranslate"><span class="pre">BatchNormalization</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm1d"><code class="docutils literal notranslate"><span class="pre">BatchNorm1d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm2d"><code class="docutils literal notranslate"><span class="pre">BatchNorm2d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.batch_normalization.BatchNorm3d"><code class="docutils literal notranslate"><span class="pre">BatchNorm3d</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/experimentals/parametric_function_classes.html#nnabla.experimental.parametric_function_class.embed.Embed"><code class="docutils literal notranslate"><span class="pre">Embed</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="examples.html" class="btn btn-neutral float-left" title="Python API Examples" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="api/common.html" class="btn btn-neutral float-right" title="Common" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

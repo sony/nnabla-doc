@@ -1,0 +1,6 @@
+class Pow2
+========================================
+
+.. doxygenclass:: Pow2
+	:project: Cpp
+	:members: 
