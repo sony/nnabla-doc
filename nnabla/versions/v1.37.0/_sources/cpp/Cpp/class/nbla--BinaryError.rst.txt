@@ -1,0 +1,6 @@
+class nbla::BinaryError
+========================================
+
+.. doxygenclass:: nbla::BinaryError
+	:project: Cpp
+	:members: 

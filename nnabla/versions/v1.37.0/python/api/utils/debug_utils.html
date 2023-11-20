@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Debug Utils &mdash; Neural Network Libraries 1.37.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="DLPack" href="dlpack.html" />
+    <link rel="prev" title="Data Iterators" href="data_iterator.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.37.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="../../../python.html">Python Package</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Python Package Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html">Python API Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">Python Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">Python API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../api.html">Python API Reference</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="../common.html">Common</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../nd_array.html">NdArray</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../variable.html">Variable</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../computation_graph.html">Computation Graph</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../function.html">Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../parametric_function.html">Parametric Functions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../grad.html">Grad</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../solver.html">Solvers</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../communicator.html">Communicator</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../monitor.html">Monitors</a></li>
+<li class="toctree-l3 current"><a class="reference internal" href="../utils.html">Utils</a><ul class="current">
+<li class="toctree-l4"><a class="reference internal" href="save_load.html">NNP save and load utilities</a></li>
+<li class="toctree-l4"><a class="reference internal" href="image_utils.html">Image Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="data_iterator.html">Data Iterators</a></li>
+<li class="toctree-l4 current"><a class="current reference internal" href="#">Debug Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="dlpack.html">DLPack</a></li>
+<li class="toctree-l4"><a class="reference internal" href="rnn.html">RNN Utils</a></li>
+<li class="toctree-l4"><a class="reference internal" href="misc.html">Misc</a></li>
+<li class="toctree-l4"><a class="reference internal" href="quantization_aware_training.html">Quantization Aware Training</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../ext.html">Extensions</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../models.html">Pretrained Models</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../lms.html">Out-of-core execution</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../module.html">Modules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../graph_def.html">Graph Definition</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../sequential.html">Sequential</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../experimental.html">Experimental</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../python.html">Python Package</a></li>
+          <li class="breadcrumb-item"><a href="../../api.html">Python API Reference</a></li>
+          <li class="breadcrumb-item"><a href="../utils.html">Utils</a></li>
+      <li class="breadcrumb-item active">Debug Utils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/python/api/utils/debug_utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="debug-utils">
+<h1>Debug Utils<a class="headerlink" href="#debug-utils" title="Permalink to this heading"></a></h1>
+<section id="module-nnabla.utils.profiler">
+<span id="graph-profiler"></span><h2>Graph Profiler<a class="headerlink" href="#module-nnabla.utils.profiler" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.profiler.GraphProfiler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.profiler.</span></span><span class="sig-name descname"><span class="pre">GraphProfiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">graph</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ext_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">solver</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">n_run</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">100</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_measure_execution_time</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">1</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">time_scale</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'m'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward_accum</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/profiler.html#GraphProfiler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.profiler.GraphProfiler" title="Permalink to this definition"></a></dt>
+<dd><p>Class for measuring calculation time of each functions which compose nnabla computation graph.</p>
+<p>You can check some performances of your nnabla network.
+This can measure the calculation times of :</p>
+<ul class="simple">
+<li><p>function-wise forward</p></li>
+<li><p>function-wise backward</p></li>
+<li><p>whole graph forward</p></li>
+<li><p>whole graph backward</p></li>
+<li><p>training (forward + backward + update) (if <code class="docutils literal notranslate"><span class="pre">solver</span></code> is not None)</p></li>
+</ul>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">import</span> <span class="nn">nnabla.solvers</span> <span class="k">as</span> <span class="nn">S</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.profiler</span> <span class="kn">import</span> <span class="n">GraphProfiler</span>
+
+<span class="c1"># Set up nnabla context</span>
+<span class="n">device</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>  <span class="c1"># you can also use GPU (&quot;cudnn&quot;)</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="n">device</span><span class="p">)</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+<span class="c1"># Network building</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">shape</span><span class="o">=...</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">shape</span><span class="o">=...</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">CNN</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="c1"># you can build not only CNN but any networks</span>
+<span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">F</span><span class="o">.</span><span class="n">softmax_cross_entropy</span><span class="p">(</span><span class="n">y</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span> <span class="c1"># any loss functions or variables can be used</span>
+
+<span class="c1"># solver setting</span>
+<span class="n">solver</span> <span class="o">=</span> <span class="n">S</span><span class="o">.</span><span class="n">Sgd</span><span class="p">()</span>
+<span class="n">solver</span><span class="o">.</span><span class="n">set_parameters</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">())</span>
+
+<span class="c1"># SOME CODE (data loading or so on)</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">GraphProfiler</span><span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ext_name</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">n_run</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">B</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>graph</strong> (<a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – Instance of <a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> class.
+GraphProfiler find all functions which compose network graph from root <a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a> to this <a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>.</p></li>
+<li><p><strong>device_id</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – gpu device id.</p></li>
+<li><p><strong>ext_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Extension name. e.g. ‘cpu’, ‘cuda’, ‘cudnn’ etc.</p></li>
+<li><p><strong>solver</strong> (<a class="reference internal" href="../solver.html#nnabla.solvers.Solver" title="nnabla.solvers.Solver"><code class="xref py py-class docutils literal notranslate"><span class="pre">nnabla.solvers.Solver</span></code></a>) – Instance of <a class="reference internal" href="../solver.html#nnabla.solvers.Solver" title="nnabla.solvers.Solver"><code class="xref any py py-class docutils literal notranslate"><span class="pre">nnabla.solvers.Solver</span></code></a> for optimizing the parameters of the computation graph.
+if None, the training process is ignored.
+Default value is None.</p></li>
+<li><p><strong>n_run</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#int" title="(in Python v3.6)"><em>int</em></a>) – This argument specifies how many times the each functions` execution time are measured.
+Default value is 100.</p></li>
+<li><p><strong>max_measure_execution_time</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#float" title="(in Python v3.6)"><em>float</em></a>) – Maximum time of executing measurement for each functions.
+This argument has higher priority than <code class="docutils literal notranslate"><span class="pre">n_run</span></code>.
+When the measurement time for each functions get bigger than this argument,
+this class stops measuring and goes to next function, unless the total times of measurement are less than n_run.
+Default value is 1 [sec].</p></li>
+<li><p><strong>time_scale</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Time scale to display. [‘m’, ‘u’, ‘n’] (which stands for ‘mili’, ‘micro’ and ‘nano’)</p></li>
+<li><p><strong>backward_accum</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Accumulation flag passed to the each backward function. The flag will fulfill the all accumulation flags
+with the same value of backward_accum. This flag is only valid for the time measurement of each function.
+For whole graph computation, the NNabla graph engine set the appropriate accumulation flags to functions.
+Pay attention to inplace flag for your graph because accumulation and inplace flags cannot be set
+at the same time. If even one inplace flag is true in your graph, this backward_accum must be false.
+Default value is False.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.profiler.GraphProfiler.run">
+<span class="sig-name descname"><span class="pre">run</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/profiler.html#GraphProfiler.run"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.profiler.GraphProfiler.run" title="Permalink to this definition"></a></dt>
+<dd><p>Execute profiling.</p>
+<p>This executes the 5 types of measurement:</p>
+<ul class="simple">
+<li><p>function-wise forward</p></li>
+<li><p>function-wise backward</p></li>
+<li><p>whole graph forward</p></li>
+<li><p>whole graph backward</p></li>
+<li><p>training (forward + backward + update) (if <code class="docutils literal notranslate"><span class="pre">solver</span></code> is not None.)</p></li>
+</ul>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.profiler.GraphProfilerCsvWriter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.profiler.</span></span><span class="sig-name descname"><span class="pre">GraphProfilerCsvWriter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">gb</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file=&lt;_io.TextIOWrapper</span> <span class="pre">name='&lt;stdout&gt;'</span> <span class="pre">mode='w'</span> <span class="pre">encoding='utf-8'&gt;</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/profiler.html#GraphProfilerCsvWriter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.profiler.GraphProfilerCsvWriter" title="Permalink to this definition"></a></dt>
+<dd><p>csv writer for GraphProfiler class.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">nnabla.utils.profiler</span> <span class="kn">import</span> <span class="n">GraphProfiler</span><span class="p">,</span> <span class="n">GraphProfilerCsvWriter</span>
+
+<span class="c1"># Network building comes above</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">GraphProfiler</span><span class="p">(</span><span class="n">variable</span><span class="p">,</span> <span class="n">solver</span><span class="o">=</span><span class="n">solver</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">ext_name</span><span class="o">=</span><span class="n">device</span><span class="p">,</span> <span class="n">n_run</span><span class="o">=</span><span class="mi">1000</span><span class="p">)</span>
+<span class="n">B</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+
+<span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;./profile.csv&quot;</span><span class="p">,</span> <span class="s2">&quot;w&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">writer</span> <span class="o">=</span> <span class="n">GraphProfilerCsvWriter</span><span class="p">(</span><span class="n">B</span><span class="p">,</span> <span class="n">file</span><span class="o">=</span><span class="n">f</span><span class="p">)</span>
+    <span class="n">writer</span><span class="o">.</span><span class="n">write</span><span class="p">()</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>gb</strong> (<code class="xref py py-class docutils literal notranslate"><span class="pre">GraphProfiler</span></code>) – Instance of GraphProfiler class which is main executor of profiling.</p></li>
+<li><p><strong>file</strong> (<em>Python file object</em>) – Output file object.
+Profile results will be written to the file which is specified by this argument.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.profiler.GraphProfilerCsvWriter.write">
+<span class="sig-name descname"><span class="pre">write</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/profiler.html#GraphProfilerCsvWriter.write"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.profiler.GraphProfilerCsvWriter.write" title="Permalink to this definition"></a></dt>
+<dd><p>Write result to the file.
+The output file is specified by <code class="docutils literal notranslate"><span class="pre">file</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nnabla.utils.inspection.profile">
+<span id="time-profiler"></span><h2>Time Profiler<a class="headerlink" href="#module-nnabla.utils.inspection.profile" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.profile.TimeProfiler">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.inspection.profile.</span></span><span class="sig-name descname"><span class="pre">TimeProfiler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ext_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">device_id</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/profile.html#TimeProfiler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.profile.TimeProfiler" title="Permalink to this definition"></a></dt>
+<dd><p>An utility API to create function_hook callbacks to profile the execution time of each function.
+Passing <code class="docutils literal notranslate"><span class="pre">ext_name</span></code> and <code class="docutils literal notranslate"><span class="pre">device_id</span></code>, you can define which device time you want to profile.
+If <a class="reference internal" href="quantization_aware_training.html#nnabla.utils.qnn.QATConfig.ext_name" title="nnabla.utils.qnn.QATConfig.ext_name"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">ext_name</span></code></a> = “cuda” or “cudnn”, then cudaEvent will be used to measure the execution time.
+For more information about cudaEvent, see the CUDA <a class="reference external" href="https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__EVENT.html">document</a>.
+If <a href="#id1"><span class="problematic" id="id2">`</span></a>ext_name`=”cpu” , then wall-clock-time on host will be used.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">ext_name</span> <span class="o">=</span> <span class="s2">&quot;cpu&quot;</span>
+<span class="n">device_id</span> <span class="o">=</span> <span class="s2">&quot;0&quot;</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.ext_utils</span> <span class="kn">import</span> <span class="n">get_extension_context</span>
+<span class="n">ctx</span> <span class="o">=</span> <span class="n">get_extension_context</span><span class="p">(</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">)</span>
+<span class="n">nn</span><span class="o">.</span><span class="n">set_default_context</span><span class="p">(</span><span class="n">ctx</span><span class="p">)</span>
+
+<span class="n">y</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.utils.inspection</span> <span class="kn">import</span> <span class="n">TimeProfiler</span>
+<span class="n">tp</span> <span class="o">=</span> <span class="n">TimeProfiler</span><span class="p">(</span><span class="n">ext_name</span><span class="o">=</span><span class="n">ext_name</span><span class="p">,</span> <span class="n">device_id</span><span class="o">=</span><span class="n">device_id</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">max_iter</span><span class="p">):</span>
+    <span class="c1"># All results of executions under &quot;forward&quot; scope are registered as &quot;forward&quot; execution.</span>
+    <span class="k">with</span> <span class="n">tp</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="s2">&quot;forward&quot;</span><span class="p">):</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">function_pre_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">pre_hook</span><span class="p">,</span> <span class="n">function_post_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">post_hook</span><span class="p">)</span>
+
+    <span class="c1"># All results of executions under &quot;backward&quot; scope are registered as &quot;backward&quot; execution.</span>
+    <span class="k">with</span> <span class="n">tp</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="s2">&quot;backward&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">tp</span><span class="p">:</span>
+        <span class="n">y</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">function_pre_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">pre_hook</span><span class="p">,</span> <span class="n">function_post_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">post_hook</span><span class="p">)</span>
+
+    <span class="c1"># All results are evaluated by passing scopes to .calc_elapsed_time().</span>
+    <span class="c1"># Be sure to call calc_elapsed_time at each iteration, otherwise nothing is measured.</span>
+    <span class="n">tp</span><span class="o">.</span><span class="n">calc_elapsed_time</span><span class="p">([</span><span class="s2">&quot;forward&quot;</span><span class="p">,</span> <span class="s2">&quot;backward&quot;</span><span class="p">,</span> <span class="s2">&quot;summary&quot;</span><span class="p">])</span>
+
+<span class="c1"># To output results on stdout, call instance as a function.</span>
+<span class="n">tp</span><span class="p">()</span>
+
+<span class="c1"># To write out as csv file, call .to_csv().</span>
+<span class="n">tp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">output_file_name</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.profile.TimeProfiler.calc_elapsed_time">
+<span class="sig-name descname"><span class="pre">calc_elapsed_time</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">names</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/profile.html#TimeProfiler.calc_elapsed_time"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.profile.TimeProfiler.calc_elapsed_time" title="Permalink to this definition"></a></dt>
+<dd><p>Evaluate all elapsed times.
+Note that elapsed time is not recorded until calc_elapsed_time is called.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>names</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a><em> or </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)"><em>list</em></a><em> of </em><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Scope name(s) to evaluate elapsed time.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.profile.TimeProfiler.post_hook">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">post_hook</span></span><a class="headerlink" href="#nnabla.utils.inspection.profile.TimeProfiler.post_hook" title="Permalink to this definition"></a></dt>
+<dd><p>Get a callback for function_post_hook.
+This function can be used like the example below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tp</span> <span class="o">=</span> <span class="n">TimeProfiler</span><span class="p">(</span><span class="o">..</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tp</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="s2">&quot;forward&quot;</span><span class="p">):</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">function_post_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">post_hook</span><span class="p">())</span>
+
+<span class="k">with</span> <span class="n">tp</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="s2">&quot;backward&quot;</span><span class="p">):</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">function_post_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">post_hook</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.profile.TimeProfiler.pre_hook">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">pre_hook</span></span><a class="headerlink" href="#nnabla.utils.inspection.profile.TimeProfiler.pre_hook" title="Permalink to this definition"></a></dt>
+<dd><p>Get a callback for function_pre_hook.
+This function can be used like the example below:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">tp</span> <span class="o">=</span> <span class="n">TimeProfiler</span><span class="p">(</span><span class="o">..</span><span class="p">)</span>
+<span class="k">with</span> <span class="n">tp</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="s2">&quot;forward&quot;</span><span class="p">):</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">function_pre_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">pre_hook</span><span class="p">())</span>
+
+<span class="k">with</span> <span class="n">tp</span><span class="o">.</span><span class="n">scope</span><span class="p">(</span><span class="s2">&quot;backward&quot;</span><span class="p">):</span>
+    <span class="n">v</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">function_pre_hook</span><span class="o">=</span><span class="n">tp</span><span class="o">.</span><span class="n">pre_hook</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.profile.TimeProfiler.scope">
+<span class="sig-name descname"><span class="pre">scope</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">scope_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/profile.html#TimeProfiler.scope"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.profile.TimeProfiler.scope" title="Permalink to this definition"></a></dt>
+<dd><p>Change a scope to aggregate results.
+This function is used as context (<a class="reference external" href="https://docs.python.org/3.6/reference/compound_stmts.html#with" title="(in Python v3.6)"><code class="docutils literal notranslate"><span class="pre">The</span> <span class="pre">with</span> <span class="pre">statement</span></code></a> statement),</p>
+<blockquote>
+<div><p>and all results under the context are labeled by <code class="docutils literal notranslate"><span class="pre">scope_name</span></code>.</p>
+</div></blockquote>
+<p>In addition to the execution time of each function,
+the elapsed times between entering and exiting the each context are also recorded</p>
+<blockquote>
+<div><p>and they are aggregated as “summary” scope.</p>
+</div></blockquote>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>scope_name</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Scope name.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.profile.TimeProfiler.to_csv">
+<span class="sig-name descname"><span class="pre">to_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">out_dir</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ignore_init</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/profile.html#TimeProfiler.to_csv"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.profile.TimeProfiler.to_csv" title="Permalink to this definition"></a></dt>
+<dd><p>Writes out to csv file. Output directory can be specified by <code class="xref any docutils literal notranslate"><span class="pre">out_dir</span></code>.
+As default, the elapsed times of first iteration will be omitted.
+If you evaluate the first iteration as well, pass True to <code class="xref any docutils literal notranslate"><span class="pre">ignore_init</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>out_dir</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#str" title="(in Python v3.6)"><em>str</em></a>) – Output directory.</p></li>
+<li><p><strong>ignore_init</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Ignore the result of the first iteration or not.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nnabla.utils.inspection.value_trace">
+<span id="nan-inf-tracer"></span><h2>Nan/Inf Tracer<a class="headerlink" href="#module-nnabla.utils.inspection.value_trace" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.value_trace.NanInfTracer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.inspection.value_trace.</span></span><span class="sig-name descname"><span class="pre">NanInfTracer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trace_nan</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">trace_inf</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">need_details</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/value_trace.html#NanInfTracer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.value_trace.NanInfTracer" title="Permalink to this definition"></a></dt>
+<dd><p>An utility API to create function_hook callbacks to check whether the outputs of all layers have NaN or inf as their values.
+During forward and backward execution, passed as function_hook,
+this API reports ValueError if at least one of all layer outputs has Nan or inf as its values.
+Otherwise, all tensors passed to next layer or function as is.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.utils.inspection</span> <span class="kn">import</span> <span class="n">NanInfTracer</span>
+<span class="n">nit</span> <span class="o">=</span> <span class="n">NanInfTracer</span><span class="p">(</span><span class="n">trace_inf</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">trace_nan</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">need_details</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="k">with</span> <span class="n">nit</span><span class="o">.</span><span class="n">trace</span><span class="p">():</span>
+    <span class="n">pred</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">function_post_hook</span><span class="o">=</span><span class="n">nit</span><span class="o">.</span><span class="n">forward_post_hook</span><span class="p">)</span>
+    <span class="n">pred</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">function_post_hook</span><span class="o">=</span><span class="n">nit</span><span class="o">.</span><span class="n">backward_post_hook</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="py property">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.value_trace.NanInfTracer.backward_post_hook">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">backward_post_hook</span></span><a class="headerlink" href="#nnabla.utils.inspection.value_trace.NanInfTracer.backward_post_hook" title="Permalink to this definition"></a></dt>
+<dd><p>Create callback function object which can be used as a function_post_hook argument of backward().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.value_trace.NanInfTracer.check">
+<span class="sig-name descname"><span class="pre">check</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/value_trace.html#NanInfTracer.check"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.value_trace.NanInfTracer.check" title="Permalink to this definition"></a></dt>
+<dd><p>Checks nan/inf existence at all outputs of all layers and raises ValueError only if exist.</p>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.value_trace.NanInfTracer.forward_post_hook">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">forward_post_hook</span></span><a class="headerlink" href="#nnabla.utils.inspection.value_trace.NanInfTracer.forward_post_hook" title="Permalink to this definition"></a></dt>
+<dd><p>Create callback function object which can be used as a function_post_hook argument of forward().</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.value_trace.NanInfTracer.trace">
+<span class="sig-name descname"><span class="pre">trace</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/value_trace.html#NanInfTracer.trace"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.value_trace.NanInfTracer.trace" title="Permalink to this definition"></a></dt>
+<dd><p>Create context manager to check nan/inf existence by using with statement.
+Using this context manager, checking nan/inf is performed automatically just before exiting with scope.
+Unless you use this context manager, be sure to call .check() explicitly to check nan/inf.</p>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">nit</span> <span class="o">=</span> <span class="n">NanInfTracer</span><span class="p">()</span>
+<span class="k">with</span> <span class="n">nit</span><span class="o">.</span><span class="n">trace</span><span class="p">():</span>
+    <span class="n">pred</span><span class="o">.</span><span class="n">forward</span><span class="p">(</span><span class="n">function_post_hook</span><span class="o">=</span><span class="n">nit</span><span class="o">.</span><span class="n">forward_post_hook</span><span class="p">)</span>
+    <span class="n">pred</span><span class="o">.</span><span class="n">backward</span><span class="p">(</span><span class="n">function_post_hook</span><span class="o">=</span><span class="n">nit</span><span class="o">.</span><span class="n">backward_post_hook</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+<section id="module-nnabla.utils.inspection.pretty_print">
+<span id="pretty-printer"></span><h2>Pretty Printer<a class="headerlink" href="#module-nnabla.utils.inspection.pretty_print" title="Permalink to this heading"></a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.pretty_print.PrettyPrinter">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">nnabla.utils.inspection.pretty_print.</span></span><span class="sig-name descname"><span class="pre">PrettyPrinter</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/pretty_print.html#PrettyPrinter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.pretty_print.PrettyPrinter" title="Permalink to this definition"></a></dt>
+<dd><p>Pretty printer to print the graph structure used with the <a class="reference internal" href="../variable.html#nnabla.Variable.visit" title="nnabla.Variable.visit"><code class="xref any py py-meth docutils literal notranslate"><span class="pre">visit</span></code></a> method of a Variable.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.pretty_print.PrettyPrinter.functions">
+<span class="sig-name descname"><span class="pre">functions</span></span><a class="headerlink" href="#nnabla.utils.inspection.pretty_print.PrettyPrinter.functions" title="Permalink to this definition"></a></dt>
+<dd><p>List of functions of which element is the dictionary.
+The (key, value) pair is the (<a class="reference internal" href="../communicator.html#nnabla.communicators.Communicator.name" title="nnabla.communicators.Communicator.name"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">name</span></code></a>, function name), (<a class="reference internal" href="save_load.html#nnabla.utils.nnp_graph.NnpNetwork.inputs" title="nnabla.utils.nnp_graph.NnpNetwork.inputs"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">inputs</span></code></a>, list of input variables),
+and (<a class="reference internal" href="save_load.html#nnabla.utils.nnp_graph.NnpNetwork.outputs" title="nnabla.utils.nnp_graph.NnpNetwork.outputs"><code class="xref any py py-attr docutils literal notranslate"><span class="pre">outputs</span></code></a>, list of output variables) of a function.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#list" title="(in Python v3.6)">list</a> of <a class="reference external" href="https://docs.python.org/3.6/library/stdtypes.html#dict" title="(in Python v3.6)">dict</a></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="nnabla.utils.inspection.pretty_print.pprint">
+<span class="sig-prename descclassname"><span class="pre">nnabla.utils.inspection.pretty_print.</span></span><span class="sig-name descname"><span class="pre">pprint</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">v</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">backward</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">summary</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">hidden</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">printer</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../../_modules/nnabla/utils/inspection/pretty_print.html#pprint"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#nnabla.utils.inspection.pretty_print.pprint" title="Permalink to this definition"></a></dt>
+<dd><p>Pretty print information of a graph from a root variable <code class="xref any docutils literal notranslate"><span class="pre">v</span></code>.</p>
+<p>Note that in order to print the summary statistics, this function stores, i.e., does not reuse
+the intermediate buffers of a computation graph, increasing the memory usage
+if either the forward or backward is True.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>v</strong> (<a class="reference internal" href="../variable.html#nnabla.Variable" title="nnabla.Variable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">nnabla.Variable</span></code></a>) – Root variable.</p></li>
+<li><p><strong>forward</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Call the forward method of a variable <code class="xref any docutils literal notranslate"><span class="pre">v</span></code>.</p></li>
+<li><p><strong>backward</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Call the backward method of a variable <code class="xref any docutils literal notranslate"><span class="pre">v</span></code>.</p></li>
+<li><p><strong>summary</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Print statictis of a intermediate variable.</p></li>
+<li><p><strong>hidden</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Store the intermediate input and output variables if True.</p></li>
+<li><p><strong>printer</strong> (<a class="reference external" href="https://docs.python.org/3.6/library/functions.html#bool" title="(in Python v3.6)"><em>bool</em></a>) – Return the printer object if True.</p></li>
+</ul>
+</dd>
+</dl>
+<p>Example:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">pred</span> <span class="o">=</span> <span class="n">Model</span><span class="p">(</span><span class="o">...</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">nnabla.utils.inspection</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">pred</span><span class="p">,</span> <span class="n">summary</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">forward</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">backward</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="data_iterator.html" class="btn btn-neutral float-left" title="Data Iterators" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="dlpack.html" class="btn btn-neutral float-right" title="DLPack" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

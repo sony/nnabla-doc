@@ -1,0 +1,6 @@
+class Ceil
+========================================
+
+.. doxygenclass:: Ceil
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class nbla::Affine
+========================================
+
+.. doxygenclass:: nbla::Affine
+	:project: Cpp
+	:members: 

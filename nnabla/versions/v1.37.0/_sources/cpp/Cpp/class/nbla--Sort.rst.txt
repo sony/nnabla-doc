@@ -1,0 +1,6 @@
+class nbla::Sort
+========================================
+
+.. doxygenclass:: nbla::Sort
+	:project: Cpp
+	:members: 

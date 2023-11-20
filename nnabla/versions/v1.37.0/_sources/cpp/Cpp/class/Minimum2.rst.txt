@@ -1,0 +1,6 @@
+class Minimum2
+========================================
+
+.. doxygenclass:: Minimum2
+	:project: Cpp
+	:members: 

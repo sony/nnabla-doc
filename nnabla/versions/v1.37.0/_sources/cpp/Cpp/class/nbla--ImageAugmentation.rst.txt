@@ -1,0 +1,6 @@
+class nbla::ImageAugmentation
+========================================
+
+.. doxygenclass:: nbla::ImageAugmentation
+	:project: Cpp
+	:members: 

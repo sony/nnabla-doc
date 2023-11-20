@@ -1,0 +1,6 @@
+class nbla::Pow2Quantize
+========================================
+
+.. doxygenclass:: nbla::Pow2Quantize
+	:project: Cpp
+	:members: 

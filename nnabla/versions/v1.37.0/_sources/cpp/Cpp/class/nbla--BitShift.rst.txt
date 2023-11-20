@@ -1,0 +1,6 @@
+class nbla::BitShift
+========================================
+
+.. doxygenclass:: nbla::BitShift
+	:project: Cpp
+	:members: 

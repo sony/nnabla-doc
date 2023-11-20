@@ -1,0 +1,6 @@
+class nbla::DataParallelCommunicator
+========================================
+
+.. doxygenclass:: nbla::DataParallelCommunicator
+	:project: Cpp
+	:members: 

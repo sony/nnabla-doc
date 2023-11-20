@@ -1,0 +1,6 @@
+class nbla::BinaryConnectAffine
+========================================
+
+.. doxygenclass:: nbla::BinaryConnectAffine
+	:project: Cpp
+	:members: 

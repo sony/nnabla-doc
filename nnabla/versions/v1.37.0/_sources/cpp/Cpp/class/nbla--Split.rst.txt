@@ -1,0 +1,6 @@
+class nbla::Split
+========================================
+
+.. doxygenclass:: nbla::Split
+	:project: Cpp
+	:members: 

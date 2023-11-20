@@ -1,0 +1,6 @@
+class nbla::EyeLike
+========================================
+
+.. doxygenclass:: nbla::EyeLike
+	:project: Cpp
+	:members: 

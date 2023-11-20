@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::utils::nnp::Executor &mdash; Neural Network Libraries 1.37.0 documentation</title>
+      <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class Exp" href="Exp.html" />
+    <link rel="prev" title="class nbla::Exception" href="nbla--Exception.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.37.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::utils::nnp::Executor</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--utils--nnp--Executor.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-utils-nnp-executor">
+<h1>class nbla::utils::nnp::Executor<a class="headerlink" href="#class-nbla-utils-nnp-executor" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp8ExecutorE">
+<span id="_CPPv3N4nbla5utils3nnp8ExecutorE"></span><span id="_CPPv2N4nbla5utils3nnp8ExecutorE"></span><span id="nbla::utils::nnp::Executor"></span><span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Executor</span></span></span><a class="headerlink" href="#_CPPv4N4nbla5utils3nnp8ExecutorE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> associated with <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Nnp"><span class="std std-ref">Nnp</span></a> object. </p>
+<p>The <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> object internally stores a <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1aa40cb8835c7fc9057fe08d7100ba5d28"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Executor"><span class="std std-ref">Executor</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a639300bf295208ff53913c5eb8372e87"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">string</span> <span class="pre">network_name</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a3bbd23a47da52c2b061cbe05f117be59"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">set_batch_size</span> <span class="pre">(int</span> <span class="pre">batch_size)</span></span></dt>
+<dd><p>Set batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>batch_size</strong> – <strong>[in]</strong> Overwrite the default batch size in <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a>. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1aca02c4733ad2d0af0e74f84e4a4bd07b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">int</span> <span class="pre">batch_size</span> <span class="pre">()</span> <span class="pre">const</span></span></dt>
+<dd><p>Get batch size. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Batch</strong> – size. The if set_batch_size is not previously called, batch size written in the <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> of <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1NNabla"><span class="std std-ref">NNabla</span></a> format file will be returned. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a19eb4fa2ad18465aaa7718deaaea790c"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">DataVariable</span> <span class="pre">&gt;</span> <span class="pre">get_data_variables</span> <span class="pre">()</span></span></dt>
+<dd><p>Get data variables. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Data</strong> – variables where each item holds name info and <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> instance in the <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a>. The data inside the <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> should be gotten via Nnabla C++ interface. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a6be8c7d19fe5d04089193648a8317eb7"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">vector&lt;</span> <span class="pre">OutputVariable</span> <span class="pre">&gt;</span> <span class="pre">get_output_variables</span> <span class="pre">()</span></span></dt>
+<dd><p>Get output variables. </p>
+<dl class="field-list simple">
+<dt class="field-odd">Return values<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>Output</strong> – variables where each item holds name info and <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> instance in the <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a>. The data inside the <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1CgVariable"><span class="std std-ref">CgVariable</span></a> should be gotten via Nnabla C++ interface. </p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1ac8dc9005b76bffe0298d8f28651bac4b"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">shared_ptr&lt;</span> <span class="pre">Network</span> <span class="pre">&gt;</span> <span class="pre">get_network</span> <span class="pre">()</span></span></dt>
+<dd><p>Get the reference (shared_ptr) of <a class="reference internal" href="../namespace/nbla--utils--nnp.html#classnbla_1_1utils_1_1nnp_1_1Network"><span class="std std-ref">Network</span></a> object held in this. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp">
+<span class="target" id="classnbla_1_1utils_1_1nnp_1_1Executor_1a29f15d374a3cc0d41335acbf14f1ba0c"></span><span class="sig-name descname"><span class="pre">NBLA_API</span> <span class="pre">void</span> <span class="pre">execute</span> <span class="pre">()</span></span></dt>
+<dd><p>Execute the network from inputs to outputs. </p>
+</dd></dl>
+
+</div>
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp8Executor12DataVariableE">
+<span id="_CPPv3N4nbla5utils3nnp8Executor12DataVariableE"></span><span id="_CPPv2N4nbla5utils3nnp8Executor12DataVariableE"></span><span id="nbla::utils::nnp::Executor::DataVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Executor_1_1DataVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">DataVariable</span></span></span><a class="headerlink" href="#_CPPv4N4nbla5utils3nnp8Executor12DataVariableE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Data variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Executor--DataVariable.html#structnbla_1_1utils_1_1nnp_1_1Executor_1_1DataVariable"><span class="std std-ref">DataVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+<dl class="cpp struct">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla5utils3nnp8Executor14OutputVariableE">
+<span id="_CPPv3N4nbla5utils3nnp8Executor14OutputVariableE"></span><span id="_CPPv2N4nbla5utils3nnp8Executor14OutputVariableE"></span><span id="nbla::utils::nnp::Executor::OutputVariable"></span><span class="target" id="structnbla_1_1utils_1_1nnp_1_1Executor_1_1OutputVariable"></span><span class="k"><span class="pre">struct</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">OutputVariable</span></span></span><a class="headerlink" href="#_CPPv4N4nbla5utils3nnp8Executor14OutputVariableE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Output variable container. </p>
+<p>The string fields corresponds to <a class="reference internal" href="../struct/nbla--utils--nnp--Executor--OutputVariable.html#structnbla_1_1utils_1_1nnp_1_1Executor_1_1OutputVariable"><span class="std std-ref">OutputVariable</span></a> in proto definition. </p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--Exception.html" class="btn btn-neutral float-left" title="class nbla::Exception" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="Exp.html" class="btn btn-neutral float-right" title="class Exp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

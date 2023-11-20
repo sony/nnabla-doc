@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>C++ Command Line Interface &mdash; Neural Network Libraries 1.37.0 documentation</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="C++ API Examples" href="examples.html" />
+    <link rel="prev" title="Build C++ libraries" href="installation.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.37.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">C++ Command Line Interface</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#basic-functions">Basic functions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#forward">Forward</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#dump">Dump</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#train">Train</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="examples.html">C++ API Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="doc.html">C++ API Document</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../cpp.html">C++ API</a></li>
+      <li class="breadcrumb-item active">C++ Command Line Interface</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/cpp/command_line_interface.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="c-command-line-interface">
+<h1>C++ Command Line Interface<a class="headerlink" href="#c-command-line-interface" title="Permalink to this heading"></a></h1>
+<p>Nnabla has c++ version’s command line interface utility which can do train, forward(inference).
+Using this command line interface, developers can run train and infer without any python environment.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: nbla (infer|dump|train)
+</pre></div>
+</div>
+<section id="basic-functions">
+<h2>Basic functions<a class="headerlink" href="#basic-functions" title="Permalink to this heading"></a></h2>
+<section id="forward">
+<h3>Forward<a class="headerlink" href="#forward" title="Permalink to this heading"></a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: nbla infer -e EXECUTOR [-b BATCHSIZE] [-o OUTPUT] input_files ...
+
+arguments:
+   -e EXECUTOR         EXECUTOR is the name of executor network.
+   input_files         input_file must be one of followings.
+                           *.nnp      : Network structure and parameter.
+                           *.nntxt    : Network structure in prototxt format.
+                           *.prototxt : Same as nntxt.
+                           *.h5       : Parameters in h5 format.
+                           *.protobuf : Network structure and parameters in binary.
+                           *.bin      : Input data.
+
+optional arguments:
+   -b BATCHSIZE        batch size for the input data.
+   -o OUTPUT           the filename pattern of output file, default output to stdout.
+
+example:
+    Infer using LeNet_input.bin as input, LeNet_output_0.bin as output:
+       nbla infer -e Executor -b 1 LeNet.nnp LeNet_input.bin -o LeNet_output
+
+    Infer and output the result to console:
+       nbla infer -e Executor -b 1 LeNet.nnp LeNet_input.bin
+</pre></div>
+</div>
+</section>
+<section id="dump">
+<h3>Dump<a class="headerlink" href="#dump" title="Permalink to this heading"></a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: nbla dump input_files ...
+
+arguments:
+   input_files         input_files must be one of *.nnp, *.nntxt, prototxt, h5, protobuf
+
+example:
+    Show network information by dump command:
+      nbla dump LeNet.nnp
+</pre></div>
+</div>
+<p>The output looks like:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>This configuration has 1 executors.
+
+  Executor No.0 Name [Executor]
+    Using default batch size 64 .
+     Inputs
+      Input No.0 Name [x] Shape ( 64 1 28 28 )
+     Outputs
+      Output No.0 Name [y&#39;] Shape ( 64 10 )
+Finished
+</pre></div>
+</div>
+</section>
+<section id="train">
+<h3>Train<a class="headerlink" href="#train" title="Permalink to this heading"></a></h3>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span>usage: nbla train input_file
+
+arguments:
+   input_file          input_file must be *.nnp
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="installation.html" class="btn btn-neutral float-left" title="Build C++ libraries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="C++ API Examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

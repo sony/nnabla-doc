@@ -1,0 +1,6 @@
+class nbla::TopKData
+========================================
+
+.. doxygenclass:: nbla::TopKData
+	:project: Cpp
+	:members: 

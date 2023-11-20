@@ -1,0 +1,6 @@
+struct nbla::utils::nnp::Optimizer::LossVariable
+========================================
+
+.. doxygenstruct:: nbla::utils::nnp::Optimizer::LossVariable
+	:project: Cpp
+	:members: 

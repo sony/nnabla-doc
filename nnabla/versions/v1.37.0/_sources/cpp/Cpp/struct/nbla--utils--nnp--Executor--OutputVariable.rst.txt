@@ -1,0 +1,6 @@
+struct nbla::utils::nnp::Executor::OutputVariable
+========================================
+
+.. doxygenstruct:: nbla::utils::nnp::Executor::OutputVariable
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class Cosh
+========================================
+
+.. doxygenclass:: Cosh
+	:project: Cpp
+	:members: 
