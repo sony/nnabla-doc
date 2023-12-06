@@ -1,0 +1,6 @@
+class nbla::Recompute
+========================================
+
+.. doxygenclass:: nbla::Recompute
+	:project: Cpp
+	:members: 

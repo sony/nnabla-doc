@@ -1,0 +1,6 @@
+class nbla::Constant
+========================================
+
+.. doxygenclass:: nbla::Constant
+	:project: Cpp
+	:members: 

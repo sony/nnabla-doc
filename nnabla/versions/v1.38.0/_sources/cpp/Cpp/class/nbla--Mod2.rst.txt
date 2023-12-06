@@ -1,0 +1,6 @@
+class nbla::Mod2
+========================================
+
+.. doxygenclass:: nbla::Mod2
+	:project: Cpp
+	:members: 

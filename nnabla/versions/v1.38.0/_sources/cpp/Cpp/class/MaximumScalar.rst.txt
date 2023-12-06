@@ -1,0 +1,6 @@
+class MaximumScalar
+========================================
+
+.. doxygenclass:: MaximumScalar
+	:project: Cpp
+	:members: 

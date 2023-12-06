@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NNabla CUDA extension package installation using PIP &mdash; Neural Network Libraries 1.38.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/graphviz.css" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/sphinx_highlight.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.38.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">NNabla CUDA extension package installation using PIP</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/python/pip_installation_cuda.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nnabla-cuda-extension-package-installation-using-pip">
+<span id="pip-installation-cuda"></span><h1>NNabla CUDA extension package installation using PIP<a class="headerlink" href="#nnabla-cuda-extension-package-installation-using-pip" title="Permalink to this heading"></a></h1>
+<p>Note: please refer to the <a class="reference internal" href="installation.html#pip-os-specific"><span class="std std-ref">OS specific workflows</span></a> for the OS specific dependencies setup.</p>
+<p>In addition to NNabla’s requirements, CUDA extension requires CUDA setup has done on your system. If you don’t have CUDA on your system, follow the procedure described below.</p>
+<p>Download and install <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">CUDA toolkit</a> and <a class="reference external" href="https://developer.nvidia.com/rdp/cudnn-download">cuDNN library(Registration required)</a> (both runtime library and development library). Please follow the instruction in the document provided by NVIDIA. Do NOT see any instruction provided by any third party. They are often incorrect or based on old instructions, that could destroy your system.</p>
+<p>By installing the NNabla CUDA extension package <code class="docutils literal notranslate"><span class="pre">nnabla-ext-cuda</span></code>, you can accelerate the computation by NVIDIA CUDA GPU (CUDA must be setup on your environment accordingly).</p>
+<p>Several pip packages of NNabla CUDA extension are provided for each CUDA version and its corresponding cuDNN version as following.</p>
+<section id="cuda-vs-cudnn-compatibility">
+<span id="cuda-cudnn-compatibility"></span><h2>CUDA vs cuDNN Compatibility<a class="headerlink" href="#cuda-vs-cudnn-compatibility" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package name</p></th>
+<th class="head"><p>CUDA version</p></th>
+<th class="head"><p>cuDNN version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nnabla-ext-cuda110</p></td>
+<td><p>11.0.3</p></td>
+<td><p>8.0(Linux &amp; Win)</p></td>
+</tr>
+<tr class="row-odd"><td><p>nnabla-ext-cuda116</p></td>
+<td><p>11.6.2</p></td>
+<td><p>8.4(Linux &amp; Win)</p></td>
+</tr>
+</tbody>
+</table>
+<p>The latest CUDA version is always preferred if your GPU accepts.</p>
+<p>Currently, for each NNabla CUDA extension package, it may be not compatible with some specific GPUs.</p>
+<p>After nnabla-ext-cuda package is installed, you can manually check whether your GPU is usable.
+For example, you can check GPU with device_id 0 by:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">nnabla_ext.cudnn</span>
+<span class="n">device_id</span> <span class="o">=</span> <span class="s1">&#39;0&#39;</span>
+<span class="n">nnabla_ext</span><span class="o">.</span><span class="n">cudnn</span><span class="o">.</span><span class="n">check_gpu</span><span class="p">(</span><span class="n">device_id</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Above code will run successfully if your GPU is usable, otherwise, an error will be reported.</p>
+<p>nnabla-ext-cuda package will also try to check the compatibility of your GPUs automatically when you use ‘cuda’ or ‘cudnn’ extension.
+By default, it will list and check all gpus in your machine. Error will be reported if there is incompatible card.</p>
+<p>You can set environment variable ‘AVAILABLE_GPU_NAMES’ to tell it which GPU is usable, ‘AVAILABLE_GPU_NAMES’ is a white list, GPU in ‘AVAILABLE_GPU_NAMES’ will not cause error.
+For example, if you think GeForce RTX 3070 and GeForce RTX 3090 are usable, you can set environment variable as following:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">AVAILABLE_GPU_NAMES</span><span class="o">=</span><span class="s2">&quot;GeForce RTX 3070,GeForce RTX 3090&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Permalink to this heading"></a></h2>
+<p>The following is an example of installing the extension for CUDA 11.0.3</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>nnabla-ext-cuda110
+</pre></div>
+</div>
+<p>and check if all works.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import nnabla_ext.cuda, nnabla_ext.cudnn&quot;</span>
+</pre></div>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="m">2018</span>-06-26<span class="w"> </span><span class="m">15</span>:20:36,085<span class="w"> </span><span class="o">[</span>nnabla<span class="o">][</span>INFO<span class="o">]</span>:<span class="w"> </span>Initializing<span class="w"> </span>CPU<span class="w"> </span>extension...
+<span class="m">2018</span>-06-26<span class="w"> </span><span class="m">15</span>:20:36,257<span class="w"> </span><span class="o">[</span>nnabla<span class="o">][</span>INFO<span class="o">]</span>:<span class="w"> </span>Initializing<span class="w"> </span>CUDA<span class="w"> </span>extension...
+<span class="m">2018</span>-06-26<span class="w"> </span><span class="m">15</span>:20:36,257<span class="w"> </span><span class="o">[</span>nnabla<span class="o">][</span>INFO<span class="o">]</span>:<span class="w"> </span>Initializing<span class="w"> </span>cuDNN<span class="w"> </span>extension...
+</pre></div>
+</div>
+<p><strong>Note</strong>: If you want to make sure the latest version will be installed, try to uninstall previously installed one with <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">uninstall</span> <span class="pre">-y</span> <span class="pre">nnabla</span> <span class="pre">nnabla-ext-cuda110</span></code> beforehand.</p>
+</section>
+<section id="installation-with-multi-gpu-supported">
+<span id="pip-installation-distributed"></span><h2>Installation with Multi-GPU supported<a class="headerlink" href="#installation-with-multi-gpu-supported" title="Permalink to this heading"></a></h2>
+<p>Multi-GPU wheel package is only available on python3.8+.</p>
+</section>
+<section id="cuda-cudnn-compatibility-multi-gpu">
+<span id="id1"></span><h2>CUDA vs cuDNN Compatibility<a class="headerlink" href="#cuda-cudnn-compatibility-multi-gpu" title="Permalink to this heading"></a></h2>
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Package name</p></th>
+<th class="head"><p>CUDA version</p></th>
+<th class="head"><p>cuDNN version</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>nnabla-ext-cuda110</p></td>
+<td><p>11.0.3</p></td>
+<td><p>8.0</p></td>
+</tr>
+<tr class="row-odd"><td><p>nnabla-ext-cuda116</p></td>
+<td><p>11.6.2</p></td>
+<td><p>8.4</p></td>
+</tr>
+</tbody>
+</table>
+<p>You can install as the following.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>nnabla
+pip<span class="w"> </span>install<span class="w"> </span>nnabla-ext-cuda110
+</pre></div>
+</div>
+<p>If you already installed NNabla, uninstall all of it, or start from a clean environment which you create using Anaconda, venv.</p>
+<p>You should also install OpenMPI and NCCL in addition to CUDA and CuDNN.</p>
+<p>If you are using Ubuntu 20.04 and choose mpi4.0.3, you can install mpi with following command.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>-y<span class="w"> </span>--no-install-recommends<span class="w"> </span>openmpi-bin<span class="w"> </span>libopenmpi-dev
+</pre></div>
+</div>
+<p>Otherwise, you must install a version openmpi by supported on ubuntu 20.04. (e.g. 3.1.6 or 4.1.3). In theory, all versions of openmpi are supported.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nv">MPIVER</span><span class="o">=</span><span class="m">3</span>.1.6
+curl<span class="w"> </span>-O<span class="w"> </span>https://download.open-mpi.org/release/open-mpi/v<span class="si">${</span><span class="nv">MPIVER</span><span class="p">%.*</span><span class="si">}</span>/openmpi-<span class="si">${</span><span class="nv">MPIVER</span><span class="si">}</span>.tar.bz2
+tar<span class="w"> </span>xvf<span class="w"> </span>openmpi-<span class="si">${</span><span class="nv">MPIVER</span><span class="si">}</span>.tar.bz2
+<span class="nb">cd</span><span class="w"> </span>openmpi-<span class="si">${</span><span class="nv">MPIVER</span><span class="si">}</span>
+./configure<span class="w"> </span>--with-sge
+make
+sudo<span class="w"> </span>make<span class="w"> </span>install
+</pre></div>
+</div>
+</section>
+<section id="faq">
+<h2>FAQ<a class="headerlink" href="#faq" title="Permalink to this heading"></a></h2>
+<section id="q-how-do-i-install-cuda">
+<h3>Q. How do I install CUDA?<a class="headerlink" href="#q-how-do-i-install-cuda" title="Permalink to this heading"></a></h3>
+<p>NNabla CUDA extension requires both CUDA toolkit and cuDNN library. You should select a proper CUDA version according to your CUDA device capability. See <a class="reference external" href="https://docs.nvidia.com/deeplearning/sdk/cudnn-install/index.html">the official installation guide</a>. NNabla supports CUDA versions later than 8.0. See <a class="reference internal" href="#cuda-cudnn-compatibility"><span class="std std-ref">the table</span></a> for the cuDNN compatibility with the specific CUDA versions.</p>
+</section>
+<section id="q-how-do-i-install-nccl">
+<h3>Q. How do I install NCCL<a class="headerlink" href="#q-how-do-i-install-nccl" title="Permalink to this heading"></a></h3>
+<p>Please visit <a class="reference external" href="https://developer.nvidia.com/nccl">NCCL</a>, then follow the instruction.</p>
+</section>
+<section id="q-how-do-i-check-proper-version-of-cudnn">
+<h3>Q. How do I check proper version of cuDNN<a class="headerlink" href="#q-how-do-i-check-proper-version-of-cudnn" title="Permalink to this heading"></a></h3>
+<p>Enter the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python<span class="w"> </span>-c<span class="w"> </span><span class="s2">&quot;import nnabla_ext.cuda, nnabla_ext.cudnn&quot;</span>
+</pre></div>
+</div>
+<p>If there is a version mismatch on your machine, you can see proper versions in the error message.
+Following is a sample error message.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="o">[</span>nnabla<span class="o">][</span>INFO<span class="o">]</span>:<span class="w"> </span>Initializing<span class="w"> </span>CPU<span class="w"> </span>extension...
+Please<span class="w"> </span>install<span class="w"> </span>CUDA<span class="w"> </span>version<span class="w"> </span><span class="m">11</span>.0.3.
+<span class="w">  </span>and<span class="w"> </span>cuDNN<span class="w"> </span>version<span class="w"> </span><span class="m">8</span>.0
+<span class="w">  </span>Or<span class="w"> </span>install<span class="w"> </span>correct<span class="w"> </span>nnabla-ext-cuda<span class="w"> </span><span class="k">for</span><span class="w"> </span>installed<span class="w"> </span>version<span class="w"> </span>of<span class="w"> </span>CUDA/cuDNN.
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

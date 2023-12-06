@@ -1,0 +1,6 @@
+class nbla::UpdateHookWithObject
+========================================
+
+.. doxygenclass:: nbla::UpdateHookWithObject
+	:project: Cpp
+	:members: 

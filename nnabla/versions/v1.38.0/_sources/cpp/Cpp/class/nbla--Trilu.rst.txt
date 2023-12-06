@@ -1,0 +1,6 @@
+class nbla::Trilu
+========================================
+
+.. doxygenclass:: nbla::Trilu
+	:project: Cpp
+	:members: 

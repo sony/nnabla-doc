@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::BackendUtils &mdash; Neural Network Libraries 1.38.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::BaseCgVariable" href="nbla--BaseCgVariable.html" />
+    <link rel="prev" title="class nbla::BackendBase" href="nbla--BackendBase.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.38.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../ext_cuda_cpp_api.html">NNABLA Ext Cuda C++ API Document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::BackendUtils</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--BackendUtils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-backendutils">
+<h1>class nbla::BackendUtils<a class="headerlink" href="#class-nbla-backendutils" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtilsE">
+<span id="_CPPv3N4nbla12BackendUtilsE"></span><span id="_CPPv2N4nbla12BackendUtilsE"></span><span id="nbla::BackendUtils"></span><span class="target" id="classnbla_1_1BackendUtils"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">BackendUtils</span></span></span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtilsE" title="Permalink to this definition"></a><br /></dt>
+<dd><p><a class="reference internal" href="../namespace/nbla.html#classnbla_1_1BackendUtils"><span class="std std-ref">BackendUtils</span></a> class. </p>
+<p>This class is never be instantiated. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-static-functions">Public Static Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils11add_backendERK6string13BackendGetter">
+<span id="_CPPv3N4nbla12BackendUtils11add_backendERK6string13BackendGetter"></span><span id="_CPPv2N4nbla12BackendUtils11add_backendERK6string13BackendGetter"></span><span id="nbla::BackendUtils::add_backend__stringCR.BackendGetter"></span><span class="target" id="classnbla_1_1BackendUtils_1a9097722802881daab1af9ab98ca0ecf1"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">add_backend</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">backend_name</span></span>, <span class="n"><span class="pre">BackendGetter</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">backend_getter</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils11add_backendERK6string13BackendGetter" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Register new synchronizer. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils13array_classesEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils13array_classesEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils13array_classesEK7Context"></span><span id="nbla::BackendUtils::array_classes__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1ab1161ade0679e6acd4318de808cd9618"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">array_classes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils13array_classesEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call array_classes of the backend in a context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils18_set_array_classesEK7ContextRK6vectorI6stringE">
+<span id="_CPPv3N4nbla12BackendUtils18_set_array_classesEK7ContextRK6vectorI6stringE"></span><span id="_CPPv2N4nbla12BackendUtils18_set_array_classesEK7ContextRK6vectorI6stringE"></span><span id="nbla::BackendUtils::_set_array_classes__ContextC.vector:string:CR"></span><span class="target" id="classnbla_1_1BackendUtils_1a7e8c22e87a72b77a5c16208bec5db845"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_set_array_classes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils18_set_array_classesEK7ContextRK6vectorI6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call _set_array_classes of the backend in a context. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dangerous to call. End users shouldn’t call. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils20register_array_classEK7ContextRK6string">
+<span id="_CPPv3N4nbla12BackendUtils20register_array_classEK7ContextRK6string"></span><span id="_CPPv2N4nbla12BackendUtils20register_array_classEK7ContextRK6string"></span><span id="nbla::BackendUtils::register_array_class__ContextC.stringCR"></span><span class="target" id="classnbla_1_1BackendUtils_1a71a47086e70baeefd8aef66bb0664db1"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">register_array_class</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span>, <span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils20register_array_classEK7ContextRK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call register_array_class of the backend in a context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils17caching_allocatorEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils17caching_allocatorEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils17caching_allocatorEK7Context"></span><span id="nbla::BackendUtils::caching_allocator__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1ac7d91da8ccfdf801569a8f41190b178c"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Allocator.html#_CPPv4N4nbla9AllocatorE" title="nbla::Allocator"><span class="n"><span class="pre">Allocator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">caching_allocator</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils17caching_allocatorEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call caching_allocator of the backend in a context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils15naive_allocatorEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils15naive_allocatorEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils15naive_allocatorEK7Context"></span><span id="nbla::BackendUtils::naive_allocator__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1a1d81b86d5a42f5b7ff33511046b7a5a9"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Allocator.html#_CPPv4N4nbla9AllocatorE" title="nbla::Allocator"><span class="n"><span class="pre">Allocator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">naive_allocator</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils15naive_allocatorEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call naive_allocator of the backend in a context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils23free_unused_host_cachesEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils23free_unused_host_cachesEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils23free_unused_host_cachesEK7Context"></span><span id="nbla::BackendUtils::free_unused_host_caches__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1a5588e0a865824750745d8ffc3ae33381"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">free_unused_host_caches</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils23free_unused_host_cachesEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Free all unused host memory caches. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils18device_synchronizeEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils18device_synchronizeEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils18device_synchronizeEK7Context"></span><span id="nbla::BackendUtils::device_synchronize__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1a613e7b5415986163fa7cfdc9cea4e56d"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">device_synchronize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils18device_synchronizeEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call device_synchronize of the backend in a context. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils26default_stream_synchronizeEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils26default_stream_synchronizeEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils26default_stream_synchronizeEK7Context"></span><span id="nbla::BackendUtils::default_stream_synchronize__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1a8ac776eca6662b642761c69e1aad60ea"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_stream_synchronize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils26default_stream_synchronizeEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Synchronize host to default stream of device. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla12BackendUtils18create_lms_streamsEK7Context">
+<span id="_CPPv3N4nbla12BackendUtils18create_lms_streamsEK7Context"></span><span id="_CPPv2N4nbla12BackendUtils18create_lms_streamsEK7Context"></span><span id="nbla::BackendUtils::create_lms_streams__ContextC"></span><span class="target" id="classnbla_1_1BackendUtils_1ae0ae1e81987b1c6bed3f1dc72b23462b"></span><span class="k"><span class="pre">static</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create_lms_streams</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><a class="reference internal" href="nbla--Context.html#_CPPv4N4nbla7ContextE" title="nbla::Context"><span class="n"><span class="pre">Context</span></span></a><span class="w"> </span><span class="n sig-param"><span class="pre">ctx</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla12BackendUtils18create_lms_streamsEK7Context" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Call create_lms_streams of the backend in a context. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="nbla--BackendBase.html" class="btn btn-neutral float-left" title="class nbla::BackendBase" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--BaseCgVariable.html" class="btn btn-neutral float-right" title="class nbla::BaseCgVariable" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

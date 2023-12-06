@@ -1,0 +1,6 @@
+class nbla::Unique
+========================================
+
+.. doxygenclass:: nbla::Unique
+	:project: Cpp
+	:members: 

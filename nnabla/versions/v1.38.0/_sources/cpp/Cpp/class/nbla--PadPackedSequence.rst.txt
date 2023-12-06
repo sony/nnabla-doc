@@ -1,0 +1,6 @@
+class nbla::PadPackedSequence
+========================================
+
+.. doxygenclass:: nbla::PadPackedSequence
+	:project: Cpp
+	:members: 

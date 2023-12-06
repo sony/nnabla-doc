@@ -1,0 +1,6 @@
+class ASin
+========================================
+
+.. doxygenclass:: ASin
+	:project: Cpp
+	:members: 

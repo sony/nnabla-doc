@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.grad &mdash; Neural Network Libraries 1.38.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.38.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.grad</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.grad</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2019,2020,2021 Sony Corporation.</span>
+<span class="c1"># Copyright 2021 Sony Group Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+
+<span class="kn">import</span> <span class="nn">nnabla</span> <span class="k">as</span> <span class="nn">nn</span>
+<span class="kn">import</span> <span class="nn">nnabla.functions</span> <span class="k">as</span> <span class="nn">F</span>
+<span class="kn">from</span> <span class="nn">nnabla.function</span> <span class="kn">import</span> <span class="n">PythonFunction</span>
+<span class="kn">from</span> <span class="nn">.backward_functions</span> <span class="kn">import</span> <span class="n">registry</span>
+
+
+<span class="k">class</span> <span class="nc">GradEndFunction</span><span class="p">(</span><span class="n">PythonFunction</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;This nnabla function is used for the very end of a computational graph in the grad function.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+
+    <span class="k">def</span> <span class="nf">min_outputs</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="mi">1</span>
+
+    <span class="k">def</span> <span class="nf">grad_depends_output_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">grad_depends_input_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">setup_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="n">i</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">o</span><span class="o">.</span><span class="n">reset_shape</span><span class="p">(</span><span class="n">i</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">forward_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+        <span class="n">o</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">backward_impl</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">propagate_down</span><span class="p">,</span> <span class="n">accum</span><span class="p">):</span>
+        <span class="n">gi</span> <span class="o">=</span> <span class="n">inputs</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">grad</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="mf">0.0</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">Grad</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">):</span>
+        <span class="k">pass</span>
+
+    <span class="k">def</span> <span class="nf">_force_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">return</span> <span class="n">x</span>
+        <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="s2">&quot;__iter__&quot;</span><span class="p">):</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">o</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">x</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">_connect_on_gradient_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">grad_vars</span><span class="p">,</span> <span class="n">f</span><span class="p">):</span>
+        <span class="c1"># 1. accumulate variables used more than one or do nothing</span>
+        <span class="n">vf_vb_map</span> <span class="o">=</span> <span class="n">grad_vars</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>  <span class="c1"># {VO_fwd: [VI_bwd]}</span>
+        <span class="n">grad_inputs</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">:</span>
+            <span class="c1"># address `floating` variables; no function takes it as input.</span>
+            <span class="c1"># e.g., when dx, db, dg = dBN(...), (db, dg) are not used afterwards.</span>
+            <span class="c1"># [0] is not enough, e.g., F.concatenate</span>
+            <span class="n">v</span> <span class="o">=</span> <span class="n">vf_vb_map</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="p">[</span><span class="n">F</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">)])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">grad_inputs</span> <span class="o">+=</span> <span class="p">[</span><span class="nb">sum</span><span class="p">(</span><span class="n">v</span><span class="p">)]</span>
+                <span class="c1"># grad_inputs += [F.add_n(v)]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">grad_inputs</span> <span class="o">+=</span> <span class="n">v</span>
+
+        <span class="c1"># 2. lookup the backward function</span>
+        <span class="n">f_fwd_name</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span>
+        <span class="k">if</span> <span class="n">f_fwd_name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">registry</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> is not in the backward function registry&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_fwd_name</span><span class="p">))</span>
+        <span class="n">backward_func</span> <span class="o">=</span> <span class="n">registry</span><span class="p">[</span><span class="n">f_fwd_name</span><span class="p">]</span>
+
+        <span class="c1"># 3. connect</span>
+        <span class="c1"># Only grad-depending inputs are passed to the backward function because</span>
+        <span class="c1"># the other inputs are probably cleared before.</span>
+        <span class="n">grad_depending_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">]</span>
+        <span class="n">input_shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">inp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">grad_depends_input_data</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">)</span> <span class="ow">or</span> \
+                   <span class="n">f</span><span class="o">.</span><span class="n">auto_grad_depends_input_data</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">):</span>
+                    <span class="n">grad_depending_inputs</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">inp</span>
+
+        <span class="n">grad_depending_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">outp</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span>
+        <span class="n">output_shapes</span> <span class="o">=</span> <span class="p">[</span><span class="n">outp</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">outp</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">)):</span>
+            <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">outp</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">grad_depends_output_data</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">o</span><span class="p">)</span> <span class="ow">or</span> \
+                   <span class="n">f</span><span class="o">.</span><span class="n">auto_grad_depends_output_data</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">o</span><span class="p">):</span>
+                    <span class="n">grad_depending_outputs</span><span class="p">[</span><span class="n">o</span><span class="p">]</span> <span class="o">=</span> <span class="n">outp</span>
+
+        <span class="n">ctx</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">get_current_context</span><span class="p">()</span>
+        <span class="k">with</span> <span class="n">nn</span><span class="o">.</span><span class="n">context_scope</span><span class="p">(</span><span class="n">ctx</span><span class="p">):</span>
+            <span class="n">grad_outputs</span> <span class="o">=</span> <span class="n">backward_func</span><span class="p">(</span><span class="n">grad_inputs</span><span class="p">,</span> <span class="n">grad_depending_inputs</span><span class="p">,</span>
+                                         <span class="n">input_shapes</span><span class="p">,</span> <span class="n">grad_depending_outputs</span><span class="p">,</span>
+                                         <span class="n">output_shapes</span><span class="p">,</span> <span class="o">**</span><span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">args</span><span class="p">)</span>
+        <span class="n">grad_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_list</span><span class="p">(</span><span class="n">grad_outputs</span><span class="p">)</span>
+
+        <span class="c1"># 4. put grad_output as grad_input to a corresponding function</span>
+        <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">grad_out</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">grad_out</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">inp</span><span class="o">.</span><span class="n">parent</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">grad_vars</span><span class="p">:</span>
+                <span class="n">grad_vars</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">parent</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">inp</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">grad_vars</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">parent</span><span class="p">]:</span>
+                <span class="n">grad_vars</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">parent</span><span class="p">][</span><span class="n">inp</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">grad_out</span><span class="p">]</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">grad_vars</span><span class="p">[</span><span class="n">inp</span><span class="o">.</span><span class="n">parent</span><span class="p">][</span><span class="n">inp</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">grad_out</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">grad_outputs</span>
+
+    <span class="k">def</span> <span class="nf">_get_corresponding_vars_on_graph</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        This methods binds the inputs which may be disconnected from a computation graph </span>
+<span class="sd">        (e.g., trainable parameters obtained by nn.get_parmaeters()) to actual inputs connected </span>
+<span class="sd">        to a given computation graph traversable from outputs</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">ret</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span> <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">inputs</span><span class="p">))]</span>
+        <span class="n">inp2id</span> <span class="o">=</span> <span class="p">{</span><span class="n">x</span><span class="p">:</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">inputs</span><span class="p">)}</span>
+
+        <span class="nb">open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">open</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="k">for</span> <span class="n">par_var</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">inputs</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">:</span>
+                    <span class="k">continue</span>
+
+                <span class="nb">id</span> <span class="o">=</span> <span class="n">inp2id</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">par_var</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">id</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">ret</span><span class="p">[</span><span class="nb">id</span><span class="p">]</span> <span class="o">=</span> <span class="n">par_var</span>
+
+                <span class="n">dfs</span><span class="p">(</span><span class="n">par_var</span><span class="p">)</span>
+                <span class="nb">open</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">par_var</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">output</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">:</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">output</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">ret</span>
+
+    <span class="k">def</span> <span class="nf">_get_children</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">wrt_inputs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Return children traversable from `wrt_inputs` in the forward graph topological order.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">children</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="k">def</span> <span class="nf">dfs</span><span class="p">(</span><span class="n">node</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                <span class="k">return</span>
+
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">node</span><span class="o">.</span><span class="n">function_references</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">info</span><span class="o">.</span><span class="n">type_name</span> <span class="o">==</span> <span class="s2">&quot;GradEndFunction&quot;</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">outputs</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">children</span><span class="p">:</span>
+                        <span class="k">continue</span>
+                    <span class="n">dfs</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+                    <span class="n">children</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">inp</span> <span class="ow">in</span> <span class="n">wrt_inputs</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inp</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="n">dfs</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">children</span>
+
+    <span class="k">def</span> <span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">persistent_outputs</span><span class="o">=</span><span class="p">[],</span> <span class="n">bind_grad_output</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        The logic of this method is almost same as one in visit_function_backward in C++ layer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c1"># TODO: address auto_forward is very slow. It may be python overhead since small diff when BS is large.</span>
+        <span class="c1"># TODO: address auto_forward consumes lots of memory, need to call v.get_unlinked_variable()?</span>
+        <span class="c1"># TODO: address auto_forward consumes lots of memory, need to use NdArray as inputs?</span>
+
+        <span class="c1"># Check outputs/inputs</span>
+        <span class="n">outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_list</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)</span> <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">outputs</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Element of outputs must be `nnabla.Variable`.&quot;</span><span class="p">)</span>
+        <span class="n">inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_list</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">all</span><span class="p">([</span><span class="nb">isinstance</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">inputs</span><span class="p">]):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Element of inputs must be `nnabla.Variable`.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Check grad_outputs</span>
+        <span class="k">if</span> <span class="n">grad_outputs</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">grad_outputs</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad_outputs</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">)):</span>
+            <span class="n">grad_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_force_list</span><span class="p">(</span><span class="n">grad_outputs</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">grad_outputs</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">grad_outputs</span><span class="p">):</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">&quot;Length of `grad_outputs` and length of `outputs` must be the same.&quot;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)):</span>
+                <span class="n">o</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">go</span> <span class="o">=</span> <span class="n">grad_outputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">go</span><span class="p">,</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="kc">None</span><span class="p">),</span> <span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">)):</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Element of `grad_outputs` must be &quot;</span>
+                                     <span class="s2">&quot;in (`None`, `int`, `float`, `numpy.ndarray`, &quot;</span>
+                                     <span class="s2">&quot;`nnabla.NdArray`, `nnabla.Variable`) or &quot;</span>
+                                     <span class="s2">&quot;list of (`None`, `int`, `float`, `numpy.ndarray`, &quot;</span>
+                                     <span class="s2">&quot;`nnabla.NdArray`, `nnabla.Variable`)</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                     <span class="s2">&quot;type(grad_outputs[</span><span class="si">{}</span><span class="s2">] = </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">go</span><span class="p">)))</span>
+                <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">go</span><span class="p">,</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">))</span> <span class="ow">and</span> <span class="n">go</span><span class="o">.</span><span class="n">shape</span> <span class="o">!=</span> <span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">:</span>
+                    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Shape of each of outputs and grad_outputs must be same.</span><span class="se">\n</span><span class="s2">&quot;</span>
+                                     <span class="s2">&quot;output[</span><span class="si">{}</span><span class="s2">](</span><span class="si">{}</span><span class="s2">) != grad_output[</span><span class="si">{}</span><span class="s2">](</span><span class="si">{}</span><span class="s2">)&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">go</span><span class="o">.</span><span class="n">shape</span><span class="p">))</span>
+
+        <span class="c1"># Check persistent_outputs</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">persistent_outputs</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="o">!=</span> <span class="nb">len</span><span class="p">(</span><span class="n">persistent_outputs</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Length of outputs and persistent_outputs &quot;</span>
+                             <span class="s2">&quot;must be the same except for &quot;</span>
+                             <span class="s2">&quot;the case that the length of the persistent_outputs is 0.&quot;</span><span class="p">)</span>
+
+        <span class="c1"># Persistent outputs since outputs are basically losses to be monitored</span>
+        <span class="n">persistent_outputs</span> <span class="o">=</span> <span class="p">[</span>
+            <span class="kc">True</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)</span> <span class="k">if</span> <span class="n">persistent_outputs</span> <span class="o">==</span> <span class="p">[]</span> <span class="k">else</span> <span class="n">persistent_outputs</span>
+        <span class="k">for</span> <span class="n">o</span><span class="p">,</span> <span class="n">p</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">persistent_outputs</span><span class="p">):</span>
+            <span class="n">o</span><span class="o">.</span><span class="n">persistent</span> <span class="o">=</span> <span class="n">p</span>
+
+        <span class="c1"># Open list of next search candidate</span>
+        <span class="n">ids</span> <span class="o">=</span> <span class="p">{}</span>
+
+        <span class="k">def</span> <span class="nf">get_id</span><span class="p">(</span><span class="n">func</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">func</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">ids</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                <span class="n">size</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ids</span><span class="p">)</span>
+                <span class="n">ids</span><span class="p">[</span><span class="n">func</span><span class="p">]</span> <span class="o">=</span> <span class="n">size</span>
+                <span class="k">return</span> <span class="n">size</span>
+            <span class="k">return</span> <span class="n">ids</span><span class="p">[</span><span class="n">func</span><span class="p">]</span>
+        <span class="nb">open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+
+        <span class="c1"># Map for grad_variables consumed on the gradient graph.</span>
+        <span class="c1"># End is the special case where d_o = end_f(o) and map[end_f] = {o: [d_o]}</span>
+        <span class="n">grad_vars</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">()</span>  <span class="c1"># {F_fwd: {VO_fwd: [VI_bwd]}}</span>
+
+        <span class="c1"># Set grad_outputs</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">outputs</span><span class="p">)):</span>
+            <span class="n">o</span> <span class="o">=</span> <span class="n">outputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="n">go</span> <span class="o">=</span> <span class="n">grad_outputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">go</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">o</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">go</span><span class="p">,</span> <span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="nb">float</span><span class="p">)):</span>
+                <span class="n">go</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">go</span><span class="p">,</span> <span class="n">need_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">o</span> <span class="o">*</span> <span class="n">go</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">go</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">ndarray</span><span class="p">):</span>
+                <span class="n">go</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">d</span><span class="o">=</span><span class="n">go</span><span class="p">,</span> <span class="n">need_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">o</span> <span class="o">*</span> <span class="n">go</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">go</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">NdArray</span><span class="p">):</span>
+                <span class="n">go</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">go</span><span class="p">,</span> <span class="n">need_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">o</span> <span class="o">*</span> <span class="n">go</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">go</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">):</span>
+                <span class="n">output</span> <span class="o">=</span> <span class="n">o</span> <span class="o">*</span> <span class="n">go</span>
+            <span class="n">func</span> <span class="o">=</span> <span class="n">output</span><span class="o">.</span><span class="n">parent</span>
+            <span class="nb">open</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="o">-</span><span class="n">output</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">get_id</span><span class="p">(</span><span class="n">func</span><span class="p">),</span> <span class="n">func</span><span class="p">))</span>
+
+            <span class="c1"># Connect the graph and its gradient graph</span>
+            <span class="n">grad_output</span> <span class="o">=</span> <span class="n">GradEndFunction</span><span class="p">()(</span><span class="n">output</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">need_grad</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">grad_vars</span><span class="p">[</span><span class="n">func</span><span class="p">]</span> <span class="o">=</span> <span class="n">OrderedDict</span><span class="p">({</span><span class="n">output</span><span class="p">:</span> <span class="p">[</span><span class="n">grad_output</span><span class="p">]})</span>
+
+        <span class="c1"># Return grads but</span>
+        <span class="c1"># replace inputs params with the vars connected with the given graph</span>
+        <span class="n">wrt_inputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_corresponding_vars_on_graph</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">outputs</span><span class="p">)</span>
+        <span class="n">grads</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">wrt_inputs</span><span class="p">)</span>
+        <span class="n">child_nodes</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_children</span><span class="p">(</span><span class="n">wrt_inputs</span><span class="p">)</span>
+        <span class="n">wrt_inputs</span> <span class="o">=</span> <span class="p">[</span><span class="n">nn</span><span class="o">.</span><span class="n">Variable</span><span class="p">()</span> <span class="k">if</span> <span class="n">x</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="n">x</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">wrt_inputs</span><span class="p">]</span>
+
+        <span class="c1"># Expand the graph to its gradient graph</span>
+        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="nb">open</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">open</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span><span class="nb">open</span><span class="p">)</span>  <span class="c1"># python set is NOT sorted set.</span>
+            <span class="n">rank_func</span> <span class="o">=</span> <span class="nb">open</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  <span class="c1"># 0 is necessary</span>
+            <span class="nb">open</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="nb">open</span><span class="p">)</span>
+            <span class="n">f</span> <span class="o">=</span> <span class="n">rank_func</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">f</span><span class="o">.</span><span class="n">need_grad</span><span class="p">:</span>
+                <span class="k">continue</span>
+            <span class="c1"># Connect variables on the gradient graph</span>
+            <span class="n">grad_outputs</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_connect_on_gradient_graph</span><span class="p">(</span><span class="n">grad_vars</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+
+            <span class="c1"># Check grads w.r.t. inputs</span>
+            <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">grad_out</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">inp</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">wrt_inputs</span> <span class="ow">or</span> <span class="n">inp</span><span class="o">.</span><span class="n">need_grad</span> <span class="o">==</span> <span class="kc">False</span> <span class="ow">or</span> <span class="n">grad_out</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">idx</span> <span class="o">=</span> <span class="n">wrt_inputs</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">inp</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">grads</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="n">grads</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">grad_out</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">grads</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">=</span> <span class="n">grads</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span> <span class="o">+</span> <span class="n">grad_out</span>  <span class="c1"># accum at leaf</span>
+                <span class="k">if</span> <span class="n">bind_grad_output</span><span class="p">:</span>
+                    <span class="n">inp</span><span class="o">.</span><span class="n">grad</span> <span class="o">=</span> <span class="n">grads</span><span class="p">[</span><span class="n">idx</span><span class="p">]</span><span class="o">.</span><span class="n">data</span>
+
+            <span class="c1"># Propagate down</span>
+            <span class="k">for</span> <span class="n">inp</span><span class="p">,</span> <span class="n">grad_out</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">inputs</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">inp</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">child_nodes</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">inp</span><span class="o">.</span><span class="n">need_grad</span> <span class="ow">or</span> <span class="n">grad_out</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="n">p_i</span> <span class="o">=</span> <span class="n">inp</span><span class="o">.</span><span class="n">parent</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">p_i</span><span class="p">:</span>
+                    <span class="k">continue</span>
+                <span class="nb">open</span><span class="o">.</span><span class="n">add</span><span class="p">((</span><span class="o">-</span><span class="n">p_i</span><span class="o">.</span><span class="n">rank</span><span class="p">,</span> <span class="n">get_id</span><span class="p">(</span><span class="n">p_i</span><span class="p">),</span> <span class="n">p_i</span><span class="p">))</span>
+
+        <span class="c1"># If the final grads has None, then None becomes zero Variable(s).</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">grads</span><span class="p">)):</span>
+            <span class="k">if</span> <span class="n">grads</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">grads</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">constant</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">wrt_inputs</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">grads</span>
+
+
+<div class="viewcode-block" id="grad"><a class="viewcode-back" href="../../python/api/grad.html#nnabla.grad.grad">[docs]</a><span class="k">def</span> <span class="nf">grad</span><span class="p">(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">persistent_outputs</span><span class="o">=</span><span class="p">[],</span> <span class="n">bind_grad_output</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<span class="w">    </span><span class="sa">r</span><span class="sd">&quot;&quot;&quot;Gradient function for the outputs with respect to the inputs.</span>
+
+<span class="sd">    The grad function computes the sum of gradients of the outputs w.r.t. the inputs.</span>
+
+<span class="sd">    .. math::</span>
+
+<span class="sd">       g_i = \sum_{j} {\frac{\partial y_j}{\partial x_i}}, </span>
+
+<span class="sd">    :math:`y_j` is each output, :math:`x_i` is each input, and :math:`g_i` is the sum of the gradient of :math:`y_j` w.r.t. :math:`x_i` over all :math:`j`.</span>
+
+<span class="sd">    Args: </span>
+<span class="sd">        outputs (list of :obj:`~nnabla.Variable` or :obj:`~nnabla.Variable`): Outputs of the differentiable function.</span>
+<span class="sd">        inputs (list of :obj:`~nnabla.Variable` or :obj:`~nnabla.Variable`): Inputs w.r.t. which the gradients of outputs are computed.</span>
+<span class="sd">        grad_outputs (None, scalar, :obj:`numpy.ndarray`, :obj:`nnabla.NdArray`, or list of scalar, :obj:`numpy.ndarray`, or :obj:`nnabla.NdArray`, ): Gradient outputs corresponding to outputs. This is same as the grad argument of :meth:`~nnabla.Variable.backward`. Default is None, so 1 is used as the in-coming gradient at the very beginning of the Variable in the gradient graph.</span>
+<span class="sd">        persistent_outputs (list of `bool`): Outputs become persistent accordingly. If not specified, all outputs become persistent.</span>
+<span class="sd">        bind_grad_output (`bool`): Bind data to grad of input variable. This is useful for the case where one wants to use the gradient graph for training a neural network using the first-order gradients only. Default is False.</span>
+
+<span class="sd">    Returns</span>
+<span class="sd">        List of :obj:`~nnabla.Variable`.</span>
+
+<span class="sd">        If the backpropagation does not reach input(s), the corresponding returned value(s) are `zero`</span>
+<span class="sd">        (i.e., the gradients w.r.t. inputs are zero) and not connected as a part of the gradient graph.</span>
+
+<span class="sd">    Example (Gradient Penalty): </span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.functions as F</span>
+<span class="sd">        import nnabla.parametric_functions as PF</span>
+<span class="sd">        import numpy as np</span>
+<span class="sd">        from nnabla.ext_utils import get_extension_context</span>
+
+<span class="sd">        # Context</span>
+<span class="sd">        extension_module = &quot;cudnn&quot;</span>
+<span class="sd">        ctx = get_extension_context(extension_module)</span>
+<span class="sd">        nn.set_default_context(ctx)</span>
+
+<span class="sd">        # Input and label</span>
+<span class="sd">        x = nn.Variable.from_numpy_array(np.random.randn(4, 3, 32, 32))</span>
+<span class="sd">        y = nn.Variable.from_numpy_array(np.random.randint(0, 10, 4).reshape(4, 1))</span>
+
+<span class="sd">        # Network</span>
+<span class="sd">        h = PF.convolution(x, 8, (3, 3), (1, 1), name=&quot;conv1&quot;)</span>
+<span class="sd">        h = F.relu(h)</span>
+<span class="sd">        h = F.max_pooling(h, (2, 2))</span>
+<span class="sd">        h = PF.convolution(h, 16, (3, 3), (1, 1), name=&quot;conv2&quot;)</span>
+<span class="sd">        h = F.relu(h)</span>
+<span class="sd">        h = F.max_pooling(h, (2, 2))</span>
+<span class="sd">        p = PF.affine(h, 10, name=&quot;pred&quot;)</span>
+<span class="sd">        loss = F.mean(F.softmax_cross_entropy(p, y))</span>
+
+<span class="sd">        # Grad</span>
+<span class="sd">        outputs = [loss]</span>
+<span class="sd">        inputs = nn.get_parameters().values()</span>
+<span class="sd">        grads = nn.grad(outputs, inputs)  # gradients of the parameters</span>
+
+<span class="sd">        # Backward of the outputs w.r.t. the parameters by constraining the gradient norms.</span>
+<span class="sd">        t = 0 # or 1</span>
+<span class="sd">        gp = sum([(F.sum(g ** 2) ** 0.5 - t) ** 2 for g in grads])</span>
+<span class="sd">        loss += gp</span>
+<span class="sd">        loss.forward()</span>
+<span class="sd">        loss.backward()</span>
+
+
+<span class="sd">    Example (Higer-order Gradients): </span>
+
+<span class="sd">    .. code-block:: python</span>
+
+<span class="sd">        import nnabla as nn</span>
+<span class="sd">        import nnabla.functions as F</span>
+<span class="sd">        import numpy as np</span>
+
+<span class="sd">        x = nn.Variable.from_numpy_array(np.random.randn(2, 2)).apply(need_grad=True)</span>
+<span class="sd">        x.grad.zero()</span>
+<span class="sd">        y = F.sin(x)</span>
+<span class="sd">        def grad(y, x, n=1):</span>
+<span class="sd">            dx = [y]</span>
+<span class="sd">            for _ in range(n):</span>
+<span class="sd">                dx = nn.grad([dx[0]], [x])</span>
+<span class="sd">            return dx[0]</span>
+<span class="sd">        dnx = grad(y, x, n=10)</span>
+<span class="sd">        dnx.forward()</span>
+<span class="sd">        print(np.allclose(-np.sin(x.d), dnx.d))</span>
+<span class="sd">        dnx.backward()</span>
+<span class="sd">        print(np.allclose(-np.cos(x.d), x.g))</span>
+
+<span class="sd">        # Show the supported status for each function</span>
+<span class="sd">        from nnabla.backward_functions import show_registry</span>
+<span class="sd">        show_registry()</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+    <span class="n">grad_outputs</span> <span class="o">=</span> <span class="n">Grad</span><span class="p">()(</span><span class="n">outputs</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">grad_outputs</span><span class="o">=</span><span class="n">grad_outputs</span><span class="p">,</span>
+                          <span class="n">persistent_outputs</span><span class="o">=</span><span class="n">persistent_outputs</span><span class="p">,</span>
+                          <span class="n">bind_grad_output</span><span class="o">=</span><span class="n">bind_grad_output</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grad_outputs</span></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

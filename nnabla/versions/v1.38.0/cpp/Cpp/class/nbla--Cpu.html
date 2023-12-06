@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.19: https://docutils.sourceforge.io/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>class nbla::Cpu &mdash; Neural Network Libraries 1.38.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/graphviz.css" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../" id="documentation_options" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" />
+    <link rel="next" title="class nbla::CpuArray" href="nbla--CpuArray.html" />
+    <link rel="prev" title="class Cosh" href="Cosh.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.38.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../../python.html">Python Package</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../../cpp.html">C++ API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../installation.html">Build C++ libraries</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../command_line_interface.html">C++ Command Line Interface</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../examples.html">C++ API Examples</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../doc.html">C++ API Document</a><ul class="current">
+<li class="toctree-l3 current"><a class="reference internal" href="../../cpp_api.html">NNABLA C++ API Document</a><ul class="current">
+<li class="toctree-l4 current"><a class="reference internal" href="../class.html">NNABLA Class</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../struct.html">NNABLA Struct</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../namespace.html">NNABLA Namespace</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../../ext_cuda_cpp_api.html">NNABLA Ext Cuda C++ API Document</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../cpp.html">C++ API</a></li>
+          <li class="breadcrumb-item"><a href="../../doc.html">C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../../cpp_api.html">NNABLA C++ API Document</a></li>
+          <li class="breadcrumb-item"><a href="../class.html">NNABLA Class</a></li>
+      <li class="breadcrumb-item active">class nbla::Cpu</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../../_sources/cpp/Cpp/class/nbla--Cpu.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="class-nbla-cpu">
+<h1>class nbla::Cpu<a class="headerlink" href="#class-nbla-cpu" title="Permalink to this heading"></a></h1>
+<dl class="cpp class">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3CpuE">
+<span id="_CPPv3N4nbla3CpuE"></span><span id="_CPPv2N4nbla3CpuE"></span><span id="nbla::Cpu"></span><span class="target" id="classnbla_1_1Cpu"></span><span class="k"><span class="pre">class</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">Cpu</span></span></span><span class="w"> </span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="k"><span class="pre">public</span></span><span class="w"> </span><a class="reference internal" href="../namespace/nbla.html#_CPPv44nbla" title="nbla"><span class="n"><span class="pre">nbla</span></span></a><span class="p"><span class="pre">::</span></span><a class="reference internal" href="nbla--BackendBase.html#_CPPv4N4nbla11BackendBaseE" title="nbla::BackendBase"><span class="n"><span class="pre">BackendBase</span></span></a><a class="headerlink" href="#_CPPv4N4nbla3CpuE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Singleton class for storing some handles or configs for CPU Computation. </p>
+<div class="breathe-sectiondef docutils container">
+<p class="breathe-sectiondef-title rubric" id="breathe-section-title-public-functions">Public Functions</p>
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4NK4nbla3Cpu13array_classesEv">
+<span id="_CPPv3NK4nbla3Cpu13array_classesEv"></span><span id="_CPPv2NK4nbla3Cpu13array_classesEv"></span><span id="nbla::Cpu::array_classesC"></span><span class="target" id="classnbla_1_1Cpu_1a0c9c675823eeef9d0c2c337b01f9e9d3"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">array_classes</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><span class="w"> </span><span class="k"><span class="pre">const</span></span><a class="headerlink" href="#_CPPv4NK4nbla3Cpu13array_classesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Available array class list used in CPU <a class="reference internal" href="../namespace/nbla.html#classnbla_1_1Function"><span class="std std-ref">Function</span></a> implementations. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu18_set_array_classesERK6vectorI6stringE">
+<span id="_CPPv3N4nbla3Cpu18_set_array_classesERK6vectorI6stringE"></span><span id="_CPPv2N4nbla3Cpu18_set_array_classesERK6vectorI6stringE"></span><span id="nbla::Cpu::_set_array_classes__vector:string:CR"></span><span class="target" id="classnbla_1_1Cpu_1a2af1dbbb4a3be26299e7f1c0188c6eba"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">_set_array_classes</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">vector</span></span><span class="p"><span class="pre">&lt;</span></span><span class="n"><span class="pre">string</span></span><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">a</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu18_set_array_classesERK6vectorI6stringE" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Set array class list. </p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Dangerous to call. End users shouldn’t call. </p>
+</div>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu20register_array_classERK6string">
+<span id="_CPPv3N4nbla3Cpu20register_array_classERK6string"></span><span id="_CPPv2N4nbla3Cpu20register_array_classERK6string"></span><span id="nbla::Cpu::register_array_class__stringCR"></span><span class="target" id="classnbla_1_1Cpu_1a8aecf748b91a2b5a8a5210ced08f3de0"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">register_array_class</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">name</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu20register_array_classERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Register array class to available list by name. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu17caching_allocatorEv">
+<span id="_CPPv3N4nbla3Cpu17caching_allocatorEv"></span><span id="_CPPv2N4nbla3Cpu17caching_allocatorEv"></span><span id="nbla::Cpu::caching_allocator"></span><span class="target" id="classnbla_1_1Cpu_1a3e6ab3136f95af6ce91702a2ee940cc2"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Allocator.html#_CPPv4N4nbla9AllocatorE" title="nbla::Allocator"><span class="n"><span class="pre">Allocator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">caching_allocator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu17caching_allocatorEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get a caching allocator. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu15naive_allocatorEv">
+<span id="_CPPv3N4nbla3Cpu15naive_allocatorEv"></span><span id="_CPPv2N4nbla3Cpu15naive_allocatorEv"></span><span id="nbla::Cpu::naive_allocator"></span><span class="target" id="classnbla_1_1Cpu_1a8eea89ddbdb5ef527f33af9ba99a6fee"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="n"><span class="pre">shared_ptr</span></span><span class="p"><span class="pre">&lt;</span></span><a class="reference internal" href="nbla--Allocator.html#_CPPv4N4nbla9AllocatorE" title="nbla::Allocator"><span class="n"><span class="pre">Allocator</span></span></a><span class="p"><span class="pre">&gt;</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">naive_allocator</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu15naive_allocatorEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Get a no-cache allocator. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu23free_unused_host_cachesEv">
+<span id="_CPPv3N4nbla3Cpu23free_unused_host_cachesEv"></span><span id="_CPPv2N4nbla3Cpu23free_unused_host_cachesEv"></span><span id="nbla::Cpu::free_unused_host_caches"></span><span class="target" id="classnbla_1_1Cpu_1abfa9da93af99c1808d820ec4ac49e42f"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">free_unused_host_caches</span></span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu23free_unused_host_cachesEv" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Free all unused host memory caches. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu18device_synchronizeERK6string">
+<span id="_CPPv3N4nbla3Cpu18device_synchronizeERK6string"></span><span id="_CPPv2N4nbla3Cpu18device_synchronizeERK6string"></span><span id="nbla::Cpu::device_synchronize__stringCR"></span><span class="target" id="classnbla_1_1Cpu_1a472b975e178118e8c3d6143d66a9c6b9"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">device_synchronize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu18device_synchronizeERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Synchronize host to device. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu26default_stream_synchronizeERK6string">
+<span id="_CPPv3N4nbla3Cpu26default_stream_synchronizeERK6string"></span><span id="_CPPv2N4nbla3Cpu26default_stream_synchronizeERK6string"></span><span id="nbla::Cpu::default_stream_synchronize__stringCR"></span><span class="target" id="classnbla_1_1Cpu_1ace9ccdd7177c24bcabf183fb9ea03397"></span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">default_stream_synchronize</span></span></span><span class="sig-paren">(</span><span class="k"><span class="pre">const</span></span><span class="w"> </span><span class="n"><span class="pre">string</span></span><span class="w"> </span><span class="p"><span class="pre">&amp;</span></span><span class="n sig-param"><span class="pre">device</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu26default_stream_synchronizeERK6string" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Synchronize host to default stream of device. </p>
+</dd></dl>
+
+<dl class="cpp function">
+<dt class="sig sig-object cpp" id="_CPPv4N4nbla3Cpu18create_lms_streamsEi">
+<span id="_CPPv3N4nbla3Cpu18create_lms_streamsEi"></span><span id="_CPPv2N4nbla3Cpu18create_lms_streamsEi"></span><span id="nbla::Cpu::create_lms_streams__i"></span><span class="target" id="classnbla_1_1Cpu_1a21076c5047e5579ff1676ff29a854a3b"></span><span class="k"><span class="pre">inline</span></span><span class="w"> </span><span class="k"><span class="pre">virtual</span></span><span class="w"> </span><span class="kt"><span class="pre">void</span></span><span class="w"> </span><span class="sig-name descname"><span class="n"><span class="pre">create_lms_streams</span></span></span><span class="sig-paren">(</span><span class="kt"><span class="pre">int</span></span><span class="w"> </span><span class="n sig-param"><span class="pre">device</span></span><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="o"><span class="pre">-</span></span><span class="m"><span class="pre">1</span></span><span class="sig-paren">)</span><a class="headerlink" href="#_CPPv4N4nbla3Cpu18create_lms_streamsEi" title="Permalink to this definition"></a><br /></dt>
+<dd><p>Create non blockuing streams for data transfer. </p>
+<p>Noting to do in CPU backend. </p>
+</dd></dl>
+
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Cosh.html" class="btn btn-neutral float-left" title="class Cosh" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="nbla--CpuArray.html" class="btn btn-neutral float-right" title="class nbla::CpuArray" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

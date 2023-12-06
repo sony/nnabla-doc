@@ -1,0 +1,6 @@
+class nbla::VirtualCachingAllocator
+========================================
+
+.. doxygenclass:: nbla::VirtualCachingAllocator
+	:project: Cpp
+	:members: 
