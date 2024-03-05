@@ -1,9 +1,0 @@
-var searchData=
-[
-  ['main',['main',['../d4/dfb/group__Examples.html#ga0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;callback.c'],['../d0/d29/main_8c.html#a0ddf1224851353fc92bfbff6f499fa97',1,'main(int argc, char *argv[]):&#160;main.c']]],
-  ['max16',['max16',['../dd/d69/fixedpoint_8c.html#ad7764855b284359cee3c45545364cda6',1,'max16(int16_t v1, int16_t v2):&#160;fixedpoint.h'],['../d8/dfd/fixedpoint_8h.html#ad7764855b284359cee3c45545364cda6',1,'max16(int16_t v1, int16_t v2):&#160;fixedpoint.h']]],
-  ['max8',['max8',['../dd/d69/fixedpoint_8c.html#ac76a90ae8d10fcc8709cb8bea3f2d37d',1,'max8(int8_t v1, int8_t v2):&#160;fixedpoint.h'],['../d8/dfd/fixedpoint_8h.html#ac76a90ae8d10fcc8709cb8bea3f2d37d',1,'max8(int8_t v1, int8_t v2):&#160;fixedpoint.h']]],
-  ['min16',['min16',['../dd/d69/fixedpoint_8c.html#ac3b2e0f2cb47c5ecbe047c54a21ce461',1,'min16(int16_t v1, int16_t v2):&#160;fixedpoint.h'],['../d8/dfd/fixedpoint_8h.html#ac3b2e0f2cb47c5ecbe047c54a21ce461',1,'min16(int16_t v1, int16_t v2):&#160;fixedpoint.h']]],
-  ['min8',['min8',['../dd/d69/fixedpoint_8c.html#a68c8162104bbaa6dcc57ffcebb5e9663',1,'min8(int8_t v1, int8_t v2):&#160;fixedpoint.h'],['../d8/dfd/fixedpoint_8h.html#a68c8162104bbaa6dcc57ffcebb5e9663',1,'min8(int8_t v1, int8_t v2):&#160;fixedpoint.h']]],
-  ['mul_5falpha',['mul_alpha',['../de/dc0/convolution__float_8c.html#ae698936752b655aa731a62500ac7c249',1,'mul_alpha(var_t *out, var_t *a):&#160;convolution_float.c'],['../d1/de6/convolution__generic_8c.html#ae698936752b655aa731a62500ac7c249',1,'mul_alpha(var_t *out, var_t *a):&#160;convolution_generic.c'],['../d0/d94/convolution__int16_8c.html#ae698936752b655aa731a62500ac7c249',1,'mul_alpha(var_t *out, var_t *a):&#160;convolution_int16.c'],['../df/dee/convolution__int8_8c.html#ae698936752b655aa731a62500ac7c249',1,'mul_alpha(var_t *out, var_t *a):&#160;convolution_int8.c']]]
-];

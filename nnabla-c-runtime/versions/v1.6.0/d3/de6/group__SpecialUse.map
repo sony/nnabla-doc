@@ -1,9 +1,0 @@
-<map id="Special Use" name="Special Use">
-<area shape="rect" id="node1" href="$d6/df0/group__WarpByFlow.html" title="WarpByFlow" alt="" coords="311,5,407,32"/>
-<area shape="rect" id="node2" href="$dd/d7e/group__Functions.html" title="Feed forward function implementations. " alt="" coords="5,132,88,159"/>
-<area shape="rect" id="node3" href="$da/d1b/group__MaxPoolingBackward.html" title="MaxPoolingBackward" alt="" coords="281,56,436,83"/>
-<area shape="rect" id="node4" href="$d1/d4e/group__Sink.html" title="Sink" alt="" coords="334,107,383,133"/>
-<area shape="rect" id="node5" href="$d5/d67/group__Unlink.html" title="Unlink" alt="" coords="328,157,389,184"/>
-<area shape="rect" id="node7" href="$de/d23/group__NmsDetection2d.html" title="NmsDetection2d" alt="" coords="293,208,424,235"/>
-<area shape="rect" id="node8" href="$d8/d0e/group__VATNoise.html" title="VATNoise" alt="" coords="318,259,399,285"/>
-</map>

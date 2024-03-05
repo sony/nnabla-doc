@@ -1,9 +1,0 @@
-<map id="src/functions/implements/quantization/binary_weight_affine.c" name="src/functions/implements/quantization/binary_weight_affine.c">
-<area shape="rect" id="node2" href="$da/d18/shape_8h.html" title="../../utilities/shape.h" alt="" coords="34,199,185,225"/>
-<area shape="rect" id="node4" href="$d8/d5c/functions_8h.html" title="nnablart/functions.h" alt="" coords="37,363,189,389"/>
-<area shape="rect" id="node5" href="$d4/d8f/affine__generic_8h.html" title="../neural_network/affine\l/affine_generic.h" alt="" coords="76,109,252,151"/>
-<area shape="rect" id="node6" href="$d2/d6b/affine__internal_8h.html" title="../neural_network/affine\l/affine_internal.h" alt="" coords="276,109,452,151"/>
-<area shape="rect" id="node8" href="$db/d16/config_8h.html" title="nnablart/config.h" alt="" coords="476,117,607,143"/>
-<area shape="rect" id="node3" href="$da/d23/list_8h.html" title="list.h" alt="" coords="54,281,109,307"/>
-<area shape="rect" id="node7" href="$dc/dee/accessor_8h.html" title="../../../utilities\l/accessor.h" alt="" coords="212,273,319,315"/>
-</map>
