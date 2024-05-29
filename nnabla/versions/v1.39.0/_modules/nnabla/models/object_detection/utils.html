@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>nnabla.models.object_detection.utils &mdash; Neural Network Libraries 1.39.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../../_static/pygments.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/css/theme.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/graphviz.css" />
+      <link rel="stylesheet" type="text/css" href="../../../../_static/custom.css" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="../../../../_static/jquery.js"></script>
+        <script src="../../../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script data-url_root="../../../../" id="documentation_options" src="../../../../_static/documentation_options.js"></script>
+        <script src="../../../../_static/doctools.js"></script>
+        <script src="../../../../_static/sphinx_highlight.js"></script>
+    <script src="../../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../../index.html" class="icon icon-home">
+            Neural Network Libraries
+          </a>
+              <div class="version">
+                1.39.0
+              </div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python.html">Python Package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../cpp.html">C++ API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../data_exchange_file_format.html">Data exchange file format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../format.html">Data Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../python/file_format_converter/file_format_converter.html">File format converter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../support_status.html">Support Status</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../contributing.html">Contributing Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../../license.html">License</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../../index.html">Neural Network Libraries</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">nnabla.models.object_detection.utils</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for nnabla.models.object_detection.utils</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2019,2020,2021 Sony Corporation.</span>
+<span class="c1"># Copyright 2021 Sony Group Corporation.</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#     http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">nnabla.models.object_detection.draw_utils</span> <span class="kn">import</span> <span class="n">DrawBoundingBoxes</span>
+<span class="kn">from</span> <span class="nn">nnabla.utils.image_utils</span> <span class="kn">import</span> <span class="n">imresize</span>
+
+
+<div class="viewcode-block" id="draw_bounding_boxes"><a class="viewcode-back" href="../../../../python/api/models/object_detection.html#nnabla.models.object_detection.utils.draw_bounding_boxes">[docs]</a><span class="k">def</span> <span class="nf">draw_bounding_boxes</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">bboxes</span><span class="p">,</span> <span class="n">names</span><span class="p">,</span> <span class="n">colors</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">thresh</span><span class="o">=</span><span class="mf">0.5</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The transformed cordinates are further used to draw bounding boxes for the detected objects.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img (numpy.ndarray) : Input image</span>
+<span class="sd">        bboxes (numpy.ndarray): </span>
+<span class="sd">            Transformed bounding box coorinates from the model.</span>
+<span class="sd">        names (list of str): Name of categories in the dataset</span>
+<span class="sd">        colors (list of tuple of 3 ints): Colors for bunding boxes</span>
+<span class="sd">        thresh (float): Threshold of bounding boxes.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">if</span> <span class="n">colors</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">RandomState</span><span class="p">(</span><span class="mi">1223</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="n">rng</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">256</span><span class="p">,</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">names</span><span class="p">),</span> <span class="mi">3</span><span class="p">))</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span>
+        <span class="n">colors</span> <span class="o">=</span> <span class="p">[</span><span class="nb">tuple</span><span class="p">(</span><span class="n">c</span><span class="o">.</span><span class="n">tolist</span><span class="p">())</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">colors</span><span class="p">]</span>
+
+    <span class="n">im_h</span><span class="p">,</span> <span class="n">im_w</span> <span class="o">=</span> <span class="n">img</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">draw</span> <span class="o">=</span> <span class="n">DrawBoundingBoxes</span><span class="p">(</span><span class="n">img</span><span class="p">,</span> <span class="n">colors</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">bboxes</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bb</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">dw</span> <span class="o">=</span> <span class="n">w</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="n">dh</span> <span class="o">=</span> <span class="n">h</span> <span class="o">/</span> <span class="mf">2.</span>
+        <span class="n">x0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="n">dw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">im_w</span><span class="p">))</span>
+        <span class="n">y0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="n">dh</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">im_h</span><span class="p">))</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">dw</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">im_w</span><span class="p">))</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">y</span> <span class="o">+</span> <span class="n">dh</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">im_h</span><span class="p">))</span>
+        <span class="n">det_ind</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">bb</span><span class="p">[</span><span class="mi">5</span><span class="p">:]</span> <span class="o">&gt;</span> <span class="n">thresh</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">det_ind</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="k">continue</span>
+        <span class="n">prob</span> <span class="o">=</span> <span class="n">bb</span><span class="p">[</span><span class="mi">5</span> <span class="o">+</span> <span class="n">det_ind</span><span class="p">]</span>
+        <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: </span><span class="si">{:.2f}</span><span class="s2">%&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">names</span><span class="p">[</span><span class="n">det_ind</span><span class="p">[</span><span class="n">j</span><span class="p">]],</span> <span class="n">prob</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span> <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">det_ind</span><span class="p">)))</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;[INFO] </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">label</span><span class="p">))</span>
+        <span class="n">draw</span><span class="o">.</span><span class="n">draw</span><span class="p">((</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">),</span> <span class="n">det_ind</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">label</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">draw</span><span class="o">.</span><span class="n">get</span><span class="p">()</span></div>
+
+
+<span class="k">def</span> <span class="nf">apply_inverse_letterbox_coordinate_transform</span><span class="p">(</span><span class="n">bboxes</span><span class="p">,</span> <span class="n">im_w</span><span class="p">,</span> <span class="n">im_h</span><span class="p">,</span> <span class="n">letterbox_w</span><span class="p">,</span> <span class="n">letterbox_h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    The predicted bounding box coordinates from the model are not according to original image but the pre-processed image. This function transforms the coorinates</span>
+<span class="sd">    according to original image by applying inverse letterbox co-rdinate trasforms mathematically.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        bboxes: </span>
+<span class="sd">             The bounding box coordinates predicted from the model.</span>
+<span class="sd">        im_w : </span>
+<span class="sd">             Width of original input image.</span>
+<span class="sd">        im_h :</span>
+<span class="sd">             Height of original input image.</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="n">bboxes</span> <span class="o">=</span> <span class="n">bboxes</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">bb</span> <span class="ow">in</span> <span class="n">bboxes</span><span class="p">:</span>
+        <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="n">bb</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span>
+        <span class="n">x1</span> <span class="o">=</span> <span class="p">(</span><span class="n">x</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">letterbox_w</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span> <span class="o">/</span> <span class="n">letterbox_w</span> <span class="o">*</span> <span class="n">im_w</span>
+        <span class="n">y1</span> <span class="o">=</span> <span class="p">(</span><span class="n">y</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">letterbox_h</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.</span><span class="p">)</span> <span class="o">/</span> <span class="n">letterbox_h</span> <span class="o">*</span> <span class="n">im_h</span>
+        <span class="n">w1</span> <span class="o">=</span> <span class="n">w</span> <span class="o">*</span> <span class="n">im_w</span> <span class="o">/</span> <span class="n">letterbox_w</span>
+        <span class="n">h1</span> <span class="o">=</span> <span class="n">h</span> <span class="o">*</span> <span class="n">im_h</span> <span class="o">/</span> <span class="n">letterbox_h</span>
+        <span class="n">bb</span><span class="p">[:</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="n">w1</span><span class="p">,</span> <span class="n">h1</span>
+    <span class="k">return</span> <span class="n">bboxes</span>
+
+
+<span class="k">def</span> <span class="nf">letterbox</span><span class="p">(</span><span class="n">img_orig</span><span class="p">,</span> <span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    Input image is pre-processed before passing it to the network in YoloV2. This function applies the pre-processing to input image.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        img_orig: Input image</span>
+<span class="sd">        w : Desired width of output image after pre-processing. Should be a multiple of 32.</span>
+<span class="sd">        h : Desired height of output image after pre-processing. Should be a multiple of 32.</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+    <span class="k">assert</span> <span class="n">img_orig</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span>
+    <span class="n">im_h</span><span class="p">,</span> <span class="n">im_w</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">img_orig</span><span class="o">.</span><span class="n">shape</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">w</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="n">im_w</span><span class="p">)</span> <span class="o">&lt;</span> <span class="p">(</span><span class="n">h</span> <span class="o">*</span> <span class="mf">1.</span> <span class="o">/</span> <span class="n">im_h</span><span class="p">):</span>
+        <span class="n">new_w</span> <span class="o">=</span> <span class="n">w</span>
+        <span class="n">new_h</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">im_h</span> <span class="o">*</span> <span class="n">w</span><span class="p">)</span> <span class="o">/</span> <span class="n">im_w</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">new_h</span> <span class="o">=</span> <span class="n">h</span>
+        <span class="n">new_w</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">im_w</span> <span class="o">*</span> <span class="n">h</span><span class="p">)</span> <span class="o">/</span> <span class="n">im_h</span><span class="p">)</span>
+
+    <span class="n">patch</span> <span class="o">=</span> <span class="n">imresize</span><span class="p">(</span><span class="n">img_orig</span><span class="p">,</span> <span class="p">(</span><span class="n">new_w</span><span class="p">,</span> <span class="n">new_h</span><span class="p">))</span>
+    <span class="n">img</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">h</span><span class="p">,</span> <span class="n">w</span><span class="p">,</span> <span class="mi">3</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">uint8</span><span class="p">)</span> <span class="o">*</span> <span class="mi">127</span>
+    <span class="c1"># resize</span>
+    <span class="n">x0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">w</span> <span class="o">-</span> <span class="n">new_w</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">y0</span> <span class="o">=</span> <span class="nb">int</span><span class="p">((</span><span class="n">h</span> <span class="o">-</span> <span class="n">new_h</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+    <span class="n">img</span><span class="p">[</span><span class="n">y0</span><span class="p">:</span><span class="n">y0</span> <span class="o">+</span> <span class="n">new_h</span><span class="p">,</span> <span class="n">x0</span><span class="p">:</span><span class="n">x0</span> <span class="o">+</span> <span class="n">new_w</span><span class="p">]</span> <span class="o">=</span> <span class="n">patch</span>
+    <span class="k">return</span> <span class="n">img</span><span class="p">,</span> <span class="n">new_w</span><span class="p">,</span> <span class="n">new_h</span>
+
+
+<div class="viewcode-block" id="LetterBoxTransform"><a class="viewcode-back" href="../../../../python/api/models/object_detection.html#nnabla.models.object_detection.utils.LetterBoxTransform">[docs]</a><span class="k">class</span> <span class="nc">LetterBoxTransform</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&#39;&#39;&#39;Create an object holding a new letterboxed image as `image` attribute.</span>
+
+<span class="sd">    Letterboxing is defined as scaling the input image to fit inside the</span>
+<span class="sd">    desired output image frame (letterbox) while preserving the aspect</span>
+<span class="sd">    ratio of the original image. The pixels that are not filled with the</span>
+<span class="sd">    original image pixels become 127.</span>
+
+<span class="sd">    The created object also provides a functionality to convert bounding box</span>
+<span class="sd">    coordinates back to the original image frame.</span>
+
+<span class="sd">    Args:</span>
+
+<span class="sd">        image (numpy.ndarray): An uint8 3-channel image </span>
+<span class="sd">        height (int): Letterbox height</span>
+<span class="sd">        width (int): Letterbox width</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">image</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span> <span class="o">=</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">im_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">im_w</span> <span class="o">=</span> <span class="n">image</span><span class="o">.</span><span class="n">shape</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">image</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_h</span> <span class="o">=</span> <span class="n">letterbox</span><span class="p">(</span><span class="n">image</span><span class="p">,</span> <span class="n">height</span><span class="p">,</span> <span class="n">width</span><span class="p">)</span>
+
+<div class="viewcode-block" id="LetterBoxTransform.inverse_coordinate_transform"><a class="viewcode-back" href="../../../../python/api/models/object_detection.html#nnabla.models.object_detection.utils.LetterBoxTransform.inverse_coordinate_transform">[docs]</a>    <span class="k">def</span> <span class="nf">inverse_coordinate_transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">coords</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&#39;&#39;&#39;Convert the bounding boxes back to the original image frame.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            coords (numpy.ndarray):</span>
+<span class="sd">                `N` x `M` array where `M &gt;= 4` and first 4 elements</span>
+<span class="sd">                of `M` are `x`, `y` (center coordinates of bounding box),</span>
+<span class="sd">                `w` and `h` (bouding box width and height).</span>
+
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">return</span> <span class="n">apply_inverse_letterbox_coordinate_transform</span><span class="p">(</span>
+            <span class="n">coords</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">im_w</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">im_h</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_w</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">new_h</span> <span class="o">*</span> <span class="mf">1.0</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">height</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2017, Sony Corporation.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

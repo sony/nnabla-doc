@@ -1,0 +1,6 @@
+class nbla::TopNError
+========================================
+
+.. doxygenclass:: nbla::TopNError
+	:project: Cpp
+	:members: 

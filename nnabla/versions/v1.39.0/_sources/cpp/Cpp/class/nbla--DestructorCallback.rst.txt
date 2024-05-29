@@ -1,0 +1,6 @@
+class nbla::DestructorCallback
+========================================
+
+.. doxygenclass:: nbla::DestructorCallback
+	:project: Cpp
+	:members: 

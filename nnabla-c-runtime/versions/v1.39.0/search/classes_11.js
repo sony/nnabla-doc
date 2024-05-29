@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['scatter_5fadd_5flocal_5fcontext_5ft_3793',['scatter_add_local_context_t',['../db/d06/structscatter__add__local__context__t.html',1,'']]],
+  ['scatter_5fnd_5flocal_5fcontext_5ft_3794',['scatter_nd_local_context_t',['../d5/d2b/structscatter__nd__local__context__t.html',1,'']]],
+  ['searchsorted_5flocal_5fcontext_5ft_3795',['searchsorted_local_context_t',['../da/da4/structsearchsorted__local__context__t.html',1,'']]],
+  ['selu_5flocal_5fcontext_5ft_3796',['selu_local_context_t',['../df/d95/structselu__local__context__t.html',1,'']]],
+  ['shape_5flocal_5fcontext_5ft_3797',['shape_local_context_t',['../d2/d56/structshape__local__context__t.html',1,'']]],
+  ['shift_5flocal_5fcontext_5ft_3798',['shift_local_context_t',['../dd/dc0/structshift__local__context__t.html',1,'']]],
+  ['sign_5flocal_5fcontext_5ft_3799',['sign_local_context_t',['../de/de1/structsign__local__context__t.html',1,'']]],
+  ['sink_5flocal_5fcontext_5ft_3800',['sink_local_context_t',['../d8/de8/structsink__local__context__t.html',1,'']]],
+  ['slice_5flocal_5fcontext_5ft_3801',['slice_local_context_t',['../df/d15/structslice__local__context__t.html',1,'']]],
+  ['softmax_5fcross_5fentropy_5flocal_5fcontext_5ft_3802',['softmax_cross_entropy_local_context_t',['../d9/d84/structsoftmax__cross__entropy__local__context__t.html',1,'']]],
+  ['softmax_5flocal_5fcontext_5ft_3803',['softmax_local_context_t',['../d1/d4a/structsoftmax__local__context__t.html',1,'']]],
+  ['softplus_5flocal_5fcontext_5ft_3804',['softplus_local_context_t',['../dc/d07/structsoftplus__local__context__t.html',1,'']]],
+  ['sort_5flocal_5fcontext_5ft_3805',['sort_local_context_t',['../db/de5/structsort__local__context__t.html',1,'']]],
+  ['spectral_5fnorm_5flocal_5fcontext_5ft_3806',['spectral_norm_local_context_t',['../d4/d59/structspectral__norm__local__context__t.html',1,'']]],
+  ['split_5flocal_5fcontext_5ft_3807',['split_local_context_t',['../dc/d13/structsplit__local__context__t.html',1,'']]],
+  ['st_5frt_5ffunction_5ft_3808',['st_rt_function_t',['../dc/d33/structst__rt__function__t.html',1,'']]],
+  ['stack_5flocal_5fcontext_5ft_3809',['stack_local_context_t',['../d2/da5/structstack__local__context__t.html',1,'']]],
+  ['stft_5flocal_5fcontext_5ft_3810',['stft_local_context_t',['../d9/da0/structstft__local__context__t.html',1,'']]],
+  ['sub2_5flocal_5fcontext_5ft_3811',['sub2_local_context_t',['../da/de3/structsub2__local__context__t.html',1,'']]],
+  ['sum_5flocal_5fcontext_5ft_3812',['sum_local_context_t',['../d4/da6/structsum__local__context__t.html',1,'']]],
+  ['sum_5fpooling_5flocal_5fcontext_5ft_3813',['sum_pooling_local_context_t',['../dd/dd3/structsum__pooling__local__context__t.html',1,'']]],
+  ['sync_5fbatch_5fnormalization_5flocal_5fcontext_5ft_3814',['sync_batch_normalization_local_context_t',['../df/d71/structsync__batch__normalization__local__context__t.html',1,'']]]
+];

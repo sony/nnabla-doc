@@ -1,0 +1,6 @@
+class nbla::RandGamma
+========================================
+
+.. doxygenclass:: nbla::RandGamma
+	:project: Cpp
+	:members: 

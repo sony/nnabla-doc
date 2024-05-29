@@ -1,0 +1,6 @@
+class nbla::CpuMemory
+========================================
+
+.. doxygenclass:: nbla::CpuMemory
+	:project: Cpp
+	:members: 

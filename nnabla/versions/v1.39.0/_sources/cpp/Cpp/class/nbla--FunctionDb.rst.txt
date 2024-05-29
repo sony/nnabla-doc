@@ -1,0 +1,6 @@
+class nbla::FunctionDb
+========================================
+
+.. doxygenclass:: nbla::FunctionDb
+	:project: Cpp
+	:members: 

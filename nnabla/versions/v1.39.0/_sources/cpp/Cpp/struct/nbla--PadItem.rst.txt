@@ -1,0 +1,6 @@
+struct nbla::PadItem
+========================================
+
+.. doxygenstruct:: nbla::PadItem
+	:project: Cpp
+	:members: 

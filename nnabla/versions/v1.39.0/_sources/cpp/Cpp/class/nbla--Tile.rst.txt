@@ -1,0 +1,6 @@
+class nbla::Tile
+========================================
+
+.. doxygenclass:: nbla::Tile
+	:project: Cpp
+	:members: 

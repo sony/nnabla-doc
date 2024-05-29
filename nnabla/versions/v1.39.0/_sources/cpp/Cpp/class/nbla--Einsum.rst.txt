@@ -1,0 +1,6 @@
+class nbla::Einsum
+========================================
+
+.. doxygenclass:: nbla::Einsum
+	:project: Cpp
+	:members: 

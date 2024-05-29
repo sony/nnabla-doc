@@ -1,0 +1,6 @@
+struct nbla::utils::nnp::Executor::DataVariable
+========================================
+
+.. doxygenstruct:: nbla::utils::nnp::Executor::DataVariable
+	:project: Cpp
+	:members: 

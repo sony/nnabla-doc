@@ -1,0 +1,6 @@
+class nbla::ArraySynchronizer
+========================================
+
+.. doxygenclass:: nbla::ArraySynchronizer
+	:project: Cpp
+	:members: 

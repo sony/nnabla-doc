@@ -1,0 +1,6 @@
+class nbla::Cpu
+========================================
+
+.. doxygenclass:: nbla::Cpu
+	:project: Cpp
+	:members: 

@@ -1,0 +1,6 @@
+class Swish
+========================================
+
+.. doxygenclass:: Swish
+	:project: Cpp
+	:members: 

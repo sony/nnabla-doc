@@ -1,0 +1,21 @@
+NNABLA Struct
+=============
+
+.. toctree::
+	maxdepth: 1
+
+	struct/nbla--CommunicatorBackwardCallback.rst
+	struct/nbla--utils--nnp--Executor--DataVariable.rst
+	struct/nbla--utils--nnp--Monitor--DataVariable.rst
+	struct/nbla--utils--nnp--Optimizer--DataVariable.rst
+	struct/nbla--float_bits.rst
+	struct/nbla--FunctionDbItem.rst
+	struct/nbla--utils--nnp--Optimizer--GeneratorVariable.rst
+	struct/nbla--utils--nnp--Optimizer--LossVariable.rst
+	struct/nbla--utils--nnp--Monitor--MonitorVariable.rst
+	struct/nbla--utils--nnp--Executor--OutputVariable.rst
+	struct/nbla--PadItem.rst
+	struct/nbla--utils--nnp--Optimizer--ParameterVariable.rst
+	struct/nbla--Solver--Params.rst
+	struct/nbla--PoolingConfiguration.rst
+	struct/nbla--Solver--SolverState.rst

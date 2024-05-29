@@ -1,0 +1,6 @@
+class ASinh
+========================================
+
+.. doxygenclass:: ASinh
+	:project: Cpp
+	:members: 
